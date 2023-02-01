@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Servlet;
+package DHTV.Controller;
 
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
@@ -15,7 +15,6 @@ import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +38,9 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         ServletContext context = this.getServletContext();
+        
+         //1. get servlet context
+        ServletContext context = this.getServletContext();
         //2. get properties get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
 
