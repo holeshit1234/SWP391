@@ -26,8 +26,8 @@ header{
     flex: 1;
 }
 .logo img{
-    margin-top: 6em;
-    width:8em;
+    margin-top: 5em;
+    width: 8em;
     filter: drop-shadow(0.1em 0.1em 0.3em #a99b94);
 }
 .menu{
@@ -72,7 +72,7 @@ header{
     display: flex;
 }
 .orther > li{
-padding: 0 12px;
+    padding: 0 1.2em;
 }
 .orther > li:first-child{
     position: relative;
@@ -86,22 +86,22 @@ padding: 0 12px;
 }
 .orther > li:first-child i{
     position: absolute;
-    right: 10px;
+    right: 10px;    
 }
 /*-----------Banner-slider----------------*/
 #slider{
-    padding-bottom: 30px;
     border-bottom: 2px solid #000;
     overflow: hidden;
 }
 .aspect-ratio-169 {
     display: block;
     position: relative;
-    padding-top: 56.25%;
-    transition: 0.3s;
+    padding-top: 35%;
+    transition: 0.8s;
   }
   
   .aspect-ratio-169 img {
+    padding: 0.4em;
     display: block;
     position: absolute;
     width: 100%;
