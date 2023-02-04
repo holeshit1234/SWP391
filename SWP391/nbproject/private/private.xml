@@ -3,10 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/PRJ301/SWP391/web/META-INF/context.xml</file>
-            <file>file:/D:/PRJ301/SWP391/src/java/DVHT/userdetails/UserDetailsDAO.java</file>
-            <file>file:/D:/PRJ301/SWP391/src/java/Servlet/LoginServlet.java</file>
-            <file>file:/D:/PRJ301/SWP391/src/java/DVHT/userdetails/UserDetailsDTO.java</file>
+            <file>file:/D:/SWP391/SWP391/web/login.html</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DVHT/utils/MyAplications.java</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DHTV/address/AddressDTO.java</file>
+            <file>file:/D:/SWP391/SWP391/web/profiles.jsp</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DVHT/filter/DispatchFilter.java</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DHTV/Controller/ShowProfileServlet.java</file>
+            <file>file:/D:/SWP391/SWP391/web/search.html</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DHTV/address/AddressDAO.java</file>
+            <file>file:/D:/SWP391/SWP391/web/WEB-INF/siteMaps.properties</file>
+            <file>file:/D:/SWP391/SWP391/web/search.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -24,4 +24,15 @@ public class MyAplications {
         public static final String SEARCH_STORE_PAGE = "searchPage";
         public static final String ADMIN_PAGE = "adminPage";
     }
+     
+     public class LogoutAccountServlet {
+
+        public static final String LOGOUT_PAGE = "LogoutPage";
+    }
+      public class ShowProfileServlet {
+
+        public static final String PROFILE_PAGE = "profilePage";
+    }
 }
+
+ 

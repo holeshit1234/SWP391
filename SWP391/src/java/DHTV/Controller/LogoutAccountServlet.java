@@ -5,16 +5,13 @@
  */
 package DHTV.Controller;
 
-import DVHT.userdetails.UserDetailsDAO;
-import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 import java.util.Properties;
-import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +21,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author User
  */
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "LogoutAccountServlet", urlPatterns = {"/LogoutAccountServlet"})
+public class LogoutAccountServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -39,51 +37,20 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-         //1. get servlet context
+        //1. get servlet context
         ServletContext context = this.getServletContext();
-        //2. get properties get sitemap
+        //2 get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-
-        //get parameter
-        //   String checkbox = request.getParameter("chkRemember");
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-        //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = MyAplications.LoginServlet.INVALID_PAGE;
-        try {
-            //call DAO                
-            UserDetailsDAO dao = new UserDetailsDAO();
+        
+        String url = "";
+        try  {
+            //1 get session
+            HttpSession session  = request.getSession();
+            //2. cancel all session
+            session.invalidate();
             
-            UserDetailsDTO result = dao.checkLogin(username, password);
-
-            if (result != null) {
-
-                if (result.getRoleID() == 1) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
-                    url = MyAplications.LoginServlet.ADMIN_PAGE;
-                } else if (result.getRoleID() == 2) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
-                    url = MyAplications.LoginServlet.MANAGER_PAGE;
-                }else{
-                    url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-                }
-
-                //1. get session
-                HttpSession session = request.getSession();
-                //2. set attribute
-                session.setAttribute("User", result);
-                
-//                Cookie cookie = new Cookie(username, password);
-//                cookie.setMaxAge(60 * 3);
-//                response.addCookie(cookie);
-            }
-        } catch (SQLException ex) {
-            log("LoginServlet _SQL_ " + ex.getMessage());
-        } catch (/*ClassNotFoundException*/NamingException ex) {
-            log("LoginServlet _Naming_ " + ex.getMessage());
-        } finally {
-            //RequestDispatcher rd = request.getRequestDispatcher(url);
-            // rd.forward(request, response);
+            url = MyAplications.LogoutAccountServlet.LOGOUT_PAGE;
+        }finally{
             response.sendRedirect(url);
         }
     }

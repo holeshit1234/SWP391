@@ -105,6 +105,7 @@ public class DispatchFilter implements Filter {
         //1. khai bao servlet request
         HttpServletRequest req = (HttpServletRequest)request;
         String uri = req.getRequestURI();
+        System.out.println("do filter at Dispatch: " + uri);
         String url;
         
         try{
@@ -114,6 +115,7 @@ public class DispatchFilter implements Filter {
             //3. get resource name
             int lastIndex = uri.lastIndexOf("/");
             String resource = uri.substring(lastIndex + 1);
+            System.out.println("resource: " + resource);
             //4. get sitemap property
             url = siteMaps.getProperty(resource);
             if(url != null){

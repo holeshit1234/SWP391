@@ -5,16 +5,20 @@
  */
 package DHTV.Controller;
 
-import DVHT.userdetails.UserDetailsDAO;
+import DHTV.address.AddressDAO;
+import DHTV.address.AddressDTO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +28,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author User
  */
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ShowProfileServlet", urlPatterns = {"/ShowProfileServlet"})
+public class ShowProfileServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,53 +43,39 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         //1. get servlet context
+
+        //1.get servlet Context
         ServletContext context = this.getServletContext();
-        //2. get properties get sitemap
+        //2. get siteMap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+        String url = "";
+        HttpSession session = request.getSession(false);
 
-        //get parameter
-        //   String checkbox = request.getParameter("chkRemember");
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-        //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = MyAplications.LoginServlet.INVALID_PAGE;
         try {
-            //call DAO                
-            UserDetailsDAO dao = new UserDetailsDAO();
-            
-            UserDetailsDTO result = dao.checkLogin(username, password);
+            if (session != null) {
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("User");
+                if (dto != null) {
+                    int userid = dto.getUserID();
+                    // call DAO
+                    AddressDAO dao = new AddressDAO();
+                    dao.getAddress(userid);
+                    //take data grid
+                    List<AddressDTO> result = dao.getInfoList();
+                    
+                    request.setAttribute("INFO", result);
 
-            if (result != null) {
+                    url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
 
-                if (result.getRoleID() == 1) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
-                    url = MyAplications.LoginServlet.ADMIN_PAGE;
-                } else if (result.getRoleID() == 2) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
-                    url = MyAplications.LoginServlet.MANAGER_PAGE;
-                }else{
-                    url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
                 }
-
-                //1. get session
-                HttpSession session = request.getSession();
-                //2. set attribute
-                session.setAttribute("User", result);
-                
-//                Cookie cookie = new Cookie(username, password);
-//                cookie.setMaxAge(60 * 3);
-//                response.addCookie(cookie);
             }
+
+        } catch (NamingException ex) {
+            log("ShowProfileServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {
-            log("LoginServlet _SQL_ " + ex.getMessage());
-        } catch (/*ClassNotFoundException*/NamingException ex) {
-            log("LoginServlet _Naming_ " + ex.getMessage());
+            log("ShowProfileServlet_SQL " + ex.getMessage());
         } finally {
-            //RequestDispatcher rd = request.getRequestDispatcher(url);
-            // rd.forward(request, response);
-            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

@@ -17,21 +17,22 @@ public class UserDetailsDTO implements Serializable{
     private int RoleID;
     private String userName;
     private String passWord;
-    private String Email;
+    private String email;
     private String fullName;
-    private int Phone;
+    private int phone;
 
     public UserDetailsDTO() {
     }
 
-    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, String Email, String fullName, int Phone) {
+    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, 
+            String Email, String fullName, int Phone) {
         this.UserID = UserID;
         this.RoleID = RoleID;
         this.userName = userName;
         this.passWord = passWord;
-        this.Email = Email;
+        this.email = Email;
         this.fullName = fullName;
-        this.Phone = Phone;
+        this.phone = Phone;
     }
 
     public int getUserID() {
@@ -67,13 +68,14 @@ public class UserDetailsDTO implements Serializable{
     }
 
     public String getEmail() {
-        return Email;
+        return email;
     }
 
-    public void setEmail(String Email) {
-        this.Email = Email;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
+    
     public String getFullName() {
         return fullName;
     }
@@ -83,11 +85,11 @@ public class UserDetailsDTO implements Serializable{
     }
 
     public int getPhone() {
-        return Phone;
+        return phone;
     }
 
     public void setPhone(int Phone) {
-        this.Phone = Phone;
+        this.phone = Phone;
     }
     
     
