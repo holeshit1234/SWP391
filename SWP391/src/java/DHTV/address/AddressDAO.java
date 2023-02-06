@@ -43,18 +43,13 @@ public class AddressDAO implements Serializable {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. sql command
-//                String sql = "select [Address].AddressID, [Address].Province, "
-//                        + " [Address].Street, [Address].Ward, "
-//                        + " [Address].UserID , [Address].Notice "
-//                        + "from UserDetails inner join [Address]  "
-//                        + "on UserDetails.UserID = [Address].UserId "
-//                        + "where [Address].UserId = ? ";
-String sql = "select AddressID, Province, "
-                        + " Street, Ward, "
-                        + " UserID , Notice "
+                String sql = "select [Address].AddressID, [Address].Province, "
+                        + " [Address].Street, [Address].Ward, "
+                        + " [Address].UserID , [Address].Notice "
                         + "from UserDetails inner join [Address]  "
                         + "on UserDetails.UserID = [Address].UserId "
                         + "where [Address].UserId = ? ";
+
                 //3. create stm
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, userid);
