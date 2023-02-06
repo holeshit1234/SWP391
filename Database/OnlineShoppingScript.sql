@@ -13,11 +13,12 @@ Go
 create table UserDetails (
 UserID int not null IDENTITY(1,1) primary key,
 RoleID int not null,
-UserName varchar(50) unique not null,
-[PassWord] varchar(50) not null,
-Email varchar(50) not null unique,
+UserName varchar(50) unique ,
+[PassWord] varchar(50) ,
+Email varchar(50) unique,
 FullName nvarchar(50),
 Phone varchar(10)
+picture varchar(50)
 )
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
@@ -61,6 +62,9 @@ Ward Nvarchar(30),
 Street Nvarchar(50),
 Notice Nvarchar(50)
 )
+
+insert into [Address] (UserID, Province, Ward, Street, Notice)
+values (10, N'Đồng Nai', N'Trung Dũng', N'168 Phan Đình Phùng', N'nnon') 
 
 GO 
 
