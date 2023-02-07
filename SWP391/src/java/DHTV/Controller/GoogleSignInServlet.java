@@ -40,8 +40,9 @@ public class GoogleSignInServlet extends HttpServlet {
                 GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
                 String username = userToken.getId();
                 log(username);
-                
+                if (username != null){
               url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                }
 //
 //                UserDetailsDTO user = null;
 //
@@ -75,8 +76,8 @@ public class GoogleSignInServlet extends HttpServlet {
 //            }
         } finally {
             
-//           RequestDispatcher rd = request.getRequestDispatcher(url);
-//            rd.forward(request, response);
+           RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 
