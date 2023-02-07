@@ -14,6 +14,6 @@
     </head>
     <body>
         admin <br/>
-        <jsp:include page="logout.jsp"/> <br/>
+        </br> <a href="LogoutAccountServlet"> Log Out</a>
     </body>
 </html>

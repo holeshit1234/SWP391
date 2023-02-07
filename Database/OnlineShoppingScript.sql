@@ -16,12 +16,11 @@ Go
 create table UserDetails (
 UserID int not null IDENTITY(1,1) primary key,
 RoleID int not null,
-UserName varchar(50) unique ,
-[PassWord] varchar(50) ,
-Email varchar(50) unique,
+UserName varchar(50) unique not null,
+[PassWord] varchar(50) not null,
+Email varchar(50) not null unique,
 FullName nvarchar(50),
 Phone varchar(10)
-picture varchar(50)
 )
 
 go
@@ -38,6 +37,10 @@ values (3,'dunghh2',123457,'hominhdund2@gmail.com',N'Hồ Minh Dũng 2 ', 096369
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
 values (1,'vinh',1,'vinhtc191@gmail.com',N'Trần Công Vinh ', 0907671827)
 
+insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
+values (3,'dinh',1,'vinhc191@gmail.com',N'Trầ Công Vinh ', 090671827)
+
+
 Go
 
 create table [Address] (
@@ -48,22 +51,7 @@ Ward Nvarchar(30),
 Street Nvarchar(50),
 Notice Nvarchar(50)
 )
-<<<<<<< HEAD
-
-insert into [Address] (UserID, Province, Ward, Street, Notice)
-values (10, N'Đồng Nai', N'Trung Dũng', N'168 Phan Đình Phùng', N'nnon') 
-
-GO 
-
-alter table [Address]
-Add Constraint fk_Address_UserDetails
-Foreign Key (UserId)
-References UserDetails (UserId)
-
-GO
-=======
 go
->>>>>>> 16074ffd32e8d08a0f67578a97f32283a1adefd8
 
 Create table PaymentMethod(
 PaymentID int IDENTITY(1,1) not null primary key,

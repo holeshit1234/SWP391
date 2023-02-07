@@ -33,7 +33,7 @@ public class AddressDAO implements Serializable {
     public void getAddress(int userid)
             throws NamingException, SQLException {
 
-        AddressDTO result = null;
+        
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -45,7 +45,7 @@ public class AddressDAO implements Serializable {
                 //2. sql command
                 String sql = "select [Address].AddressID, [Address].Province, "
                         + " [Address].Street, [Address].Ward, "
-                        + " [Address].UserID , [Address].Notice "
+                        + " [Address].Notice "
                         + "from UserDetails inner join [Address]  "
                         + "on UserDetails.UserID = [Address].UserId "
                         + "where [Address].UserId = ? ";
@@ -54,21 +54,32 @@ public class AddressDAO implements Serializable {
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, userid);
                 //4. execute query
+                
                 rs = stm.executeQuery();
                 //5. process result
+                
                 while(rs.next()){
+                    System.out.println("***************************************************");
                     int addressid = rs.getInt("AddressID");
                     String province = rs.getString("Province");
-                    System.out.println(province);
+                    //System.out.println("province = "+province);   // print to check
                     String street = rs.getString("Street");
                     String ward = rs.getString("Ward");                   
                     String notice = rs.getString("Notice");
-                    result = new AddressDTO(addressid, userid, province, ward, street, notice);  
+                    AddressDTO result = new AddressDTO(addressid, userid, province, ward, street, notice);  
                     //add item to dto
                     if (this.infoList == null) {
                         this.infoList = new ArrayList<>();
                     }//end the list no exsited
                     this.infoList.add(result);
+                    /*
+                    System.out.println(result.getStreet()+" = street");
+                    System.out.println(result.getAddressID()+" = add");
+                    System.out.println(result.getNotice()+" = notice");
+                    System.out.println(result.getWard()+" = ward");
+                    System.out.println(result.getUserID()+" = userID");
+                    System.out.println(result.getProvice()+" = provice");
+                    */
                 }
             }//con existed
 
