@@ -13,10 +13,6 @@
     </head>
     <body>
         
-        <div>
-           
-            
-        </div>
         
         
         <div>
@@ -29,7 +25,7 @@
 
         Remember me <input type="checkbox" name="chkremember" value="ON" />
 
-        <form action="signUpPage" method="POST">
+        <form action="registration.jsp" method="POST">
             <input type="submit" value="SignUP" name="btAction"/><br/>            
         </form>
 

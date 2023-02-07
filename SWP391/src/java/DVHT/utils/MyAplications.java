@@ -33,9 +33,15 @@ public class MyAplications {
 
         public static final String PROFILE_PAGE = "profilePage";
     }
-   public class LogOutServlet {
+    public class LogOutServlet {
 
         public static final String LOGOUT_PAGE = "LogoutPage";
+    }
+    public class SignUpPageServlet {
+
+        public static final String INDEX_PAGE = "IndexPage";
+        public static final String REGISTRATION_PAGE = "RegistrationPage";
+        public static final String FINISH_PAGE = "FinishPage";
     }
 }
 

@@ -20,7 +20,7 @@ UserName varchar(50) unique not null,
 [PassWord] varchar(50) not null,
 Email varchar(50) not null unique,
 FullName nvarchar(50),
-Phone varchar(10)
+Phone varchar(15)
 )
 
 go
