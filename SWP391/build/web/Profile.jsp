@@ -62,6 +62,6 @@
 
 
 
-        <jsp:include page="logout.jsp" />
+        </br> <a href="LogoutAccountServlet"> Log Out</a>
     </body>
 </html>

@@ -25,13 +25,17 @@ public class MyAplications {
         public static final String ADMIN_PAGE = "adminPage";
     }
      
-     public class LogoutAccountServlet {
+    public class LogoutAccountServlet {
 
         public static final String LOGOUT_PAGE = "LogoutPage";
     }
-      public class ShowProfileServlet {
+    public class ShowProfileServlet {
 
         public static final String PROFILE_PAGE = "profilePage";
+    }
+   public class LogOutServlet {
+
+        public static final String LOGOUT_PAGE = "LogoutPage";
     }
 }
 
