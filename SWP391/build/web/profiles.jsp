@@ -15,35 +15,34 @@
     <body>
          <c:if test="${not empty sessionScope}">
             <c:set var="user" value="${sessionScope.User}" />
-            <c:if test="${not empty requestScope}">
-                <c:set var="address" value="${requestScope.INFO}" />
-        <div>
+            <c:if test="${not empty requestScope.INFO}">
+                
+                <%--<c:set var="address" value="${requestScope.INFO}" />--%>            
 
-            <div>
-                <div> <lable>Full Name</lable></div>
-                <div> <input type="text" name="txtFullName" value="${user.fullName}"
-                             placeholder="Nhập đầy đủ tên"/> </div>
-            </div>
+                <div>
+                    <div> <lable>Full Name</lable></div>
+                    <div> <input type="text" name="txtFullName" value="${user.fullName}"
+                                 placeholder="Nhập đầy đủ tên"/> </div>
+                </div>
 
-            
-              <div>
-                <div> <lable>Email</lable></div>
-                <div> <input type="text" name="txtEmail" value="${user.email}" 
-                             placeholder="Nhập đầy đủ tên" /> </div>
-            </div>
-            
-            <div>
-                <div> <lable>Phone</lable></div>
-                 <div> <input type="text" name="txtPhone" value="${user.phone}" 
-                              placeholder="Nhập Số điện thoại"/> </div>
-            </div>
-             <div>
-                <div> <lable>Street</lable></div>
-                 <div> <input type="text" name="txtStreet" value="${address.Street}" 
-                              placeholder="Nhập số nhà, tên đường"/> </div>
-            </div>
-            
-        </div>
+                <div>
+                    <div> <lable>Email</lable></div>
+                    <div> <input type="text" name="txtEmail" value="${user.email}" 
+                                 placeholder="Nhập đầy đủ tên" /> </div>
+                </div>
+
+                <div>
+                    <div> <lable>Phone</lable></div>
+                     <div> <input type="text" name="txtPhone" value="${user.phone}" 
+                                  placeholder="Nhập Số điện thoại"/> </div>
+                </div>
+                quớ mệt mỏi dòi :  
+                <c:forEach var="value" items="${requestScope.INFO}">
+                    Street = 
+                    ${value.getStreet()}
+
+                </c:forEach>
+        
     
  
                 

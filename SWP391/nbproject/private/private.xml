@@ -3,13 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP391/SWP391/web/login.html</file>
-            <file>file:/D:/SWP391/SWP391/web/style.css</file>
-            <file>file:/D:/SWP391/SWP391/web/login.jsp</file>
-            <file>file:/D:/SWP391/SWP391/web/profiles.jsp</file>
-            <file>file:/D:/SWP391/SWP391/src/java/DHTV/Controller/ShowProfileServlet.java</file>
-            <file>file:/D:/SWP391/SWP391/src/java/DHTV/address/AddressDAO.java</file>
-            <file>file:/D:/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDTO.java</file>
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/web/profiles.jsp</file>
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/src/java/DHTV/Controller/ShowProfileServlet.java</file>
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/web/search.jsp</file>
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/src/java/DHTV/address/AddressDTO.java</file>
         </group>
     </open-files>
 </project-private>
