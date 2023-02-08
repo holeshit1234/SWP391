@@ -15,51 +15,132 @@
     <body>
         <c:if test="${not empty sessionScope}">
             <c:set var="user" value="${sessionScope.User}" />
-            <c:if test="${not empty requestScope.INFO}">
+            <c:if test="${not empty sessionScope.INFO}">
+                <form action="UpdateProfileController" method="POST">
+                    <div class="profiles-container">
+                        <div class="row" style="display: block;">
+                            <div class="col-md-2">
+                                <p>thông tin tài khoản</p>
+                                <p>thông tin tài khoản</p>
+                                <p>thông tin tài khoản</p>
+                            </div>
 
-                <%--<c:set var="address" value="${requestScope.INFO}" />--%>            
+                            <div class="col-md-8 profile-content ">
+                                <div class="row">
+                                    <div class="col-md-6 ">
+                                        <img class="resposive img-circle avatar" src="images/banner1.jpg">
 
-                <div>
-                    <div> <lable>Full Name</lable></div>
-                    <div> <input type="text" name="txtFullName" value="${user.fullName}"
-                                 placeholder="Nhập đầy đủ tên"/> </div>
-                </div>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <div class="profile-detail-content">
+                                            <div class="profile-detail">
+                                                <div class="row">
+                                                    <div class="content col-md-4 " style="float: left;">
+                                                        <lable>Full Name</lable>
+                                                    </div>
+                                                    <div class="input-text col-md-8">
+                                                        <input type="text" name="txtFullName" value="${user.fullName}"
+                                                               placeholder="Nhập đầy đủ tên" />
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                <div>
-                    <div> <lable>Email</lable></div>
-                    <div> <input type="text" name="txtEmail" value="${user.email}" 
-                                 placeholder="Nhập đầy đủ tên" /> </div>
-                </div>
+                                            <div class="profile-detail">
+                                                <div class="row">
+                                                    <div class="content col-md-4" style="float: left;">
+                                                        <lable>Email</lable>
+                                                    </div>
+                                                    <div class="input-text col-md-8">
+                                                        <input type="text" name="txtEmail" value="${user.email}"
+                                                               placeholder="Nhập đầy đủ tên" />
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                <div>
-                    <div> <lable>Phone</lable></div>
-                    <div> <input type="text" name="txtPhone" value="${user.phone}" 
-                                 placeholder="Nhập Số điện thoại"/> </div>
-                </div>
+                                            <div class="profile-detail">
+                                                <div class="row">
+                                                    <div class="content col-md-4" style="float: left;">
+                                                        <lable>Phone</lable>
+                                                    </div>
+                                                    <div class="input-text col-md-8">
+                                                        <input type="text" name="txtPhone" value="${user.phone}"
+                                                               placeholder="Nhập Số điện thoại" />
+                                                    </div>
+                                                </div>
 
-                <c:forEach var="value" items="${requestScope.INFO}">
-                    <div>
-                        <div> <lable>Street</lable></div>
-                        <div> <input type="text" name="txtStreet" 
-                                     value="${value.getStreet()}" 
-                                     placeholder="Nhập số nhà, tên đường"/> </div>
-                    </div>
-                    <div>
-                        <div> <lable>Ward</lable></div>
-                        <div><input type="text" name="txtWard" value="${value.getWard()}" 
-                                    placeholder="Nhập Phường, Quận " /></div>
-                    </div>
-                    <div>
-                        <div><lable>Province</lable></div>
-                        <div><input type="text" name="txtProvince" value="${value.getProvice()}" 
-                                    placeholder="Nhập Tỉnh, Thành phố"/></div>
-                    </div>            
+                                            </div>
+                                                        <c:forEach var="value" items="${sessionScope.INFO}">   
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4" style="float: left;">
+                                                            <lable>Street</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+
+                                                            <input type="text" name="txtStreet" value="${value.getStreet()}"
+                                                                   placeholder="Nhập số nhà, tên đường" /> 
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4" style="float: left;">
+                                                            <lable>Province</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+                                                            <input type="text" name="txtProvince" value="${value.getProvice()}"
+                                                                placeholder="Nhập Phường, Quận " /> 
+                                                            
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4" style="float: left;">
+                                                            <lable>District</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+                                                             <input type="text" name="txtDistrict" value="${value.getDistrict()}"
+                                                                placeholder="Nhập Phường, Quận " /> 
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4" style="float: left;">
+                                                            <lable>Ward</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+                                                             <input type="text" name="txtWard" value="${value.getWard()}"
+                                                                placeholder="Nhập Tỉnh, Thành phố" /> 
+                                                            
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="update-button">
+                                        <button type="submit" class="save-button">Save</button>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
                 </c:forEach>
-
-
-
-
-
             </c:if>
         </c:if>
 
@@ -67,5 +148,12 @@
 
 
         </br> <a href="LogoutAccountServlet"> Log Out</a>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+                integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
+                integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="asset/province.js"></script>
     </body>
 </html>

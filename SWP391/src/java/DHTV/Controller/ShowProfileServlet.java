@@ -64,7 +64,7 @@ public class ShowProfileServlet extends HttpServlet {
                     
                     //String s = ;
                                         
-                    request.setAttribute("INFO", result);
+                    session.setAttribute("INFO", result);
                     
                     url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
 

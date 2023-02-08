@@ -37,6 +37,10 @@ public class MyAplications {
 
         public static final String LOGOUT_PAGE = "LogoutPage";
     }
+   
+   public class UpdateProfileServlet{
+       public static final String UPDATE_PAGE = "profilePage" ;
+   }
 }
 
  

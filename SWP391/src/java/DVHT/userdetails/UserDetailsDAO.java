@@ -155,4 +155,43 @@ public class UserDetailsDAO implements Serializable{
         }
         return result;
     }
+      
+    public boolean updateProfile(int userid, String email, String fullName, String phone)
+            throws NamingException, SQLException{
+        boolean result = false; 
+       Connection con = null;
+       PreparedStatement stm = null;
+       
+       try{
+           //get connection
+           con = DBHelpers.getConnection();
+           //sql commmands
+           String sql = "Update UserDetails "
+                   + "Set Email= ? , FullName =? , Phone=? "
+                   + "Where UserID = ? ";
+           
+           //create statement
+           stm = con.prepareStatement(sql);
+           stm.setString(1, email);
+           stm.setString(2, fullName);
+           stm.setString(3, phone);
+           stm.setInt(4, userid);
+           //execute querry
+           int rows = stm.executeUpdate();
+           //process result
+           if(rows > 0){
+               result = true;
+           }
+       }finally{
+           if (stm != null){
+               stm.close();
+           }
+           
+           if(con != null){
+               con.close();
+           }
+       }
+       
+       return result;
+    }
 }

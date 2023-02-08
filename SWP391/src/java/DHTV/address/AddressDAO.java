@@ -44,7 +44,7 @@ public class AddressDAO implements Serializable {
             if (con != null) {
                 //2. sql command
                 String sql = "select [Address].AddressID, [Address].Province, "
-                        + " [Address].Street, [Address].Ward, "
+                        + " [Address].Street, [Address].Ward, [Address].district, "
                         + " [Address].Notice "
                         + "from UserDetails inner join [Address]  "
                         + "on UserDetails.UserID = [Address].UserId "
@@ -65,7 +65,9 @@ public class AddressDAO implements Serializable {
                     String street = rs.getString("Street");
                     String ward = rs.getString("Ward");                   
                     String notice = rs.getString("Notice");
-                    AddressDTO result = new AddressDTO(addressid, userid, province, ward, street, notice);  
+                    String district = rs.getString("district");
+                    AddressDTO result = new AddressDTO(addressid, userid, province,
+                            ward, street, notice, district);  
                     //add item to dto
                     if (this.infoList == null) {
                         this.infoList = new ArrayList<>();
@@ -93,6 +95,57 @@ public class AddressDAO implements Serializable {
                 con.close();
             }
         }
+    }
+    
+    public boolean updateAddress(int userid, String street, 
+            String province, String district, String ward )
+            throws NamingException, SQLException {
+
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
+        try {
+            //1. get connection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. sql command
+                String sql = "Update Address "
+                        + "set Street=?, Province=?, district=? ,Ward =? "
+                        + "where UserId = ? ";
+
+                //3. create stm
+                stm = con.prepareStatement(sql);
+                stm.setString(1, street);
+                stm.setString(2, province);
+                stm.setString(3, district);
+                stm.setString(4, ward);
+                stm.setInt(5, userid);
+                
+                //4. execute query
+                
+                int rowseff = stm.executeUpdate();
+                //5. process result
+                if(rowseff > 0){
+               result = true;
+           }
+                
+                
+            }//con existed
+    
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
     }
 
 }

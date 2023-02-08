@@ -3,20 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dunghm.controller;
+package DHTV.Controller;
 
-import dunghm.cart.CartObj;
-import dunghm.order.OrderDAO;
-import dunghm.orderdetails.OrderDetailsDAO;
-import dunghm.registration.RegistrationDTO;
-import dunghm.utils.MyApplication;
+import DHTV.address.AddressDAO;
+import DHTV.address.AddressDTO;
+import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
+import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.Properties;
 import javax.naming.NamingException;
-import javax.servlet.Servlet;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,13 +26,11 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author dunghm
+ * @author User
  */
-@WebServlet(name = "PayServlet", urlPatterns = {"/PayServlet"})
-public class PayServlet extends HttpServlet {
+@WebServlet(name = "UpdateProfileServlet", urlPatterns = {"/UpdateProfileServlet"})
+public class UpdateProfileServlet extends HttpServlet {
 
-    //private final String VIEW="CheckOut.jsp";
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,46 +44,52 @@ public class PayServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        String total = request.getParameter("txtTotal");
+        String fullName = request.getParameter("txtFullName");
+        String email = request.getParameter("txtEmail");
+        String phone = request.getParameter("txtPhone");
+        String street = request.getParameter("txtStreet");
+        String province = request.getParameter("txtProvice");
+        String district = request.getParameter("txtDistrict");
+        String ward = request.getParameter("txtWard");
+
+        //1.get servlet Context
+        ServletContext context = this.getServletContext();
+        //2. get siteMap
+        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+        String url = "";
         HttpSession session = request.getSession(false);
-        int key = 0;
-         
-         
-         ServletContext context = this.getServletContext();
-         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-         String url ="";  
-         
+
         try {
             if (session != null) {
-                RegistrationDTO dto = (RegistrationDTO) session.getAttribute("User");
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("User");
                 if (dto != null) {
-                    String username = dto.getUsername();
-                    //call DAO
-                    OrderDAO dao1 = new OrderDAO();                   
-                    key = dao1.addToOrders(username, total);
-                    if (key != 0) {
-                        CartObj cart = (CartObj) session.getAttribute("CART");
-                        if (cart != null) {
-                            OrderDetailsDAO dao2 = new OrderDetailsDAO();
-                            
-                            dao2.addToDetailOrders(cart, key);
-                            url=(String) siteMaps.get(MyApplication.PayServlet.VIEW_CHECKOUT);
-                            
-                        }
-                    }//existed cart
-                }//existed username
-            }//has session
-            session.removeAttribute("CHECK_OUT");
-            session.removeAttribute("CART");
+                    int userid = dto.getUserID();
 
-        } catch (NullPointerException ex) {
-            log("PayServlet _null " + ex.getMessage());
-        } catch (SQLException ex) {
-            log("PayServlet _SQL" + ex.getMessage());
+                    UserDetailsDAO dao = new UserDetailsDAO();
+                    boolean result = dao.updateProfile(userid, email, fullName, phone);
+
+                    //AddressDTO adto = (AddressDTO) session.getAttribute("INFO");
+                    //if (adto != null) {
+                       // int addressid = adto.getAddressID();
+                        AddressDAO dao2 = new AddressDAO();
+                        //boolean result2 = dao2.updateAddress(userid, street, province, district, ward, addressid);
+                        boolean result2 = dao2.updateAddress(userid, street, province, district, ward);
+                        //refesh data grid
+                        if (result && result2) {
+                            url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE)
+                                    + "?ShowProfileServlet" + userid;
+                        }
+                    }
+
+//                }
+            }
         } catch (NamingException ex) {
-            log("PayServlet _Naming" + ex.getMessage());
+            log("UpdateProfileServlet_Naming " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("UpdateProfileServlet_SQL " + ex.getMessage());
         } finally {
-            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 
