@@ -19,9 +19,9 @@ public class MyAplications {
     }
 
      public class LoginServlet {
-        public static final String INVALID_PAGE = "invalid";
+        public static final String INVALID_PAGE = "invalidPage";
         public static final String MANAGER_PAGE = "managerPage";
-        public static final String SEARCH_STORE_PAGE = "searchPage";
+        public static final String SEARCH_STORE_PAGE = "storePage";
         public static final String ADMIN_PAGE = "adminPage";
     }
      
