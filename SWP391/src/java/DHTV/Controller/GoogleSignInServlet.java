@@ -34,46 +34,47 @@ public class GoogleSignInServlet extends HttpServlet {
         //String url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
             String url ="";
         try {
-//            if (request.getSession(false).getAttribute("user") == null) {
+            if (request.getSession(false).getAttribute("user") == null) {
                 String code = request.getParameter("code");
                 String accessToken = GoogleSupport.getToken(code);
                 GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
                 String username = userToken.getId();
-                log(username);
-                if (username != null){
-              url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+
+//                if (username != null){
+//              url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+//                }
+//
+                UserDetailsDTO user = null;
+//
+                try {
+                    user = UserDetailsDAO.getUser(username);
+                } catch (SQLException ex) {
+                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
+                } catch (NamingException ex) {
+                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
                 }
-//
-//                UserDetailsDTO user = null;
-//
-//                try {
-//                    user = UserDetailsDAO.getUser(username);
-//                } catch (SQLException ex) {
-//                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
-//                } catch (NamingException ex) {
-//                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-//                }
-//                if (user == null) {
-//                    String email = userToken.getEmail();
-//                    String firstName = userToken.getGiven_name();
-//                    String lastName = userToken.getFamily_name();
-//                    String picture = userToken.getPicture();
-//
-//                    user = new UserDetailsDTO(0, 0, username, picture, email, lastName, 0);
-//
-//                    try {
-//                        UserDetailsDAO.addUser(user);
-//                    } catch (SQLException ex) {
-//                        log("GoogleSignInServlet_SQL_ " + ex.getMessage());
-//                    } catch (NamingException ex) {
-//                        log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-//                    }
-//                }
-//
-//                HttpSession session = request.getSession();
-//                session.setAttribute("user", user);
-//
-//            }
+                if (user == null) {
+                   
+                    String email = userToken.getEmail();
+                    log(email);
+
+                    user = new UserDetailsDTO(0, 0, email, null, email, null, null);
+
+                    try {
+                        UserDetailsDAO.addUser(user);
+                        
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                    } catch (SQLException ex) {
+                        log("GoogleSignInServlet_SQL_ " + ex.getMessage());
+                    } catch (NamingException ex) {
+                        log("GoogleSignInServlet_Naming_ " + ex.getMessage());
+                    }
+                }
+
+                HttpSession session = request.getSession();
+                session.setAttribute("user", user);
+
+            }
         } finally {
             
            RequestDispatcher rd = request.getRequestDispatcher(url);

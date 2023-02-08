@@ -7,6 +7,7 @@ package DHTV.Controller;
 
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
+import DVHT.userdetails.UserDetailsErr;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -38,8 +39,8 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         //1. get servlet context
+
+        //1. get servlet context
         ServletContext context = this.getServletContext();
         //2. get properties get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
@@ -48,34 +49,53 @@ public class LoginServlet extends HttpServlet {
         //   String checkbox = request.getParameter("chkRemember");
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
+
+        UserDetailsErr error = new UserDetailsErr();
+        boolean flag = false;
         //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
         String url = MyAplications.LoginServlet.INVALID_PAGE;
         try {
-            //call DAO                
-            UserDetailsDAO dao = new UserDetailsDAO();
-            
-            UserDetailsDTO result = dao.checkLogin(username, password);
 
-            if (result != null) {
+            if (password.trim().length() < 0 || username.trim().length() < 0) {
+                flag = true;
+                error.setEmptyUserNamePassWord("Username or PassWord is empty");
+            }
 
-                if (result.getRoleID() == 1) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
-                    url = MyAplications.LoginServlet.ADMIN_PAGE;
-                } else if (result.getRoleID() == 2) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
-                    url = MyAplications.LoginServlet.MANAGER_PAGE;
-                }else{
-                    url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
+            if (flag) {
+                request.setAttribute("ERROR", error);
+            } else {
+                //call DAO                
+                UserDetailsDAO dao = new UserDetailsDAO();
+
+                UserDetailsDTO result = dao.checkLogin(username, password);
+                if (result == null){
+                    flag = true;
+                    error.setWrongUserNamePassWord("Incorect UserName or Password");
                 }
+                if(flag){
+                    request.setAttribute("ERROR", error);
+                } 
+                else{
 
-                //1. get session
-                HttpSession session = request.getSession();
-                //2. set attribute
-                session.setAttribute("User", result);
-                
+                    if (result.getRoleID() == 1) {
+                        //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
+                        url = MyAplications.LoginServlet.ADMIN_PAGE;
+                    } else if (result.getRoleID() == 2) {
+                        //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
+                        url = MyAplications.LoginServlet.MANAGER_PAGE;
+                    } else {
+                        url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
+                    }
+
+                    //1. get session
+                    HttpSession session = request.getSession();
+                    //2. set attribute
+                    session.setAttribute("User", result);
+
 //                Cookie cookie = new Cookie(username, password);
 //                cookie.setMaxAge(60 * 3);
 //                response.addCookie(cookie);
+                }
             }
         } catch (SQLException ex) {
             log("LoginServlet _SQL_ " + ex.getMessage());

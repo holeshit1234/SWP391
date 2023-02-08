@@ -62,11 +62,10 @@ public class ShowProfileServlet extends HttpServlet {
                     //take data grid
                     List<AddressDTO> result = dao.getInfoList();
                     
+                    //String s = ;
+                                        
                     request.setAttribute("INFO", result);
-                    for(AddressDTO i: result){
-                        System.out.print(i.getStreet());
-                        System.out.println(" = ***street***");
-                    }
+                    
                     url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
 
                 }

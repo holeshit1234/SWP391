@@ -1,27 +1,47 @@
 ﻿USE master
 GO
 if exists (select * from sysdatabases where name='OnlineShoppingDTVH')
-		drop database OnlineShoppingDTVH
+		drop database OnlineShoppingDTVHN
 
 go 
 
-create database OnlineShoppingDTVH
+create database OnlineShoppingDTVHN
 
 Go
 
-use OnlineShoppingDTVH
+use OnlineShoppingDTVHN
 
 Go 
 
+create table [Role] (
+RoleID int IDENTITY(1,1) not null primary key,
+RoleName nvarchar(50)
+)
+
+go
+
+insert into [Role] (RoleName)
+values (N'ADMIN')
+
+insert into [Role] (RoleName)
+values (N'STAFF')
+
+insert into [Role] (RoleName)
+values (N'CUSTOMER')
+
+GO 
 create table UserDetails (
 UserID int not null IDENTITY(1,1) primary key,
 RoleID int not null,
 UserName varchar(50) unique not null,
-[PassWord] varchar(50) not null,
+[PassWord] varchar(50) ,
 Email varchar(50) not null unique,
 FullName nvarchar(50),
 Phone varchar(10)
 )
+
+alter table UserDetails 
+ADD picture varchar(100)
 
 go
 
@@ -51,6 +71,13 @@ Ward Nvarchar(30),
 Street Nvarchar(50),
 Notice Nvarchar(50)
 )
+
+alter table [Address]
+Add district Nvarchar(50)
+
+
+insert into [Address] (UserId, Province, Ward, Street, Notice)
+values (3, N'Bình Dương', N'bình thạnh', N'3 quang trung', 'non')
 go
 
 Create table PaymentMethod(
@@ -61,23 +88,7 @@ Status bit
 
 go
 
-create table [Role] (
-RoleID int IDENTITY(1,1) not null primary key,
-RoleName nvarchar(50)
-)
 
-go
-
-insert into [Role] (RoleName)
-values (N'ADMIN')
-
-insert into [Role] (RoleName)
-values (N'STAFF')
-
-insert into [Role] (RoleName)
-values (N'CUSTOMER')
-
-GO 
 
 create table [Order] (
 OrderID int IDENTITY(1,1) not null primary key,
@@ -189,7 +200,7 @@ go
 alter table [Address]
 Add Constraint fk_Address_UserDetails
 Foreign Key (UserId)
-References UserDetails (UserId)
+References UserDetails (UserID)
 
 GO
 

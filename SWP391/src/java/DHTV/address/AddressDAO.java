@@ -59,7 +59,6 @@ public class AddressDAO implements Serializable {
                 //5. process result
                 
                 while(rs.next()){
-                    System.out.println("***************************************************");
                     int addressid = rs.getInt("AddressID");
                     String province = rs.getString("Province");
                     //System.out.println("province = "+province);   // print to check

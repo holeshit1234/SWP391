@@ -11,6 +11,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.naming.NamingException;
 
 /**
@@ -48,7 +49,7 @@ public class UserDetailsDAO implements Serializable{
                     int role = rs.getInt("RoleID");                  
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
-                    int phone = rs.getInt("Phone");
+                    String phone = rs.getString("Phone");
                     result = new UserDetailsDTO(userid, role, username, 
                             password, email, fullname, phone);
                 }
@@ -95,7 +96,7 @@ public class UserDetailsDAO implements Serializable{
                     int role = rs.getInt("RoleID");                  
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
-                    int phone = rs.getInt("Phone");
+                    String phone = rs.getString("Phone");
                     result = new UserDetailsDTO(userid, role, username, password,
                             email, fullname, phone);
                 }
@@ -126,17 +127,17 @@ public class UserDetailsDAO implements Serializable{
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. Sql command
-                String sql ="insert into UserDetails (RoleID, UserName, "
+                String sql ="insert into UserDetails ( RoleID, UserName, "
                         + "[PassWord], Email, FullName, Phone)"
                         + "values (3,?,?,?,?,?)" ;
                 //3. Create Statement
-                       stm = con.prepareStatement(sql);
+                       stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                        stm.setInt(1, user.getRoleID());
                        stm.setString(2, user.getUserName());
                        stm.setString(3, user.getPassWord());
                        stm.setString(4, user.getEmail());
                        stm.setString(5, user.getFullName());
-                       stm.setInt(6, user.getPhone());
+                       stm.setString(6, user.getPhone());
                 //4.execute query
                         int row = stm.executeUpdate();
                 //5. process result

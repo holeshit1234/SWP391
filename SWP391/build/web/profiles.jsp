@@ -13,10 +13,10 @@
         <title>JSP Page</title>
     </head>
     <body>
-         <c:if test="${not empty sessionScope}">
+        <c:if test="${not empty sessionScope}">
             <c:set var="user" value="${sessionScope.User}" />
             <c:if test="${not empty requestScope.INFO}">
-                
+
                 <%--<c:set var="address" value="${requestScope.INFO}" />--%>            
 
                 <div>
@@ -33,20 +33,33 @@
 
                 <div>
                     <div> <lable>Phone</lable></div>
-                     <div> <input type="text" name="txtPhone" value="${user.phone}" 
-                                  placeholder="Nhập Số điện thoại"/> </div>
+                    <div> <input type="text" name="txtPhone" value="${user.phone}" 
+                                 placeholder="Nhập Số điện thoại"/> </div>
                 </div>
-                quớ mệt mỏi dòi :  
-                <c:forEach var="value" items="${requestScope.INFO}">
-                    Street = 
-                    ${value.getStreet()}
 
+                <c:forEach var="value" items="${requestScope.INFO}">
+                    <div>
+                        <div> <lable>Street</lable></div>
+                        <div> <input type="text" name="txtStreet" 
+                                     value="${value.getStreet()}" 
+                                     placeholder="Nhập số nhà, tên đường"/> </div>
+                    </div>
+                    <div>
+                        <div> <lable>Ward</lable></div>
+                        <div><input type="text" name="txtWard" value="${value.getWard()}" 
+                                    placeholder="Nhập Phường, Quận " /></div>
+                    </div>
+                    <div>
+                        <div><lable>Province</lable></div>
+                        <div><input type="text" name="txtProvince" value="${value.getProvice()}" 
+                                    placeholder="Nhập Tỉnh, Thành phố"/></div>
+                    </div>            
                 </c:forEach>
-        
-    
- 
-                
-                
+
+
+
+
+
             </c:if>
         </c:if>
 
