@@ -22,6 +22,7 @@ public class MyAplications {
         public static final String INVALID_PAGE = "invalidPage";
         public static final String MANAGER_PAGE = "managerPage";
         public static final String SEARCH_STORE_PAGE = "storePage";
+        public static final String SEARCH_STORE_SERVLET="storeServlet";
         public static final String ADMIN_PAGE = "adminPage";
     }
      
@@ -42,6 +43,11 @@ public class MyAplications {
         public static final String INDEX_PAGE = "IndexPage";
         public static final String REGISTRATION_PAGE = "RegistrationPage";
         public static final String FINISH_PAGE = "FinishPage";
+    }
+    
+    public class showItems{
+        public static final String STORE_SHOW_PAGE="storePage";
+        public static final String SEARCH_STORE_SERVLET="storeServlet";
     }
 }
 

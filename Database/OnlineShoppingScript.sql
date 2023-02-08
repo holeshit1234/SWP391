@@ -107,6 +107,8 @@ CategoryID int not null,
 Price float,
 [Status] bit
 )
+alter table Product
+add ProductName nvarchar(100)
 
 go
 

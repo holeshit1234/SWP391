@@ -5,26 +5,28 @@
  */
 package DHTV.Controller;
 
-import DVHT.userdetails.UserDetailsDAO;
-import DVHT.userdetails.UserDetailsDTO;
+import DVHT.product.ProductDAO;
+import DVHT.product.ProductDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author User
+ * @author mthin
  */
-public class LoginServlet extends HttpServlet {
+@WebServlet(name = "ShowItemsServlet", urlPatterns = {"/ShowItemsServlet"})
+public class ShowItemsServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,53 +40,27 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         //1. get servlet context
+         //1.get servlet Context
         ServletContext context = this.getServletContext();
-        //2. get properties get sitemap
+        //Get siteMaps from context Scope
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-
-        //get parameter
-        //   String checkbox = request.getParameter("chkRemember");
-        String username = request.getParameter("txtUsername");
-        String password = request.getParameter("txtPassword");
-        //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = MyAplications.LoginServlet.INVALID_PAGE;
+        String url = (String)siteMaps.get(MyAplications.showItems.STORE_SHOW_PAGE);
+        
         try {
-            //call DAO                
-            UserDetailsDAO dao = new UserDetailsDAO();
-            
-            UserDetailsDTO result = dao.checkLogin(username, password);
-
-            if (result != null) {
-
-                if (result.getRoleID() == 1) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
-                    url = MyAplications.LoginServlet.ADMIN_PAGE;
-                } else if (result.getRoleID() == 2) {
-                    //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
-                    url = MyAplications.LoginServlet.MANAGER_PAGE;
-                }else{
-                    url = MyAplications.LoginServlet.SEARCH_STORE_SERVLET;
-                }
-
-                //1. get session
-                HttpSession session = request.getSession();
-                //2. set attribute
-                session.setAttribute("User", result);
+               //call dao
+               ProductDAO dao= new ProductDAO();
+               dao.showProduct();
+               // process
+               List<ProductDTO> result = dao.getItemsList();
+               // send to view
+                request.setAttribute("ITEMS_RESULT", result);  
                 
-//                Cookie cookie = new Cookie(username, password);
-//                cookie.setMaxAge(60 * 3);
-//                response.addCookie(cookie);
-            }
+        } catch (NamingException ex) {
+            log("ShowItemsServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
-            log("LoginServlet _SQL_ " + ex.getMessage());
-        } catch (/*ClassNotFoundException*/NamingException ex) {
-            log("LoginServlet _Naming_ " + ex.getMessage());
-        } finally {
-            //RequestDispatcher rd = request.getRequestDispatcher(url);
-            // rd.forward(request, response);
-            response.sendRedirect(url);
+            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
+        }  finally {
+
         }
     }
 

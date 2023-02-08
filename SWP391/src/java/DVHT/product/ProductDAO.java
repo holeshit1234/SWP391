@@ -36,26 +36,27 @@ public class ProductDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "SELECT P.ProductID,IP.Image, Cat.CategoryName,Bra.BrandName,Cat.Gender,P.Price,PD.Quantity "
-                        + "Product P Inner join ProductIMG IP on P.ProductID=IP.ProductID "
-                        + "Inner join Brand Bra  on p.BrandID = Bra.BrandID"
-                        + "Inner join Category Cat on P.CategoryID=Cat.CategoryID"
-                        + "Inner join ProductDetails PD on p.ProductID=PD.ProductID";
+                String sql = "SELECT P.ProductName,IP.Image, Cat.CategoryName,Bra.BrandName,Cat.Gender,P.Price,PD.Quantity "
+                        + "From Product P Inner join ProductIMG IP on P.ProductID=IP.ProductID "
+                        + "Inner join Brand Bra  on p.BrandID = Bra.BrandID "
+                        + "Inner join Category Cat on P.CategoryID=Cat.CategoryID "
+                        + "Inner join ProductDetails PD on p.ProductID=PD.ProductID ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 //execute query  
                 rs = stm.executeQuery();
                 //5 process
                 while(rs.next()){
-                    int productID= rs.getInt("P.ProductID");
-                    String image= rs.getString("IP.Image");
-                    String category= rs.getString("Cat.CategoryName");
-                    String brand= rs.getString("Bra.BrandName");
-                    Boolean gender= rs.getBoolean("Cat.Gender");
-                    Double price= rs.getDouble("P.Price");
-                    int quantity =rs.getInt("PD.Quantity");
+                    String productName= rs.getString("ProductName");
+                    String image= rs.getString("Image");
+                    String category= rs.getString("CategoryName");
+                    String brand= rs.getString("BrandName");
+                    Boolean gender= rs.getBoolean("Gender");
+                    Double price= rs.getDouble("Price");
+                    int quantity =rs.getInt("Quantity");
+                    System.out.println("Product Name = " + productName);
                     //create dto
-                    ProductDTO dto = new ProductDTO(productID, image,
+                    ProductDTO dto = new ProductDTO(productName, image,
                             category, brand, gender, price,quantity);
                     //add item to dto
                     if (this.itemsList == null) {

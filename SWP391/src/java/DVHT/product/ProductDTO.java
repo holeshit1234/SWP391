@@ -10,7 +10,7 @@ package DVHT.product;
  * @author mthin
  */
 public class ProductDTO {
-    private int productID;
+    private String productName;
     private String image;
     private String categoryName;
     private String brandName;
@@ -18,8 +18,8 @@ public class ProductDTO {
     private double  price;
     private int quantity;
 
-    public ProductDTO(int productID, String image, String categoryName, String brandName, boolean gender, double price, int quantity) {
-        this.productID = productID;
+    public ProductDTO(String productName, String image, String categoryName, String brandName, boolean gender, double price, int quantity) {
+        this.productName = productName;
         this.image = image;
         this.categoryName = categoryName;
         this.brandName = brandName;
@@ -28,16 +28,12 @@ public class ProductDTO {
         this.quantity = quantity;
     }
 
-    public ProductDTO() {
+    public String getProductName() {
+        return productName;
     }
 
-  
-    public int getProductID() {
-        return productID;
-    }
-
-    public void setProductID(int productID) {
-        this.productID = productID;
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public String getImage() {
@@ -87,5 +83,9 @@ public class ProductDTO {
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
-    
+
+    public ProductDTO() {
+    }
+
+   
 }
