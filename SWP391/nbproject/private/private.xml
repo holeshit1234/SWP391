@@ -3,7 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/SWP391/SWP391/web/profiles.jsp</file>
+=======
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/web/registration.jsp</file>
+            <file>file:/E:/KY5/SWP/SWP391/SWP391/src/java/DHTV/Controller/SignUpPageServlet.java</file>
+>>>>>>> ccbc6bc60b46fd2ae832561f6e8ccd802de0bc4f
         </group>
     </open-files>
 </project-private>

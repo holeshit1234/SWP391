@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-                           
+
         <div>
             <form action="loginController" method="POST">
                 <c:set var="err" value="${requestScope.ERROR}"/>
@@ -35,7 +35,7 @@
 
         Remember me <input type="checkbox" name="chkremember" value="ON" />
 
-        <form action="signUpPage" method="POST">
+        <form action="registration.jsp" method="POST">
             <input type="submit" value="SignUP" name="btAction"/><br/>            
         </form>
 

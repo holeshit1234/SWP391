@@ -20,6 +20,10 @@ import javax.naming.NamingException;
  */
 public class UserDetailsDAO implements Serializable{
 
+    public static UserDetailsDTO getUser(String username) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
     
     public UserDetailsDTO checkLogin(String username, String password)
     throws NamingException, SQLException{
@@ -68,14 +72,13 @@ public class UserDetailsDAO implements Serializable{
         return result;
     }
     
-    public static UserDetailsDTO getUser(String username)
+    public static Boolean usernameExist(String username)
     throws NamingException, SQLException{
         
-        UserDetailsDTO result = null;
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-        
+        Boolean result = false;
            try {
             //1.Conect Database
             con = DBHelpers.getConnection();
@@ -91,6 +94,7 @@ public class UserDetailsDAO implements Serializable{
                 rs = stm.executeQuery();
                 //5. process result
                 if (rs.next()) {
+
                     int userid = rs.getInt("UserID");
                     String password = rs.getNString("PassWord");
                     int role = rs.getInt("RoleID");                  
@@ -99,7 +103,12 @@ public class UserDetailsDAO implements Serializable{
                     String phone = rs.getString("Phone");
                     result = new UserDetailsDTO(userid, role, username, password,
                             email, fullname, phone);
+
+                    result = true;
+
                 }
+                else
+                    result = false;
             } //end con is availible
         } finally {
             if (rs != null) {
@@ -111,11 +120,11 @@ public class UserDetailsDAO implements Serializable{
             if (con != null) {
                 con.close();
             }
+            return result;
         }
-        return result;
     }
     
-      public static boolean addUser(UserDetailsDTO user)
+    public static boolean addUser(UserDetailsDTO user)
     throws NamingException, SQLException{
         
         Connection con = null;
@@ -129,7 +138,7 @@ public class UserDetailsDAO implements Serializable{
                 //2. Sql command
                 String sql ="insert into UserDetails ( RoleID, UserName, "
                         + "[PassWord], Email, FullName, Phone)"
-                        + "values (3,?,?,?,?,?)" ;
+                        + "values (?,?,?,?,?,?)" ;
                 //3. Create Statement
                        stm = con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                        stm.setInt(1, user.getRoleID());

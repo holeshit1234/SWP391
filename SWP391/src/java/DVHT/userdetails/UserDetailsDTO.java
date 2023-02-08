@@ -24,16 +24,21 @@ public class UserDetailsDTO implements Serializable{
     public UserDetailsDTO() {
     }
 
-    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, 
-            String Email, String fullName, String Phone) {
+
+  
+
+    public UserDetailsDTO(int UserID, int RoleID, String userName, 
+            String passWord, String email, String fullName, String phone) {
+
         this.UserID = UserID;
         this.RoleID = RoleID;
         this.userName = userName;
         this.passWord = passWord;
-        this.email = Email;
+        this.email = email;
         this.fullName = fullName;
-        this.phone = Phone;
+        this.phone = phone;
     }
+  
 
     public int getUserID() {
         return UserID;
@@ -75,7 +80,6 @@ public class UserDetailsDTO implements Serializable{
         this.email = email;
     }
 
-    
     public String getFullName() {
         return fullName;
     }
