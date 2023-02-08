@@ -92,6 +92,11 @@ public class UserDetailsDTO implements Serializable{
         this.phone = phone;
     }
 
+    @Override
+    public String toString() {
+        return "UserDetailsDTO{" + "UserID=" + UserID + ", RoleID=" + RoleID + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fullName=" + fullName + ", phone=" + phone + '}';
+    }
+
     
     
 }

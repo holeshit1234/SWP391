@@ -161,7 +161,8 @@ public class UserDetailsDAO implements Serializable{
         boolean result = false; 
        Connection con = null;
        PreparedStatement stm = null;
-       
+       UserDetailsDTO dto = new UserDetailsDTO(userid, userid, fullName, phone, email, fullName, phone);
+        System.out.println(dto);
        try{
            //get connection
            con = DBHelpers.getConnection();

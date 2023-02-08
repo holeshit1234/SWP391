@@ -48,7 +48,7 @@ public class UpdateProfileServlet extends HttpServlet {
         String email = request.getParameter("txtEmail");
         String phone = request.getParameter("txtPhone");
         String street = request.getParameter("txtStreet");
-        String province = request.getParameter("txtProvice");
+        String province = request.getParameter("txtProvince");
         String district = request.getParameter("txtDistrict");
         String ward = request.getParameter("txtWard");
 
@@ -56,7 +56,7 @@ public class UpdateProfileServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         //2. get siteMap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = "";
+        String url = "ShowProfileServlet";
         HttpSession session = request.getSession(false);
 
         try {
@@ -76,8 +76,8 @@ public class UpdateProfileServlet extends HttpServlet {
                         boolean result2 = dao2.updateAddress(userid, street, province, district, ward);
                         //refesh data grid
                         if (result && result2) {
-                            url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE)
-                                    + "?ShowProfileServlet" + userid;
+                            //url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
+                            url ="ShowProfileServlet";
                         }
                     }
 
@@ -88,6 +88,7 @@ public class UpdateProfileServlet extends HttpServlet {
         } catch (SQLException ex) {
             log("UpdateProfileServlet_SQL " + ex.getMessage());
         } finally {
+            System.out.println("URL = " + url);
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
