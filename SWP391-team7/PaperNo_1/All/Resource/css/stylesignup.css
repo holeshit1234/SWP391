@@ -1,0 +1,190 @@
+/*-----------Headerlogin----------------*/
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #333;
+}
+header{
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 50px;
+    height: 70px;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    background: rgb(225, 225, 225, 0.3);
+    width: 100%;
+}
+.logo{
+    flex: 1;
+    text-align: center;
+}
+/*-----------sign-un-form----------------*/
+.sigup{
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    padding-top: 90px;
+    border-bottom: #333 solid 2px;
+}
+.container{
+    max-width: 700px;
+    width: 100%;
+    background: #fbf7f7 ;
+    padding: 25px 30px;
+    border-radius: 5px;
+}
+.container .title{
+    font-size: 25px;
+    font-weight: 500;
+    position: relative;
+}
+.container .title::before{
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 3px;
+    width: 30px;
+    background: #E6BAA3 
+}
+.container form .user-detail{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 20px 0 12px 0;
+}
+form .user-detail .input-box{
+    margin-bottom: 15px;
+    width: calc(100%/ 2 - 20px);
+}
+.user-detail .input-box .detail{
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+}
+.user-detail .input-box input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px ;
+    transition: all 0.3s ease;
+}
+.user-detail .input-box input:focus,
+.user-detail .input-box input:valid{
+    border-color: #E6BAA3;
+}
+form .gender-detail .gender-title{
+    font-size: 20px;
+    font-weight: 500;
+}
+form .gender-detail .category{
+    width: 80%;
+    display: flex;
+    margin: 14px 0;
+    justify-content: space-between;
+}
+.gender-detail .category label{
+    display: flex;
+    align-items: center;
+}
+.gender-detail .category .dot{
+    height: 18px;
+    width: 18px;
+    background: #d9d9d9;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 5px solid transparent;
+    transition: all 0.3s ease;
+}
+ #dot-1:checked ~ .category label .one,
+ #dot-2:checked ~ .category label .two,
+ #dot-3:checked ~ .category label .three{
+    border-color: #d9d9d9;
+    background: #9b59b6;
+}
+form input[type="radio"]{
+    display: none;
+}
+form .button{
+    height: 45px;
+    margin: 45px 0;
+}
+form .button input{
+    height: 100%;
+    width: 100%;
+    outline: none;
+    color: #d9d9d9;
+    background: linear-gradient(135deg, #333, #E6BAA3);
+    border: none;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 5px;
+}
+form .button input:hover{
+    background: linear-gradient(-135deg, #333, #E6BAA3);
+}
+@media (max-width:548px){
+    .container{
+        max-width: 700px;
+    }
+}
+/*-----------Footer----------------*/
+footer{
+    text-align: center;
+    padding-top: 10px;
+}
+.footer-top{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 70px;
+}
+.footer-top li{
+    padding: 0 12px;
+    position: relative;
+}
+.footer-top li::after{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 80%;
+    background: #ccc;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.footer-top li:last-child::after{
+    display: none;
+}
+.footer-top li:last-child a{
+    margin-right: 12px;
+    color: #333;
+}
+.footer-center{
+    text-align: center;
+}
+.footer-bottom{
+    margin: 20px 0;
+    text-align: center;
+}
