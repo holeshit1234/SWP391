@@ -46,19 +46,19 @@ public class GoogleSignInServlet extends HttpServlet {
 //
                 UserDetailsDTO user = null;
 //
-                try {
-                    user = UserDetailsDAO.getUser(username);
-                } catch (SQLException ex) {
-                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
-                } catch (NamingException ex) {
-                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-                }
+//                try {
+//                    user = UserDetailsDAO.getUser(username);
+//                } catch (SQLException ex) {
+//                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
+//                } catch (NamingException ex) {
+//                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
+//                }
                 if (user == null) {
                    
                     String email = userToken.getEmail();
                     log(email);
 
-                    user = new UserDetailsDTO(0, 0, email, null, email, null, null);
+                    user = new UserDetailsDTO(0, 0, username, null, email, null, null);
 
                     try {
                         UserDetailsDAO.addUser(user);
