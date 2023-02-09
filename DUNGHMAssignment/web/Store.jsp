@@ -41,6 +41,7 @@
             <c:if test="${not empty SearchBook}">
                 <c:set var="result" value="${requestScope.SEARCH_RESULT}"/>
                 <c:if test="${not empty result}">
+                    
                     <table border="1">
                         <thead>
                             <tr>

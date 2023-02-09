@@ -5,15 +5,13 @@
  */
 package DHTV.Controller;
 
-import DVHT.product.ProductDAO;
-import DVHT.product.ProductDTO;
+import DVHT.cart.CartObj;
+import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
+import static DVHT.utils.MyAplications.showItems.STORE_SHOW_PAGE;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
-import java.util.List;
 import java.util.Properties;
-import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -21,13 +19,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author mthin
  */
-@WebServlet(name = "ShowItemsServlet", urlPatterns = {"/ShowItemsServlet"})
-public class ShowItemsServlet extends HttpServlet {
+@WebServlet(name = "AddToCartServlet", urlPatterns = {"/AddToCartServlet"})
+public class AddToCartServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,28 +40,36 @@ public class ShowItemsServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         //1.get servlet Context
+
         ServletContext context = this.getServletContext();
-        //Get siteMaps from context Scope
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = (String)siteMaps.get(MyAplications.showItems.STORE_SHOW_PAGE);
-        
+        String url = (String) siteMaps.get(
+                MyAplications.AddToCartServlet.SEARCH_STORE_SERVLET);
         try {
-               //call dao
-               ProductDAO dao= new ProductDAO();
-               dao.showProduct();
-               // process
-               List<ProductDTO> result = dao.getItemsList();
-               // send to view
-                request.setAttribute("ITEMS_RESULT", result);  
-                
-        } catch (NamingException ex) {
-            log("ShowItemsServlet _ Naming _ " + ex.getMessage());
-        } catch (SQLException ex) {
-            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
-        }  finally {    
+            HttpSession session = request.getSession();
+
+            UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("User");
+            if (dto != null) {
+                //2. cus take cart, if not have will create
+                CartObj cart = (CartObj) session.getAttribute("CART");
+                if (cart == null) {
+                    cart = new CartObj();
+                }
+                //3.cus take items/ get parameter
+                String sku = request.getParameter("txtProductName");
+                int Quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+                //4.add item to cart/ thêm vào giỏ update lại giỏ
+                if (sku != null) {
+                    cart.addToCart(sku, Quantity);
+                    session.setAttribute("CART", cart);
+
+                }//sku exsitd and finish add items
+                    System.out.println(cart.getItems());
+            }
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
+//response.sendRedirect(url);
         }
     }
 

@@ -49,6 +49,11 @@ public class MyAplications {
         public static final String STORE_SHOW_PAGE="storePage";
         public static final String SEARCH_STORE_SERVLET="storeServlet";
     }
+     public class AddToCartServlet {
+         public static final String SEARCH_STORE_SERVLET="storeServlet";
+        public static final String CAN_NOT_SHOPPING = "canNotShopping";
+        
+    }
 }
 
  
