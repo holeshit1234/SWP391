@@ -23,6 +23,7 @@ public class OrderDetailsDAO implements Serializable {
 
     public boolean addToDetailOrders(/*Map<String, Integer> items*/ CartObj cart, int key) throws SQLException,
              NamingException {
+        
         Connection con = null;
         PreparedStatement stm1 = null;
         PreparedStatement stm2 = null;

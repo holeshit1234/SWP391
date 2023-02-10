@@ -15,71 +15,66 @@
     <body>
         <c:if test="${not empty sessionScope}">
             <c:set var="user" value="${sessionScope.User}" />
-            <c:if test="${not empty sessionScope.INFO}">
-                <form action="UpdateProfileController" method="POST">
-                    <div class="profiles-container">
-                        <div class="row" style="display: block;">
-                            <div class="col-md-2">
-                                <p>thông tin tài khoản</p>
-                                <p>thông tin tài khoản</p>
-                                <p>thông tin tài khoản</p>
-                            </div>
+            <c:if test="${not empty requestScope.USER}">
+                <c:set var="info_user" value="${requestScope.USER}"/>
+                <c:if test="${not empty requestScope.INFO}">
+                    <form action="UpdateProfileController" method="POST">
+                        <div class="profiles-container">
+                            <div class="row" style="display: block;">
+                                <div class="col-md-2">
+                                    <p>thông tin tài khoản</p>
+                                    <p>thông tin tài khoản</p>
+                                    <p>thông tin tài khoản</p>
+                                </div>
+                                <c:set var="error" value="${requestScope.UP_ERROR}"/>
+                                <div class="col-md-8 profile-content ">
+                                    <div class="row">
+                                        <div class="col-md-6 ">
+                                            <img class="resposive img-circle avatar" src="images/banner1.jpg">
 
-                            <div class="col-md-8 profile-content ">
-                                <div class="row">
-                                    <div class="col-md-6 ">
-                                        <img class="resposive img-circle avatar" src="images/banner1.jpg">
-
-                                    </div>
-                                    <div class="col-md-6 ">
-                                        <div class="profile-detail-content">
-                                            <div class="profile-detail">
-                                                <div class="row">
-                                                    <div class="content col-md-4 " style="float: left;">
-                                                        <lable>Full Name</lable>
-                                                    </div>
-                                                    <div class="input-text col-md-8">
-                                                        <input type="text" name="txtFullName" value="${user.fullName}"
-                                                               placeholder="Nhập đầy đủ tên" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="profile-detail">
-                                                <div class="row">
-                                                    <div class="content col-md-4" style="float: left;">
-                                                        <lable>Email</lable>
-                                                    </div>
-                                                    <div class="input-text col-md-8">
-                                                        <input type="text" name="txtEmail" value="${user.email}"
-                                                               placeholder="Nhập đầy đủ tên" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="profile-detail">
-                                                <div class="row">
-                                                    <div class="content col-md-4" style="float: left;">
-                                                        <lable>Phone</lable>
-                                                    </div>
-                                                    <div class="input-text col-md-8">
-                                                        <input type="text" name="txtPhone" value="${user.phone}"
-                                                               placeholder="Nhập Số điện thoại" />
-                                                    </div>
-                                                </div>
-
-                                            </div>
-                                                        <c:forEach var="value" items="${sessionScope.INFO}">   
+                                        </div>
+                                        <div class="col-md-6 ">
+                                            <div class="profile-detail-content">
                                                 <div class="profile-detail">
                                                     <div class="row">
-                                                        <div class="content col-md-4" style="float: left;">
-                                                            <lable>Street</lable>
+                                                        <div class="content col-md-4 " style="float: left;">
+                                                            <lable>Full Name</lable>
                                                         </div>
                                                         <div class="input-text col-md-8">
-
-                                                            <input type="text" name="txtStreet" value="${value.getStreet()}"
-                                                                   placeholder="Nhập số nhà, tên đường" /> 
-
+                                                            <input type="text" name="txtFullName" value="${info_user.fullName}"
+                                                                   placeholder="Nhập đầy đủ tên" />
+                                                        </div>
+                                                    </div>
+                                                    <c:if test="${not empty error.notEnoughWordFullName}">
+                                                        <font color="red">
+                                                        ${error.notEnoughWordFullName}
+                                                        </font><br/>
+                                                    </c:if>
+                                                </div>
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4 " style="float: left;">
+                                                            <lable>Date Of Birth</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+                                                            <input type="date" name="txtDOB" value="${info_user.DOB}" 
+                                                                   placeholder="Nhập đầy đủ tên" />
+                                                        </div>
+                                                    </div>
+                                                    <c:if test="${not empty error.emptyDOB}">
+                                                        <font color="red">
+                                                        ${error.emptyDOB}
+                                                        </font><br/>
+                                                    </c:if>
+                                                </div>
+                                                <div class="profile-detail">
+                                                    <div class="row">
+                                                        <div class="content col-md-4 " style="float: left;">
+                                                            <lable>Gender</lable>
+                                                        </div>
+                                                        <div class="input-text col-md-8">
+                                                            <input type="text" name="txtDOB" value="${info_user.gender}" disabled="disabled"
+                                                                   placeholder="Nhập đầy đủ tên" /> 
                                                         </div>
                                                     </div>
 
@@ -88,59 +83,127 @@
                                                 <div class="profile-detail">
                                                     <div class="row">
                                                         <div class="content col-md-4" style="float: left;">
-                                                            <lable>Province</lable>
+                                                            <lable>Email</lable>
                                                         </div>
                                                         <div class="input-text col-md-8">
-                                                            <input type="text" name="txtProvince" value="${value.getProvice()}"
-                                                                placeholder="Nhập Phường, Quận " /> 
-                                                            
+                                                            <input type="text" name="txtEmail" value="${info_user.email}" 
+                                                                   placeholder="Nhập đầy đủ tên" />
                                                         </div>
                                                     </div>
-
+                                                    <c:if test="${not empty error.emptyEmail}">
+                                                        <font color="red">
+                                                        ${error.emptyEmail}
+                                                        </font><br/>
+                                                    </c:if>
                                                 </div>
 
                                                 <div class="profile-detail">
                                                     <div class="row">
                                                         <div class="content col-md-4" style="float: left;">
-                                                            <lable>District</lable>
+                                                            <lable>Phone</lable>
                                                         </div>
                                                         <div class="input-text col-md-8">
-                                                             <input type="text" name="txtDistrict" value="${value.getDistrict()}"
-                                                                placeholder="Nhập Phường, Quận " /> 
-                                                            
+                                                            <input type="text" name="txtPhone" value="${info_user.phone}"
+                                                                   placeholder="Nhập Số điện thoại" />
                                                         </div>
                                                     </div>
+                                                    <c:if test="${not empty error.emptyPhone}">
+                                                        <font color="red">
+                                                        ${error.emptyPhone}
+                                                        </font><br/>
+                                                    </c:if>
                                                 </div>
+                                                <c:forEach var="value" items="${requestScope.INFO}">   
+                                                    <div class="profile-detail">
+                                                        <div class="row">
+                                                            <div class="content col-md-4" style="float: left;">
+                                                                <lable>Street</lable>
+                                                            </div>
+                                                            <div class="input-text col-md-8">
 
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4" style="float: left;">
-                                                            <lable>Ward</lable>
+                                                                <input type="text" name="txtStreet" value="${value.getStreet()}"
+                                                                       placeholder="Nhập số nhà, tên đường" /> 
+
+                                                            </div>
                                                         </div>
-                                                        <div class="input-text col-md-8">
-                                                             <input type="text" name="txtWard" value="${value.getWard()}"
-                                                                placeholder="Nhập Tỉnh, Thành phố" /> 
-                                                            
+                                                        <c:if test="${not empty error.emptyStreet}">
+                                                            <font color="red">
+                                                            ${error.emptyStreet}
+                                                            </font><br/>
+                                                        </c:if>
+                                                    </div>
+
+                                                    <div class="profile-detail">
+                                                        <div class="row">
+                                                            <div class="content col-md-4" style="float: left;">
+                                                                <lable>Province</lable>
+                                                            </div>
+                                                            <div class="input-text col-md-8">
+                                                                <input type="text" name="txtProvince" value="${value.getProvice()}"
+                                                                       placeholder="Nhập Phường, Quận " /> 
+
+                                                            </div>
                                                         </div>
+                                                        <c:if test="${not empty error.emptyPronvince}">
+                                                            <font color="red">
+                                                            ${error.emptyPronvince}
+                                                            </font><br/>
+                                                        </c:if>
+                                                    </div>
+
+                                                    <div class="profile-detail">
+                                                        <div class="row">
+                                                            <div class="content col-md-4" style="float: left;">
+                                                                <lable>District</lable>
+                                                            </div>
+                                                            <div class="input-text col-md-8">
+                                                                <input type="text" name="txtDistrict" value="${value.getDistrict()}"
+                                                                       placeholder="Nhập Phường, Quận " /> 
+
+                                                            </div>
+                                                        </div>
+                                                        <c:if test="${not empty error.emptyDistrict}">
+                                                            <font color="red">
+                                                            ${error.emptyDistrict}
+                                                            </font><br/>
+                                                        </c:if>
+                                                    </div>
+
+                                                    <div class="profile-detail">
+                                                        <div class="row">
+                                                            <div class="content col-md-4" style="float: left;">
+                                                                <lable>Ward</lable>
+                                                            </div>
+                                                            <div class="input-text col-md-8">
+                                                                <input type="text" name="txtWard" value="${value.getWard()}"
+                                                                       placeholder="Nhập Tỉnh, Thành phố" /> 
+
+                                                            </div>
+                                                        </div>
+                                                        <c:if test="${not empty error.emptyWard}">
+                                                            <font color="red">
+                                                            ${error.emptyWard}
+                                                            </font><br/>
+                                                        </c:if>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
+
+
+                                        <div class="update-button">
+                                            <button type="submit" class="save-button">Save</button>
+                                        </div>
                                     </div>
+                                    <div class="col-md-2">
 
-
-                                    <div class="update-button">
-                                        <button type="submit" class="save-button">Save</button>
                                     </div>
-                                </div>
-                                <div class="col-md-2">
-
                                 </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
 
-                </c:forEach>
+                    </c:forEach>
+                </c:if>
             </c:if>
         </c:if>
 

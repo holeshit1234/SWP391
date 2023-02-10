@@ -147,5 +147,48 @@ public class AddressDAO implements Serializable {
         }
         return result;
     }
+    
+    public static boolean addAddressGooogle ( AddressDTO addr ,int key) 
+            throws SQLException, NamingException{
+         Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        int rows = 0;
+        boolean result = false;
+        
+        try{
+            //1. get connection 
+            con = DBHelpers.getConnection();
+            if(con != null){
+                //2.sql commnands 
+                String sql = "insert into Address (UserId, Province, Ward, "
+                        + "Street, Notice, district) "
+                        + "values(?,?,?,?,?,?) ";
+                stm= con.prepareStatement(sql);
+                stm.setInt(1, key);
+                stm.setString(2, addr.getProvice());
+                stm.setString(3, addr.getWard());
+                stm.setString(4, addr.getStreet());
+                stm.setString(5, addr.getNotice());
+                stm.setString(6, addr.getDistrict());
+                
+                rows = stm.executeUpdate();
+                
+                if(rows>0){
+                    result = true;
+                }               
+            }
+        }finally{
+            if (stm != null) {
+                stm.close();
+            }
 
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        
+        return result; 
+    }
 }

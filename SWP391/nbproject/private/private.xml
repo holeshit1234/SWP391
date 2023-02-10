@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/SWP391/SWP391/web/profiles.jsp</file>
-            <file>file:/D:/SWP391/SWP391/src/java/DHTV/Controller/ShowProfileServlet.java</file>
             <file>file:/D:/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDAO.java</file>
             <file>file:/D:/SWP391/SWP391/src/java/DHTV/Controller/GoogleSignInServlet.java</file>
+            <file>file:/D:/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDTO.java</file>
         </group>
     </open-files>
 </project-private>

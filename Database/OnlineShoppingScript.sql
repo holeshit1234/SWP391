@@ -1,15 +1,14 @@
 ﻿USE master
 GO
 if exists (select * from sysdatabases where name='OnlineShoppingDTVH')
-		drop database OnlineShoppingDTVHN
+		drop database OnlineShoppingDTVH
 
 go 
 
-create database OnlineShoppingDTVHN
-
+create database OnlineShoppingDTVH
 Go
 
-use OnlineShoppingDTVHN
+use OnlineShoppingDTVH
 
 Go 
 
@@ -40,25 +39,24 @@ FullName nvarchar(50),
 Phone varchar(15)
 )
 
+
+
 alter table UserDetails 
-ADD picture varchar(100)
+ADD DOB date
+
+alter table UserDetails 
+ADD Gender nvarchar(50)
 
 go
 
-insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
-values (1,'dunghh',12345,'hominhdund@gmail.com',N'Hồ Minh Dũng', 0963697057)
+insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender)
+values (1,'dunghh',12345,'hominhdund@gmail.com',N'Hồ Minh Dũng', 0963697057, '2002-04-21', N'Nam')
 
-insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
-values (2,'dunghh1',123456,'hominhdund1@gmail.com',N'Hồ Minh Dũng 1', 0963697054)
+insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender)
+values (2,'dunghh1',12345,'hominhdund1@gmail.com',N'Hồ Minh Dũng', 0963694557, '2002-04-22', N'Nam')
 
-insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
-values (3,'dunghh2',123457,'hominhdund2@gmail.com',N'Hồ Minh Dũng 2 ', 0963697053)
-
-insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
-values (1,'vinh',1,'vinhtc191@gmail.com',N'Trần Công Vinh ', 0907671827)
-
-insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone)
-values (3,'dinh',1,'vinhc191@gmail.com',N'Trầ Công Vinh ', 090671827)
+insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender)
+values (3,'dunghh2',12345,'hominhdund2@gmail.com',N'Hồ Minh Dũng', 0967897057, '2002-04-23', N'Nam')
 
 
 Go
@@ -76,8 +74,8 @@ alter table [Address]
 Add district Nvarchar(50)
 
 
-insert into [Address] (UserId, Province, Ward, Street, Notice)
-values (3, N'Bình Dương', N'bình thạnh', N'3 quang trung', 'non')
+insert into [Address] (UserId, Province, Ward, Street, Notice, district)
+values (3, N'Bình Dương', N'bình thạnh', N'3 quang trung', 'non', N'binh hoà')
 go
 
 Create table PaymentMethod(
@@ -310,3 +308,7 @@ alter table ProductIMG
 Add constraint fk_ProductIMG_Product
 foreign key (ProductID)
 references Product (ProductID)
+
+
+alter table UserDetails 
+ADD picture varchar(100)

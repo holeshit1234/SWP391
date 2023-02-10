@@ -14,6 +14,7 @@ import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,16 +54,16 @@ public class LoginServlet extends HttpServlet {
         UserDetailsErr error = new UserDetailsErr();
         boolean flag = false;
         //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = MyAplications.LoginServlet.INVALID_PAGE;
+        String url = (String)siteMaps.getProperty(MyAplications.LoginServlet.ERROR_PAGE);
         try {
 
-            if (password.trim().length() < 0 || username.trim().length() < 0) {
+            if (password.trim().length() < 1 || username.trim().length() < 1) {
                 flag = true;
                 error.setEmptyUserNamePassWord("Username or PassWord is empty");
             }
-
+            //System.out.println(flag);
             if (flag) {
-                request.setAttribute("ERROR", error);
+                request.setAttribute("L_ERROR", error);
             } else {
                 //call DAO                
                 UserDetailsDAO dao = new UserDetailsDAO();
@@ -73,18 +74,19 @@ public class LoginServlet extends HttpServlet {
                     error.setWrongUserNamePassWord("Incorect UserName or Password");
                 }
                 if(flag){
-                    request.setAttribute("ERROR", error);
+                    request.setAttribute("L_ERROR", error);
                 } 
                 else{
 
                     if (result.getRoleID() == 1) {
-                        //url = siteMaps.getProperty(MyApplication.LoginServlet.MANAGER_PAGE);;
-                        url = MyAplications.LoginServlet.ADMIN_PAGE;
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.ADMIN_PAGE);
+                        //url = MyAplications.LoginServlet.ADMIN_PAGE;
                     } else if (result.getRoleID() == 2) {
-                        //url = siteMaps.getProperty(MyApplication.LoginServlet.SEARCH_STORE_PAGE);;
-                        url = MyAplications.LoginServlet.MANAGER_PAGE;
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.MANAGER_PAGE);
+                        //url = MyAplications.LoginServlet.MANAGER_PAGE;
                     } else {
-                        url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
+                        //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
                     }
 
                     //1. get session
@@ -102,9 +104,9 @@ public class LoginServlet extends HttpServlet {
         } catch (/*ClassNotFoundException*/NamingException ex) {
             log("LoginServlet _Naming_ " + ex.getMessage());
         } finally {
-            //RequestDispatcher rd = request.getRequestDispatcher(url);
-            // rd.forward(request, response);
-            response.sendRedirect(url);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+             rd.forward(request, response);
+//            response.sendRedirect(url);
         }
     }
 
