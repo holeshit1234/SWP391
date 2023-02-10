@@ -105,7 +105,8 @@ public class AddressDAO implements Serializable {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        AddressDTO dto = new AddressDTO(userid, userid, province, ward, street, province, district);
+        System.out.println(dto);
         try {
             //1. get connection
             con = DBHelpers.getConnection();

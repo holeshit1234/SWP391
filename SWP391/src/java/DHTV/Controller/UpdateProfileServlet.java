@@ -66,6 +66,9 @@ public class UpdateProfileServlet extends HttpServlet {
          byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes2, StandardCharsets.UTF_8);
         
+
+
+
         String district = request.getParameter("txtDistrict");
          byte[] bytes3 = district.getBytes(StandardCharsets.ISO_8859_1);
         district = new String(bytes3, StandardCharsets.UTF_8);
@@ -80,7 +83,7 @@ public class UpdateProfileServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         //2. get siteMap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = "";
+        String url = "ShowProfileServlet";
         HttpSession session = request.getSession(false);
         
         UpdateUserDetailsErr err = new UpdateUserDetailsErr();
@@ -139,6 +142,7 @@ public class UpdateProfileServlet extends HttpServlet {
                         //boolean result2 = dao2.updateAddress(userid, street, province, district, ward, addressid);
                         boolean result2 = dao2.updateAddress(userid, street, province, district, ward);
                         //refesh data grid
+
                         if (result || result2) {
                             url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
                                     
@@ -153,8 +157,7 @@ public class UpdateProfileServlet extends HttpServlet {
             log("UpdateProfileServlet_SQL " + ex.getMessage());
         }catch (ParseException ex ){
             log("UpdateProfileServelet_Parse " + ex.getMessage());
-        }
-        finally {
+        }finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

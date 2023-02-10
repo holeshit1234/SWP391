@@ -101,6 +101,7 @@ public class UserDetailsDTO implements Serializable{
         this.phone = phone;
     }
 
+
     public Date getDOB() {
         return DOB;
     }
@@ -121,7 +122,5 @@ public class UserDetailsDTO implements Serializable{
     public String toString() {
         return "UserDetailsDTO{" + "UserID=" + UserID + ", RoleID=" + RoleID + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fullName=" + fullName + ", phone=" + phone + ", DOB=" + DOB + ", gender=" + gender + '}';
     }
-
-   
- 
+  
 }

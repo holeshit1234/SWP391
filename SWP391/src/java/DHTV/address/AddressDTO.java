@@ -88,6 +88,11 @@ public class AddressDTO implements Serializable{
     public void setDistrict(String District) {
         this.District = District;
     }
+
+    @Override
+    public String toString() {
+        return "AddressDTO{" + "addressID=" + addressID + ", userID=" + userID + ", Provice=" + Provice + ", Ward=" + Ward + ", Street=" + Street + ", Notice=" + Notice + ", District=" + District + '}';
+    }
     
     
    
