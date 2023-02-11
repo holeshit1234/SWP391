@@ -8,7 +8,7 @@ package DVHT.userdetails;
 import DVHT.utils.DBHelpers;
 import java.io.Serializable;
 import java.sql.Connection;
-import java.sql.Date;
+import java.util.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -53,10 +53,10 @@ public class UserDetailsDAO implements Serializable {
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
                     String phone = rs.getString("Phone");
-                    
+
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
-                    
+
                     String gender = rs.getString("Gender");
                     result = new UserDetailsDTO(userid, role, username, password,
                             email, fullname, phone, sqlDate, gender);
@@ -77,7 +77,7 @@ public class UserDetailsDAO implements Serializable {
     }
 
     public static int addUser(UserDetailsDTO user)
-            throws NamingException, SQLException {
+            throws NamingException, SQLException ,ParseException {
 
         int key = 0;
         Connection con = null;
@@ -100,8 +100,17 @@ public class UserDetailsDAO implements Serializable {
                 stm.setString(3, user.getPassWord());
                 stm.setString(4, user.getEmail());
                 stm.setString(5, user.getFullName());
-                stm.setString(6, user.getPhone());
-                stm.setDate(7, user.getDOB());
+                stm.setString(6, user.getPhone());               
+                if (user.getDOB() != null) {
+                java.sql.Date sqlDate = new java.sql.Date(user.getDOB().getTime());
+                stm.setDate(7, sqlDate);
+            } else {
+                String date = "01-01-1999";
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                Date defaultDate = df.parse(date);
+                java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+                stm.setDate(7, sqlDate);
+            }
                 stm.setString(8, user.getGender());
                 //4.execute query
                 int rows = stm.executeUpdate();
@@ -144,14 +153,14 @@ public class UserDetailsDAO implements Serializable {
             stm = con.prepareStatement(sql);
             stm.setString(1, email);
             stm.setString(2, fullName);
-            stm.setString(3, phone);         
-            if(DOB != null){
+            stm.setString(3, phone);
+            if (DOB != null) {
                 java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                 stm.setDate(4, sqlDate);
-            }else{
-                String date ="1-1-1999";
+            } else {
+                String date = "1-1-1999";
                 DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-                Date defaultDate = Date.valueOf(date);
+                Date defaultDate = df.parse(date);
                 java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                 stm.setDate(4, sqlDate);
             }
@@ -182,7 +191,8 @@ public class UserDetailsDAO implements Serializable {
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
-
+        //Date DOB=null;
+        
         try {
             //1.Conect Database
             con = DBHelpers.getConnection();
@@ -204,9 +214,19 @@ public class UserDetailsDAO implements Serializable {
                     int role = rs.getInt("RoleID");
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
-                    String phone = rs.getString("Phone");
+                    String phone = rs.getString("Phone");  
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+//                    if (DOB != null) {
+//                       
+//                       
+//                    } else {
+//                        String date = "1-1-1999";
+//                        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+//                        Date defaultDate = Date.valueOf(date);
+//                        sqlDate = new java.sql.Date(DOB.getTime());
+//                        sqlDate = rs.getDate("DOB");
+//                    }
                     String gender = rs.getString("Gender");
                     result = new UserDetailsDTO(userid, role, username,
                             password, email, fullname, phone, sqlDate, gender);
@@ -259,10 +279,10 @@ public class UserDetailsDAO implements Serializable {
                     String username = rs.getString("UserName");
                     String phone = rs.getString("Phone");
                     Date DOB = rs.getDate("DOB");
-                    //java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+                    java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
                     result = new UserDetailsDTO(userid, role, username,
-                            password, email, fullname, phone, DOB, gender);
+                            password, email, fullname, phone, sqlDate, gender);
                 }
             } //end con is availible   
         } finally {
@@ -279,5 +299,4 @@ public class UserDetailsDAO implements Serializable {
         return result;
     }
 
-      
 }

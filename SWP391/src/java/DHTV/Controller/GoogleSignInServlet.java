@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.sql.Date;
 import java.sql.SQLException;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -45,7 +46,6 @@ public class GoogleSignInServlet extends HttpServlet {
                 GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
                 String username = userToken.getId();
                 String email = userToken.getEmail();
-                String gender = userToken.getGender();
 
                 UserDetailsDTO user = null;
 
@@ -53,6 +53,10 @@ public class GoogleSignInServlet extends HttpServlet {
                     user = UserDetailsDAO.getUser(email);
                     if (user != null) {
                         url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+
+                        HttpSession session = request.getSession();
+                        session.setAttribute("USER", user);
+
                     }
                 } catch (SQLException ex) {
                     log("GoogleSignInServlet_SQL_ " + ex.getMessage());
@@ -62,11 +66,13 @@ public class GoogleSignInServlet extends HttpServlet {
                 if (user == null) {
 
                     String fullname = userToken.getGiven_name();
-                    String date = "1-1-1999";
-                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-                    Date defaultDate = Date.valueOf(date);
-                    
-                    user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", defaultDate, "other");
+
+//                    String date = "01-01-1999";
+//                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+//                    Date defaultDate = Date.valueOf(date);
+//                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+//                        Date DOB = "01-01-1999";
+                    user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
 
                     try {
                         key = UserDetailsDAO.addUser(user);
@@ -75,6 +81,10 @@ public class GoogleSignInServlet extends HttpServlet {
                             AddressDTO addr = new AddressDTO(0, key, "other", "other", "other", "other", "other");
 
                             dao.addAddressGooogle(addr, key);
+
+                            HttpSession session = request.getSession();
+                            
+                            session.setAttribute("USER", dao);
                         }
 
                         url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
@@ -82,11 +92,10 @@ public class GoogleSignInServlet extends HttpServlet {
                         log("GoogleSignInServlet_SQL_ " + ex.getMessage());
                     } catch (NamingException ex) {
                         log("GoogleSignInServlet_Naming_ " + ex.getMessage());
+                    }catch (ParseException ex) {
+                        log("GoogleSignInServlet_Parse_ " + ex.getMessage());
                     }
                 }
-
-                HttpSession session = request.getSession();
-                session.setAttribute("User", user);
 
             }
         } finally {

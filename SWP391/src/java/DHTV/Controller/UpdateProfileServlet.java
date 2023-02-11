@@ -17,7 +17,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -54,7 +54,7 @@ public class UpdateProfileServlet extends HttpServlet {
         fullName = new String(bytes, StandardCharsets.UTF_8);
         
         String DOB = request.getParameter("txtDOB");
-        Date dob = Date.valueOf(DOB);
+        //Date dob = Date.valueOf(DOB);
         String email = request.getParameter("txtEmail");
         String phone = request.getParameter("txtPhone");
         
@@ -63,7 +63,7 @@ public class UpdateProfileServlet extends HttpServlet {
         street = new String(bytes1, StandardCharsets.UTF_8);
         
         String province = request.getParameter("txtProvince");
-         byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes2, StandardCharsets.UTF_8);
         
 
@@ -91,8 +91,11 @@ public class UpdateProfileServlet extends HttpServlet {
         
         try {
             if (session != null) {
-                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("User");
-                if (dto != null) {
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
+                if(dto == null){
+                    AddressDTO dto1 = (AddressDTO) session.getAttribute("USER");
+                
+                if (dto != null || dto1 != null) {
                     int userid = dto.getUserID();
 //                    if(password.trim().length() < 1 || password.trim().length() >20 ){
 //                        flag = true;
@@ -130,7 +133,7 @@ public class UpdateProfileServlet extends HttpServlet {
                         request.setAttribute("UP_ERROR", err);
                         url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
                     }else{
-                        //Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
+                        Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
                         
                     UserDetailsDAO dao = new UserDetailsDAO();
                     boolean result = dao.updateProfile(userid, email, fullName, phone, dob);
@@ -145,7 +148,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
                         if (result || result2) {
                             url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
-                                    
+                        }       
                         }
                     }
                 }

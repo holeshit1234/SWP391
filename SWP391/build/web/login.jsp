@@ -19,7 +19,7 @@
                 <c:set var="err" value="${requestScope.L_ERROR}" />
                 Username <input type="text" name="txtUsername" value="${param.txtUsername}" /><br/>
                 Password <input type="password" name="txtPassword" value="" /><br/> 
-                
+
                 <c:if test="${not empty err.emptyUserNamePassWord}">
                     <font color="red">
                     ${err.emptyUserNamePassWord}
@@ -30,11 +30,12 @@
                     ${err.wrongUserNamePassWord}
                     </font><br/>
                 </c:if>
+                Remember me <input type="checkbox" name="chkremember" value="ON" /><br/>
                 <input type="submit" value="Login"  />
                 <input type="reset" value="Reset" />            
             </form> 
 
-            Remember me <input type="checkbox" name="chkremember" value="ON" />
+
 
             <form action="registration.jsp" method="POST">
                 <input type="submit" value="SignUP" name="btAction"/><br/>            

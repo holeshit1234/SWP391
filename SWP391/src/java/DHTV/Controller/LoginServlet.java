@@ -17,6 +17,7 @@ import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -50,11 +51,12 @@ public class LoginServlet extends HttpServlet {
         //   String checkbox = request.getParameter("chkRemember");
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
+        String ckrem = request.getParameter("chkremember");
 
         UserDetailsErr error = new UserDetailsErr();
         boolean flag = false;
         //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = (String)siteMaps.getProperty(MyAplications.LoginServlet.ERROR_PAGE);
+        String url = (String) siteMaps.getProperty(MyAplications.LoginServlet.ERROR_PAGE);
         try {
 
             if (password.trim().length() < 1 || username.trim().length() < 1) {
@@ -69,14 +71,13 @@ public class LoginServlet extends HttpServlet {
                 UserDetailsDAO dao = new UserDetailsDAO();
 
                 UserDetailsDTO result = dao.checkLogin(username, password);
-                if (result == null){
+                if (result == null) {
                     flag = true;
                     error.setWrongUserNamePassWord("Incorect UserName or Password");
                 }
-                if(flag){
+                if (flag) {
                     request.setAttribute("L_ERROR", error);
-                } 
-                else{
+                } else {
 
                     if (result.getRoleID() == 1) {
                         url = siteMaps.getProperty(MyAplications.LoginServlet.ADMIN_PAGE);
@@ -92,11 +93,16 @@ public class LoginServlet extends HttpServlet {
                     //1. get session
                     HttpSession session = request.getSession();
                     //2. set attribute
-                    session.setAttribute("User", result);
-
-//                Cookie cookie = new Cookie(username, password);
-//                cookie.setMaxAge(60 * 3);
-//                response.addCookie(cookie);
+                    session.setAttribute("USER", result);
+                    if (ckrem != null) {
+                        Cookie cookie = new Cookie(username, password);
+                        cookie.setMaxAge(60 * 3);
+                        response.addCookie(cookie);
+                    } else {
+                        Cookie cookie = new Cookie(username, password);
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }
                 }
             }
         } catch (SQLException ex) {
@@ -105,7 +111,7 @@ public class LoginServlet extends HttpServlet {
             log("LoginServlet _Naming_ " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
-             rd.forward(request, response);
+            rd.forward(request, response);
 //            response.sendRedirect(url);
         }
     }

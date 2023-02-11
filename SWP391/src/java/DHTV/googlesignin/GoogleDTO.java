@@ -13,11 +13,13 @@ public class GoogleDTO implements Serializable{
 	private String picture;
         private String phone;
         private String gender;
+        private String DOB;
         
 	public GoogleDTO() {
 	}
 
-    public GoogleDTO(String id, String email, boolean verified_email, String name, String given_name, String family_name, String picture, String phone, String gender) {
+    public GoogleDTO(String id, String email, boolean verified_email, 
+            String name, String given_name, String family_name, String picture, String phone, String gender, String DOB) {
         this.id = id;
         this.email = email;
         this.verified_email = verified_email;
@@ -27,6 +29,7 @@ public class GoogleDTO implements Serializable{
         this.picture = picture;
         this.phone = phone;
         this.gender = gender;
+        this.DOB = DOB;
     }
 
     public String getId() {
@@ -101,11 +104,20 @@ public class GoogleDTO implements Serializable{
         this.gender = gender;
     }
 
-    @Override
-    public String toString() {
-        return "GoogleDTO{" + "id=" + id + ", email=" + email + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + ", phone=" + phone + ", gender=" + gender + '}';
+    public String getDOB() {
+        return DOB;
     }
 
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    @Override
+    public String toString() {
+        return "GoogleDTO{" + "id=" + id + ", email=" + email + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + ", phone=" + phone + ", gender=" + gender + ", DOB=" + DOB + '}';
+    }
+
+   
       
 	
 }

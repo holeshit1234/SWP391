@@ -14,9 +14,9 @@
     </head>
     <body>
         <c:if test="${not empty sessionScope}">
-            <c:set var="user" value="${sessionScope.User}" />
-            <c:if test="${not empty requestScope.USER}">
-                <c:set var="info_user" value="${requestScope.USER}"/>
+            <c:set var="user" value="${sessionScope.USER}" />
+            <c:if test="${not empty requestScope.USERS}">
+                <c:set var="info_user" value="${requestScope.USERS}"/>
                 <c:if test="${not empty requestScope.INFO}">
                     <form action="UpdateProfileController" method="POST">
                         <div class="profiles-container">
