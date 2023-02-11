@@ -68,6 +68,7 @@ public class PayServlet extends HttpServlet {
                         CartObj cart = (CartObj) session.getAttribute("CART");
                         if (cart != null) {
                             OrderDetailsDAO dao2 = new OrderDetailsDAO();
+                            
                             dao2.addToDetailOrders(cart, key);
                             url=(String) siteMaps.get(MyApplication.PayServlet.VIEW_CHECKOUT);
                             

@@ -82,27 +82,27 @@ public class SignUpPageServlet extends HttpServlet {
             
             } else {
                 // Create Account
-                String message ="";
-                UserDetailsDAO dao = new UserDetailsDAO();
-                boolean usernameExist = dao.usernameExist(username);
-                if (usernameExist) {
-                    message += "User name has existed! Please enter different user name!!\n";
-                    request.setAttribute("MESSAGE", message);
-                }
-                else{
-                    int role = 3;
-                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone);
-                    boolean result = false;
-                    result = dao.addUser(userAccount);
-                    if (result) 
-                        url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
-                }
-            }
-        } catch (SQLException ex) {
-            log("CreateNewAccountServlet SQL: " + ex.getMessage());
-        } catch (NamingException ex) {
-            log("CreateNewAccountServlet Naming: " + ex.getMessage());
-        }
+//                String message ="";
+//                UserDetailsDAO dao = new UserDetailsDAO();
+//                boolean usernameExist = dao.usernameExist(username);
+//                if (usernameExist) {
+//                    message += "User name has existed! Please enter different user name!!\n";
+//                    request.setAttribute("MESSAGE", message);
+//                }
+//                else{
+//                    int role = 3;
+//                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone);
+//                    boolean result = false;
+//                    result = dao.addUser(userAccount);
+//                    if (result) 
+//                        url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
+//                }
+//            }
+//        } catch (SQLException ex) {
+//            log("CreateNewAccountServlet SQL: " + ex.getMessage());
+//        } catch (NamingException ex) {
+//            log("CreateNewAccountServlet Naming: " + ex.getMessage());
+        }}
         finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

@@ -5,6 +5,7 @@
  */
 package DHTV.Controller;
 
+import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -12,6 +13,7 @@ import java.util.Properties;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -41,16 +43,30 @@ public class LogoutAccountServlet extends HttpServlet {
         ServletContext context = this.getServletContext();
         //2 get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        
+        String username ="";
         String url = "";
-        try  {
-            //1 get session
-            HttpSession session  = request.getSession();
-            //2. cancel all session
-            session.invalidate();
-            
+        Cookie cookie = null;
+        try {
+            HttpSession session = request.getSession(false);
+            if (session != null) {
+                UserDetailsDTO result = (UserDetailsDTO) session.getAttribute("USER");
+                if (result != null) {
+                    username = result.getUserName();
+                }
+                session.invalidate();
+            }//end of destroy session 
+            Cookie cookies[] = request.getCookies();
+            if (cookies != null) {
+                for (Cookie ck : cookies) {
+                    if (ck.getName().equals(username)) {
+                        cookie = new Cookie(username, "");
+                        cookie.setMaxAge(0);
+                        response.addCookie(cookie);
+                    }//end of destroy cookie
+                }//end of traverse cookie
+            }//end of user is logout
+        } finally {
             url = MyAplications.LogoutAccountServlet.LOGOUT_PAGE;
-        }finally{
             response.sendRedirect(url);
         }
     }

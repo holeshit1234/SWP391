@@ -1,12 +1,18 @@
 package DHTV.Controller;
 
+import DHTV.address.AddressDAO;
+import DHTV.address.AddressDTO;
 import DHTV.googlesignin.GoogleDTO;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.GoogleSupport;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -24,59 +30,77 @@ public class GoogleSignInServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-         
+
+        int key = 0;
         //1 get servlet context
         ServletContext context = this.getServletContext();
         //2 get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
 
         //String url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-            String url ="";
+        String url = "";
         try {
-//            if (request.getSession(false).getAttribute("user") == null) {
+            if (request.getSession(false).getAttribute("user") == null) {
                 String code = request.getParameter("code");
                 String accessToken = GoogleSupport.getToken(code);
                 GoogleDTO userToken = GoogleSupport.getUserInfo(accessToken);
                 String username = userToken.getId();
-                log(username);
-                if (username != null){
-              url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                String email = userToken.getEmail();
+
+                UserDetailsDTO user = null;
+
+                try {
+                    user = UserDetailsDAO.getUser(email);
+                    if (user != null) {
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+
+                        HttpSession session = request.getSession();
+                        session.setAttribute("USER", user);
+
+                    }
+                } catch (SQLException ex) {
+                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
+                } catch (NamingException ex) {
+                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
                 }
-//
-//                UserDetailsDTO user = null;
-//
-//                try {
-//                    user = UserDetailsDAO.getUser(username);
-//                } catch (SQLException ex) {
-//                    log("GoogleSignInServlet_SQL_ " + ex.getMessage());
-//                } catch (NamingException ex) {
-//                    log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-//                }
-//                if (user == null) {
-//                    String email = userToken.getEmail();
-//                    String firstName = userToken.getGiven_name();
-//                    String lastName = userToken.getFamily_name();
-//                    String picture = userToken.getPicture();
-//
-//                    user = new UserDetailsDTO(0, 0, username, picture, email, lastName, 0);
-//
-//                    try {
-//                        UserDetailsDAO.addUser(user);
-//                    } catch (SQLException ex) {
-//                        log("GoogleSignInServlet_SQL_ " + ex.getMessage());
-//                    } catch (NamingException ex) {
-//                        log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-//                    }
-//                }
-//
-//                HttpSession session = request.getSession();
-//                session.setAttribute("user", user);
-//
-//            }
+                if (user == null) {
+
+                    String fullname = userToken.getGiven_name();
+
+//                    String date = "01-01-1999";
+//                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+//                    Date defaultDate = Date.valueOf(date);
+//                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+//                        Date DOB = "01-01-1999";
+                    user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
+
+                    try {
+                        key = UserDetailsDAO.addUser(user);
+                        if (key != 0) {
+                            AddressDAO dao = new AddressDAO();
+                            AddressDTO addr = new AddressDTO(0, key, "other", "other", "other", "other", "other");
+
+                            dao.addAddressGooogle(addr, key);
+
+                            HttpSession session = request.getSession();
+                            
+                            session.setAttribute("USER", dao);
+                        }
+
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                    } catch (SQLException ex) {
+                        log("GoogleSignInServlet_SQL_ " + ex.getMessage());
+                    } catch (NamingException ex) {
+                        log("GoogleSignInServlet_Naming_ " + ex.getMessage());
+                    }catch (ParseException ex) {
+                        log("GoogleSignInServlet_Parse_ " + ex.getMessage());
+                    }
+                }
+
+            }
         } finally {
-            
-           RequestDispatcher rd = request.getRequestDispatcher(url);
+
+            RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }

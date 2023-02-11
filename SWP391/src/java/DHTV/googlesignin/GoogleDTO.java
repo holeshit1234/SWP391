@@ -4,87 +4,120 @@ package DHTV.googlesignin;
 import java.io.Serializable;
 
 public class GoogleDTO implements Serializable{
-           private String id;
+        private String id;
 	private String email;
 	private boolean verified_email;
 	private String name;
 	private String given_name;
 	private String family_name;
 	private String picture;
+        private String phone;
+        private String gender;
+        private String DOB;
         
 	public GoogleDTO() {
 	}
 
-        public GoogleDTO(String id, String email, boolean verified_email, String name, 
-                String given_name, String family_name, String picture) {
-		this.id = id;
-		this.email = email;
-		this.verified_email = verified_email;
-		this.name = name;
-		this.given_name = given_name;
-		this.family_name = family_name;
-		this.picture = picture;
-	}
+    public GoogleDTO(String id, String email, boolean verified_email, 
+            String name, String given_name, String family_name, String picture, String phone, String gender, String DOB) {
+        this.id = id;
+        this.email = email;
+        this.verified_email = verified_email;
+        this.name = name;
+        this.given_name = given_name;
+        this.family_name = family_name;
+        this.picture = picture;
+        this.phone = phone;
+        this.gender = gender;
+        this.DOB = DOB;
+    }
 
-	public String getId() {
-		return id;
-	}
+    public String getId() {
+        return id;
+    }
 
-	public void setId(String id) {
-		this.id = id;
-	}
+    public void setId(String id) {
+        this.id = id;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getEmail() {
+        return email;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-	public boolean isVerified_email() {
-		return verified_email;
-	}
+    public boolean isVerified_email() {
+        return verified_email;
+    }
 
-	public void setVerified_email(boolean verified_email) {
-		this.verified_email = verified_email;
-	}
+    public void setVerified_email(boolean verified_email) {
+        this.verified_email = verified_email;
+    }
 
-	public String getName() {
-		return name;
-	}
+    public String getName() {
+        return name;
+    }
 
-	public void setName(String name) {
-		this.name = name;
-	}
+    public void setName(String name) {
+        this.name = name;
+    }
 
-	public String getGiven_name() {
-		return given_name;
-	}
+    public String getGiven_name() {
+        return given_name;
+    }
 
-	public void setGiven_name(String given_name) {
-		this.given_name = given_name;
-	}
+    public void setGiven_name(String given_name) {
+        this.given_name = given_name;
+    }
 
-	public String getFamily_name() {
-		return family_name;
-	}
+    public String getFamily_name() {
+        return family_name;
+    }
 
-	public void setFamily_name(String family_name) {
-		this.family_name = family_name;
-	}
+    public void setFamily_name(String family_name) {
+        this.family_name = family_name;
+    }
 
-	public String getPicture() {
-		return picture;
-	}
+    public String getPicture() {
+        return picture;
+    }
 
-	public void setPicture(String picture) {
-		this.picture = picture;
-	}
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
 
-	@Override
-	public String toString() {
-		return "GoogleDTO{" + "id=" + id + ", email=" + email + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + '}';
-	}
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getDOB() {
+        return DOB;
+    }
+
+    public void setDOB(String DOB) {
+        this.DOB = DOB;
+    }
+
+    @Override
+    public String toString() {
+        return "GoogleDTO{" + "id=" + id + ", email=" + email + ", verified_email=" + verified_email + ", name=" + name + ", given_name=" + given_name + ", family_name=" + family_name + ", picture=" + picture + ", phone=" + phone + ", gender=" + gender + ", DOB=" + DOB + '}';
+    }
+
+   
+      
 	
 }
