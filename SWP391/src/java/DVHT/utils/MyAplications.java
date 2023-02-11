@@ -23,7 +23,7 @@ public class MyAplications {
         public static final String MANAGER_PAGE = "managerPage";
         public static final String SEARCH_STORE_PAGE = "searchPage";
         public static final String ADMIN_PAGE = "adminPage";
-        public static final String ERROR_PAGE = "errorPage";
+        public static final String INDEX_SERVLET = "indexServlet";
     }
      
     public class LogoutAccountServlet {
@@ -38,12 +38,6 @@ public class MyAplications {
 
         public static final String LOGOUT_PAGE = "LogoutPage";
     }
-
-   
-   public class UpdateProfileServlet{
-       public static final String UPDATE_PAGE = "showProfileController" ;
-   }
-
     public class SignUpPageServlet {
 
         public static final String INDEX_PAGE = "IndexPage";
@@ -51,7 +45,6 @@ public class MyAplications {
         public static final String FINISH_PAGE = "FinishPage";
         public static final String SIGN_UP_PAGE = "SignUpPage";
     }
-
 }
 
  

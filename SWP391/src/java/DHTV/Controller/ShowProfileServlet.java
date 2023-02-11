@@ -7,7 +7,6 @@ package DHTV.Controller;
 
 import DHTV.address.AddressDAO;
 import DHTV.address.AddressDTO;
-import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
@@ -57,23 +56,19 @@ public class ShowProfileServlet extends HttpServlet {
                 UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("User");
                 if (dto != null) {
                     int userid = dto.getUserID();
-                    System.out.println(userid);
-                    UserDetailsDAO dao = new UserDetailsDAO();
-                    UserDetailsDTO result =dao.getInfoUser(userid);
-                    System.out.println(result);
-                           
-                    if(result !=null){
                     // call DAO
-                    AddressDAO dao1 = new AddressDAO();
-                    dao1.getAddress(userid);
+                    AddressDAO dao = new AddressDAO();
+                    dao.getAddress(userid);
                     //take data grid
-                    List<AddressDTO> result1 = dao1.getInfoList();
-
-                    request.setAttribute("INFO", result1);
-                    request.setAttribute("USER", result);
+                    List<AddressDTO> result = dao.getInfoList();
                     
-                    url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+                    request.setAttribute("INFO", result);
+                    for(AddressDTO i: result){
+                        System.out.print(i.getStreet());
+                        System.out.println(" = ***street***");
                     }
+                    url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+
                 }
             }
 

@@ -6,7 +6,6 @@
 package DVHT.userdetails;
 
 import java.io.Serializable;
-import java.sql.Date;
 
 /**
  *
@@ -21,18 +20,11 @@ public class UserDetailsDTO implements Serializable{
     private String email;
     private String fullName;
     private String phone;
-    private Date DOB;
-    private String gender;
-            
+
     public UserDetailsDTO() {
     }
 
-
-  
-
-    public UserDetailsDTO(int UserID, int RoleID, String userName, 
-            String passWord, String email, String fullName, String phone, Date DOB, String gender) {
-
+    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, String email, String fullName, String phone) {
         this.UserID = UserID;
         this.RoleID = RoleID;
         this.userName = userName;
@@ -40,10 +32,7 @@ public class UserDetailsDTO implements Serializable{
         this.email = email;
         this.fullName = fullName;
         this.phone = phone;
-        this.DOB = DOB;
-        this.gender = gender;
     }
-  
 
     public int getUserID() {
         return UserID;
@@ -100,27 +89,6 @@ public class UserDetailsDTO implements Serializable{
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
-    public Date getDOB() {
-        return DOB;
-    }
-
-    public void setDOB(Date DOB) {
-        this.DOB = DOB;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public String toString() {
-        return "UserDetailsDTO{" + "UserID=" + UserID + ", RoleID=" + RoleID + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fullName=" + fullName + ", phone=" + phone + ", DOB=" + DOB + ", gender=" + gender + '}';
-    }
-  
+    
+    
 }

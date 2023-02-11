@@ -18,19 +18,17 @@ public class AddressDTO implements Serializable{
     private String Ward; // match Ward
     private String Street; //match Street
     private String Notice;// match Notice
-    private String District;
-    
+
     public AddressDTO() {
     }
 
-    public AddressDTO(int addressID, int userID, String Provice, String Ward, String Street, String Notice, String District) {
+    public AddressDTO(int addressID, int userID, String Provice, String Ward, String Street, String Notice) {
         this.addressID = addressID;
         this.userID = userID;
         this.Provice = Provice;
         this.Ward = Ward;
         this.Street = Street;
         this.Notice = Notice;
-        this.District = District;
     }
 
     public int getAddressID() {
@@ -81,21 +79,9 @@ public class AddressDTO implements Serializable{
         this.Notice = Notice;
     }
 
-    public String getDistrict() {
-        return District;
-    }
-
-    public void setDistrict(String District) {
-        this.District = District;
-    }
-
-    @Override
-    public String toString() {
-        return "AddressDTO{" + "addressID=" + addressID + ", userID=" + userID + ", Provice=" + Provice + ", Ward=" + Ward + ", Street=" + Street + ", Notice=" + Notice + ", District=" + District + '}';
-    }
     
     
-   
+    
     
     
     

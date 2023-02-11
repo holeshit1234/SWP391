@@ -5,16 +5,11 @@
  */
 package DHTV.Controller;
 
-
-import DHTV.address.AddressDAO;
-import DHTV.address.AddressDTO;
-import DVHT.userdetails.UserDetailSignUpError;
+import DVHT.userdetails.UserDetailError;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.Properties;
 import javax.naming.NamingException;
@@ -49,7 +44,7 @@ public class SignUpPageServlet extends HttpServlet {
         //Get siteMaps from context Scope
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(MyAplications.SignUpPageServlet.SIGN_UP_PAGE);
+        String url = siteMaps.getProperty(MyAplications.SignUpPageServlet.REGISTRATION_PAGE);
         
         String username = request.getParameter("txtUsername");
         String password = request.getParameter("txtPassword");
@@ -57,29 +52,9 @@ public class SignUpPageServlet extends HttpServlet {
         String fullname = request.getParameter("txtFullname");
         String email = request.getParameter("txtEmail");
         String phone =request.getParameter("txtPhone");        
-        String DOB = request.getParameter("txtDOB");
-        Date dob = Date.valueOf(DOB);
-        String province = request.getParameter("txtProvince");
-        String district = request.getParameter("txtDistrist");
-        String ward = request.getParameter("txtWard");
-        String street = request.getParameter("txtStreet");
-        byte[] bytes1 = street.getBytes(StandardCharsets.ISO_8859_1);
-        street = new String(bytes1, StandardCharsets.UTF_8);
-        String gender = request.getParameter("gender");
-        //gender ="Nam"; 
-//đang k lấy dc gender nên để tạm
+
         
-        
-        //print to check
-        /*
-        UserDetailsDTO user = new UserDetailsDTO(0, 0, username, password, email, fullname, phone, dob, gender);
-        System.out.println(user);
-        AddressDTO add = new AddressDTO(0, 0, province, ward, street, null, district);
-        System.out.println(add);
-        */
-        
-        //process
-        UserDetailSignUpError errors = new UserDetailSignUpError();
+        UserDetailError errors = new UserDetailError();
         boolean isError = false;
         try {
             if (username.trim().length() < 4 || username.trim().length() > 30) {
@@ -106,7 +81,6 @@ public class SignUpPageServlet extends HttpServlet {
                 request.setAttribute("ERROR", errors);
             
             } else {
-                
                 // Create Account
                 String message ="";
                 UserDetailsDAO dao = new UserDetailsDAO();
@@ -114,23 +88,14 @@ public class SignUpPageServlet extends HttpServlet {
                 if (usernameExist) {
                     message += "User name has existed! Please enter different user name!!\n";
                     request.setAttribute("MESSAGE", message);
-                    log("User name has existed!! Can not registration !");
                 }
                 else{
                     int role = 3;
-                    dob=null;
-                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone, dob, gender);
-
-                    int key = 0;
-                    key = dao.addUser(userAccount);
-                    if (key>0){
-                        
-                        AddressDAO dao2 = new AddressDAO();
-                        AddressDTO address = new AddressDTO(0, key, province, ward, street, province, district); 
-                        boolean result = dao2.addAddress(address);                        
-                        if(result) url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
-                        
-                    }
+                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone);
+                    boolean result = false;
+                    result = dao.addUser(userAccount);
+                    if (result) 
+                        url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
                 }
             }
         } catch (SQLException ex) {
