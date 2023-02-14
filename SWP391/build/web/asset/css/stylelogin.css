@@ -223,7 +223,6 @@ form{
 .social-media{
     display: flex;
     justify-content: center;
-    border-style: solid;
 }
 .social-icon{
     height: 45px;
@@ -243,10 +242,14 @@ a{
     color: #333;
     border-color: #efe6e1;
 }
+
+
+/*------------------------------------*/
+
 /*-----------Footer----------------*/
+
 footer{
     text-align: center;
-    
 }
 .footer-top{
     display: flex;

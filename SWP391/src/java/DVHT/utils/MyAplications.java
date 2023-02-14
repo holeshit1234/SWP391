@@ -60,6 +60,7 @@ public class MyAplications {
         public static final String INDEX_PAGE = "IndexPage";
         public static final String REGISTRATION_PAGE = "RegistrationPage";
         public static final String FINISH_PAGE = "FinishPage";
+        public static final String SIGN_UP_PAGE = "SignUpPage";
     }
 
 }

@@ -192,4 +192,48 @@ public class AddressDAO implements Serializable {
         
         return result; 
     }
+    
+    
+    public static boolean addAddress(AddressDTO dto)
+            throws NamingException, SQLException {
+
+        int key = 0;
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+  
+        try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "insert into [Address] (UserId, Province, Ward, Street, Notice, District) "
+                        + "values (?,?,?,?,?,?) ";
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, dto.getUserID());
+                stm.setString(2, dto.getProvice());
+                stm.setString(3, dto.getWard());
+                stm.setString(4, dto.getStreet());
+                stm.setString(5, dto.getNotice());
+                stm.setString(6, dto.getDistrict());
+                //4.execute query
+                int rows = stm.executeUpdate();
+                //5. process result
+                
+                if (rows > 0) {
+                    result = true;
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
 }

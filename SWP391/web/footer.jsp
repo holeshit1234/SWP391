@@ -11,7 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
         <!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 	
         <link rel="stylesheet" href="asset/css/stylelogin.css">
 	
@@ -42,7 +42,7 @@
 	<div class="footer-bottom">
 		©IVYmoda All rights reserved
 	</div>
-</footer>
+        </footer>
         
     </body>
 </html>

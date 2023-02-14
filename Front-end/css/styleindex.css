@@ -13,13 +13,25 @@ a{
     color: #333;
 }
 header{
-    background-color: #efe6e1;
+    background: #eedbd0;
     display: flex;
     justify-content: space-between;
     padding: 12px 50px;
     height: 70px;
     align-items: center;
     margin-bottom: 70px;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    position: fixed;
+    opacity:0.8
+}
+header:hover{
+    background-color: #efe6e1;
+}
+header.sticky{
+    background-color: #efe6e1;
 }
 
 .logo{
@@ -61,6 +73,7 @@ header{
     font-weight: bold !important;
     display: block;
     line-height: 20px;
+    text-decoration: none;
 }
 .sub-menu ul a{
     font-weight: normal;
@@ -72,7 +85,22 @@ header{
     display: flex;
 }
 .orther > li{
-    padding: 0 1.2em;
+    padding: 0 12px;
+    position: relative;
+}
+.orther > li::after{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 80%;
+    background: #ccc;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.orther > li:last-child::after{
+    display: none;
 }
 .orther > li:first-child{
     position: relative;
@@ -86,12 +114,14 @@ header{
 }
 .orther > li:first-child i{
     position: absolute;
-    right: 10px;    
+    right: 10px;
 }
+
 /*-----------Banner-slider----------------*/
 #slider{
     border-bottom: 2px solid #000;
     overflow: hidden;
+    padding-top: 140px;
 }
 .aspect-ratio-169 {
     display: block;
@@ -136,6 +166,8 @@ header{
 }
 .cartegory{
     padding: 100px 0 0;
+    padding-bottom: 30px;
+    border-bottom: 2px solid #000;
 }
 .cartegory-left{
     width: 20%;
@@ -193,14 +225,46 @@ header{
 .cartegory-right-content-item p{
     font-size: 12px;
 }
+.cartegory-right-bottom-item2 {
+    padding-left: 650px;
+    
+}
 .cartegory-right-bottom {
     justify-content: space-between;
+    align-items: center;
     margin: 30px 0 20px;
     width: 100%;
+}
+.cartegory-right-bottom p{
+    font-family: var(--main-text-font);
+    font-size: 11px;
+}
+.cartegory-left ul li{
+    padding: 12px 0;
+}
+.cartegory-left ul li>a{
+    color: black;
+    font-size: 16px;
+    font-weight: bold;
+    font-family: var(--main-text-font);
+}
+.cartegory-left ul li ul li{
+    padding-left: 10px;   
+}
+.cartegory-left-li ul{
+    display: none;
+}
+.cartegory-left-li.block ul{
+    display: block;
+}
+.cartegory-left ul li ul li a {
+    color: #333333;
+    font-size: 13px;
 }
 /*-----------Footer----------------*/
 footer{
     text-align: center;
+    
 }
 .footer-top{
     display: flex;
