@@ -54,31 +54,78 @@ public class ShowProfileServlet extends HttpServlet {
 
         try {
             if (session != null) {
-                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
-                if(dto == null){
-                    AddressDTO dto1 = (AddressDTO) session.getAttribute("USER");
+                AddressDTO dto1 = (AddressDTO) session.getAttribute("USERE");
+                System.out.println(dto1);
                 
-                if (dto != null || dto1 != null) {
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
+                System.out.println(dto);
+                
+                if (dto != null) {
+                    //AddressDTO dto1 = (AddressDTO) session.getAttribute("USER");                
                     int userid = dto.getUserID();
                     System.out.println(userid);
                     UserDetailsDAO dao = new UserDetailsDAO();
-                    UserDetailsDTO result =dao.getInfoUser(userid);
+                    UserDetailsDTO result = dao.getInfoUser(userid);
                     System.out.println(result);
-                           
-                    if(result !=null){
-                    // call DAO
-                    AddressDAO dao1 = new AddressDAO();
-                    dao1.getAddress(userid);
-                    //take data grid
-                    List<AddressDTO> result1 = dao1.getInfoList();
 
-                    request.setAttribute("INFO", result1);
-                    request.setAttribute("USERS", result);
-                    
-                    url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+                    if (result != null) {
+                        // call DAO
+                        AddressDAO dao1 = new AddressDAO();
+                        dao1.getAddress(userid);
+                        //take data grid
+                        List<AddressDTO> result1 = dao1.getInfoList();
+
+                        request.setAttribute("INFO", result1);
+                        request.setAttribute("USERS", result);
+
+                        url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+
                     }
+                }else if(dto1 != null) {
+                     int userid = dto1.getUserID();
+                    //userid = dto1.getUserID();
+                    System.out.println(userid);
+                    UserDetailsDAO dao = new UserDetailsDAO();
+                    UserDetailsDTO result = dao.getInfoUser(userid);
+                    System.out.println(result);
+
+                    if (result != null) {
+                        // call DAO
+                        AddressDAO dao1 = new AddressDAO();
+                        dao1.getAddress(userid);
+                        //take data grid
+                        List<AddressDTO> result1 = dao1.getInfoList();
+
+                        request.setAttribute("INFO", result1);
+                        request.setAttribute("USERS", result);
+
+                        url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+
                     }
                 }
+//                if(dto == null) {
+//                  
+//                    if (dto1 != null) {
+//                        int userid = dto.getUserID();
+//                        System.out.println(userid);
+//                        UserDetailsDAO dao = new UserDetailsDAO();
+//                        UserDetailsDTO result = dao.getInfoUser(userid);
+//                        System.out.println(result);
+//
+//                        if (result != null) {
+//                            // call DAO
+//                            AddressDAO dao1 = new AddressDAO();
+//                            dao1.getAddress(userid);
+//                            //take data grid
+//                            List<AddressDTO> result1 = dao1.getInfoList();
+//
+//                            request.setAttribute("INFO", result1);
+//                            request.setAttribute("USERS", result);
+//
+//                            url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+//                        }
+//                    }
+//                }
             }
 
         } catch (NamingException ex) {

@@ -155,8 +155,8 @@ public class AddressDAO implements Serializable {
         PreparedStatement stm = null;
         ResultSet rs = null;
         int rows = 0;
+        //AddressDTO result = null;
         boolean result = false;
-        
         try{
             //1. get connection 
             con = DBHelpers.getConnection();

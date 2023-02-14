@@ -77,7 +77,7 @@ public class UserDetailsDAO implements Serializable {
     }
 
     public static int addUser(UserDetailsDTO user)
-            throws NamingException, SQLException ,ParseException {
+            throws NamingException, SQLException, ParseException {
 
         int key = 0;
         Connection con = null;
@@ -100,19 +100,19 @@ public class UserDetailsDAO implements Serializable {
                 stm.setString(3, user.getPassWord());
                 stm.setString(4, user.getEmail());
                 stm.setString(5, user.getFullName());
-                stm.setString(6, user.getPhone());               
+                stm.setString(6, user.getPhone());
                 if (user.getDOB() != null) {
-                java.sql.Date sqlDate = new java.sql.Date(user.getDOB().getTime());
-                stm.setDate(7, sqlDate);
-            } else {
-                String date = "01-01-1999";
-                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-                Date defaultDate = df.parse(date);
-                java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
-                stm.setDate(7, sqlDate);
-            }
+                    java.sql.Date sqlDate = new java.sql.Date(user.getDOB().getTime());
+                    stm.setDate(7, sqlDate);
+                } else {
+                    String date = "01-01-1999";
+                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                    Date defaultDate = df.parse(date);
+                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
+                    stm.setDate(7, sqlDate);
+                }
                 stm.setString(8, user.getGender());
-                //4.execute query
+                //4.execute queryF
                 int rows = stm.executeUpdate();
                 rs = stm.getGeneratedKeys();
                 //5. process result
@@ -192,7 +192,7 @@ public class UserDetailsDAO implements Serializable {
         PreparedStatement stm = null;
         ResultSet rs = null;
         //Date DOB=null;
-        
+
         try {
             //1.Conect Database
             con = DBHelpers.getConnection();
@@ -214,7 +214,7 @@ public class UserDetailsDAO implements Serializable {
                     int role = rs.getInt("RoleID");
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
-                    String phone = rs.getString("Phone");  
+                    String phone = rs.getString("Phone");
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
 //                    if (DOB != null) {
@@ -299,4 +299,55 @@ public class UserDetailsDAO implements Serializable {
         return result;
     }
 
+    public UserDetailsDTO findEmail(String email)
+            throws SQLException, /*ClassNotFoundException*/ NamingException {;
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        UserDetailsDTO result = null;
+        
+        try {
+            //1 get connecttion
+            con = DBHelpers.getConnection();
+
+            if (con != null) {
+                //2 sql commands
+                String sql = "Select UserID, UserName, PassWord, FullName, "
+                        + "RoleID, Phone, DOB, Gender "
+                        + "From UserDetails "
+                        + "Where Email =? ";
+
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);
+
+                //4.execute query
+                rs = stm.executeQuery();
+                if (rs.next()) {
+                    int userid = rs.getInt("UserID");
+                    String password = rs.getString("PassWord");
+                    int role = rs.getInt("RoleID");
+                    String fullname = rs.getString("FullName");
+                    String username = rs.getString("UserName");
+                    String phone = rs.getString("Phone");
+                    Date DOB = rs.getDate("DOB");
+                    java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+                    String gender = rs.getString("Gender");
+                    result = new UserDetailsDTO(userid, role, username,
+                            password, email, fullname, phone, sqlDate, gender);
+                }
+            } //end con is availible   
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 }

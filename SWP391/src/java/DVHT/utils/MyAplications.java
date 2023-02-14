@@ -29,6 +29,12 @@ public class MyAplications {
         public static final String ERROR_PAGE = "errorPage";
     }
 
+    public class ForgotPasswordServlet {
+
+        public static final String FORGOTPASSWORD_CONTROLLER = "forgotPasswordController";
+        public static final String FORGOTPASSWORD_PAGE = "forgotPasswordPage";
+    }
+
     public class LogoutAccountServlet {
 
         public static final String LOGOUT_PAGE = "LogoutPage";

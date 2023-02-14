@@ -11,7 +11,8 @@ import java.io.Serializable;
  *
  * @author User
  */
-public class AddressDTO implements Serializable{
+public class AddressDTO implements Serializable {
+
     private int addressID; // match AddressID
     private int userID; //match UserID
     private String Provice; //match Provice
@@ -19,7 +20,7 @@ public class AddressDTO implements Serializable{
     private String Street; //match Street
     private String Notice;// match Notice
     private String District;
-    
+
     public AddressDTO() {
     }
 
@@ -88,17 +89,4 @@ public class AddressDTO implements Serializable{
     public void setDistrict(String District) {
         this.District = District;
     }
-
-    @Override
-    public String toString() {
-        return "AddressDTO{" + "addressID=" + addressID + ", userID=" + userID + ", Provice=" + Provice + ", Ward=" + Ward + ", Street=" + Street + ", Notice=" + Notice + ", District=" + District + '}';
-    }
-    
-    
-   
-    
-    
-    
-    
-    
 }

@@ -75,19 +75,24 @@ public class GoogleSignInServlet extends HttpServlet {
                     user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
 
                     try {
+                        
                         key = UserDetailsDAO.addUser(user);
                         if (key != 0) {
-                            AddressDAO dao = new AddressDAO();
-                            AddressDTO addr = new AddressDTO(0, key, "other", "other", "other", "other", "other");
-
-                            dao.addAddressGooogle(addr, key);
-
+ //                           AddressDAO dao = new AddressDAO();
+                            AddressDTO addr = null;
+                            addr = new AddressDTO(0, key, "other", "other", "other", "other", "other");
+                            
+                            
+                            AddressDAO.addAddressGooogle(addr, key);
+                            
+                           
                             HttpSession session = request.getSession();
                             
-                            session.setAttribute("USER", dao);
+                            session.setAttribute("USERE", addr);
+                            
                         }
 
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                     url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
                     } catch (SQLException ex) {
                         log("GoogleSignInServlet_SQL_ " + ex.getMessage());
                     } catch (NamingException ex) {
