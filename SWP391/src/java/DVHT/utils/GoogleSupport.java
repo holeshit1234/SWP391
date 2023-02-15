@@ -1,5 +1,5 @@
 package DVHT.utils;
-import DHTV.googlesignin.GoogleDTO;
+import DVHT.googlesignin.GoogleDTO;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import java.io.IOException;

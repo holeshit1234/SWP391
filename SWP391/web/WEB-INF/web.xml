@@ -18,7 +18,7 @@
     </listener>
     <servlet>
         <servlet-name>LoginServlet</servlet-name>
-        <servlet-class>DHTV.Controller.LoginServlet</servlet-class>
+        <servlet-class>DVHT.Controller.LoginServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginServlet</servlet-name>

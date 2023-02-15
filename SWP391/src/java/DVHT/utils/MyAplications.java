@@ -27,6 +27,7 @@ public class MyAplications {
         public static final String SEARCH_STORE_PAGE = "searchPage";
         public static final String ADMIN_PAGE = "adminPage";
         public static final String ERROR_PAGE = "errorPage";
+        public static final String SEARCH_STORE_SERVLET="storeServlet";//Thinh
     }
 
     public class ForgotPasswordServlet {
@@ -62,5 +63,25 @@ public class MyAplications {
         public static final String FINISH_PAGE = "FinishPage";
         public static final String SIGN_UP_PAGE = "SignUpPage";
     }
+ //Thinh
+    public class showItems{
+        public static final String STORE_SHOW_PAGE="storePage";
+        public static final String SEARCH_STORE_SERVLET="storeServlet";
+        public static final String SHOW_DETAIL="showDetailProduct";
+    }
+     public class AddToCartServlet {
+         public static final String SEARCH_STORE_SERVLET="storeServlet";
+        public static final String CAN_NOT_SHOPPING = "canNotShopping";
+        
+    }
+     
+    public class RemoveCartServlet {
 
+        public static final String VIEW_CART = "viewCartPage";
+    }
+    public class UpdateCartServlet {
+
+        public static final String VIEW_CART = "viewCartPage";
+    }
+    //Thinh 
 }

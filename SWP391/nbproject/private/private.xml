@@ -3,11 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/header.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/login.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/signup.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/WEB-INF/siteMaps.properties</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/web/index.jsp</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/src/java/DHTV/Controller/ShowItemsServlet.java</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/web/WEB-INF/siteMaps.properties</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/web/asset/css/styleindex.css</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/web/WEB-INF/web.xml</file>
+            <file>file:/D:/FPT/SWP/Project/Ghép/SWP391/SWP391/src/java/DVHT/utils/MyAplications.java</file>
         </group>
     </open-files>
 </project-private>

@@ -202,7 +202,7 @@ header.sticky{
     border: 1px solid #dddddd;
     cursor: pointer;
 }
-.cartegory-right-content{
+.cartegory-right-content row{
     margin-top: 20px;
     justify-content: space-around;
 }
@@ -211,14 +211,14 @@ header.sticky{
     text-align: center;
     padding: 12px 0;
 }
-.cartegory-right-content-item h1{
+.cartegory-right-content-item h1 a{
     font-size: 14px;
-    /*font-family: var(--main-text-font);*/
+    font-family: var(--main-text-font);
     margin-top: 6px;
     color: #333333;
     font-weight: bold;
 }
-.cartegory-right-content-item img{
+.cartegory-right-content-item a img{
     width: 100%;
 }
 .cartegory-right-content-item p{
