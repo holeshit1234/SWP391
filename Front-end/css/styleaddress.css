@@ -295,7 +295,7 @@ form .button{
 }
 form .button input{
     height: 100%;
-    width: 100%;
+    width: 150px;
     outline: none;
     color: #333;
     background: linear-gradient(135deg, #e7d0c4, #efe6e1);
@@ -401,3 +401,5 @@ footer{
     margin: 20px 0;
     text-align: center;
 }
+
+

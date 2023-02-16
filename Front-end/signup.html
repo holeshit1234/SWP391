@@ -131,7 +131,14 @@
 				</div>
 			</div>
 			<div class="button">
-				<input type="submit" value="Register">
+				<input type="submit" value="Register" onclick="openPopup()">
+				<div class="popup" id="popup">
+					<img src="images/404-tick.png">
+					<h2>Thank you!</h2>
+					<p>You have successfully registered your information.</p>
+					<button type="button" onclick="location.href='login.html';">Login now</button>
+					<!-----onclick="location.href='login.html';"------>
+				</div>
 			</div>
 		</form>
 	</div>
@@ -159,7 +166,15 @@
 		©IVYmoda All rights reserved
 	</div>
 </footer>
-
+<script>
+	let popup = document.getElementById("popup");
+	function openPopup(){
+		popup.classList.add("open-popup");
+	}
+	function closePopup(){
+		popup.classList.remove("open-popup");
+	}
+</script>
 
 	
 </body>

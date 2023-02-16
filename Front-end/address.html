@@ -9,7 +9,7 @@
 	<link href="css/bootstrap.min.css" rel="stylesheet">
 	
 
-	<link rel="stylesheet" href="css/styleprofile.css">
+	<link rel="stylesheet" href="css/styleaddress.css">
 	<link rel="shortcut icon" href="images/logo.png">
 	<link rel="stylesheet" href="icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
 </head>
@@ -79,7 +79,7 @@
 
 	<div class="sigup">
 		<div class="container">
-			<div class="title">My account</div>
+			<div class="title">Address number</div>
 			<form action="#">
 				<div class="user-detail">
 					<div class="input-box">
@@ -87,45 +87,30 @@
 						<input type="text" placeholder="Enter your username" required>
 					</div>		
 					<div class="input-box">
-						<span class="detail">Email</span>
-						<input type="text" placeholder="Enter your email" required>
-					</div>
-					
-					<div class="input-box">
 						<span class="detail">Phone</span>
 						<input type="text" placeholder="Enter your phone" required>
 					</div>
 					<div class="input-box">
-						<span class="detail">Date of birth</span>
-						<input type="text" placeholder="Enter Date of birth" required>
+						<span class="detail">Province</span>
+						<input type="text" placeholder="Enter your province" required>
+					</div>
+					
+					<div class="input-box">
+						<span class="detail">Ward</span>
+						<input type="text" placeholder="Enter your ward" required>
 					</div>
 					<div class="input-box">
-						<span class="detail">Password</span>
-						<input type="text" placeholder="Enter your password" required>
-					</div>		
-				</div>
-				<div class="gender-detail">
-					<input type="radio" name="gender" id="dot-1">
-					<input type="radio" name="gender" id="dot-2">
-					<input type="radio" name="gender" id="dot-3">
-					<span class="gender-title">Gender</span>
-					<div class="category">
-						<label for="dot-1">
-							<span class="dot one"></span>
-							<span class="gender">Male</span>
-						</label>
-						<label for="dot-2">
-							<span class="dot two"></span>
-							<span class="gender">Female</span>
-						</label>
-						<label for="dot-3">
-							<span class="dot three"></span>
-							<span class="gender">Orther</span>
-						</label>
+						<span class="detail">Street</span>
+						<input type="text" placeholder="Enter your street" required>
 					</div>
+					<div class="input-box">
+						<span class="detail">Address</span>
+						<input type="text" placeholder="Enter your address" required>
+					</div>		
 				</div>
 				<div class="button">
 					<input type="submit" value="Save" onclick="openPopup()"></input>
+					<input type="submit" value="Change address" onclick="openPopup()"></input>
 					<div class="popup" id="popup">
 						<img src="images/404-tick.png">
 						<h2>Thank you!</h2>
@@ -165,6 +150,21 @@
 
 	<script src="js/Jquery.js"></script>
 </body>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <script>
 	const imgPosition = document.querySelectorAll(".aspect-ratio-169 img")
 	const imgContainer = document.querySelector('.aspect-ratio-169')
