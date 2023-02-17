@@ -190,7 +190,7 @@ header.sticky{
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
-    background-color: #ffff;
+/*    background-color: #ffff;*/
     border: 1px solid #dddddd;
     cursor: pointer;
 }
@@ -199,7 +199,7 @@ header.sticky{
     padding: 10px 15px;
     display: flex;
     justify-content: space-between;
-    background-color: #ffff;
+/*    background-color: #ffff;*/
     border: 1px solid #dddddd;
     cursor: pointer;
 }
@@ -207,10 +207,13 @@ header.sticky{
     margin-top: 20px;
     justify-content: space-around;
 }
+
 .cartegory-right-content-item{
     width: calc(25% - 12px);
     text-align: center;
-    padding: 12px 0;
+    padding:15px 15px;
+    
+   
 }
 .cartegory-right-content-item h1{
     font-size: 14px;
@@ -221,9 +224,15 @@ header.sticky{
 }
 .cartegory-right-content-item img{
     width: 100%;
+    //height: 230px;
+        
 }
 .cartegory-right-content-item p{
     font-size: 12px;
+}
+.item-product{
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    padding: 10px 10px;
 }
 .cartegory-right-bottom-item2 {
     padding-left: 650px;

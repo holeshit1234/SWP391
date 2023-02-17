@@ -73,6 +73,7 @@ public class CommentDAO {
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
+        this.commentList = new ArrayList<>();
         try {
             //1 get comnnection
             con = DBHelpers.getConnection();

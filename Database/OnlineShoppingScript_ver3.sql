@@ -363,12 +363,12 @@ go
 INSERT INTO ProductIMG
     (ProductID,Image )
 VALUES
-    (1,'https://lzd-img-global.slatic.net/g/p/846c8f4dad880609d8ba54b21d357534.jpg_720x720q80.jpg' ),
-	(2,'https://bizweb.dktcdn.net/thumb/1024x1024/100/413/335/products/duyet-fashion-gucci-gg-multicolor-canvas-shorts-658089-z8aog-3330-3.jpg?v=1618453142357'),
-	(3,'https://cf.shopee.vn/file/2db77affc69bf68505b68071a5cdb416'),
-	(4,'https://cf.shopee.vn/file/6788460f4e2bcb95b534ea5ec667fbe1'),
-	(5,'https://xcimg.szwego.com/20201009/i1602175840_6022_0.jpg'),
-	(6,'https://cf.shopee.vn/file/c7c95683831f01095912c309a5182161')
+    (1,'https://bucket.nhanh.vn/05016d-25618/art/artCT/20210613_7gWT1nftpu24Ax9bSsonMzlE.jpg' ),
+	(2,'https://lzd-img-global.slatic.net/g/p/d52ff5ecbbf8a8cc289984fc1a6a3072.jpg_720x720q80.jpg_.webp'),
+	(3,'https://salt.tikicdn.com/ts/tmp/b8/6a/7f/9440a57a6352bce5ceb87bb28b41be57.jpg'),
+	(4,'https://salt.tikicdn.com/ts/tmp/a0/d9/ee/ba84557bb9a519207c3baee99a2541c9.jpg'),
+	(5,'https://cf.shopee.vn/file/582170e1c0ba7c882fc20048cc32f549'),
+	(6,'https://cf.shopee.vn/file/8e4aa52894382b9685284b7c05741613')
 
 
 go

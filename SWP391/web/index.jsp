@@ -22,7 +22,7 @@
         <!---------HEADER-------->
         <header>
             <div class="logo">
-                <a href="index.jsp"><img src="asset/images/logo-circle.png"></a>
+                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
                 <li><a href="">Male</a>
@@ -55,7 +55,14 @@
                 <li><a href="">Information</a></li>
             </div>
             <div class="orther">
-                <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
+
+                <li>
+                    <form action="SearchServlet">
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>
+                    </form>
+                </li>
+
+
                 <li><a class="fa fa-user" href="FirstTimeRequestServlet"></a></li>
                 <li><a class="fa fa-shopping-bag" href=""></a></li>
                 <li> <a href="LogoutAccountServlet">(Logout)</a>  </li>
@@ -83,33 +90,50 @@
             <div class="container">
                 <div class=" row">
 
-                    <div>
+
+                    <div class="cartegory-right-top-item">
+                        <form action="SearchServlet">
+                            <div class="row">
+                                <div  class="col-md-12">
+                                    <input type="text" class="form-control">
+                                </div>                                
+                            </div>
+                        </form>
+
+                    </div>
+                    <div class="cartegory-right-top-item">
                         <button><span>Filter</span><i class="fa fa-sort-down"></i></button>
                     </div>
-                    <div>
+                    <div class="cartegory-right-top-item">
                         <select name="" id="">
                             <option value="">Arrange</option>
                             <option value="">High to low price</option>
                             <option value="">Low to high price</option>
                         </select>
                     </div>
+
                 </div>
-                <div class=" row">
+                <div class="row">
 
                     <c:if test="${not empty requestScope.ITEMS_RESULT}"> 
 
                         <c:forEach var="dto" items="${requestScope.ITEMS_RESULT}" >
-                        
 
-                                <div class="cartegory-right-content-item">
-                                    <jsp:useBean id="dao" class="DHTV.product.ProductImgDAO"/>                         
-                                    <a href="CommentServlet">
+
+
+                            <div class="cartegory-right-content-item col-md-3 ">
+                                <div class="item-product">
+                                    <form action="CommentServlet">
+                                        <jsp:useBean id="dao" class="DHTV.product.ProductImgDAO"/>                      
                                         <img src="${dao.getOneImgByProductID(dto.getProductID())}">
-                                    </a>
-                                    <h1>${dto.getProductName()}</h1>
-                                    <p>${dto.getPrice()}</p>
+                                        <input type="hidden" name="txtProductID" value="${dto.getProductID()}" />                                    
+                                        <h1>${dto.getProductName()}</h1>
+                                        <p>${dto.getPrice()} vnđ</p>
+                                        <input type="submit" value="Detail" class="btn">
+                                    </form>
                                 </div>
-                            
+                            </div>  
+
                         </c:forEach>                                
 
                     </c:if>

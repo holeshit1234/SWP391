@@ -51,12 +51,16 @@ public class CommentServlet extends HttpServlet {
         
         try{
             //Insert to data new Comment
-            //String productID = request.getParameter("txtProductID");
+            String txtproductID = request.getParameter("txtProductID");
             //String userID = request.getParameter("txtUserID");
             int userID = 3;
-            int productID = 1;
-           
             
+            int productID = 1;
+            if (txtproductID != null) productID=Integer.parseInt(txtproductID.trim());
+            System.out.println("productID = "+ txtproductID);
+            
+            
+            //
             String description = request.getParameter("txtDescription");
             String rate = request.getParameter("rating");
             int point=1;

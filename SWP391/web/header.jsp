@@ -20,9 +20,9 @@
         <title>JSP Page</title>
     </head>
     <body>
-       <header>
+    <header>
     <div class="logo">
-        <a href="index.jsp"><img src="asset/images/logo-circle.png"></a>
+        <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
         
     </div>
     <div class="menu">

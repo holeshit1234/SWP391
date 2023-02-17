@@ -19,7 +19,7 @@
         <!---------HEADER-------->
         <header>
             <div class="logo">
-                <a href="index.jsp"><img src="asset/images/logo-circle.png"></a>
+                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
                 <li><a href="">Male</a>
@@ -166,15 +166,52 @@
         <section id="testimonials">
             <div class="testimonial-heading">
                 <h1>Product Reviews</h1>
-                <div class="footer-top">
-                    <li><a href="CommentServlet">All</a></li>
-                    <li><a href="">5 stars (20)</a></li>
-                    <li><a href="">4 stars (15)</a></li>
-                    <li><a href="">3 stars (10)</a></li>
-                    <li><a href="">2 stars (0)</a></li>
-                    <li><a href="">1 stars (0)</a></li>
-
-                </div>
+                
+                    <form action="CommentServlet" method="GET">
+                    <div class="footer-top">
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        All
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        5 <i class="fa fa-star" ></i> (20)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        4 <i class="fa fa-star" ></i> (15)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        3 <i class="fa fa-star" ></i> (0)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        2 <i class="fa fa-star" ></i> (0)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        1 <i class="fa fa-star" ></i> (0)
+                        </button>
+                    </li>
+                    <li>
+                        <button type="button" class="btn btn-secondary" >
+                        Gần nhất
+                        </button>
+                    </li>
+                    <li>
+                        <button type="submit" class="btn btn-secondary" >
+                        Xa nhất
+                        </button>
+                    </li>
+                    </div>
+                    </form>
+                
             </div>
 
             <!--testimonials-box-container------------->
@@ -212,7 +249,7 @@
                                                 <label for="star3"></label>
                                                 <input type="radio" name="rating" value="2" id="star2">
                                                 <label for="star2"></label>
-                                                <input type="radio" name="rating" value="1" id="star1 ">
+                                                <input type="radio" name="rating" value="1" id="star1">
                                                 <label for="star1"></label>
                                             </li>
                                         </div>                           
@@ -248,9 +285,9 @@
                                             <strong>UserID = ${dto.getUserID()}</strong>
                                             ${dto.getDate()}
                                             <br>
-                                                                                   
+
                                             <p>
-                                            Point of this product:  ${dto.getPoint()} <i class="fa fa-star" ></i>
+                                                Point of this product:  ${dto.getPoint()} <i class="fa fa-star" ></i>
                                             </p>
                                         </div>
                                     </div>
