@@ -12,7 +12,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
 
-        <link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 
         <link rel="stylesheet" href="asset/css/stylelogin.css">
 
@@ -57,16 +57,16 @@
                             <input type="submit" value="login" class="btn">
                             
                             <p class="social-text">Or sign in with social platform</p>
-                            <div class="social-media border-rounded">
+                            <div class="social-media">
                                 <a href="http://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/SWP391/GoogleSignInServlet&response_type=code
                                    &client_id=862594563658-nsdpdrc8k2ee7h28v6r1rg8t3obssjtv.apps.googleusercontent.com&approval_prompt=force" class="social-icon">
-                                    <i class="fa fa-google">Login with Google</i>                             
+                                    <i class="fa fa-google"></i>                             
                                 </a>
                             </div>
 
                         </form> 
 
-                        <form action="signup.html" class="sign-up-form">
+                        <form action="signup.jsp" class="sign-up-form">
                             <h2 class="title">Become a customer of the store</h2>
 
                             <p class="social-text">If you do not have an account on ivymoda.com, use this option to access the registration form. By providing IVY moda with your details, the buying process on ivymoda.com will be a more enjoyable and quicker experience.</p>

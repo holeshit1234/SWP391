@@ -74,7 +74,7 @@ public class FirstTimeRequestServlet extends HttpServlet {
                         //url = MyAplications.LoginServlet.MANAGER_PAGE;
                     } else {
                         //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-                        url = siteMaps.getProperty(MyAplications.firstTimeServlet.SEARCH_STORE_PAGE);
+                        url = siteMaps.getProperty(MyAplications.firstTimeServlet.INDEX_PAGE);
                     }
                 }
 //                }//cookie end traversal

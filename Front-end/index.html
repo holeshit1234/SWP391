@@ -81,20 +81,20 @@
 				<ul>
 					<li class="cartegory-left-li"><a href="#">Female</a>
 						<ul>
-							<li><a href=""></a>New arrivals women's goods</li>
-							<li><a href=""></a>Female jeans</li>
-							<li><a href=""></a>Jeans for joy</li>
+							<li><a href="">New arrivals women's goods</a></li>
+							<li><a href="">Female jeans</a></li>
+							<li><a href="">Jeans for joy</a></li>
 						</ul>
 					</li>
-					<li class="cartegory-left-li"><a href=""></a>Male
+					<li class="cartegory-left-li"><a href="#">Male</a>
 						<ul>
-							<li><a href=""></a>New arrivals men's goods</li>
-							<li><a href=""></a>Male jeans</li>
-							<li><a href=""></a>Jeans for joy</li>
+							<li><a href="">New arrivals men's goods</a></li>
+							<li><a href="">Male jeans</a></li>
+							<li><a href="">Jeans for joy</a></li>
 						</ul>
 					</li>
-					<li class="cartegory-left-li"><a href=""></a>Children</li>
-					<li class="cartegory-left-li"><a href=""></a>Sale</li>
+					<li class="cartegory-left-li"><a href="">Children</a></li>
+					<li class="cartegory-left-li"><a href="">Sale</a></li>
 				</ul>
 			</div>
 			<div class="cartegory-right row">
@@ -157,7 +157,7 @@
 					<div class="cartegory-right-bottom-item">
 						<p>Display 2<span>|</span>4 product</p>
 					</div>
-					<div class="cartegory-right-bottom-item">
+					<div class="cartegory-right-bottom-item2">
 						<p><span>&#171;<span>1 2 3 4 5</span>&#187;</span>Last page</p>
 					</div>
 				</div>
@@ -193,6 +193,20 @@
 	
 </body>
 <script>
+//---------------------sticky-header---------------
+	const header = document.querySelector("header")
+		window.addEventListener("scroll",function(){
+			x =window.pageYOffset
+			if(x>0){
+				header.classList.add("sticky")
+			}
+			else{
+				header.classList.remove("sticky")
+			}
+		//console.log(x)
+		})
+
+//---------------------sliderbanner-dotcontroller---------------
 	const imgPosition = document.querySelectorAll(".aspect-ratio-169 img")
 	const imgContainer = document.querySelector('.aspect-ratio-169')
 	const dotItem= document.querySelectorAll(".dot")

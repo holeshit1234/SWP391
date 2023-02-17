@@ -52,7 +52,7 @@ public class GoogleSignInServlet extends HttpServlet {
                 try {
                     user = UserDetailsDAO.getUser(email);
                     if (user != null) {
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
 
                         HttpSession session = request.getSession();
                         session.setAttribute("USER", user);

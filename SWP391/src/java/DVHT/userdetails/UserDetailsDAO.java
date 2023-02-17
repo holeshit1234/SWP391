@@ -75,7 +75,88 @@ public class UserDetailsDAO implements Serializable {
         }
         return result;
     }
-
+    
+    public static Boolean usernameExist(String username)
+    throws NamingException, SQLException{
+        
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Boolean result = false;
+           try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "Select UserID, PassWord, FullName, RoleID, Email, Phone "
+                        + "From UserDetails "
+                        + "Where UserName = ?";
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setString(1, username);              
+                //4.execute query
+                rs = stm.executeQuery();
+                //5. process result
+                if (rs.next()) {
+                    result = true;
+                }
+                else
+                    result = false;
+            } //end con is availible
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return result;
+        }
+    }
+    public static Boolean emailExist(String email)
+    throws NamingException, SQLException{
+        
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Boolean result = false;
+           try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "Select UserID, PassWord, FullName, RoleID, Email, Phone "
+                        + "From UserDetails "
+                        + "Where Email = ?";
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setString(1, email);              
+                //4.execute query
+                rs = stm.executeQuery();
+                //5. process result
+                if (rs.next()) {
+                    result = true;
+                }
+                else
+                    result = false;
+            } //end con is availible
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return result;
+        }
+    }
+    
     public static int addUser(UserDetailsDTO user)
             throws NamingException, SQLException, ParseException {
 

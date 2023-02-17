@@ -10,9 +10,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <!-- Bootstrap -->
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+        <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 	
-        <link rel="stylesheet" href="asset/css/stylelogin.css">
+        <link rel="stylesheet" href="asset/zzcss/stylelogin.css">
 	
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -22,7 +22,8 @@
     <body>
        <header>
     <div class="logo">
-        <img src="asset/images/logo-circle.png">
+        <a href="index.jsp"><img src="asset/images/logo-circle.png"></a>
+        
     </div>
     <div class="menu">
         <li><a href="">Male</a>
@@ -56,7 +57,7 @@
     </div>
     <div class="orther">
         <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
-        <li><a class="fa fa-user" href="login.html"></a></li>
+        <li><a class="fa fa-user" href="FirstTimeRequestServlet"></a></li>
         <li><a class="fa fa-shopping-bag" href=""></a></li>
     </div>
 </header>

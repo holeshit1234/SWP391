@@ -5,12 +5,18 @@
  */
 package DHTV.Controller;
 
-import DVHT.userdetails.UserDetailError;
+
+import DHTV.address.AddressDAO;
+import DHTV.address.AddressDTO;
+import DVHT.userdetails.UserDetailSignUpError;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -44,17 +50,58 @@ public class SignUpPageServlet extends HttpServlet {
         //Get siteMaps from context Scope
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(MyAplications.SignUpPageServlet.REGISTRATION_PAGE);
+        String url = siteMaps.getProperty(MyAplications.SignUpPageServlet.SIGN_UP_PAGE);
         
+        
+        //Get parameter from signup.jsp
         String username = request.getParameter("txtUsername");
+        byte[] bytes1 = username.getBytes(StandardCharsets.ISO_8859_1);
+        username = new String(bytes1, StandardCharsets.UTF_8);
+        //        
         String password = request.getParameter("txtPassword");
+        bytes1 = password.getBytes(StandardCharsets.ISO_8859_1);
+        password = new String(bytes1, StandardCharsets.UTF_8);
+        //
         String confirm = request.getParameter("txtConfirm");
+        bytes1 = confirm.getBytes(StandardCharsets.ISO_8859_1);
+        confirm = new String(bytes1, StandardCharsets.UTF_8);
+        //
         String fullname = request.getParameter("txtFullname");
+        bytes1 = fullname.getBytes(StandardCharsets.ISO_8859_1);
+        fullname = new String(bytes1, StandardCharsets.UTF_8);
+        //
         String email = request.getParameter("txtEmail");
-        String phone =request.getParameter("txtPhone");        
-
+        bytes1 = email.getBytes(StandardCharsets.ISO_8859_1);
+        email = new String(bytes1, StandardCharsets.UTF_8);
+        //
+        String phone =request.getParameter("txtPhone");  
+        bytes1 = phone.getBytes(StandardCharsets.ISO_8859_1);
+        phone = new String(bytes1, StandardCharsets.UTF_8);
+        //
+        String DOB = request.getParameter("txtDOB");
+        Date dob = Date.valueOf(DOB);
+        //
+        String province = request.getParameter("txtProvince");
+        bytes1 = province.getBytes(StandardCharsets.ISO_8859_1);
+        province = new String(bytes1, StandardCharsets.UTF_8);
+        //
+        String district = request.getParameter("txtDistrist");
+        bytes1 = district.getBytes(StandardCharsets.ISO_8859_1);
+        district = new String(bytes1, StandardCharsets.UTF_8);
+        //
+        String ward = request.getParameter("txtWard");
+        bytes1 = ward.getBytes(StandardCharsets.ISO_8859_1);
+        ward = new String(bytes1, StandardCharsets.UTF_8);
+        //
+        String street = request.getParameter("txtStreet");        
+        bytes1 = street.getBytes(StandardCharsets.ISO_8859_1);
+        street = new String(bytes1, StandardCharsets.UTF_8);
         
-        UserDetailError errors = new UserDetailError();
+        String gender = request.getParameter("gender");
+        
+    //process
+        //create errors variable for sign up
+        UserDetailSignUpError errors = new UserDetailSignUpError();
         boolean isError = false;
         try {
             if (username.trim().length() < 4 || username.trim().length() > 30) {
@@ -62,10 +109,10 @@ public class SignUpPageServlet extends HttpServlet {
                 errors.setUsernameLengthErr("Username requires input from "
                         + "4 to 30 characters!!");
             }
-            if (password.trim().length() < 4 || password.trim().length() > 20) {
+            if (password.trim().length() < 5 || password.trim().length() > 20) {
                 isError = true;
                 errors.setPasswordLengthErr("Password requires input from "
-                        + "4 to 20 characters!!");
+                        + "5 to 20 characters!!");
             } else if (!(password.trim().equals(confirm.trim()))) {
                 isError = true;
                 errors.setConfirmNotMatchErr("Confirm doesn't match with the "
@@ -79,30 +126,54 @@ public class SignUpPageServlet extends HttpServlet {
 
             if (isError) {
                 request.setAttribute("ERROR", errors);
-            
-            } else {
-                // Create Account
-//                String message ="";
-//                UserDetailsDAO dao = new UserDetailsDAO();
-//                boolean usernameExist = dao.usernameExist(username);
-//                if (usernameExist) {
-//                    message += "User name has existed! Please enter different user name!!\n";
-//                    request.setAttribute("MESSAGE", message);
-//                }
-//                else{
-//                    int role = 3;
-//                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone);
-//                    boolean result = false;
-//                    result = dao.addUser(userAccount);
-//                    if (result) 
-//                        url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
-//                }
-//            }
-//        } catch (SQLException ex) {
-//            log("CreateNewAccountServlet SQL: " + ex.getMessage());
-//        } catch (NamingException ex) {
-//            log("CreateNewAccountServlet Naming: " + ex.getMessage());
-        }}
+            } else {           
+            // Create Account
+                // check username and email
+                String message = "";
+                UserDetailsDAO dao = new UserDetailsDAO();
+                boolean usernameExist = dao.usernameExist(username);
+                boolean emailExist = dao.emailExist(email);
+                if (emailExist) {
+                    message += "Your email has existed! Please enter different email!! \n";
+                    log("Email has existed!! Can not registration !");
+                }
+                if (usernameExist) {
+                    message += "User name has existed! Please enter different user name!! \n";
+                    log("User name has existed!! Can not registration !");
+                }
+                if(!message.isEmpty()) 
+                    request.setAttribute("MESSAGE", message);
+                //start to add info
+                if(!emailExist && !usernameExist)
+                {
+                    //set default value
+                    int role = 3;
+                    dob=null;
+                    // new dto from the value
+                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone, dob, gender);
+                    //process - add into database
+                    int key = 0;
+                    key = dao.addUser(userAccount);
+                    if (key>0){
+                        AddressDAO dao2 = new AddressDAO();
+                        AddressDTO address = new AddressDTO(0, key, province, ward, street, province, district); 
+                        boolean result = dao2.addAddress(address);                        
+                        if(result) url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
+                    }
+                    else{
+                        message += "Some thing wrong here! Can not registration, please try again.\n";
+                        request.setAttribute("MESSAGE", message);
+                        log("Can not registration!");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            log("CreateNewAccountServlet SQL: " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("CreateNewAccountServlet Naming: " + ex.getMessage());
+        }catch(ParseException ex){
+            log("CreateNewAccountServlet Parse: " + ex.getMessage());
+        }
         finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);

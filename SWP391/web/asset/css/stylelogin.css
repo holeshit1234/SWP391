@@ -73,6 +73,7 @@ header.sticky{
     font-weight: bold !important;
     display: block;
     line-height: 20px;
+    text-decoration: none;
 }
 .sub-menu ul a{
     font-weight: normal;
@@ -147,8 +148,6 @@ header.sticky{
     justify-content: space-around;
     
 }
-
-
 form{
     display: flex;
     align-items: center;
@@ -223,7 +222,6 @@ form{
 .social-media{
     display: flex;
     justify-content: center;
-    border-style: solid;
 }
 .social-icon{
     height: 45px;

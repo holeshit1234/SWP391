@@ -73,6 +73,7 @@ header.sticky{
     font-weight: bold !important;
     display: block;
     line-height: 20px;
+    text-decoration: none;
 }
 .sub-menu ul a{
     font-weight: normal;
@@ -245,7 +246,7 @@ header.sticky{
     color: black;
     font-size: 16px;
     font-weight: bold;
-/*    font-family: var(--main-text-font);*/
+    /*font-family: var(--main-text-font);*/
 }
 .cartegory-left ul li ul li{
     padding-left: 10px;   

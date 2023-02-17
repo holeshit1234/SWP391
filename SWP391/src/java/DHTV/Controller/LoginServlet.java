@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         UserDetailsErr error = new UserDetailsErr();
         boolean flag = false;
         //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = (String) siteMaps.getProperty(MyAplications.LoginServlet.ERROR_PAGE);
+        String url = (String) siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
         try {
 
             if (password.trim().length() < 1 || username.trim().length() < 1) {
@@ -87,7 +87,8 @@ public class LoginServlet extends HttpServlet {
                         //url = MyAplications.LoginServlet.MANAGER_PAGE;
                     } else {
                         //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                        //url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                        url = siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
                     }
 
                     //1. get session
