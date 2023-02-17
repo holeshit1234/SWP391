@@ -67,13 +67,8 @@ public class GoogleSignInServlet extends HttpServlet {
 
                     String fullname = userToken.getGiven_name();
 
-//                    String date = "01-01-1999";
-//                    DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-//                    Date defaultDate = Date.valueOf(date);
-//                    java.sql.Date sqlDate = new java.sql.Date(defaultDate.getTime());
-//                        Date DOB = "01-01-1999";
                     user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
-
+                                                      
                     try {
                         
                         key = UserDetailsDAO.addUser(user);
@@ -90,9 +85,11 @@ public class GoogleSignInServlet extends HttpServlet {
                             
                             session.setAttribute("USERE", addr);
                             
+                            //session.setAttribute("USER", user);
+                            
                         }
-
-                     url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+                         url = siteMaps.getProperty
+                                        (MyAplications.writeInformationGgServlet.WRITE_INFORMATION);
                     } catch (SQLException ex) {
                         log("GoogleSignInServlet_SQL_ " + ex.getMessage());
                     } catch (NamingException ex) {

@@ -200,6 +200,7 @@ public class UserDetailsDAO implements Serializable {
                 if (rs.next()) {
                     // result = true;
                     key = rs.getInt(1);
+                    System.out.println(key);
                 }
                 while (rows > 0) {
                     return key;
@@ -298,16 +299,6 @@ public class UserDetailsDAO implements Serializable {
                     String phone = rs.getString("Phone");
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
-//                    if (DOB != null) {
-//                       
-//                       
-//                    } else {
-//                        String date = "1-1-1999";
-//                        DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
-//                        Date defaultDate = Date.valueOf(date);
-//                        sqlDate = new java.sql.Date(DOB.getTime());
-//                        sqlDate = rs.getDate("DOB");
-//                    }
                     String gender = rs.getString("Gender");
                     result = new UserDetailsDTO(userid, role, username,
                             password, email, fullname, phone, sqlDate, gender);
@@ -429,6 +420,86 @@ public class UserDetailsDAO implements Serializable {
                 con.close();
             }
         }
+        return result;
+    }
+    public boolean updatePassword(String email, String password)
+            throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //Connect DB
+            con = DBHelpers.getConnection();
+            //Create SQL String
+            String sql = "Update UserDetails "
+                    + "Set PassWord = ? "
+                    + "Where Email = ? ";
+            //Create statement
+            stm = con.prepareStatement(sql);
+            stm.setString(1, password);
+            stm.setString(2, email);
+            //Execute query
+            int effectedRows = stm.executeUpdate();
+            //Process result
+            if (effectedRows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    
+    public boolean updateGgAc(int userid, String fullName, String phone, Date DOB, String gender)
+            throws NamingException, SQLException, ParseException {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            //get connection
+            con = DBHelpers.getConnection();
+            //sql commmands
+            String sql = "Update UserDetails "
+                    + "Set    Phone=?, DOB=?, Gender=? "
+                    + "Where UserID = ? ";
+
+            //create statement
+            stm = con.prepareStatement(sql);
+            stm.setString(1, phone);
+            if (DOB != null) {
+                java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+                stm.setDate(2, sqlDate);
+            } else {
+                String date = "1-1-1999";
+                DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
+                Date defaultDate = df.parse(date);
+                java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+                stm.setDate(2, sqlDate);
+            }
+            stm.setString(3, gender);
+            stm.setInt(4, userid);
+            //execute querry
+            int rows = stm.executeUpdate();
+            //process result
+            if (rows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+
         return result;
     }
 }

@@ -56,10 +56,10 @@ public class ShowProfileServlet extends HttpServlet {
             if (session != null) {
                 AddressDTO dto1 = (AddressDTO) session.getAttribute("USERE");
                 System.out.println(dto1);
-                
+
                 UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
                 System.out.println(dto);
-                
+
                 if (dto != null) {
                     //AddressDTO dto1 = (AddressDTO) session.getAttribute("USER");                
                     int userid = dto.getUserID();
@@ -81,8 +81,8 @@ public class ShowProfileServlet extends HttpServlet {
                         url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
 
                     }
-                }else if(dto1 != null) {
-                     int userid = dto1.getUserID();
+                } else if (dto1 != null) {
+                    int userid = dto1.getUserID();
                     //userid = dto1.getUserID();
                     System.out.println(userid);
                     UserDetailsDAO dao = new UserDetailsDAO();
@@ -103,6 +103,7 @@ public class ShowProfileServlet extends HttpServlet {
 
                     }
                 }
+
 //                if(dto == null) {
 //                  
 //                    if (dto1 != null) {

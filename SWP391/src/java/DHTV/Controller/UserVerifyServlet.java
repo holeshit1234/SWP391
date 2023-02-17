@@ -6,9 +6,17 @@
 package DHTV.Controller;
 
 import DHTV.forgotpassword.SendEmail;
-import DHTV.forgotpassword.User;
+import DHTV.forgotpassword.UserDetailsForgetPasswordDTO;
+import DHTV.forgotpassword.VerifyError;
+import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
+import DVHT.utils.MyAplications;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.Properties;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,30 +43,67 @@ public class UserVerifyServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-          //feth form value
-            String name = request.getParameter("nametxt");
-            String email = request.getParameter("emailtxt");
 
-            //create instance object of the SendEmail Class
-            SendEmail sm = new SendEmail();
-            //get the 6-digit code
-            String code = sm.getRandom();
+        ServletContext context = this.getServletContext();
+        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+        String url = siteMaps.getProperty(MyAplications.UserVerifyServlet.USERVERIFY_PAGE);
 
-            //craete new user using all information
-            User user = new User(name, email, code);
+        String email = request.getParameter("txtEmail");
+        boolean errorFound = false;
+        VerifyError errors = new VerifyError();
 
-            //call the send email method
-            boolean test = sm.sendEmail(user);
-
-            //check if the email send successfully
-            if (test) {
-                HttpSession session = request.getSession();
-                session.setAttribute("authcode", user);
-                response.sendRedirect("forgotPassword.jsp");
-            } else {
-                out.println("Failed to send verification email");
+        try {
+            if (email.trim().length() < 1) {
+                errorFound = true;
+                errors.setEmailLengthError("You can't leave this empty");
             }
+            if (errorFound) {
+                request.setAttribute("VERIFYMAIL_SCOPE", errors);
+            } else {
+                UserDetailsDAO dao = new UserDetailsDAO();
+                UserDetailsDTO result = dao.findEmail(email);
+                if (result == null) {
+                    errors.setEmailNotExisted("Sorry, this email is not sign up");
+                    errorFound = true;
+                } else {
+                    String emailcheck = result.getEmail();
+                    String usernamecheck = result.getUserName();
+                    if (emailcheck.equals(usernamecheck)) {
+                        errors.setSignUpWithGoogleAccount("You login with google account");
+                        errorFound = true;
+                    }
+                }
+                if (errorFound) {
+                    request.setAttribute("VERIFYMAIL_SCOPE", errors);
+                } else {
+                    //create instance object of the SendEmail Class
+                    SendEmail sm = new SendEmail();
+                    //get the 6-digit code
+                    String code = sm.getRandom();
+                    //craete new user using all information
+                    UserDetailsForgetPasswordDTO user
+                            = new UserDetailsForgetPasswordDTO(email, code);
+                    //call the send email method
+                    boolean test = sm.sendEmail(user);
+                    //check if the email send successfully
+                    if (test) {
+                        HttpSession session = request.getSession();
+                        session.setAttribute("authcode", user);
+                        session.setAttribute("email", email);
+                        url = siteMaps.getProperty(
+                                MyAplications.UserVerifyServlet.VERIFYCODE_PAGE);
+                    } else {
+                        request.setAttribute("VERIFYMAIL_SCOPE", "Failed to send verification email");
+                    }
+                }
+            }
+        } catch (SQLException ex) {
+            log("UserVerifyServlet_SQL " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("UserVerifyServlet_Naming " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

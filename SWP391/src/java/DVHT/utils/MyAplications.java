@@ -74,6 +74,29 @@ public class MyAplications {
         public static final String INDEX_PAGE = "IndexPage";
         public static final String PRODUCT_PAGE = "ProductPage";
     }
+    
+    public class UserVerifyServlet {
 
+
+        public static final String USERVERIFY_PAGE = "userVerifyPage";
+        public static final String VERIFYCODE_PAGE = "verifyCodePage";
+    }
+
+    public class VerifyCodeServlet {
+
+        public static final String VERIFYCODE_PAGE = "verifyCodePage";
+        public static final String RESETPASSWORD_PAGE = "resetPasswordPage";
+    }
+
+    public class ResetPasswordServlet {
+
+        public static final String RESETPASSWORD_PAGE = "resetPasswordPage";
+        public static final String LOGIN_PAGE = "loginPage";
+    }
+    
+    public class writeInformationGgServlet{
+        public static final String WRITE_INFORMATION = "writeInformationGoogleAccount";
+        public static final String PROFILE_PAGE = "searchPage";
+    }
 
 }

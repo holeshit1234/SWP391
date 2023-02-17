@@ -5,32 +5,26 @@
  */
 package DHTV.forgotpassword;
 
+import java.io.Serializable;
+
 /**
  *
  * @author User
  */
-public class User {
+public class UserDetailsForgetPasswordDTO implements Serializable{
+    
+    private String email; 
+    private String code;
 
-    String name;
-    String email;
-    String code;
-
-    public User() {
+    public UserDetailsForgetPasswordDTO() {
     }
 
-    public User(String name, String email, String code) {
-        this.name = name;
+    public UserDetailsForgetPasswordDTO(String email, String code) {
         this.email = email;
         this.code = code;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
+   
 
     public String getEmail() {
         return email;
@@ -47,5 +41,4 @@ public class User {
     public void setCode(String code) {
         this.code = code;
     }
-
 }

@@ -50,7 +50,7 @@
                             <div class="remember-forgot">
                                 <label><input type="checkbox" name="chkremember" value="ON" />
                                     Remember me</label>
-                                <a href="#">Forgot Password?</a>
+                                <a href="userVerifyPage">Forgot Password?</a>
                             </div>
 
 

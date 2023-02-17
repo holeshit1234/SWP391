@@ -5,18 +5,14 @@
  */
 package DHTV.Controller;
 
+import DVHT.userdetails.UserDetailError;
 import DVHT.userdetails.UserDetailsDAO;
-import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
-import com.sendgrid.Content;
-import com.sendgrid.Email;
-import com.sendgrid.Mail;
-import com.sendgrid.Method;
-import com.sendgrid.Request;
-import com.sendgrid.Response;
-import com.sendgrid.SendGrid;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.Properties;
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -24,13 +20,14 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author User
  */
-@WebServlet(name = "ForgotPasswordServlet", urlPatterns = {"/ForgotPasswordServlet"})
-public class ForgotPasswordServlet extends HttpServlet {
+@WebServlet(name = "ResetPasswordServlet", urlPatterns = {"/ResetPasswordServlet"})
+public class ResetPasswordServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -46,44 +43,52 @@ public class ForgotPasswordServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         ServletContext context = this.getServletContext();
-
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-
         String url = siteMaps.getProperty(
-                MyAplications.ForgotPasswordServlet.FORGOTPASSWORD_PAGE);
+                MyAplications.ResetPasswordServlet.RESETPASSWORD_PAGE);
 
-        String email = request.getParameter("txtEmail");
-        String message = "Hello";
-        String subject = "Hello world";
+        String password = request.getParameter("txtPassword");
+        String confirm = request.getParameter("txtConfirm");
+        boolean errorFound = false;
+        UserDetailError errors = new UserDetailError();
         try {
-            UserDetailsDAO dao = new UserDetailsDAO();
-            UserDetailsDTO dto = dao.findEmail(email);
-            if (dto == null) {
-                request.setAttribute("FORGOTPASSWORDERROR", "Email is incorrect");
-            } else {
-                Email from = new Email("no-reply@swp391project.net");
-                Email to = new Email(email);
-                Content content = new Content("text/plain", message);
-                Mail mail = new Mail(from, subject, to, content);
-
-                SendGrid sg = new SendGrid("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");
-                Request req = new Request();
-
-                req.setMethod(Method.POST);
-                req.setEndpoint("mail/send");
-                req.setBody(mail.build());
-                Response res = sg.api(req);
-                System.out.println("Send");
+            if (password.trim().length() < 1) {
+                errorFound = true;
+                errors.setPasswordLengthErr("You can't leave this empty");
+            } else if (password.trim().length() < 6 || password.trim().length() > 30) {
+                errorFound = true;
+                errors.setPasswordLengthErr(
+                        "Password is required input from 6 to 30 characters");
+            } else if (!password.trim().equals(confirm.trim())) {
+                errorFound = true;
+                errors.setConfirmNotMatchErr("Confirm must be matched password");
             }
-        } catch (Exception ex) {
-            log("ForgotPassword _ Exception _ " + ex.getMessage());
-        } finally {
+            if (errorFound) {
+                //catch error
+                request.setAttribute("RESETPASSWORD_ERROR", errors);
+                //transfer to inform users
+            } else {
+                HttpSession session = request.getSession();
+                String email = (String) session.getAttribute("email");
+                UserDetailsDAO dao = new UserDetailsDAO();
+                boolean result = dao.updatePassword(email, password);
+                if (result) {
+                    url = siteMaps.getProperty(
+                            MyAplications.ResetPasswordServlet.LOGIN_PAGE);
+                }
+            }
+        }catch(SQLException ex){
+            log("ResetPasswordServlet_SQL " + ex.getMessage());
+        } catch(NamingException ex){
+            log("ResetPasswordServlet_Naming" + ex.getMessage());
+        }
+        finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }
 
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *
