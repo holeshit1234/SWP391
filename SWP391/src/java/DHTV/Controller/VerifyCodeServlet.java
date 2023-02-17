@@ -5,9 +5,15 @@
  */
 package DHTV.Controller;
 
-import DHTV.forgotpassword.User;
+
+import DHTV.forgotpassword.UserDetailsForgetPasswordDTO;
+import DVHT.utils.MyAplications;
+import DHTV.forgotpassword.VerifyError;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Properties;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -35,21 +41,41 @@ public class VerifyCodeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
-        PrintWriter out = response.getWriter();
+        ServletContext context = this.getServletContext();
+        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+        String url = siteMaps.getProperty(
+                MyAplications.VerifyCodeServlet.VERIFYCODE_PAGE);
         
-        try  {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("authcode");
-
-            String code = request.getParameter("authcode");
-
-            if (code.equals(user.getCode())) {
-                out.println("Verification Done");
-            } else {
-                out.println("Incorrect verification code");
+        String code1 = request.getParameter("txtCode1");
+        String code2 = request.getParameter("txtCode2");
+        String code3 = request.getParameter("txtCode3");
+        String code4 = request.getParameter("txtCode4");
+        String stringCode = code1 + code2 + code3 + code4;
+        HttpSession session = request.getSession();
+        
+        UserDetailsForgetPasswordDTO user = 
+                (UserDetailsForgetPasswordDTO) session.getAttribute("authcode");
+        boolean errorFound = false;
+        VerifyError errors = new VerifyError();
+        try {
+            if (stringCode.trim().length() < 1) {
+                errorFound = true;
+                errors.setCodeLengthError("You can't leave this empty");
             }
-        }finally{
-            out.close();
+            if (errorFound) {
+                request.setAttribute("VERIFYCODE_SCOPE", errors);
+            } else {
+                if (stringCode.equals(user.getCode())) {
+                    url = siteMaps.getProperty(
+                            MyAplications.VerifyCodeServlet.RESETPASSWORD_PAGE);
+                } else {
+                    errors.setCodeNotExisted("Sorry, code is not wrong, please recheck and try again!");
+                    request.setAttribute("VERIFYCODE_SCOPE", errors);
+                }
+            }
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

@@ -23,14 +23,13 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail {
      public String getRandom() {
         Random rnd = new Random();
-        int number = rnd.nextInt(999999);
-        return String.format("%06d", number);
+        int number = rnd.nextInt(9999);
+        return String.format("%04d", number);
     }
 
     //send email to the user email
-    public boolean sendEmail(User user) {
+    public boolean sendEmail(UserDetailsForgetPasswordDTO user) {
         boolean test = false;
-
         String toEmail = user.getEmail();
         String fromEmail = "";
 //        Mail ko có xác thực 2 lớp
@@ -78,4 +77,5 @@ public class SendEmail {
 
         return test;
     }
+
 }
