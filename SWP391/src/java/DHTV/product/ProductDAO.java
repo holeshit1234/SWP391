@@ -53,7 +53,7 @@ public class ProductDAO {
                     boolean status = rs.getBoolean("Status");
                     //create dto
                     ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status);
-                    System.out.println(dto);
+                    //System.out.println(dto);
                     //add item to dto
                     if (this.itemsList == null) {
                         this.itemsList = new ArrayList<>();
@@ -73,46 +73,41 @@ public class ProductDAO {
             }
         }
     }
-    /*
-    public void showProductDetail(String pID)
+   
+    
+    
+    
+    public ProductDTO getInfoProductByProductID(int productID)
             throws NamingException, SQLException {
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
+        ProductDTO result = new ProductDTO();
         try {
             //1 get comnnection
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "SELECT P.ProductID, P.ProductName,IP.Image, Cat.CategoryName,Bra.BrandName,Cat.Gender,P.Price,PD.Quantity "
-                        + "From Product P Inner join ProductIMG IP on P.ProductID=IP.ProductID "
-                        + "Inner join Brand Bra  on p.BrandID = Bra.BrandID "
-                        + "Inner join Category Cat on P.CategoryID=Cat.CategoryID "
-                        + "Inner join ProductDetails PD on p.ProductID=PD.ProductID "
-                        + "Where P.productID = ? ";
+                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status]  "+
+                                "from  Product " +
+                                "where ProductID = ?";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
-                stm.setString(1, pID );
+                stm.setInt(1, productID);
                 //execute query  
                 rs = stm.executeQuery();
                 //5 process
-                while(rs.next()){
-                    int productID=rs.getInt("ProductID");
+                if(rs.next()){
+                    
                     String productName= rs.getString("ProductName");
-                    String image= rs.getString("Image");
-                    String category= rs.getString("CategoryName");
-                    String brand= rs.getString("BrandName");
-                    Boolean gender= rs.getBoolean("Gender");
-                    Double price= rs.getDouble("Price");
-                    int quantity =rs.getInt("Quantity");
+                    int brandID = rs.getInt("BrandID");
+                    int categoryID = rs.getInt("CategoryID");                    
+                    float price= rs.getFloat("Price");
+                    boolean status = rs.getBoolean("Status");
                     //create dto
-                    ProductDTO dto = new ProductDTO(productID, productName, image,
-                            category, brand, gender, price,quantity);
-                    //add item to dto
-                    if (this.itemsList == null) {
-                        this.itemsList = new ArrayList<>();
-                    }//end the list no exsited
-                    this.itemsList.add(dto);
+                    result = new ProductDTO(productID, productName, brandID, categoryID, price, status);
+                    System.out.println(result);
+                   
                 }
             }
         } finally {
@@ -125,8 +120,7 @@ public class ProductDAO {
             if (con != null) {
                 con.close();
             }
+            return result;
         }
     }
-
-    */
 }

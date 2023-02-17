@@ -9,8 +9,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap -->
         <link href="asset/css/bootstrap.min.css" rel="stylesheet">
-
-
         <link rel="stylesheet" href="asset/css/styleproduct.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -73,7 +71,8 @@
                     </div>
                 </div>
                 <div class="right">
-                    <h3>Silk dress</h3>
+                    <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>                      
+                    <h3>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getProductName()}</h3>
                     <div class="rating">
                         <div class="eva">
                             <li><a href="">Quantity</a></li>
@@ -99,8 +98,10 @@
                         </div>
 
                     </div>
-                    <h4> <small>$</small>999.99</h4>
-                    <p>Thiáº¿t káº¿ Ã¡o Äáº§m dÃ i tay, tÃ¹ng vÃ¡y xáº¿p ly cÃ¡ch kiá»u, Äá» dÃ i qua Äáº§u gá»i xÃ²e thÆ°á»t tha vá»«a giÃºp cÃ¡c nÃ ng che Äi khuyáº¿t Äiá»m, vá»«a nháº¹ nhÃ ng bay bá»ng phÃ¹ há»£p vá»i khÃ´ng khÃ­ mÃ¹a thu ÄÃ´ng. Pháº§n cá» cao thiáº¿t káº¿ kÃ¨m dÃ¢y buá»c nÆ¡ táº¡o kiá»u cho thiáº¿t káº¿ Ã¡o thÃªm yÃªu kiá»u mang phong cÃ¡ch tiá»u thÆ°.</p>
+                    <h4>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getPrice()}  <small>vnd</small></h4>
+                    <p>
+                        Sản phẩm được thiết kế với phong cách hiện đại và đa dạng để phù hợp với mọi sở thích và phong cách của khách hàng. Nó có thể được kết hợp với nhiều loại trang phục khác nhau, từ trang phục công sở đến trang phục thể thao, giúp tăng thêm sự linh hoạt và đa dạng cho bộ sưu tập thời trang của bạn.
+                    </p>
                     <h5>Color-rose Gold</h5>
                     <div class="color flex">
                         <span></span>
@@ -167,51 +168,107 @@
             <div class="testimonial-heading">
                 <h1>Product Reviews</h1>
 
-                <form action="CommentServlet" method="GET">
-                    <div class="footer-top">
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                All
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                5 <i class="fa fa-star" ></i> (20)
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                4 <i class="fa fa-star" ></i> (15)
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                3 <i class="fa fa-star" ></i> (0)
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                2 <i class="fa fa-star" ></i> (0)
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                1 <i class="fa fa-star" ></i> (0)
-                            </button>
-                        </li>
-                        <li>
-                            <button type="button" class="btn btn-secondary" >
-                                Gần nhất
-                            </button>
-                        </li>
-                        <li>
-                            <button type="submit" class="btn btn-secondary" >
-                                Xa nhất
-                            </button>
-                        </li>
-                    </div>
-                </form>
 
+                <div class="footer-top">
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                All 
+                                <jsp:useBean id="dao" class="DVHT.comment.CommentDAO"/>                      
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,5) +
+                                dao.countCommentListByStar(requestScope.PRODUCTID,4) +
+                                dao.countCommentListByStar(requestScope.PRODUCTID,3) +
+                                dao.countCommentListByStar(requestScope.PRODUCTID,2) +
+                                dao.countCommentListByStar(requestScope.PRODUCTID,1)})
+                                <input type="hidden" name="star" value="0" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                5 <i class="fa fa-star" ></i>
+                                
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,5)})
+                                <input type="hidden" name="star" value="5" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                4 <i class="fa fa-star" ></i> 
+                                
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,4)})
+                                <input type="hidden" name="star" value="4" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                3 <i class="fa fa-star" ></i>
+                                
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,3)})
+                                <input type="hidden" name="star" value="3" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                2 <i class="fa fa-star" ></i> 
+                                
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,2)})
+                                <input type="hidden" name="star" value="2" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                1 <i class="fa fa-star" ></i> 
+                                
+                                (${dao.countCommentListByStar(requestScope.PRODUCTID,1)})
+                                <input type="hidden" name="star" value="1" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                Gần nhất 
+                                <input type="hidden" name="star" value="6" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                Lâu nhất 
+                                <input type="hidden" name="star" value="7" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                    <li>
+                        <form action="CommentServlet" method="GET">
+                            <button type="submit" class="btn btn-secondary" >
+                                Your comment 
+                                <input type="hidden" name="star" value="8" />
+                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                            </button>
+                        </form>
+                    </li>
+                </div>
             </div>
 
             <!--testimonials-box-container------------->
@@ -267,7 +324,7 @@
                                     </c:if>
                                     <div class="enter-comment">								
                                         <li>
-                                            <button type="submit" class="btn btn-light">Submit</button>
+                                            <button type="submit" class="btn btn-light" name="txtSubmitComment" value="submit">Submit</button>
                                         </li>				
                                     </div>
 
@@ -291,7 +348,9 @@
                                             <img src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg" >
                                         </div>
                                         <div class="name-user">
-                                            <strong>UserID = ${dto.getUserID()}</strong>
+                                            <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO"/>                      
+                                            <strong>${daoUser.getInfoUser(dto.getUserID()).getFullName()}</strong>
+<!--                                            <strong>UserID = ${dto.getUserID()}</strong>-->
                                             ${dto.getDate()}
                                             <br>
 
@@ -302,15 +361,26 @@
                                     </div>
                                     <!--review------------->
                                     <div class="review">
-                                        <i class="fa fa-pencil-square"></i>
-                                        <i class="fa fa-flag"></i>
-                                        <div class="popup" id="popup">
-                                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg">
-                                            <p>This user has violated! Do you agree to report.</p>
-                                            <button type="button" onclick="openPopupReport()">Agree</button>
-                                            <!-----onclick="location.href='login.html';"------>
-                                        </div>
-                                        <i class="fa fa-trash"></i>
+                                        
+<!--                                        <form action="CommentServlet" method="GET">
+                                            <button type="submit" class="btn btn-secondary" >
+                                                <i class="fa fa-pencil-square"></i>
+                                                <input type="hidden" name="star" value="7" />
+                                            </button>
+                                        </form>-->
+                                        <form action="CommentServlet" method="GET">
+                                            <button type="submit" class="btn btn-secondary" >
+                                                <i class="fa fa-flag"></i>                                         
+                                                <input type="hidden" name="target" value="flag" />
+                                            </button>
+                                        </form>
+                                        <form action="DeleteCommentServlet" method="GET">
+                                            <button type="submit" class="btn btn-secondary" >
+                                                <i class="fa fa-trash"></i>
+                                                <input type="hidden" name="target" value="delete" />
+                                            </button>
+                                        </form>                                        
+                                        
                                     </div>         
                                 </div>
                                 <!--comment------------->
@@ -325,7 +395,7 @@
 
                 </div>  
             </c:if>
-            <c:if test="${not empty sessionScope}">
+            <c:if test="${empty sessionScope.INFOCOMMENT}">
                 <p>Do not have any review</p>
             </c:if>
         </section>
@@ -351,11 +421,5 @@
             <div class="footer-bottom">
                 Â©IVYmoda All rights reserved
             </div>
-
-
-
-
-
-
 
         </footer>

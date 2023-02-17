@@ -120,5 +120,257 @@ public class CommentDAO {
         }
     }
     
+    
+    public void selectCommentListByStar(int productID, int star)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.commentList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                            "from Comment " +
+                            "where ProductID = ? and Point = ?";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                stm.setInt(2, star);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                
+                while(rs.next()){
+                    int UserID=rs.getInt("UserID");
+                    int ProductID=rs.getInt("ProductID");
+                    Date date = rs.getDate("Date");
+                    String Description= rs.getString("Description");
+                    int Point=rs.getInt("Point");
+                   
+                    //create dto
+                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point);
+                    System.out.println(dto);
+                    //add item to dto
+                    if (this.commentList == null) {
+                        this.commentList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.commentList.add(dto);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    public int countCommentListByStar(int productID, int star)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        int result = 0;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                            "from Comment " +
+                            "where ProductID = ? and Point = ?";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                stm.setInt(2, star);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process                
+                while(rs.next()){
+                    result++;
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return result;
+        }
+    }
 
+    
+    public void selectCommentListIncreateDate(int productID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.commentList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                            "from Comment " +
+                            "where ProductID = ? " +
+                            "order by [Date]";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                
+                while(rs.next()){
+                    int UserID=rs.getInt("UserID");
+                    int ProductID=rs.getInt("ProductID");
+                    Date date = rs.getDate("Date");
+                    String Description= rs.getString("Description");
+                    int Point=rs.getInt("Point");
+                   
+                    //create dto
+                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point);
+                    System.out.println(dto);
+                    //add item to dto
+                    if (this.commentList == null) {
+                        this.commentList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.commentList.add(dto);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+     public void selectCommentListDecreaseDate(int productID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.commentList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                            "from Comment " +
+                            "where ProductID = ? " +
+                            "order by [Date] desc";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                
+                while(rs.next()){
+                    int UserID=rs.getInt("UserID");
+                    int ProductID=rs.getInt("ProductID");
+                    Date date = rs.getDate("Date");
+                    String Description= rs.getString("Description");
+                    int Point=rs.getInt("Point");
+                   
+                    //create dto
+                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point);
+                    System.out.println(dto);
+                    //add item to dto
+                    if (this.commentList == null) {
+                        this.commentList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.commentList.add(dto);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+     
+     
+     public void selectCommentListByUserID(int productID, int userID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.commentList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                            "from Comment " +
+                            "where ProductID = ? and UserID = ?";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                stm.setInt(2, userID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                
+                while(rs.next()){
+                    int UserID=rs.getInt("UserID");
+                    int ProductID=rs.getInt("ProductID");
+                    Date date = rs.getDate("Date");
+                    String Description= rs.getString("Description");
+                    int Point=rs.getInt("Point");
+                   
+                    //create dto
+                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point);
+                    System.out.println(dto);
+                    //add item to dto
+                    if (this.commentList == null) {
+                        this.commentList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.commentList.add(dto);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

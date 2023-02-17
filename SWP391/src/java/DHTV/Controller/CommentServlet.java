@@ -50,14 +50,21 @@ public class CommentServlet extends HttpServlet {
         String url = "product.jsp";
 
         try {
+            System.out.println("Start into Comment Servlet");
             //String userID = request.getParameter("txtUserID");
             //--------------------------------
+
+            //Get button submit comment
+            String button = request.getParameter("txtSubmitComment");
+            System.out.println("button = " + button);
 
             //get UserID
             int userID = 0;
             HttpSession session = request.getSession();
             UserDetailsDTO user = (UserDetailsDTO) session.getAttribute("USER");
-            if(user!=null) userID = user.getUserID();
+            if (user != null) {
+                userID = user.getUserID();
+            }
             //get ProductID
             String txtproductID = request.getParameter("txtProductID");
             int productID = 1;
@@ -81,26 +88,81 @@ public class CommentServlet extends HttpServlet {
                     CommentDTO dto = new CommentDTO(0, userID, productID, null, description, point);
                     boolean result = dao.addComment(dto);
                 } else {
-                    String message = "Please enter enough infomation! (rating star and description)";
-                    if (!message.isEmpty()) {
-                        request.setAttribute("MESSAGE2", message);
+                    if (button != null) {
+                        String message = "Please enter at least your rating !";
+                        if (!message.isEmpty()) {
+                            request.setAttribute("MESSAGE2", message);
+                        }
                     }
                 }
             } else {
-                String message = "Please sign in before you comment!";
-                if (!message.isEmpty()) {
-                    request.setAttribute("MESSAGE", message);
+                if (button != null) {
+                    String message = "Please sign in !";
+                    if (!message.isEmpty()) {
+                        request.setAttribute("MESSAGE", message);
+                    }
                 }
             }
-            //Get all comment
-            CommentDAO dao = new CommentDAO();
-            dao.selectCommentListFromSQL(productID);
-            List<CommentDTO> list = dao.getCommentList();
-            //HttpSession session = request.getSession();
-            session.setAttribute("INFOCOMMENT", list);
-            //save productID
+
+            //-----------------------Get Comment to show-----------------------
+            String txtStar = request.getParameter("star");
+            if (txtStar != null) {
+                System.out.println("star = " + txtStar);
+                int star = Integer.parseInt(txtStar);
+
+                if (star >= 1 && star <= 5) { //Get comment by star
+                    CommentDAO dao = new CommentDAO();
+                    dao.selectCommentListByStar(productID, star);
+                    List<CommentDTO> list = dao.getCommentList();
+                    //HttpSession session = request.getSession();
+                    session.setAttribute("INFOCOMMENT", list);
+                }
+                if (star == 0) { //Get all comment
+
+                    CommentDAO dao = new CommentDAO();
+                    dao.selectCommentListFromSQL(productID);
+                    List<CommentDTO> list = dao.getCommentList();
+                    //HttpSession session = request.getSession();
+                    session.setAttribute("INFOCOMMENT", list);
+                }
+                if (star == 6) { //Get comment by date
+
+                    CommentDAO dao = new CommentDAO();
+                    dao.selectCommentListDecreaseDate(productID);
+                    List<CommentDTO> list = dao.getCommentList();
+                    //HttpSession session = request.getSession();
+                    session.setAttribute("INFOCOMMENT", list);
+                }
+                if (star == 7) { //Get comment by date
+
+                    CommentDAO dao = new CommentDAO();
+                    dao.selectCommentListIncreateDate(productID);
+                    List<CommentDTO> list = dao.getCommentList();
+                    //HttpSession session = request.getSession();
+                    session.setAttribute("INFOCOMMENT", list);
+                }
+                if (star == 8) { //Get your comment by userID
+
+                    CommentDAO dao = new CommentDAO();
+                    dao.selectCommentListByUserID(productID, userID);
+                    List<CommentDTO> list = dao.getCommentList();
+                    //HttpSession session = request.getSession();
+                    session.setAttribute("INFOCOMMENT", list);
+                }
+
+            } else {
+                //Get all comment
+                CommentDAO dao = new CommentDAO();
+                dao.selectCommentListFromSQL(productID);
+                List<CommentDTO> list = dao.getCommentList();
+                //HttpSession session = request.getSession();
+                session.setAttribute("INFOCOMMENT", list);
+            }
+
+            //save productID 
             request.setAttribute("PRODUCTID", productID);
-            
+            request.setAttribute("USERID", userID);
+
         } catch (SQLException ex) {
             log("Comment Servlet SQL: " + ex.getMessage());
         } catch (NamingException ex) {
