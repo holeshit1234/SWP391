@@ -9,6 +9,7 @@ import DVHT.comment.CommentDAO;
 import DVHT.comment.CommentDTO;
 import DVHT.rate.RateDAO;
 import DVHT.rate.RateDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -47,52 +48,68 @@ public class CommentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "product.jsp";
-        
-        
-        try{
-            //Insert to data new Comment
-            String txtproductID = request.getParameter("txtProductID");
+
+        try {
             //String userID = request.getParameter("txtUserID");
-            int userID = 3;
-            
+            //--------------------------------
+
+            //get UserID
+            int userID = 0;
+            HttpSession session = request.getSession();
+            UserDetailsDTO user = (UserDetailsDTO) session.getAttribute("USER");
+            if(user!=null) userID = user.getUserID();
+            //get ProductID
+            String txtproductID = request.getParameter("txtProductID");
             int productID = 1;
-            if (txtproductID != null) productID=Integer.parseInt(txtproductID.trim());
-            System.out.println("productID = "+ txtproductID);
-            
-            
-            //
-            String description = request.getParameter("txtDescription");
-            String rate = request.getParameter("rating");
-            int point=1;
-            if(rate != null)
-                point = Integer.parseInt(rate.trim());
-            CommentDAO dao = new CommentDAO();
-            
-            if(description != null){
-            
-                CommentDTO dto = new CommentDTO(0, userID, productID, null, description ,point);
-                boolean result = dao.addComment(dto);
+            if (txtproductID != null) {
+                productID = Integer.parseInt(txtproductID.trim());
             }
-            
+            System.out.println("productID = " + txtproductID);
+            System.out.println("UserID " + userID);
+
+            if (userID > 0) {
+                //process
+                String description = request.getParameter("txtDescription");
+                String rate = request.getParameter("rating");
+                int point = 0;
+                if (rate != null) {
+                    point = Integer.parseInt(rate.trim());
+                }
+                CommentDAO dao = new CommentDAO();
+
+                if (description != null && point > 0) {
+                    CommentDTO dto = new CommentDTO(0, userID, productID, null, description, point);
+                    boolean result = dao.addComment(dto);
+                } else {
+                    String message = "Please enter enough infomation! (rating star and description)";
+                    if (!message.isEmpty()) {
+                        request.setAttribute("MESSAGE2", message);
+                    }
+                }
+            } else {
+                String message = "Please sign in before you comment!";
+                if (!message.isEmpty()) {
+                    request.setAttribute("MESSAGE", message);
+                }
+            }
             //Get all comment
-            
+            CommentDAO dao = new CommentDAO();
             dao.selectCommentListFromSQL(productID);
             List<CommentDTO> list = dao.getCommentList();
-            HttpSession session = request.getSession();
+            //HttpSession session = request.getSession();
             session.setAttribute("INFOCOMMENT", list);
+            //save productID
+            request.setAttribute("PRODUCTID", productID);
             
-        }      
-         catch (SQLException ex) {
+        } catch (SQLException ex) {
             log("Comment Servlet SQL: " + ex.getMessage());
         } catch (NamingException ex) {
             log("Comment Servlet Naming: " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
-        finally{
-            response.sendRedirect(url);
-        }
-                
-        
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

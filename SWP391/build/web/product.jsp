@@ -166,52 +166,52 @@
         <section id="testimonials">
             <div class="testimonial-heading">
                 <h1>Product Reviews</h1>
-                
-                    <form action="CommentServlet" method="GET">
+
+                <form action="CommentServlet" method="GET">
                     <div class="footer-top">
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        All
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        5 <i class="fa fa-star" ></i> (20)
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        4 <i class="fa fa-star" ></i> (15)
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        3 <i class="fa fa-star" ></i> (0)
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        2 <i class="fa fa-star" ></i> (0)
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        1 <i class="fa fa-star" ></i> (0)
-                        </button>
-                    </li>
-                    <li>
-                        <button type="button" class="btn btn-secondary" >
-                        Gần nhất
-                        </button>
-                    </li>
-                    <li>
-                        <button type="submit" class="btn btn-secondary" >
-                        Xa nhất
-                        </button>
-                    </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                All
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                5 <i class="fa fa-star" ></i> (20)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                4 <i class="fa fa-star" ></i> (15)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                3 <i class="fa fa-star" ></i> (0)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                2 <i class="fa fa-star" ></i> (0)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                1 <i class="fa fa-star" ></i> (0)
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btn-secondary" >
+                                Gần nhất
+                            </button>
+                        </li>
+                        <li>
+                            <button type="submit" class="btn btn-secondary" >
+                                Xa nhất
+                            </button>
+                        </li>
                     </div>
-                    </form>
-                
+                </form>
+
             </div>
 
             <!--testimonials-box-container------------->
@@ -226,13 +226,14 @@
                                 <img src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg" >
                             </div>
 
-                            <div class="name-user">  
+                            <div class="name-user"> 
+                                <c:set var="productID" value="${requestScope.PRODUCTID}"/>
+                                ProductID = ${productID}
                                 <form action="CommentServlet" method="GET">
-
+                                    <input type="hidden" name="txtProductID" value="${productID}" />
                                     <div class="enter-comment">								
                                         <li>
                                             <input placeholder="Enter your comment" type="text" name="txtDescription">
-
 
                                         </li>				
                                     </div>
@@ -254,11 +255,19 @@
                                             </li>
                                         </div>                           
                                     </div>
+                                    <c:if test="${not empty requestScope.MESSAGE}">
+                                        <font color='red'>
+                                        ${requestScope.MESSAGE}
+                                        </font><br/>
+                                    </c:if>
+                                    <c:if test="${not empty requestScope.MESSAGE2}">
+                                        <font color='red'>
+                                        ${requestScope.MESSAGE2}
+                                        </font><br/>
+                                    </c:if>
                                     <div class="enter-comment">								
                                         <li>
-
                                             <button type="submit" class="btn btn-light">Submit</button>
-
                                         </li>				
                                     </div>
 
