@@ -73,6 +73,7 @@ header.sticky{
     font-weight: bold !important;
     display: block;
     line-height: 20px;
+    text-decoration: none;
 }
 .sub-menu ul a{
     font-weight: normal;
@@ -147,8 +148,6 @@ header.sticky{
     justify-content: space-around;
     
 }
-
-
 form{
     display: flex;
     align-items: center;
@@ -242,14 +241,10 @@ a{
     color: #333;
     border-color: #efe6e1;
 }
-
-
-/*------------------------------------*/
-
 /*-----------Footer----------------*/
-
 footer{
     text-align: center;
+    
 }
 .footer-top{
     display: flex;

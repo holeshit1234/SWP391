@@ -18,15 +18,18 @@ public class MyAplications {
         public static final String SEARCH_STORE_PAGE = "searchPage";
         public static final String ADMIN_PAGE = "adminPage";
         public static final String ERROR_PAGE = "errorPage";
+        public static final String INDEX_PAGE = "indexPage";
     }
 
     public class LoginServlet {
-
+        public static final String ShowIdexItemServlet = "ShowIdexItemServlet";
         public static final String INVALID_PAGE = "invalid";
         public static final String MANAGER_PAGE = "managerPage";
         public static final String SEARCH_STORE_PAGE = "searchPage";
         public static final String ADMIN_PAGE = "adminPage";
         public static final String ERROR_PAGE = "errorPage";
+        public static final String INDEX_PAGE = "indexPage";
+        
     }
 
     public class ForgotPasswordServlet {
@@ -36,8 +39,9 @@ public class MyAplications {
     }
 
     public class LogoutAccountServlet {
-
+        public static final String ShowIdexItemServlet = "ShowIdexItemServlet";
         public static final String LOGOUT_PAGE = "LogoutPage";
+        public static final String INDEX_PAGE = "indexPage";
     }
 
     public class ShowProfileServlet {
@@ -62,5 +66,14 @@ public class MyAplications {
         public static final String FINISH_PAGE = "FinishPage";
         public static final String SIGN_UP_PAGE = "SignUpPage";
     }
+    public class ShowIdexItemServlet {
+        public static final String INDEX_PAGE = "IndexPage";
+    }
+    
+    public class ShowProductDetailServlet {
+        public static final String INDEX_PAGE = "IndexPage";
+        public static final String PRODUCT_PAGE = "ProductPage";
+    }
+
 
 }

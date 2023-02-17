@@ -3,11 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/header.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/login.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/signup.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/WEB-INF/siteMaps.properties</file>
+            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDAO.java</file>
+            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DVHT/comment/CommentDAO.java</file>
+            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/product.jsp</file>
+            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DHTV/Controller/CommentServlet.java</file>
         </group>
     </open-files>
 </project-private>

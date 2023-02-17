@@ -44,7 +44,7 @@ public class LogoutAccountServlet extends HttpServlet {
         //2 get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String username ="";
-        String url = "";
+        String url = siteMaps.getProperty(MyAplications.LogoutAccountServlet.ShowIdexItemServlet);
         Cookie cookie = null;
         try {
             HttpSession session = request.getSession(false);
@@ -66,7 +66,6 @@ public class LogoutAccountServlet extends HttpServlet {
                 }//end of traverse cookie
             }//end of user is logout
         } finally {
-            url = MyAplications.LogoutAccountServlet.LOGOUT_PAGE;
             response.sendRedirect(url);
         }
     }

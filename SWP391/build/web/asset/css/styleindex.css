@@ -73,6 +73,7 @@ header.sticky{
     font-weight: bold !important;
     display: block;
     line-height: 20px;
+    text-decoration: none;
 }
 .sub-menu ul a{
     font-weight: normal;
@@ -177,7 +178,7 @@ header.sticky{
 .cartegory-right-top-item:first-child{
     flex: 2;
     font-size: 16px;
-    /*font-family: var(--main-text-font);*/
+    font-family: var(--main-text-font);
     font-weight: bold;
 }
 .cartegory-right-top-item{
@@ -213,7 +214,7 @@ header.sticky{
 }
 .cartegory-right-content-item h1{
     font-size: 14px;
-    /*font-family: var(--main-text-font);*/
+    font-family: var(--main-text-font);
     margin-top: 6px;
     color: #333333;
     font-weight: bold;
@@ -235,7 +236,7 @@ header.sticky{
     width: 100%;
 }
 .cartegory-right-bottom p{
-    /*font-family: var(--main-text-font);*/
+    font-family: var(--main-text-font);
     font-size: 11px;
 }
 .cartegory-left ul li{
@@ -245,7 +246,7 @@ header.sticky{
     color: black;
     font-size: 16px;
     font-weight: bold;
-/*    font-family: var(--main-text-font);*/
+    font-family: var(--main-text-font);
 }
 .cartegory-left ul li ul li{
     padding-left: 10px;   
