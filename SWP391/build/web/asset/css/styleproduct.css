@@ -353,6 +353,9 @@ button{
     background: linear-gradient(-135deg, #e7d0c4, #efe6e1);
 }
 /*-----------Comment----------------*/
+.col-lg-12{
+   display: none;
+}
 #testimonials{
     display: flex;
     justify-content: center;

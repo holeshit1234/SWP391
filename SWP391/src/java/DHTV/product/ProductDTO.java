@@ -16,17 +16,19 @@ public class ProductDTO {
     private int categoryID;
     private float price;
     private boolean status;
+    private String description;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int productID, String productName, int brandID, int categoryID, float price, boolean status) {
+    public ProductDTO(int productID, String productName, int brandID, int categoryID, float price, boolean status, String description) {
         this.productID = productID;
         this.productName = productName;
         this.brandID = brandID;
         this.categoryID = categoryID;
         this.price = price;
         this.status = status;
+        this.description = description;
     }
 
     public int getProductID() {
@@ -77,12 +79,18 @@ public class ProductDTO {
         this.status = status;
     }
 
-    @Override
-    public String toString() {
-        return "ProductDTO{" + "productID=" + productID + ", productName=" + productName + ", brandID=" + brandID + ", categoryID=" + categoryID + ", price=" + price + ", status=" + status + '}';
+    public String getDescription() {
+        return description;
     }
 
-    
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
+    @Override
+    public String toString() {
+        return "ProductDTO{" + "productID=" + productID + ", productName=" + productName + ", brandID=" + brandID + ", categoryID=" + categoryID + ", price=" + price + ", status=" + status + ", description=" + description + '}';
+    }
+    
    
 }

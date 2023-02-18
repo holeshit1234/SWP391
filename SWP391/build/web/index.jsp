@@ -95,7 +95,7 @@
                         <form action="SearchServlet">
                             <div class="row">
                                 <div  class="col-md-12">
-                                    <input type="text" class="form-control">
+                                    <input type="text" placeholder="Search" class="form-control">
                                 </div>                                
                             </div>
                         </form>

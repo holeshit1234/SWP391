@@ -36,7 +36,7 @@ public class ProductDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status]  "+
+                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status],[Description] "+
                                 "from  Product " +
                                 "where Status =1";
                 // 3 stm create
@@ -51,8 +51,9 @@ public class ProductDAO {
                     int categoryID = rs.getInt("CategoryID");                    
                     float price= rs.getFloat("Price");
                     boolean status = rs.getBoolean("Status");
+                    String description = rs.getString("Description");
                     //create dto
-                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status);
+                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description);
                     //System.out.println(dto);
                     //add item to dto
                     if (this.itemsList == null) {
@@ -88,7 +89,7 @@ public class ProductDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status]  "+
+                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status],[Description]   "+
                                 "from  Product " +
                                 "where ProductID = ?";
                 // 3 stm create
@@ -104,8 +105,9 @@ public class ProductDAO {
                     int categoryID = rs.getInt("CategoryID");                    
                     float price= rs.getFloat("Price");
                     boolean status = rs.getBoolean("Status");
+                    String description = rs.getString("Description");
                     //create dto
-                    result = new ProductDTO(productID, productName, brandID, categoryID, price, status);
+                    result = new ProductDTO(productID, productName, brandID, categoryID, price, status, description);
                     System.out.println(result);
                    
                 }

@@ -58,20 +58,21 @@
         <!---------Banner-slider-------->
         <section>
             <div class="container flex">
+                <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
+                <jsp:useBean id="daoProductImg" class="DHTV.product.ProductImgDAO"/>  
                 <div class="left">
                     <div class="main-image" id="test">
-                        <img id="myImage" src="asset/images/9f272ae3ed5b701cef3826b17993d612.jpg" alt="" class="slide">
+                        <img id="myImage" src="${daoProductImg.getOneImgByProductID(requestScope.PRODUCTID)}" alt="" class="slide">
                     </div>
                     <div class="option flex">
-                        <img src="asset/images/a431fa2ea0f231d48d1586a0faef5454.jpg" onclick="img('asset/images/a431fa2ea0f231d48d1586a0faef5454.jpg')">
+                        <img src="${daoProductImg.getOneImgByProductID(requestScope.PRODUCTID)}" onclick="img('${daoProductImg.getOneImgByProductID(requestScope.PRODUCTID)}')">
                         <img src="asset/images/b2712178ec861468e23277efeb1b800c.jpg" onclick="img('asset/images/b2712178ec861468e23277efeb1b800c.jpg')">
                         <img src="asset/images/f059db41962d4c055e985a7c06dc532d.jpg" onclick="img('asset/images/f059db41962d4c055e985a7c06dc532d.jpg')">
                         <img src="asset/images/a431fa2ea0f231d48d1586a0faef5454.jpg" onclick="img('asset/images/a431fa2ea0f231d48d1586a0faef5454.jpg')">
                         <img src="asset/images/b2712178ec861468e23277efeb1b800c.jpg" onclick="img('asset/images/b2712178ec861468e23277efeb1b800c.jpg')">
                     </div>
                 </div>
-                <div class="right">
-                    <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>                      
+                <div class="right">                                        
                     <h3>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getProductName()}</h3>
                     <div class="rating">
                         <div class="eva">
@@ -100,7 +101,7 @@
                     </div>
                     <h4>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getPrice()}  <small>vnd</small></h4>
                     <p>
-                        Sản phẩm được thiết kế với phong cách hiện đại và đa dạng để phù hợp với mọi sở thích và phong cách của khách hàng. Nó có thể được kết hợp với nhiều loại trang phục khác nhau, từ trang phục công sở đến trang phục thể thao, giúp tăng thêm sự linh hoạt và đa dạng cho bộ sưu tập thời trang của bạn.
+                        ${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getDescription()} 
                     </p>
                     <h5>Color-rose Gold</h5>
                     <div class="color flex">
@@ -116,12 +117,12 @@
                         <span>L</span>
                         <span>XL</span>
                     </div>
-                    <h5>Number</h5>
+<!--                    <h5>Number</h5>
                     <div class="add flex1">
                         <span>-</span>
                         <label>1</label>
                         <span>+</span>
-                    </div>
+                    </div>-->
                     <button type="button" onclick="openPopup()">Add to cart</button>
                     <div class="popup" id="popup">
                         <img src="asset/images/404-tick.png">
@@ -158,7 +159,6 @@
             myImage.addEventListener("mousemove", function () {
                 myImage.classList.remove("zoomOut"); /* remove the zoom-out class */
             });
-
             myImage.addEventListener("mouseleave", function () {
                 myImage.classList.add("zoomOut"); /* add the zoom-out class */
             });
@@ -176,10 +176,10 @@
                                 All 
                                 <jsp:useBean id="dao" class="DVHT.comment.CommentDAO"/>                      
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,5) +
-                                dao.countCommentListByStar(requestScope.PRODUCTID,4) +
-                                dao.countCommentListByStar(requestScope.PRODUCTID,3) +
-                                dao.countCommentListByStar(requestScope.PRODUCTID,2) +
-                                dao.countCommentListByStar(requestScope.PRODUCTID,1)})
+                                   dao.countCommentListByStar(requestScope.PRODUCTID,4) +
+                                   dao.countCommentListByStar(requestScope.PRODUCTID,3) +
+                                   dao.countCommentListByStar(requestScope.PRODUCTID,2) +
+                                   dao.countCommentListByStar(requestScope.PRODUCTID,1)})
                                 <input type="hidden" name="star" value="0" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
                             </button>
@@ -189,7 +189,7 @@
                         <form action="CommentServlet" method="GET">
                             <button type="submit" class="btn btn-secondary" >
                                 5 <i class="fa fa-star" ></i>
-                                
+
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,5)})
                                 <input type="hidden" name="star" value="5" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -201,7 +201,7 @@
                         <form action="CommentServlet" method="GET">
                             <button type="submit" class="btn btn-secondary" >
                                 4 <i class="fa fa-star" ></i> 
-                                
+
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,4)})
                                 <input type="hidden" name="star" value="4" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -212,7 +212,7 @@
                         <form action="CommentServlet" method="GET">
                             <button type="submit" class="btn btn-secondary" >
                                 3 <i class="fa fa-star" ></i>
-                                
+
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,3)})
                                 <input type="hidden" name="star" value="3" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -223,7 +223,7 @@
                         <form action="CommentServlet" method="GET">
                             <button type="submit" class="btn btn-secondary" >
                                 2 <i class="fa fa-star" ></i> 
-                                
+
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,2)})
                                 <input type="hidden" name="star" value="2" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -234,7 +234,7 @@
                         <form action="CommentServlet" method="GET">
                             <button type="submit" class="btn btn-secondary" >
                                 1 <i class="fa fa-star" ></i> 
-                                
+
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,1)})
                                 <input type="hidden" name="star" value="1" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -340,57 +340,79 @@
                     <c:set var="list" value="${sessionScope.INFOCOMMENT}"/>
                     <c:if test="${not empty list}">
                         <c:forEach var="dto" items="${sessionScope.INFOCOMMENT}">
-                            <div class="testimonials-box">
-                                <div class="box-top">
-                                    <!--profile------------->
-                                    <div class="profile">
-                                        <div class="profile-img">
-                                            <img src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg" >
-                                        </div>
-                                        <div class="name-user">
-                                            <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO"/>                      
-                                            <strong>${daoUser.getInfoUser(dto.getUserID()).getFullName()}</strong>
-<!--                                            <strong>UserID = ${dto.getUserID()}</strong>-->
-                                            ${dto.getDate()}
-                                            <br>
+                            <div>
+                                <div class="col-lg-12">
+                                    <div class="testimonials-box">
+                                        <div class="box-top">
+                                            <!--profile------------->
+                                            <div class="profile">
+                                                <div class="profile-img">
+                                                    <img src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg" >
+                                                </div>
+                                                <div class="name-user">
+                                                    <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO"/>                      
+                                                    <strong>${daoUser.getInfoUser(dto.getUserID()).getFullName()}</strong>
+        <!--                                            <strong>UserID = ${dto.getUserID()}</strong>-->
+                                                    ${dto.getDate()}
+                                                    <br>
 
+                                                    <p>
+                                                        Point of this product:  ${dto.getPoint()} <i class="fa fa-star" ></i>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                            <!--review------------->
+                                            <div class="review">
+
+                                                <!--                                        <form action="CommentServlet" method="GET">
+                                                                                            <button type="submit" class="btn btn-secondary" >
+                                                                                                <i class="fa fa-pencil-square"></i>
+                                                                                                <input type="hidden" name="star" value="7" />
+                                                                                            </button>
+                                                                                        </form>-->
+                                                <form action="CommentServlet" method="GET">
+                                                    <button type="submit" class="btn btn-secondary" >
+                                                        <i class="fa fa-flag"></i>                                         
+                                                        <input type="hidden" name="target" value="flag" />
+                                                    </button>
+                                                </form>
+                                                <form action="DeleteCommentServlet" method="GET">
+                                                    <button type="submit" class="btn btn-secondary" >
+                                                        <i class="fa fa-trash"></i>
+                                                        <input type="hidden" name="target" value="delete" />
+                                                    </button>
+                                                </form>                                        
+
+                                            </div>         
+                                        </div>
+                                        <!--comment------------->
+                                        <div class="client-comment">
                                             <p>
-                                                Point of this product:  ${dto.getPoint()} <i class="fa fa-star" ></i>
+                                                ${dto.getDescription()}
                                             </p>
                                         </div>
                                     </div>
-                                    <!--review------------->
-                                    <div class="review">
-                                        
-<!--                                        <form action="CommentServlet" method="GET">
-                                            <button type="submit" class="btn btn-secondary" >
-                                                <i class="fa fa-pencil-square"></i>
-                                                <input type="hidden" name="star" value="7" />
-                                            </button>
-                                        </form>-->
-                                        <form action="CommentServlet" method="GET">
-                                            <button type="submit" class="btn btn-secondary" >
-                                                <i class="fa fa-flag"></i>                                         
-                                                <input type="hidden" name="target" value="flag" />
-                                            </button>
-                                        </form>
-                                        <form action="DeleteCommentServlet" method="GET">
-                                            <button type="submit" class="btn btn-secondary" >
-                                                <i class="fa fa-trash"></i>
-                                                <input type="hidden" name="target" value="delete" />
-                                            </button>
-                                        </form>                                        
-                                        
-                                    </div>         
-                                </div>
-                                <!--comment------------->
-                                <div class="client-comment">
-                                    <p>
-                                        ${dto.getDescription()}
-                                    </p>
                                 </div>
                             </div>
+
                         </c:forEach>
+
+                        <button class="btn center-block loadMore">
+                            Load more
+                        </button>
+
+                        <script src="asset/js/jquery-latest.min.js"></script>
+                        <script>
+            $(".col-lg-12").slice(0, 3).show();
+            $(".loadMore").on("click", function () {
+                $(".col-lg-12:hidden").slice(0, 3).show();
+                if ($(".col-lg-12:hidden").length == 0)
+                {
+                    $(".loadMore").fadeOut();
+                }
+            })
+
+                        </script>
                     </c:if>
 
                 </div>  
