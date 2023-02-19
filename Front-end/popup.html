@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>SWP team project</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+	<link rel="stylesheet" href="css/popup.css">
+	
+	<link rel="shortcut icon" href="images/logo.png">
+	<link rel="stylesheet" href="icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+<body>
+    
+
+    <div class="center">
+        <button id="add-address">Add address</button>
+    </div>
+    <div class="popup">
+        <div class="close-btn">&times;</div>
+        <div class="form">
+            <h2>Add address</h2>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <label for="email">Email</label>
+                <input type="text" id="email" placeholder="Enter email">
+            </div>
+            <div class="form-element">
+                <button>Add address</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.querySelector("#add-address").addEventListener("click", function(){
+            document.querySelector(".popup").classList.add("active")
+        })
+
+        document.querySelector(".popup .close-btn").addEventListener("click", function(){
+            document.querySelector(".popup").classList.remove("active")
+        })
+    </script>
+
+</body>
+
+</html>

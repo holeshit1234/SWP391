@@ -77,51 +77,203 @@
     	</nav>
 	</div>
 
-	<div class="sigup">
-		<div class="container">
-			<div class="title">Address number</div>
-			<form action="#">
-				<div class="user-detail">
-					<div class="input-box">
-						<span class="detail">Full name</span>
-						<input type="text" placeholder="Enter your username" required>
-					</div>		
-					<div class="input-box">
-						<span class="detail">Phone</span>
-						<input type="text" placeholder="Enter your phone" required>
-					</div>
-					<div class="input-box">
-						<span class="detail">Province</span>
-						<input type="text" placeholder="Enter your province" required>
-					</div>
-					
-					<div class="input-box">
-						<span class="detail">Ward</span>
-						<input type="text" placeholder="Enter your ward" required>
-					</div>
-					<div class="input-box">
-						<span class="detail">Street</span>
-						<input type="text" placeholder="Enter your street" required>
-					</div>
-					<div class="input-box">
-						<span class="detail">Address</span>
-						<input type="text" placeholder="Enter your address" required>
-					</div>		
-				</div>
-				<div class="button">
-					<input type="submit" value="Save" onclick="openPopup()"></input>
-					<input type="submit" value="Change address" onclick="openPopup()"></input>
-					<div class="popup" id="popup">
-						<img src="images/404-tick.png">
-						<h2>Thank you!</h2>
-						<p>You have successfully changed the information.</p>
-						<button type="button" onclick="closePopup()">OK</button>
-						<!-----onclick="location.href='login.html';"------>
-					</div>
-				</div>
-			</form>
-		</div>
-	</div>
+	<div class="testimonials">
+        <div class="testimonial-heading">
+            <h1>Address number</h1>
+			<div class="center">
+                <button id="add-address">Add address</button>
+            </div>
+            
+            <div class="popup">
+                <div class="close-btn">&times;</div>
+                <h2>Add address</h2>
+                <div class="form">
+                    
+                    <div class="form-element">
+                        <label for="fullName">Full name</label>
+                        <input type="text" id="email" placeholder="Enter Full name">
+                    </div>
+                    <div class="form-element">
+                        <label for="email">Phone</label>
+                        <input type="text" id="email" placeholder="Enter your phone">
+                    </div>
+                    <div class="form-element">
+                        <label for="email">Province</label>
+                        <input type="text" id="email" placeholder="Enter your province">
+                    </div>
+                    <div class="form-element">
+                        <label for="email">Ward</label>
+                        <input type="text" id="email" placeholder="Enter your ward">
+                    </div>
+                    <div class="form-element">
+                        <label for="email">District</label>
+                        <input type="text" id="email" placeholder="Enter your district">
+                    </div>
+                    <div class="form-element">
+                        <label for="email">Address</label>
+                        <input type="text" id="email" placeholder="Enter your address">
+                    </div>
+                    <div class="form-element">
+                        <button>Add address</button>
+                    </div>
+                </div>
+            </div>
+        
+            
+        </div>
+
+        <!--testimonials-box-container------------->
+        <div class="testimonials-box-container">
+            
+            
+            <!--box-1------------->
+            <div class="testimonials-box">
+                <div class="box-top">
+                    <!--profile------------->
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg" >
+                        </div>
+                        <div class="name-user">
+                            <strong>Hiếu</strong>
+                            
+                        </div>
+                    </div>
+                    <!--review------------->
+                    <div class="review">
+                        <button id="edit-address">
+                            <i class="fa fa-pencil"></i> 
+                        </button>
+                        <div class="popup-edit">
+                            <div class="close-btn">&times;</div>
+                            <h2>Edit address</h2>
+                            <div class="form">
+                                
+                                <div class="form-element">
+                                    <label for="fullName">Full name</label>
+                                    <input type="text" id="email" placeholder="Enter Full name">
+                                </div>
+                                <div class="form-element">
+                                    <label for="email">Phone</label>
+                                    <input type="text" id="email" placeholder="Enter your phone">
+                                </div>
+                                <div class="form-element">
+                                    <label for="email">Province</label>
+                                    <input type="text" id="email" placeholder="Enter your province">
+                                </div>
+                                <div class="form-element">
+                                    <label for="email">Ward</label>
+                                    <input type="text" id="email" placeholder="Enter your ward">
+                                </div>
+                                <div class="form-element">
+                                    <label for="email">District</label>
+                                    <input type="text" id="email" placeholder="Enter your district">
+                                </div>
+                                <div class="form-element">
+                                    <label for="email">Address</label>
+                                    <input type="text" id="email" placeholder="Enter your address">
+                                </div>
+                                <div class="form-element">
+                                    <button>Update address</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <i class="fa fa-trash"></i>
+                    </div>         
+                </div>
+                <!--comment------------->
+                <div class="client-comment">
+                    <p>Phone number:???????</p>
+                    <p>Address:????????</p>
+                </div>
+            </div>
+
+            <!--box-2------------->
+            <div class="testimonials-box">
+                <div class="box-top">
+                    <!--profile------------->
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg" >
+                        </div>
+                        <div class="name-user">
+                            <strong>Hiếu</strong>
+                            
+                        </div>
+                    </div>
+                    <!--review------------->
+                    <div class="review">
+                        <button id="edit-address">
+                            <i class="fa fa-pencil"></i> 
+                        </button>
+                        <i class="fa fa-trash"></i>
+                    </div>         
+                </div>
+                <!--comment------------->
+                <div class="client-comment">
+                    <p>Phone number:???????</p>
+                    <p>Address:????????</p>
+                </div>
+            </div>
+            <!--box-3------------->
+            <div class="testimonials-box">
+                <div class="box-top">
+                    <!--profile------------->
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg" >
+                        </div>
+                        <div class="name-user">
+                            <strong>Hiếu</strong>
+                           
+                        </div>
+                    </div>
+                    <!--review------------->
+                    <div class="review">
+                        <button id="edit-address">
+                            <i class="fa fa-pencil"></i> 
+                        </button>
+                        <i class="fa fa-trash"></i>
+                    </div>         
+                </div>
+                <!--comment------------->
+                <div class="client-comment">
+                    <p>Phone number:???????</p>
+                    <p>Address:????????</p>
+                </div>
+            </div>
+            <!--box-4------------->
+            <div class="testimonials-box">
+                <div class="box-top">
+                    <!--profile------------->
+                    <div class="profile">
+                        <div class="profile-img">
+                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg" >
+                        </div>
+                        <div class="name-user">
+                            <strong>Hiếu</strong>
+                            
+                        </div>
+                    </div>
+                    <!--review------------->
+                    <div class="review">
+                        <button id="edit-address">
+                            <i class="fa fa-pencil"></i> 
+                        </button>
+                        <i class="fa fa-trash"></i>
+                    </div>         
+                </div>
+                <!--comment------------->
+                <div class="client-comment">
+                    <p>Phone number:???????</p>
+                    <p>Address:????????</p>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
 </section>
 <!---------Footer-------->
 <footer>
@@ -146,7 +298,47 @@
 		©IVYmoda All rights reserved
 	</div>
 </footer>
+<script>
+    document.querySelector("#add-address").addEventListener("click", function(){
+        document.querySelector(".popup").classList.add("active")
+    })
 
+    document.querySelector(".popup .close-btn").addEventListener("click", function(){
+        document.querySelector(".popup").classList.remove("active")
+    })
+
+    document.querySelector("#edit-address").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.add("active-edit")
+    })
+
+    document.querySelector(".popup-edit .close-btn").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.remove("active-edit")
+    })
+
+    document.querySelector("#edit-address").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.add("active-edit")
+    })
+
+    document.querySelector(".popup-edit .close-btn").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.remove("active-edit")
+    })
+
+    document.querySelector("#edit-address").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.add("active-edit")
+    })
+
+    document.querySelector(".popup-edit .close-btn").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.remove("active-edit")
+    })
+
+    document.querySelector("#edit-address").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.add("active-edit")
+    })
+
+    document.querySelector(".popup-edit .close-btn").addEventListener("click", function(){
+        document.querySelector(".popup-edit").classList.remove("active-edit")
+    })
+</script>
 
 	<script src="js/Jquery.js"></script>
 </body>
@@ -197,12 +389,6 @@
 
 
 	//-----------------Popup----------------
-	let popup = document.getElementById("popup");
-	function openPopup(){
-		popup.classList.add("open-popup");
-	}
-	function closePopup(){
-		popup.classList.remove("open-popup");
-	}
+	
 </script>
 </html>
