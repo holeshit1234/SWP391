@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Comment</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    <body>
+        <form action="CommentServlet" method="GET">            
+            <p>Your comment for this product</p>
+            <textarea rows="4" cols="50" name="txtDescription" placeholder="Enter your review"></textarea>
+            </br>
+            <label>Your point</label>
+            <input type="number" name="txtPoint" min="1" max="5">
+            </br>
+            <input type="submit" value="Post" name="btAction">
+        </form>
+        
+        
+    </body>
+</html>
