@@ -3,9 +3,12 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/web/login.jsp</file>
-            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/web/header.jsp</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDTO.java</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/src/java/DHTV/Controller/ShowUserByManagerServlet.java</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/src/java/DHTV/product/ProductDAO.java</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/web/asset/css/styleUpdateAdd.css</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/src/java/DVHT/userdetails/UserDetailsDAO.java</file>
+            <file>file:/D:/copylaij/bai%20moi/SWP391/SWP391/web/updateaddress.jsp</file>
         </group>
     </open-files>
 </project-private>

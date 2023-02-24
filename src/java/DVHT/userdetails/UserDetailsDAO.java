@@ -16,6 +16,7 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.List;
 import javax.naming.NamingException;
 
 /**
@@ -583,5 +584,13 @@ public class UserDetailsDAO implements Serializable {
 
         return result;
     }
+     
+     
+     private List<UserDetailsDTO> userList;
 
+    public List<UserDetailsDTO> getUserList() {
+        return userList;
+    }
+     
+    
 }
