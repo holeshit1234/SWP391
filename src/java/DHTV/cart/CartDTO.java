@@ -6,12 +6,13 @@
 package DHTV.cart;
 
 import DHTV.product.ProductDTO;
+import java.io.Serializable;
 
 /**
  *
  * @author vinht
  */
-public class CartDTO {
+public class CartDTO implements Serializable{
     private ProductDTO Product;
     private int cartID;
     private int productID;

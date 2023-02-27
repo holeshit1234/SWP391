@@ -5,13 +5,21 @@
  */
 package DHTV.Controller;
 
+import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,11 +40,29 @@ public class ShowUserByManagerServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        String url = "";
         try {
-           
-        }finally{
+            UserDetailsDAO dao = new UserDetailsDAO();
+
+            dao.showUserByManagerAccount();
+
+            List<UserDetailsDTO> result = dao.getUserList();
+
+            url = "test.jsp";
             
+           HttpSession session = request.getSession();
+           request.setAttribute("USER_INFO", result);
+         
+//           String json = new Gson().toJson(result);
+            
+        } catch (NamingException ex) {
+            log("EditCommentServlet_Naming " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("EditCommentServlet_SQL " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

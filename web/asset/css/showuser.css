@@ -1,0 +1,45 @@
+
+
+            table {
+                border-collapse: collapse;
+                width: 100%;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+            }
+
+            th {
+                background-color: #ddd;
+                font-weight: bold;
+            }
+
+            td input[type="text"], td input[type="date"] {
+                width: 100%;
+            }
+
+            td:nth-child(1) {
+                width: 5%;
+            }
+
+            td:nth-child(3)  {
+                width: 18%;
+            }
+            td:nth-child(4) {
+                width: 10%;
+            }
+            td:nth-child(6) {
+                width: 20%;
+            }
+            td:nth-child(9),
+            td:nth-child(10) {
+                width: 5%;
+            }
+            td input[type="text"], td input[type="date"] {
+                width: 80%;
+            }
+            input[type="text"], input[type="date"] {
+                border: none;
+            }
+

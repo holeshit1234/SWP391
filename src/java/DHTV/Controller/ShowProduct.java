@@ -49,60 +49,61 @@ public class ShowProduct extends HttpServlet {
 //            indexPage = "1";
 //        }
 //        int index = Integer.parseInt(indexPage);
-        try {
-            ProductDAO dao = new ProductDAO();
-
-            int size = dao.showProducts();
-            // process
-            List<ProductDTO> list = dao.getItemsList();
-            // send to view
-            //request.setAttribute("ITEMS_RESULT", result);
-             request.setAttribute("PRODUCT_RESULT", list);
-            
-//            ProductDTO dto = new ProductDTO();
-//             int id = dto.getProductID();
-//             System.out.println(id);
-            
+//        try {
+//            ProductDAO dao = new ProductDAO();
+//
+//            //int size = 
+//                    dao.showProducts();
+//            // process
+//            List<ProductDTO> list = dao.getItemsList();
+//            // send to view
+//            //request.setAttribute("ITEMS_RESULT", result);
+//             request.setAttribute("PRODUCT_RESULT", list);
 //            
-//            dao2.getImgByProductID(id);
-            
-//            List<ProductImgDTO> list2 = dao2.getImgList();
+////            ProductDTO dto = new ProductDTO();
+////             int id = dto.getProductID();
+////             System.out.println(id);
 //            
-//            String json2 = new Gson().toJson(list2);
-            
-            
-            
-
-//            int recordsPerPage = 5;
-//            int endPage = 0;
-//            endPage = size / recordsPerPage;
-//            if (size % recordsPerPage != 0) {
-//                endPage++;
-//            }
+////            
+////            dao2.getImgByProductID(id);
 //            
-//            List<ProductDTO> pagingList = dao.pagingAccount(index, recordsPerPage);
-//                request.setAttribute("PAGING_RESULT", pagingList);
-//                request.setAttribute("END_PAGE", endPage);
-//                request.setAttribute("CURRENT_PAGE", index);
+////            List<ProductImgDTO> list2 = dao2.getImgList();
+////            
+////            String json2 = new Gson().toJson(list2);
 //            
-                
-//              List<ProductDTO> list2 = dao.pagingAccount(index, recordsPerPage);
-                String json = new Gson().toJson(list);
-                
-                HttpSession session = request.getSession();
-                request.setAttribute("products", json);
-       
-                
-        } catch (NumberFormatException ex) {
-            log("NumberFormatException :" + ex.getMessage());
-        } catch (NamingException ex) {
-            log("ShowItemsServlet _ Naming _ " + ex.getMessage());
-        } catch (SQLException ex) {
-            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
-        } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-            dispatcher.forward(request, response);
-        }
+//            
+//            
+//
+////            int recordsPerPage = 5;
+////            int endPage = 0;
+////            endPage = size / recordsPerPage;
+////            if (size % recordsPerPage != 0) {
+////                endPage++;
+////            }
+////            
+////            List<ProductDTO> pagingList = dao.pagingAccount(index, recordsPerPage);
+////                request.setAttribute("PAGING_RESULT", pagingList);
+////                request.setAttribute("END_PAGE", endPage);
+////                request.setAttribute("CURRENT_PAGE", index);
+////            
+//                
+////              List<ProductDTO> list2 = dao.pagingAccount(index, recordsPerPage);
+//                String json = new Gson().toJson(list);
+//                
+//                HttpSession session = request.getSession();
+//                request.setAttribute("products", json);
+//       
+//                
+//        } catch (NumberFormatException ex) {
+//            log("NumberFormatException :" + ex.getMessage());
+//        } catch (NamingException ex) {
+//            log("ShowItemsServlet _ Naming _ " + ex.getMessage());
+//        } catch (SQLException ex) {
+//            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
+//        } finally {
+//            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+//            dispatcher.forward(request, response);
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

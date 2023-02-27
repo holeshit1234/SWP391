@@ -70,7 +70,7 @@
                     <c:set var="user" value="${sessionScope.USER}" />
                     <c:if test="${not empty requestScope.ADDRESS}">
                         <c:set var="add" value="${requestScope.ADDRESS}" />
-                        <input type="hidden" name="txtaddress" value="${add.getAddressID()}" />
+                        <input type="hidden" name="txtaddressid" value="${add.getAddressID()}" />
 
                         <div class="user-detail">
                             <div class="input-box">
@@ -107,7 +107,7 @@
                         </div>
 
                         <div class="button">
-                            <input type="submit" value="Update" name="btAciton" />
+                            <input type="submit" value="Update" name="btAction" />
                         </div>
                     </form>
                 </c:if>

@@ -1,8 +1,11 @@
+
+
+
 .modal-header {
     background: linear-gradient(135deg, #e7d0c4, #efe6e1);
     color: #333;
-  }
-  .user-detail{
+}
+.user-detail{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -198,7 +201,7 @@ header.sticky{
 }
 .navbar{
     display: block;
-    
+
 }
 .navbar ul{
     list-style: none;
@@ -221,13 +224,13 @@ header.sticky{
 }
 .testimonials{
     display: flex;
-    
+
 
 
     width: 100%;
     max-height: 290px;
     margin-top: 80px;
-   
+
 }
 .testimonial-heading{
 
