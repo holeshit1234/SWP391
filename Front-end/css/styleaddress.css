@@ -12,6 +12,9 @@ a{
     text-decoration: none;
     color: #333;
 }
+body {
+    overflow-x:hidden;
+}
 header{
     background: #eedbd0;
     display: flex;

@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>SWP team project</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<!-- Bootstrap -->
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	
+
+	<link rel="stylesheet" href="css/styleprofile.css">
+	<link rel="shortcut icon" href="images/logo.png">
+	<link rel="stylesheet" href="icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+    <!---------HEADER-------->
+<header>
+    <div class="logo">
+        <img src="images/logo-circle.png">
+    </div>
+    <div class="menu">
+        <li><a href="">Male</a>
+            <ul class="sub-menu">
+                <li><a href="">New products</a></li>
+                <li><a href="">Collection</a></li>
+                <li><a href="">Men's shirt</a>
+                    <ul>
+                        <li><a href="">Shirt</a></li>
+                        <li><a href="">T-shirt</a></li>
+                        <li><a href="">Vest</a></li>
+                        <li><a href="">Sweater</a></li>
+                        <li><a href="">Coat</a></li>
+                    </ul>					
+                </li>
+                <li><a href="">Men's pants</a>
+                    <ul>
+                        <li><a href="">Jeans</a></li>
+                        <li><a href="">Short pant</a></li>
+                        <li><a href="">Trouser</a></li>
+                    </ul>					
+                </li>
+            </ul>
+        
+        </li>
+        <li><a href="">Female</a></li>
+        <li><a href="">Children</a></li>
+        <li><a href="">Sale</a></li>
+        <li><a href="">Collection</a></li>
+        <li><a href="">Information</a></li>
+    </div>
+    <div class="orther">
+        <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
+        <li><a class="fa fa-user" href="login.html"></a></li>
+        <li><a class="fa fa-shopping-bag" href=""></a></li>
+    </div>
+</header>
+<!---------profile-------->
+
+<section class="row">
+	<div class="avt">
+    	<div class="user">
+        	<img src="images/296059556_584764606675134_7640748425626229317_n.jpg" alt="">
+        	<h3 class="name">Nguyễn Trung Hiếu</h3>
+        	<p class="post">Customer</p>
+    	</div>
+
+    	<nav class="navbar">
+        	<ul>
+            	<li><a href="#">Account information</a></li>
+            	<li><a href="#">Order management</a></li>
+            	<li><a href="#">Address number</a></li>
+            	<li><a href="#">Contact us</a></li>
+
+        	</ul>
+    	</nav>
+	</div>
+
+	<div class="sigup">
+		<div class="container">
+			<div class="title">Address number</div>
+			<form action="#">
+				<div class="user-detail">
+					<div class="input-box">
+						<span class="detail">Full name</span>
+						<input type="text" placeholder="Enter your username" required>
+					</div>		
+					<div class="input-box">
+						<span class="detail">Province</span>
+						<input type="text" placeholder="Enter your province" required>
+					</div>
+					
+					<div class="input-box">
+						<span class="detail">Ward</span>
+						<input type="text" placeholder="Enter your ward" required>
+					</div>
+					<div class="input-box">
+						<span class="detail">Street</span>
+						<input type="text" placeholder="Enter your street" required>
+					</div>
+					<div class="input-box">
+						<span class="detail">Address</span>
+						<input type="text" placeholder="Enter your address" required>
+					</div>		
+				</div>
+				<div class="button">
+					<input type="submit" value="Save" onclick="openPopup()"></input>
+					<div class="popup" id="popup">
+						<img src="images/404-tick.png">
+						<h2>Thank you!</h2>
+						<p>You have successfully changed the information.</p>
+						<button type="button" onclick="closePopup()">OK</button>
+						<!-----onclick="location.href='login.html';"------>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</section>
+<!---------Footer-------->
+<footer>
+	<div class="footer-top">
+		<li><a href="">Contact</a></li>
+		<li><a href="">Recruit</a></li>
+		<li><a href="">Introduce</a></li>
+		<li>
+			<a href="" class="fa fa-facebook"></a>
+			<a href="" class="fa fa-twitter"></a>
+			<a href="" class="fa fa-youtube"></a>
+		</li>
+	</div>
+	<div class="footer-center">
+	<p>
+		Contact phone number: 0111111111 <br>
+		Registration address: ??????????? <br>
+		Order online: <b>022222222</b>
+	</p>
+	</div>
+	<div class="footer-bottom">
+		©IVYmoda All rights reserved
+	</div>
+</footer>
+
+
+	<script src="js/Jquery.js"></script>
+</body>
+<script>
+	const imgPosition = document.querySelectorAll(".aspect-ratio-169 img")
+	const imgContainer = document.querySelector('.aspect-ratio-169')
+	const dotItem= document.querySelectorAll(".dot")
+	let imgNumber = imgPosition.length
+	let index = 0
+	//console.log(imgPosition)
+	imgPosition.forEach(function(images,index){
+		images.style.left = index*100 + "%"
+		dotItem[index].addEventListener("click",function(){
+			slider (index)
+	})
+})
+	function imgSlide (){
+		index++;
+		console.log(index)
+		if (index>=imgNumber){
+			index=0
+		}
+		slider (index)
+	}
+	function slider (index){
+		imgContainer.style.left ="-"+index*100+"%"
+		const dotActive = document.querySelector('.active')
+		dotActive.classList.remove("active")
+		dotItem[index].classList.add("active")
+	}
+	setInterval(imgSlide,5000)
+
+
+
+	//-----------------Popup----------------
+	let popup = document.getElementById("popup");
+	function openPopup(){
+		popup.classList.add("open-popup");
+	}
+	function closePopup(){
+		popup.classList.remove("open-popup");
+	}
+</script>
+</html>

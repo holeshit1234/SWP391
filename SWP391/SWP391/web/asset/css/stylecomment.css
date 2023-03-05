@@ -1,0 +1,230 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    font-family: poppins;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+}
+#testimonials{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+}
+.testimonial-heading{
+    letter-spacing: 1px;
+    margin: 30px 0px;
+    padding: 10px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.testimonial-heading h1{
+    font-size: 2.2rem;
+    font-weight: 500;
+    background-color: #333;
+    color: #fff;
+    padding: 10px 20px;
+}
+.testimonial-heading span{
+    font-size: 1.3rem;
+    color: #333;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+.testimonials-box-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+}
+.testimonials-box{
+    width: 500px;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 20px;
+    margin: 15px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.profile-img{
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-right: 10px;
+}
+.profile-img img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+.profile{
+    display: flex;
+    align-items: center;
+}
+.name-user{
+    display: flex;
+    flex-direction: column;
+    margin-bottom: -20px;
+}
+.name-user strong{
+    color: #3d3d3d;
+    font-size: 1.5rem;
+    letter-spacing: 0.5px;
+}
+.name-user span{
+    color: #979797;
+    font-size: 1rem;
+}
+.review i{
+    color: #f9d71c;
+    letter-spacing: 5px;
+}
+.box-top{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.client-comment p{
+    font-size: 1.5rem;
+    color: #4b4b4b;
+}
+.testimonials-box:hover{
+    transform: translateY(-10px);
+    transition: all ease;
+}
+.eva{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    text-decoration: none;
+}
+.eva li{
+    padding: 0 10px;
+    position: relative;
+    text-decoration: none;
+}
+.eva li a {
+    text-decoration: none;
+    color: #837d7c;
+}
+.eva li::after{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 80%;
+    background: #ccc;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.eva li:last-child::after{
+    display: none;
+}
+.eva-star{
+    top: 0;
+    left: 0;
+    margin-top: 0.5px;
+    margin-left: -10px;
+}
+li{
+    list-style: none;
+}
+
+
+.rating {
+    display: inline-block;
+  }
+  
+  .rating input {
+    display: none;
+    background: none;
+  }
+  
+  .rating label {
+    color: grey;
+    font-size: 15px;
+    cursor: pointer;
+    margin: -5px;
+  }
+  
+  .rating label:before {
+    content: "\2605";
+    margin: 5px;
+  }
+  
+  .rating input:checked ~ label {
+    color: #f9d71c;
+  }
+  
+  .rating label:hover,
+  .rating label:hover ~ label {
+    color: #f9d71c;
+  }
+  .popup{
+    width: 400px;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 6px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%,-50%) scale(0.1);
+    text-align: center;
+    padding: 0 10px 30px;
+    color: #333;
+    visibility: hidden;
+    transition: transform 0.4s, top 0.4s;
+}
+.open-popup{
+    visibility: visible;
+    top: 75%;
+    transform: translate(-50%,-50%) scale(1);
+}
+.popup img{
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-top: -50px;
+    border-radius: 50%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+.popup h2{
+    font-size: 38px;
+    font-weight: 500;
+    margin: 30px 0 10px;
+}
+.popup p{
+    font-size: 20px;
+    padding-top: 20px;
+}
+.popup button{
+    width: 50%;
+    margin-top: 20px;
+    padding: 10px 0;
+    background: linear-gradient(135deg, #e7d0c4, #efe6e1);
+    color: #333;
+    border: 0;
+    outline: none;
+    font-size: 18px;
+    border-radius: 4px;
+    cursor: pointer;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+}
+.popup button:hover{
+    background: linear-gradient(-135deg, #e7d0c4, #efe6e1);
+}
+
