@@ -12,7 +12,8 @@ import java.sql.Date;
  *
  * @author vinht
  */
-public class OrderDTO implements Serializable{
+public class OrderDTO implements Serializable {
+
     private int orderID;
     private int userID;
     private int paymentID;
@@ -22,8 +23,20 @@ public class OrderDTO implements Serializable{
     private double shippingFee;
     private int approvalStatus;
     private boolean paymentStatus;
+    private String month;
 
     public OrderDTO() {
+    }
+
+    public OrderDTO(int OrderID, Double totalprice, String month) {
+        this.orderID = OrderID;
+        this.totalPrice = totalprice;
+        this.month = month;
+    }
+
+    public OrderDTO(Double totalprice, String month) {
+        this.totalPrice = totalprice;
+        this.month = month;
     }
 
     public OrderDTO(int orderID, int userID, int paymentID, int addressID, Date date, double totalPrice, double shippingFee, int approvalStatus, boolean paymentStatus) {
@@ -38,6 +51,16 @@ public class OrderDTO implements Serializable{
         this.paymentStatus = paymentStatus;
     }
 
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+    
+    
+    
     public int getOrderID() {
         return orderID;
     }
@@ -115,7 +138,4 @@ public class OrderDTO implements Serializable{
         return "OrderDTO{" + "orderID=" + orderID + ", userID=" + userID + ", paymentID=" + paymentID + ", addressID=" + addressID + ", date=" + date + ", totalPrice=" + totalPrice + ", shippingFee=" + shippingFee + ", approvalStatus=" + approvalStatus + ", paymentStatus=" + paymentStatus + '}';
     }
 
-   
-    
-            
 }

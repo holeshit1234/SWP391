@@ -36,6 +36,10 @@
                     </font>
                 </div>
             </form>
+                    
+                    
+                    
+                    
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -75,7 +79,7 @@
                             </a>
                             <div class="collapse" id="collapseProduct" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                   <a class="nav-link" href="ShowAllListProductServlet">Product</a>
+                                    <a class="nav-link" href="ShowAllListProductServlet">Product</a>
                                     <a class="nav-link" href="showCategoryServlet">Category</a>
                                     <a class="nav-link" href="showBrandServlet">Brand</a>
                                     <a class="nav-link" href="showSizeServlet">Size</a>
@@ -90,7 +94,7 @@
                             </a>
                             <div class="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                 <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
+                                    <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
                                 </nav>
@@ -102,14 +106,20 @@
                             </a>
                             <div class="collapse" id="collapseReport" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                   <a class="nav-link" href="ShowAllReport">Report</a>                              
+                                    <a class="nav-link" href="ShowAllReport">Show Report</a>                              
+                                    <a class="nav-link" href="ShowBanUser">Show Ban User</a>                              
                                 </nav>
                             </div>                       
                         </div>
                     </div>
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
+
+                    <!---coppy tới đây --->
+                    
+                    
+                    
                 </nav>
             </div>
             <div id="layoutSidenav_content">
@@ -138,7 +148,6 @@
                                                 <th>Comment</th>                       
                                                 <th>Date</th>
                                                 <th>Reason</th>
-                                                <th>Ban User</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -149,10 +158,7 @@
                                                     <td>${dto.getComment()}</td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${dto.getDescription()}</td>
-                                                    <c:url var="urlBanUser" value="" >
-                                                        <c:param name="userID" value="${dto.getUserID()}"/>
-                                                    </c:url>
-                                                    <td><a href="${urlBanUser}">Ban User</a></td>
+
                                                 </tr>
                                             </c:forEach>
                                         </tbody>

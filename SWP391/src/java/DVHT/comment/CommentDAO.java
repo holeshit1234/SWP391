@@ -491,7 +491,9 @@ public class CommentDAO implements Serializable{
     }
      
      
-     public void getUserNeedCare(int commentID) throws SQLException, NamingException{       
+     public void getUserNeedCare(int commentID) throws SQLException, NamingException{   
+         
+         
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
@@ -501,10 +503,10 @@ public class CommentDAO implements Serializable{
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. Sql command
-                String sql = "Select  cm.[UserID], us.FullName, cm.Description " +
+                String sql = "Select  cm.[UserID], us.FullName, cm.Description, us.[Status] " +
                         "from [Comment] cm "
                         + "INNER JOIN [UserDetails] us on cm.UserID = us.UserID " +
-                    "WHERE [CommentID] = ?  ";
+                    "WHERE cm.[CommentID] = ?  ";
                         
                 //3. Create Statement
                 stm = con.prepareStatement(sql);
@@ -515,8 +517,9 @@ public class CommentDAO implements Serializable{
                 while (rs.next()) {
                     int userid =rs.getInt("UserID");
                     String fullname = rs.getString("FullName");
+                    boolean status = rs.getBoolean("Status");
                     String des = rs.getString("Description");
-                    result = new CommentDTO(commentID, userid, des, fullname);
+                    result = new CommentDTO(commentID, userid, des, status, fullname);
                     
                      if (this.ListUserReport == null) {
                         this.ListUserReport = new ArrayList<>();

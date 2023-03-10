@@ -5,8 +5,7 @@
  */
 package DHTV.Controller;
 
-import DHTV.product.ProductImgDAO;
-import DHTV.product.ProductImgDTO;
+
 import DVHT.comment.CommentDAO;
 import DVHT.comment.CommentDTO;
 import DVHT.rate.RateDAO;
@@ -159,11 +158,7 @@ public class CommentServlet extends HttpServlet {
                 //HttpSession session = request.getSession();
                 session.setAttribute("INFOCOMMENT", list);
             }
-            //get img product
-            ProductImgDAO daoImg =new  ProductImgDAO();            
-            daoImg.getImgByProductID(productID);
-            List<ProductImgDTO> listImg = daoImg.getImgList();
-            request.setAttribute("IMG_LIST", listImg);
+       
             
             //save productID 
             request.setAttribute("PRODUCTID", productID);

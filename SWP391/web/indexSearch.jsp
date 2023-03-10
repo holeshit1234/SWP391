@@ -1,7 +1,7 @@
 <%@page import="org.json.JSONException"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="DHTV.product.ProductImgDAO"%>
+
 <!DOCTYPE html>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -178,8 +178,9 @@
                     </c:if>
 
                 <li><a class="fa fa-shopping-bag" href=""></a></li>
-                    <c:if test="${not empty sessionScope.USER}">
-                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+
+
+                <c:if test="${not empty sessionScope.USER}">
                     <jsp:include page="logout.jsp"/>
                 </c:if>
             </div>

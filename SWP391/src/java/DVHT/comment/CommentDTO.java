@@ -36,13 +36,15 @@ public class CommentDTO implements Serializable{
         this.status = status;
     }
 
-    public CommentDTO(int CommentID, int UserID, String Description, String fullName) {
+    public CommentDTO(int CommentID, int UserID, String Description, boolean status, String fullName) {
         this.CommentID = CommentID;
         this.UserID = UserID;
         this.Description = Description;
+        this.status = status;
         this.fullName = fullName;
     }
 
+  
     public String getFullName() {
         return fullName;
     }

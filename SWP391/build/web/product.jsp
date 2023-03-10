@@ -85,34 +85,7 @@
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
-                <!--        <li><a href="">Male</a>
-                            <ul class="sub-menu">
-                                <li><a href="">New products</a></li>
-                                <li><a href="">Collection</a></li>
-                                <li><a href="">Men's shirt</a>
-                                    <ul>
-                                        <li><a href="">Shirt</a></li>
-                                        <li><a href="">T-shirt</a></li>
-                                        <li><a href="">Vest</a></li>
-                                        <li><a href="">Sweater</a></li>
-                                        <li><a href="">Coat</a></li>
-                                    </ul>					
-                                </li>
-                                <li><a href="">Men's pants</a>
-                                    <ul>
-                                        <li><a href="">Jeans</a></li>
-                                        <li><a href="">Short pant</a></li>
-                                        <li><a href="">Trouser</a></li>
-                                    </ul>					
-                                </li>
-                            </ul>
-                        
-                        </li>
-                        <li><a href="">Female</a></li>
-                        <li><a href="">Children</a></li>
-                        <li><a href="">Sale</a></li>
-                        <li><a href="">Collection</a></li>
-                        <li><a href="">Information</a></li>-->
+           
                 <li><a href="SearchServlet">Search Page</a> </li>
             </div>
             <div class="orther">
@@ -145,7 +118,7 @@
         <section>
             <div class="container flex">
                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
-                <jsp:useBean id="daoProductImg" class="DHTV.product.ProductImgDAO"/>  
+             
                 <div class="left">
                     <div class="main-image" id="test">
                         <img id="myImage" class="center" src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}" alt="" class="slide">

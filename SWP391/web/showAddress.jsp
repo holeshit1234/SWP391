@@ -118,8 +118,7 @@
                     </c:if>
 
                 <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-                    <c:if test="${not empty sessionScope.USER}">
-                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+                    <c:if test="${not empty sessionScope.USER}">             
                     <jsp:include page="logout.jsp"/>
                 </c:if>
             </div>

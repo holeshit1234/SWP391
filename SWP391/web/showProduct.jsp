@@ -81,7 +81,7 @@
                                     <a class="nav-link" href="showCategoryServlet">Category</a>
                                     <a class="nav-link" href="showBrandServlet">Brand</a>
                                     <a class="nav-link" href="showSizeServlet">Size</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Payment</a>
+                                    <a class="nav-link" href="GetPaymentMethodServlet">Payment</a>
                                 </nav>
                             </div>   
 

@@ -11,15 +11,28 @@ import java.io.Serializable;
  *
  * @author vinht
  */
-public class OrderDetailDTO implements Serializable{
+public class OrderDetailDTO implements Serializable {
+
     private int orderDetailID;
     private int orderID;
     private int productID;
     private int sizeID;
     private int quantity;
     private double price;
+    private String productName;
 
     public OrderDetailDTO() {
+    }
+
+    public OrderDetailDTO(int productID, int quantity, String productName) {
+        this.productID = productID;
+        this.quantity = quantity;
+        this.productName = productName;
+    }
+
+    public OrderDetailDTO(int productID, int quantity) {
+        this.productID = productID;
+        this.quantity = quantity;
     }
 
     public OrderDetailDTO(int orderDetailID, int orderID, int productID, int sizeID, int quantity, double price) {
@@ -29,6 +42,14 @@ public class OrderDetailDTO implements Serializable{
         this.sizeID = sizeID;
         this.quantity = quantity;
         this.price = price;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public int getOrderDetailID() {
@@ -84,5 +105,4 @@ public class OrderDetailDTO implements Serializable{
         return "OrderDetailDTO{" + "orderDetailID=" + orderDetailID + ", orderID=" + orderID + ", productID=" + productID + ", sizeID=" + sizeID + ", quantity=" + quantity + ", price=" + price + '}';
     }
 
-        
 }

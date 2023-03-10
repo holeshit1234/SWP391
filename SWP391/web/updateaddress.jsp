@@ -57,16 +57,35 @@
                 <li><a href="">Information</a></li>
             </div>
             <div class="orther">
-                <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
-                <li><a class="fa fa-user" href="login.html"></a></li>
-                <li><a class="fa fa-shopping-bag" href=""></a></li>
+                <li>
+                    <form action="SearchServlet">
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                    </form>
+                </li>
+
+
+                <c:url var="urlprofile" value="ShowProfileServlet" >
+                    <c:param name="btAction" value="show" />
+                </c:url>
+                <c:if test="${not empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
+                    </c:if>
+
+                <c:if test="${empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="login.jsp"></a></li>
+                    </c:if>
+
+                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
+                    <c:if test="${not empty sessionScope.USER}">             
+                        <jsp:include page="logout.jsp"/>
+                    </c:if>
             </div>
         </header>
         <!-- adaddress -->
         <div class="body">
             <div class="container">
                 <div class="title">Update address</div>
-                <form action="DispatchController" method="POST">
+                <form action="UpdateAddressServlet" method="POST">
                     <c:set var="user" value="${sessionScope.USER}" />
                     <c:if test="${not empty requestScope.ADDRESS}">
                         <c:set var="add" value="${requestScope.ADDRESS}" />

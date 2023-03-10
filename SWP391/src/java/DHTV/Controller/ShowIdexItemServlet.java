@@ -7,7 +7,6 @@ package DHTV.Controller;
 
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
-import DHTV.product.ProductImgDAO;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;

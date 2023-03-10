@@ -31,7 +31,7 @@
                 <img srcset="images/Login-line.png 2x" alt="" />
                 <div class="forgot-form-container">
 
-                    <form action="DispatchController" method="POST">
+                    <form action="UserVerifyServlet" method="POST">
                         <p class="forgot-text">Password Recovery</p>
                         <c:set var = "scope" value="${requestScope.VERIFYMAIL_SCOPE}"/>
                         <div class="forgot-form">

@@ -58,7 +58,7 @@
                         <div class="sigup col-md-8">
                             <div class="container ">
                                 <div class="title text-center">My account</div>
-                                <form action="DispatchController" method="POST">
+                                <form action="UpdateProfileServlet" method="POST">
                                     <div class="user-detail row">
                                         <div class="col-md-6">
                                             <div class="input-box">

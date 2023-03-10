@@ -70,7 +70,7 @@
                     </div>
                     <img srcset="images/Login-line.png 2x" alt="" />
                     <div class="forgot-form-container">
-                        <form action="DispatchController" method="POST">
+                        <form action="ResetPasswordServlet" method="POST">
                             <div class="forgot-form">
                                 <c:set var = "errors" value="${requestScope.RESETPASSWORD_ERROR}"/>
                                 <input type="password" name="txtPassword"
@@ -106,7 +106,7 @@
                                     <input type="submit" value="SAVE"
                                            class="forgot-function-btn"
                                            name="btAction" />
-                                    <a href="loginPage" class="forgot-function-cancel">Cancel</a>
+                                    <a href="login.jsp" class="forgot-function-cancel">Cancel</a>
                                 </div>
                             </div>
                         </form>

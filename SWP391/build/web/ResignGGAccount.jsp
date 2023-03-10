@@ -18,6 +18,7 @@
 
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
         <title>JSP Page</title>
     </head>
     <body>
@@ -67,31 +68,32 @@
         <div class="body">
             <div class="container">
                 <div class="title">Resign GG Account</div>
-                <form action="DispatchController" method="POST">
+                <form action="writeInformationGgServlet" method="POST">
                     <div class="user-detail">
                         <div class="input-box">
                             <span class="detail">Phone</span>
-                            <input type="text" name="txtPhone" value="${param.txtPhone}" /><br>
+                            <input type="text" name="txtPhone" value="${param.txtPhone}" placeholder="Enter your phone" required>
+                            <span class="error-message phone" style="display: none;"></span>
                         </div>
                         <div class="input-box">
                             <span class="detail">DOB</span>
-                            <input type="date" name="txtDOB" value="${param.txtDOB}" /><br>
+                            <input type="date" name="txtDOB" value="${param.txtDOB}" required/><br>
                         </div>
                         <div class="input-box">
                             <span class="detail">Province</span>
-                            <input type="text" name="txtProvince" value="${param.txtProvince}" /><br>
+                            <input type="text" name="txtProvince" value="${param.txtProvince}" required/><br>
                         </div>
                         <div class="input-box">
                             <span class="detail">District</span> 
-                            <input type="text" name="txtDistrict" value="${param.txtDistrict}" /><br>
+                            <input type="text" name="txtDistrict" value="${param.txtDistrict}" required/><br>
                         </div>
                         <div class="input-box">
                             <span class="detail">Ward</span>
-                            <input type="text" name="txtWard" value="${param.txtProvince}" /><br>
+                            <input type="text" name="txtWard" value="${param.txtProvince}" required/><br>
                         </div>
                         <div class="input-box">
                             <span class="detail">Street</span>
-                            <input type="text" name="txtStreet" value="${param.txtProvince}" /><br>
+                            <input type="text" name="txtStreet" value="${param.txtProvince}" required/><br>
                         </div>
                     </div>
 
@@ -147,7 +149,6 @@
                 ©IVYmoda All rights reserved
             </div>
         </footer>
-
-    </form>
+        <script src="asset/js/Format.js"></script>
 </body>
 </html>

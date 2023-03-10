@@ -1,7 +1,7 @@
 <%@page import="org.json.JSONException"%>
 <%@page import="org.json.JSONObject"%>
 <%@page import="org.json.JSONArray"%>
-<%@page import="DHTV.product.ProductImgDAO"%>
+
 <!DOCTYPE html>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

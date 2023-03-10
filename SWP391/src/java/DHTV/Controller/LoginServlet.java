@@ -80,10 +80,10 @@ public class LoginServlet extends HttpServlet {
                 } else {
 
                     if (result.getRoleID() == 1) {
-                        url = "ShowUserByManagerServlet";
+                        url = "ShowDashBoard";
                 
                     } else if (result.getRoleID() == 2) {
-                        url ="ShowUserByManagerServlet";
+                        url ="ShowDashBoard";
    
                     } else {
              

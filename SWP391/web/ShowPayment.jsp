@@ -109,7 +109,7 @@
                             </div>                       
                         </div>
                     </div>
-                    
+
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as: </div>
                     </div>
@@ -165,11 +165,7 @@
                                                         <a type="button"  
                                                            href="${urlUpPay}">Update Availability </a> <br>
 
-                                                        <c:url var="urlDePay" value="DeletePaymentServlet">
-                                                            <c:param name="btAction" value="delete"/>
-                                                            <c:param name="payid" value="${pay.paymentID}"/>                                                           
-                                                        </c:url>
-                                                        <a type="button" href="#" onclick="showConfirmationDialog('${urlDePay}');">Delete </a> <br>
+f
 
                                                         <a href="#" data-bs-toggle="modal" data-bs-target="#exampleModal">Add New PaymentMethod</a>
 

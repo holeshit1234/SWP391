@@ -120,24 +120,24 @@
 
             <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
                 <c:if test="${not empty sessionScope.USER}">
-                <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+        
                 <jsp:include page="logout.jsp"/>
             </c:if>
         </div>
     </header>
     <!---------cart-------->
     <div class="cart">
-
-        <div class="container">
-            <div class="order-content row">
-                <div class="order-content-left" style="display: block;">
-                    <div class="content-left" style="margin-left: -150px;">
-                        <div class="user">
-                            <img src="images/296059556_584764606675134_7640748425626229317_n.jpg" alt="">
-                            <h3 class="name">Nguyễn Trung Hiếu</h3>
-                            <p class="post">Customer</p>
-                        </div>
-
+        <c:if test="${not empty sessionScope.USER}">
+            <c:set var="info_user" value="${sessionScope.USER}"/>  
+            <div class="container">
+                <div class="order-content row">
+                    <div class="order-content-left" style="display: block;">
+                        <div class="content-left" style="margin-left: -150px;">
+                            <div class="user">
+                                <img src="asset/images/useravatar/${info_user.picture}" alt="">                                        
+                                <h3 class="name">${info_user.fullName}</h3>              
+                            </div>
+                        </c:if> 
                         <nav class="navbar" style="margin-left: 65px;">
                             <ul>
                                 <li><a href="ShowProfileServlet">Account information</a></li>
@@ -159,8 +159,8 @@
                             ${daoApp.getData()}
                             <form method="get" action="ShowOrderTrackingServlet">
                                 <select name='txtStatus' onchange='if (this.value != 0) {
-                                            this.form.submit();
-                                        }' class="form-filter">
+                                                this.form.submit();
+                                            }' class="form-filter">
                                     <option value='9'>Option</option>
                                     <option value='9'>Tất cả</option>
                                     <c:forEach var="dto" items="${daoApp.getList()}" >
@@ -221,9 +221,9 @@
                                         </c:if>
                                         <c:if test="${(dto.getApprovalStatus() == 4)||(dto.getApprovalStatus() == 3)}">                                                
                                             <c:url var="repurchaseURL" value="RepurchaseServlet" >                                                    
-                                                    <c:param name="txtCommentID" value="${cmtID}" />
-                                                    <c:param name="txtProductID" value="${requestScope.PRODUCTID}" />
-                                                    <c:param name="txtUserID" value="${user.getUserID()}" />
+                                                <c:param name="txtCommentID" value="${cmtID}" />
+                                                <c:param name="txtProductID" value="${requestScope.PRODUCTID}" />
+                                                <c:param name="txtUserID" value="${user.getUserID()}" />
                                             </c:url>
                                             <button class="btn btn-primary" type="button" onclick="confirmFlag('${repurchaseURL}')">
                                                 <sup>Mua lại</sup>
@@ -239,6 +239,7 @@
             </div>
         </div> 
     </div> 
+
     <!---------Footer-------->
     <footer>
         <div class="footer-top">
