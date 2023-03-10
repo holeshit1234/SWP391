@@ -5,11 +5,13 @@
  */
 package DHTV.approvalStatus;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class ApprovalStatusDTO {
+public class ApprovalStatusDTO implements Serializable{
     private int approvalStatusID;
     private String approvalStatus;
 

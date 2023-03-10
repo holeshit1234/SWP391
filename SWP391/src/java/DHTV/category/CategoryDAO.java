@@ -6,6 +6,8 @@
 package DHTV.category;
 
 import DVHT.utils.DBHelpers;
+import com.sun.jndi.toolkit.dir.SearchFilter;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +21,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class CategoryDAO {
+public class CategoryDAO implements Serializable{
 
     public CategoryDTO getInfoCategoryByCategoryID(int categoryID)
             throws NamingException, SQLException {

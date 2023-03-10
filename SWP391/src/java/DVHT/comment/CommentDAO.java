@@ -6,6 +6,7 @@
 package DVHT.comment;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class CommentDAO {
+public class CommentDAO implements Serializable{
     public boolean addComment(CommentDTO dto) throws SQLException, NamingException{       
         //set current date
         long millis=System.currentTimeMillis();   

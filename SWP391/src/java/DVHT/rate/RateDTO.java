@@ -5,11 +5,13 @@
  */
 package DVHT.rate;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class RateDTO {
+public class RateDTO implements Serializable{
     private int RateID;
     private int ProductID;
     private int Point;

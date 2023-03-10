@@ -6,6 +6,7 @@
 package DHTV.order;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -21,7 +22,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class OrderDAO {
+public class OrderDAO implements Serializable{
 
     public static int addOrder(OrderDTO dto)
             throws NamingException, SQLException, ParseException {

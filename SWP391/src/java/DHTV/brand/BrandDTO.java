@@ -5,11 +5,13 @@
  */
 package DHTV.brand;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class BrandDTO {
+public class BrandDTO implements Serializable{
     private int BrandId;
     private String BrandName;
     private boolean Status;

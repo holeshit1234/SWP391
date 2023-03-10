@@ -5,13 +5,14 @@
  */
 package DVHT.report;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  *
  * @author vinht
  */
-public class ReportDTO {
+public class ReportDTO implements Serializable{
     private int ReportID;
     private int UserID;
     private  int CommentID;

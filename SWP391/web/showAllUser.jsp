@@ -19,7 +19,7 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
- 
+
     </head>
     <body class="sb-nav-fixed">
 
@@ -174,19 +174,31 @@
                                                     </td>
 
                                                     <td>
-                                                         <c:url var="urlInfo" value="GetUserUpdate">
+                                                        <c:url var="urlInfo" value="GetUserUpdate">
                                                             <c:param name="btAction" value="UpdateInfo"/>
                                                             <c:param name="userid" value="${dto.getUserID()}"/>
                                                         </c:url>
                                                         <a type="button" value="Update"  
                                                            href="${urlInfo}">Update </a> <br>
-                                                           
+
                                                         <c:url var="urlAddress" value="GetAddressServelts">
                                                             <c:param name="btAction" value="Show Address"/>
                                                             <c:param name="userid" value="${dto.getUserID()}"/>
                                                         </c:url>
                                                         <a type="button" 
                                                            href="${urlAddress}">Show Address </a> <br>
+
+                                                        <c:if test="${not empty sessionScope.USER}">
+                                                            <c:set var="user" value="${sessionScope.USER}"/>
+                                                            <c:if test="${user.getRoleID() == 1}">
+                                                                <c:url var="urlDelete" value="DeleteUserServlet">                                                                  
+                                                                    <c:param name="userid" value="${dto.getUserID()}"/>
+                                                                </c:url>
+                                                                <a type="button" 
+                                                                   href="${urlDelete}">Delete User </a> <br>
+                                                            </c:if>
+                                                        </c:if>
+
                                                     </td>
                                                 </tr>
                                             </c:forEach>
@@ -200,7 +212,7 @@
                 </main>
 
 
-                
+
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">

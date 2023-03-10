@@ -5,11 +5,13 @@
  */
 package DHTV.size;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class SizeDTO {
+public class SizeDTO implements Serializable{
     private int SizeID;
     private  String SizeName;
 

@@ -5,13 +5,15 @@
  */
 package DHTV.product;
 
-import java.sql.Date;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  *
  * @author mthin
  */
-public class ProductDTO {
+public class ProductDTO implements Serializable{
     private int productID;
     private String productName;
     private int brandID;

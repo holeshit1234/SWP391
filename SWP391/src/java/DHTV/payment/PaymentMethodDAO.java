@@ -6,6 +6,7 @@
 package DHTV.payment;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class PaymentMethodDAO {
+public class PaymentMethodDAO implements Serializable{
     private List<PaymentMethodDTO> paymentList;
 
     public List<PaymentMethodDTO> getPaymentList() {

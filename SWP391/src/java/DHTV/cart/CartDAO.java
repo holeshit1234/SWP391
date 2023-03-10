@@ -6,6 +6,7 @@
 package DHTV.cart;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class CartDAO {
+public class CartDAO implements Serializable{
 
     public boolean saveCart(CartDTO cart) throws NamingException, SQLException {
         int key = 0;

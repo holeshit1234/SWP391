@@ -6,6 +6,7 @@
 package DVHT.rate;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -15,7 +16,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class RateDAO {
+public class RateDAO implements Serializable{
     public boolean addRate(RateDTO dto) throws SQLException, NamingException{             
         Connection con = null;
         PreparedStatement stm = null;

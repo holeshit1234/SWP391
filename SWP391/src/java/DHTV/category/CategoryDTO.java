@@ -5,11 +5,13 @@
  */
 package DHTV.category;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class CategoryDTO {
+public class CategoryDTO  implements Serializable{
     private  int CategoryID;
     private  String CategoryName;
     private  String Gender;

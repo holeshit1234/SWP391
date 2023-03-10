@@ -6,6 +6,7 @@
 package DHTV.product;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author mthin
  */
-public class ProductDAO {
+public class ProductDAO implements Serializable{
 
     private List<ProductDTO> itemsList;
 

@@ -6,6 +6,7 @@
 package DVHT.report;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -19,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class ReportDAO {
+public class ReportDAO implements Serializable{
     public boolean addReport(ReportDTO dto) throws NamingException, SQLException{
         //set current date
         long millis=System.currentTimeMillis();   

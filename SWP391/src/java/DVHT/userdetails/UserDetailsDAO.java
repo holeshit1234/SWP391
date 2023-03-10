@@ -606,7 +606,7 @@ public class UserDetailsDAO implements Serializable {
                 String sql = "Select UserID,UserName ,PassWord,FullName, RoleID, "
                         + "Email, Phone, DOB, Gender, Picture "
                         + "from UserDetails "
-                        + " where RoleID  IN (2,3) ";
+                        + " where RoleID  IN (2,3) And Status = 1 ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 //execute query  
@@ -662,7 +662,7 @@ public class UserDetailsDAO implements Serializable {
                 String sql = "Select UserID,UserName ,PassWord,FullName, RoleID, "
                         + "Email, Phone, DOB, Gender, Picture "
                         + "from UserDetails "
-                        + " where RoleID = 3 ";
+                        + " where RoleID = 3 and Status = 1";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 //execute query  

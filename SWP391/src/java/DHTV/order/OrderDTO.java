@@ -5,13 +5,14 @@
  */
 package DHTV.order;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author vinht
  */
-public class OrderDTO {
+public class OrderDTO implements Serializable{
     private int orderID;
     private int userID;
     private int paymentID;

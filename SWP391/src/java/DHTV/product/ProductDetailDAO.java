@@ -7,6 +7,7 @@ package DHTV.product;
 
 import DHTV.size.SizeDTO;
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class ProductDetailDAO {
+public class ProductDetailDAO implements Serializable{
     public int getQuantity (int productID, int storeID, int sizeID)
             throws NamingException, SQLException {
         Connection con = null;

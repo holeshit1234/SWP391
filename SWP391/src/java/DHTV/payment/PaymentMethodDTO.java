@@ -5,11 +5,13 @@
  */
 package DHTV.payment;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class PaymentMethodDTO {
+public class PaymentMethodDTO implements Serializable{
     private int paymentID;
     private String paymentMethod;
     private boolean status;

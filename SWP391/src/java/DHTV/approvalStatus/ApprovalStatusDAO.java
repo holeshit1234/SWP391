@@ -6,6 +6,7 @@
 package DHTV.approvalStatus;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -18,7 +19,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class ApprovalStatusDAO {
+public class ApprovalStatusDAO implements Serializable{
     private List<ApprovalStatusDTO> list;
 
     public List<ApprovalStatusDTO> getList() {

@@ -6,6 +6,7 @@
 package DHTV.brand;
 
 import DVHT.utils.DBHelpers;
+import java.io.Serializable;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -19,7 +20,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class BrandDAO {
+public class BrandDAO implements Serializable{
     public BrandDTO getInfoBrandByBrandID(int brandID)
             throws NamingException, SQLException {
         Connection con = null;

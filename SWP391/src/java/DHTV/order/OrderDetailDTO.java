@@ -5,11 +5,13 @@
  */
 package DHTV.order;
 
+import java.io.Serializable;
+
 /**
  *
  * @author vinht
  */
-public class OrderDetailDTO {
+public class OrderDetailDTO implements Serializable{
     private int orderDetailID;
     private int orderID;
     private int productID;

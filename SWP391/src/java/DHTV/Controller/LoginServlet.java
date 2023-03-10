@@ -81,13 +81,13 @@ public class LoginServlet extends HttpServlet {
 
                     if (result.getRoleID() == 1) {
                         url = "ShowUserByManagerServlet";
-                        //url = MyAplications.LoginServlet.ADMIN_PAGE;
+                
                     } else if (result.getRoleID() == 2) {
                         url ="ShowUserByManagerServlet";
-                        //url = MyAplications.LoginServlet.MANAGER_PAGE;
+   
                     } else {
-                        //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-                        //url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
+             
+              
                         url = SHOW_INDEX_ITEM;
                     }
 
@@ -111,10 +111,10 @@ public class LoginServlet extends HttpServlet {
         } catch (/*ClassNotFoundException*/NamingException ex) {
             log("LoginServlet _Naming_ " + ex.getMessage());
         } finally {
-//            RequestDispatcher rd = request.getRequestDispatcher(url);
-//            rd.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
                     
-            response.sendRedirect(url);
+//            response.sendRedirect(url);
         }
     }
 
