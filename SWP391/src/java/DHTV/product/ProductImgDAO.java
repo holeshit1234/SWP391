@@ -10,6 +10,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 
@@ -44,7 +45,7 @@ public class ProductImgDAO {
                     img= rs.getString("Image");
                 }
             }
-            return img;
+            
         } finally {
             if (rs != null) {
                 rs.close();
@@ -55,11 +56,12 @@ public class ProductImgDAO {
             if (con != null) {
                 con.close();
             }
+            return img;
         }
     }
     
     
-    /*
+    
     private List<ProductImgDTO> imgList;
 
     public List<ProductImgDTO> getImgList() {
@@ -76,29 +78,25 @@ public class ProductImgDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                 String sql = "select [ProductID],[ProductName],[BrandID],[CategoryID],[Price],[Status]  "+
-                                "from  Product " +
-                                "where Status =1";
+                 String sql = "SELECT ImageID,[ProductID],[Image]  " +
+                            "FROM [ProductIMG] " +
+                            "where ProductID = ? ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 //execute query  
+                stm.setInt(1, productID);
                 rs = stm.executeQuery();
                 //5 process
                 while(rs.next()){
-                    int productID=rs.getInt("ProductID");
-                    String productName= rs.getString("ProductName");
-                    int brandID = rs.getInt("BrandID");
-                    int categoryID = rs.getInt("CategoryID");                    
-                    float price= rs.getFloat("Price");
-                    boolean status = rs.getBoolean("Status");
-                    //create dto
-                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status);
+                   String img= rs.getString("Image");
+                   int  imgid = rs.getInt("ImageID");
+                   ProductImgDTO dto = new ProductImgDTO(imgid, productID, img);
                     System.out.println(dto);
                     //add item to dto
-                    if (this.itemsList == null) {
-                        this.itemsList = new ArrayList<>();
+                    if (this.imgList == null) {
+                        this.imgList = new ArrayList<>();
                     }//end the list no exsited
-                    this.itemsList.add(dto);
+                    this.imgList.add(dto);
                 }
             }
         } finally {
@@ -113,5 +111,5 @@ public class ProductImgDAO {
             }
         }
     }
-*/
+
 }

@@ -7,7 +7,6 @@ package DHTV.Controller;
 
 import DVHT.userdetails.UserDetailError;
 import DVHT.userdetails.UserDetailsDAO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,6 +28,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ResetPasswordServlet", urlPatterns = {"/ResetPasswordServlet"})
 public class ResetPasswordServlet extends HttpServlet {
 
+    
+    private final String LOGIN_PAGE = "login.jsp";
+    private final String RESET_PASSWORD_PAGE = "resetPassword.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,10 +44,8 @@ public class ResetPasswordServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        ServletContext context = this.getServletContext();
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(
-                MyAplications.ResetPasswordServlet.RESETPASSWORD_PAGE);
+
+        String url = RESET_PASSWORD_PAGE;
 
         String password = request.getParameter("txtPassword");
         String confirm = request.getParameter("txtConfirm");
@@ -73,8 +73,7 @@ public class ResetPasswordServlet extends HttpServlet {
                 UserDetailsDAO dao = new UserDetailsDAO();
                 boolean result = dao.updatePassword(email, password);
                 if (result) {
-                    url = siteMaps.getProperty(
-                            MyAplications.ResetPasswordServlet.LOGIN_PAGE);
+                    url = LOGIN_PAGE;
                 }
             }
         }catch(SQLException ex){

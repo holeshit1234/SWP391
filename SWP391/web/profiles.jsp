@@ -10,213 +10,204 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="asset/css/styleprofile.css">
+
+
+        <!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
+                      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
+                      crossorigin="anonymous">-->
+
+        <!--<link href="asset/css/bootstrap.min.css" rel="stylesheet">-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <link rel="shortcut icon" href="asset/images/logo.png">
+        <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <title>JSP Page</title>
     </head>
     <body>
-        <c:if test="${not empty sessionScope}">
-            <c:set var="user" value="${sessionScope.USER}" />
-            <c:if test="${not empty requestScope.USERS}">
-                <c:set var="info_user" value="${requestScope.USERS}"/>
-                <c:if test="${not empty requestScope.INFO}">
-                    <form action="UpdateProfileController" method="POST">
-                        <div class="profiles-container">
-                            <div class="row" style="display: block;">
-                                <div class="col-md-2">
-                                    <p>thông tin tài khoản</p>
-                                    <p>thông tin tài khoản</p>
-                                    <p>thông tin tài khoản</p>
-                                </div>
-                                <c:set var="error" value="${requestScope.UP_ERROR}"/>
-                                <div class="col-md-8 profile-content ">
-                                    <div class="row">
-                                        <div class="col-md-6 ">
-                                            <img class="resposive img-circle avatar" src="images/banner1.jpg">
 
-                                        </div>
-                                        <div class="col-md-6 ">
-                                            <div class="profile-detail-content">
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4 " style="float: left;">
-                                                            <lable>Full Name</lable>
-                                                        </div>
-                                                        <div class="input-text col-md-8">
-                                                            <input type="text" name="txtFullName" value="${info_user.fullName}"
-                                                                   placeholder="Nhập đầy đủ tên" />
-                                                        </div>
-                                                    </div>
-                                                    <c:if test="${not empty error.notEnoughWordFullName}">
-                                                        <font color="red">
-                                                        ${error.notEnoughWordFullName}
-                                                        </font><br/>
-                                                    </c:if>
-                                                </div>
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4 " style="float: left;">
-                                                            <lable>Date Of Birth</lable>
-                                                        </div>
-                                                        <div class="input-text col-md-8">
-                                                            <input type="date" name="txtDOB" value="${info_user.DOB}" 
-                                                                   placeholder="Nhập đầy đủ tên" />
-                                                        </div>
-                                                    </div>
-                                                    <c:if test="${not empty error.emptyDOB}">
-                                                        <font color="red">
-                                                        ${error.emptyDOB}
-                                                        </font><br/>
-                                                    </c:if>
-                                                </div>
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4 " style="float: left;">
-                                                            <lable>Gender</lable>
-                                                        </div>
-                                                        <div class="input-text col-md-8">
-                                                            <input type="text" name="txtDOB" value="${info_user.gender}" disabled="disabled"
-                                                                   placeholder="Nhập đầy đủ tên" /> 
-                                                        </div>
-                                                    </div>
+        <jsp:include page="header.jsp"/>
 
-                                                </div>
+        <!--body-->
 
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4" style="float: left;">
-                                                            <lable>Email</lable>
-                                                        </div>
-                                                        <div class="input-text col-md-8">
-                                                            <input type="text" name="txtEmail" value="${info_user.email}" 
-                                                                   placeholder="Nhập đầy đủ tên" />
-                                                        </div>
-                                                    </div>
-                                                    <c:if test="${not empty error.emptyEmail}">
-                                                        <font color="red">
-                                                        ${error.emptyEmail}
-                                                        </font><br/>
-                                                    </c:if>
-                                                </div>
+        <c:if test="${not empty requestScope.USERS}">
+            <c:set var="info_user" value="${requestScope.USERS}"/>             
+            <div class="context-profile" style="overflow-x: hidden;" >
+                <div class="row">
+                    <div class="new">
+                        <div class="avt col-md-4">
+                            <div class="user">
+                                <img src="asset/images/useravatar/${info_user.picture}" alt="">                                        
+                                <h3 class="name">${info_user.fullName}</h3>              
+                            </div>
 
-                                                <div class="profile-detail">
-                                                    <div class="row">
-                                                        <div class="content col-md-4" style="float: left;">
-                                                            <lable>Phone</lable>
-                                                        </div>
-                                                        <div class="input-text col-md-8">
-                                                            <input type="text" name="txtPhone" value="${info_user.phone}"
-                                                                   placeholder="Nhập Số điện thoại" />
-                                                        </div>
-                                                    </div>
-                                                    <c:if test="${not empty error.emptyPhone}">
-                                                        <font color="red">
-                                                        ${error.emptyPhone}
-                                                        </font><br/>
-                                                    </c:if>
-                                                </div>
-                                                <c:forEach var="value" items="${requestScope.INFO}">   
-                                                    <div class="profile-detail">
-                                                        <div class="row">
-                                                            <div class="content col-md-4" style="float: left;">
-                                                                <lable>Street</lable>
-                                                            </div>
-                                                            <div class="input-text col-md-8">
+                            <nav class="navbar">
+                                <ul>
+                                    <li><a href="ShowProfileServlet">Account information</a></li>
+                                    <li><a href="ShowOrderTrackingServlet">Order management</a></li>
+                                    <li><a href="ShowAddressServlet">Address number</a></li>
+                                    <li><a href="https://www.facebook.com/people/VDTH/100090772202536/">Contact us</a></li>
 
-                                                                <input type="text" name="txtStreet" value="${value.getStreet()}"
-                                                                       placeholder="Nhập số nhà, tên đường" /> 
+                                </ul>
+                            </nav>
+                        </div>
 
-                                                            </div>
-                                                        </div>
-                                                        <c:if test="${not empty error.emptyStreet}">
-                                                            <font color="red">
-                                                            ${error.emptyStreet}
-                                                            </font><br/>
-                                                        </c:if>
-                                                    </div>
 
-                                                    <div class="profile-detail">
-                                                        <div class="row">
-                                                            <div class="content col-md-4" style="float: left;">
-                                                                <lable>Province</lable>
-                                                            </div>
-                                                            <div class="input-text col-md-8">
-                                                                <input type="text" name="txtProvince" value="${value.getProvice()}"
-                                                                       placeholder="Nhập Phường, Quận " /> 
+                        <c:set var="error" value="${requestScope.UP_ERROR}"/>
+                        <div class="sigup col-md-8">
+                            <div class="container ">
+                                <div class="title text-center">My account</div>
+                                <form action="DispatchController" method="POST">
+                                    <div class="user-detail row">
+                                        <div class="col-md-6">
+                                            <div class="input-box">
+                                                <span class="detail">Full name</span>
+                                                <input type="text" placeholder="Enter your username" 
+                                                       name="txtFullName" value="${info_user.fullName}"/>
 
-                                                            </div>
-                                                        </div>
-                                                        <c:if test="${not empty error.emptyPronvince}">
-                                                            <font color="red">
-                                                            ${error.emptyPronvince}
-                                                            </font><br/>
-                                                        </c:if>
-                                                    </div>
+                                                <c:if test="${not empty error.notEnoughWordFullName}">
+                                                    <font color="red">
+                                                    ${error.notEnoughWordFullName}
+                                                    </font><br/>
+                                                </c:if>
 
-                                                    <div class="profile-detail">
-                                                        <div class="row">
-                                                            <div class="content col-md-4" style="float: left;">
-                                                                <lable>District</lable>
-                                                            </div>
-                                                            <div class="input-text col-md-8">
-                                                                <input type="text" name="txtDistrict" value="${value.getDistrict()}"
-                                                                       placeholder="Nhập Phường, Quận " /> 
+                                            </div>	                                                                       
 
-                                                            </div>
-                                                        </div>
-                                                        <c:if test="${not empty error.emptyDistrict}">
-                                                            <font color="red">
-                                                            ${error.emptyDistrict}
-                                                            </font><br/>
-                                                        </c:if>
-                                                    </div>
+                                            <div class="input-box">
+                                                <span class="detail">Date of birth</span>
+                                                <input type="date" placeholder="Enter Date of birth" name="txtDOB"
+                                                       value="${info_user.DOB}" 
+                                                       placeholder="Nhập đầy đủ tên"/>
+                                            </div>
+                                            <div class="input-box">
+                                                <span class="detail">Phone</span>
+                                                <input type="text" placeholder="Enter your phone" 
+                                                       value="${info_user.phone}"
+                                                       name="txtPhone"  />
 
-                                                    <div class="profile-detail">
-                                                        <div class="row">
-                                                            <div class="content col-md-4" style="float: left;">
-                                                                <lable>Ward</lable>
-                                                            </div>
-                                                            <div class="input-text col-md-8">
-                                                                <input type="text" name="txtWard" value="${value.getWard()}"
-                                                                       placeholder="Nhập Tỉnh, Thành phố" /> 
-
-                                                            </div>
-                                                        </div>
-                                                        <c:if test="${not empty error.emptyWard}">
-                                                            <font color="red">
-                                                            ${error.emptyWard}
-                                                            </font><br/>
-                                                        </c:if>
-                                                    </div>
-                                                </div>
+                                                <c:if test="${not empty error.emptyPhone}">
+                                                    <font color="red">
+                                                    ${error.emptyPhone}
+                                                    </font><br/>
+                                                </c:if>
                                             </div>
                                         </div>
 
+                                        <div class="col-md-6">
+                                            <div class="input-box">
+                                                <span class="detail">Password</span>
+                                                <input type="password" placeholder="Enter your password" 
+                                                       name="txtPassWord" value="${info_user.passWord}"/>
 
-                                        <div class="update-button">
-                                            <button type="submit" class="save-button">Save</button>
+                                                <c:if test="${not empty error.notEnoughWordPassWord}">
+                                                    <font color="red">
+                                                    ${error.notEnoughWordPassWord}
+                                                    </font><br/>
+                                                </c:if>
+                                            </div>
+
+                                            <div class="input-box">
+                                                <span class="detail">Gender</span>
+                                                <input type="text" placeholder="Enter your password" 
+                                                       name="txtGender" value="${info_user.gender}"
+                                                       disabled="disabled" />
+                                            </div>	
+
+                                            <div class="input-box">
+                                                <span class="detail">Email</span>
+                                                <input type="text" placeholder="Enter your email" 
+                                                       name="txtEmail" value="${info_user.email}" disabled="disabled" />
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="col-md-2">
 
+                                    <div class="button">                 
+                                        <input type="submit" value="Save Change" name="btAction" 
+                                               />
+                                    </div>
+                                </form> 
+                                <div class="button">
+                                    <input type="submit" value="Change Avatar" data-toggle="modal" data-target="#changeAvatar"/>
+                                </div>
+                                <!--                            <div class="container">
+                                                                <h2>Small Modal</h2>
+                                                                 Trigger the modal with a button 
+                                                                <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Small Modal</button>-->
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="changeAvatar" role="dialog">
+                                    <div class="modal-dialog modal-sm">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                <h4 class="modal-title">Modal Header</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <form action="SavePhotoServlet" method="Post" enctype="multipart/form-data">
+
+                                                    <input type="text" name="txtuserid" value="${info_user.getUserID()}" style="display: none;" />
+                                                    <img src="asset/images/useravatar/${info_user.getPicture()}" alt="" 
+                                                         style="align-items: center; border-radius: 50%; max-width: 150px; ">   
+
+
+                                                    <input type="file" name="txtPicture" class="form-control"/>
+                                                    <input type="submit" value="save photo" name="btAction" />
+                                                </form>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            </div>
+                                        </div>
+                                        <!--</div>-->
                                     </div>
                                 </div>
                             </div>
-                        </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    </c:forEach>
-                </c:if>
-            </c:if>
+
         </c:if>
 
+        <footer>
+            <div class="footer-top">
+                <li><a href="">Contact</a></li>
+                <li><a href="">Recruit</a></li>
+                <li><a href="">Introduce</a></li>
+                <li>
+                    <a href="" class="fa fa-facebook"></a>
+                    <a href="" class="fa fa-twitter"></a>
+                    <a href="" class="fa fa-youtube"></a>
+                </li>
+            </div>
+            <div class="footer-center">
+                <p>
+                    Contact phone number: 0111111111 <br>
+                    Registration address: ??????????? <br>
+                    Order online: <b>022222222</b>
+                </p>
+            </div>
+            <div class="footer-bottom">
+                ©IVYmoda All rights reserved
+            </div>
+        </footer>
+
+        <!--        <script
+                    src="https://code.jquery.com/jquery-3.6.3.min.js"
+                    integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="
+                crossorigin="anonymous"></script>
+        
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" 
+                        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" 
+                crossorigin="anonymous"></script>
+        
+                <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" 
+                crossorigin="anonymous"></script>-->
 
 
-
-        </br> <a href="LogoutAccountServlet"> Log Out</a>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
-                integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
-                integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
-        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="asset/province.js"></script>
     </body>
+
 </html>

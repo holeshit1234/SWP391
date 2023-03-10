@@ -9,7 +9,6 @@ import DHTV.address.AddressDAO;
 import DHTV.address.AddressDTO;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -32,7 +31,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "ShowProfileServlet", urlPatterns = {"/ShowProfileServlet"})
 public class ShowProfileServlet extends HttpServlet {
 
-    /**
+    
+    private final String PROFILE_PAGE = "profiles.jsp";
+        /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
      *
@@ -45,10 +46,7 @@ public class ShowProfileServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //1.get servlet Context
-        ServletContext context = this.getServletContext();
-        //2. get siteMap
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+
         String url = "";
         HttpSession session = request.getSession(false);
 
@@ -70,15 +68,15 @@ public class ShowProfileServlet extends HttpServlet {
 
                     if (result != null) {
                         // call DAO
-                        AddressDAO dao1 = new AddressDAO();
-                        dao1.getAddress(userid);
+//                        AddressDAO dao1 = new AddressDAO();
+//                        dao1.getAddress(userid);
                         //take data grid
-                        List<AddressDTO> result1 = dao1.getInfoList();
+//                        List<AddressDTO> result1 = dao1.getInfoList();
 
-                        request.setAttribute("INFO", result1);
+//                        request.setAttribute("INFO", result1);
                         request.setAttribute("USERS", result);
 
-                        url = siteMaps.getProperty(MyAplications.ShowProfileServlet.PROFILE_PAGE);
+                        url = PROFILE_PAGE;
 
                     }
                 }

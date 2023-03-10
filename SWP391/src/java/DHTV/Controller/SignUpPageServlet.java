@@ -5,13 +5,11 @@
  */
 package DHTV.Controller;
 
-
 import DHTV.address.AddressDAO;
 import DHTV.address.AddressDTO;
 import DVHT.userdetails.UserDetailSignUpError;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.sql.Date;
@@ -34,6 +32,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SignUpPageServlet", urlPatterns = {"/SignUpPageServlet"})
 public class SignUpPageServlet extends HttpServlet {
 
+    private final String SIGNUP_PAGE = "signup.jsp";
+    private final String SHOW_ITEM = "ShowIdexItemServlet";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,13 +47,9 @@ public class SignUpPageServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-                
-        //Get siteMaps from context Scope
-        ServletContext context = this.getServletContext();
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(MyAplications.SignUpPageServlet.SIGN_UP_PAGE);
-        
-        
+
+        String url = SIGNUP_PAGE;
+
         //Get parameter from signup.jsp
         String username = request.getParameter("txtUsername");
         byte[] bytes1 = username.getBytes(StandardCharsets.ISO_8859_1);
@@ -74,7 +71,7 @@ public class SignUpPageServlet extends HttpServlet {
         bytes1 = email.getBytes(StandardCharsets.ISO_8859_1);
         email = new String(bytes1, StandardCharsets.UTF_8);
         //
-        String phone =request.getParameter("txtPhone");  
+        String phone = request.getParameter("txtPhone");
         bytes1 = phone.getBytes(StandardCharsets.ISO_8859_1);
         phone = new String(bytes1, StandardCharsets.UTF_8);
         //
@@ -93,13 +90,13 @@ public class SignUpPageServlet extends HttpServlet {
         bytes1 = ward.getBytes(StandardCharsets.ISO_8859_1);
         ward = new String(bytes1, StandardCharsets.UTF_8);
         //
-        String street = request.getParameter("txtStreet");        
+        String street = request.getParameter("txtStreet");
         bytes1 = street.getBytes(StandardCharsets.ISO_8859_1);
         street = new String(bytes1, StandardCharsets.UTF_8);
-        
+
         String gender = request.getParameter("gender");
-        
-    //process
+
+        //process
         //create errors variable for sign up
         UserDetailSignUpError errors = new UserDetailSignUpError();
         boolean isError = false;
@@ -126,8 +123,8 @@ public class SignUpPageServlet extends HttpServlet {
 
             if (isError) {
                 request.setAttribute("ERROR", errors);
-            } else {           
-            // Create Account
+            } else {
+                // Create Account
                 // check username and email
                 String message = "";
                 UserDetailsDAO dao = new UserDetailsDAO();
@@ -141,26 +138,29 @@ public class SignUpPageServlet extends HttpServlet {
                     message += "User name has existed! Please enter different user name!! \n";
                     log("User name has existed!! Can not registration !");
                 }
-                if(!message.isEmpty()) 
+                if (!message.isEmpty()) {
                     request.setAttribute("MESSAGE", message);
+                }
                 //start to add info
-                if(!emailExist && !usernameExist)
-                {
+                if (!emailExist && !usernameExist) {
                     //set default value
                     int role = 3;
-                    dob=null;
+                    dob = null;
                     // new dto from the value
-                    UserDetailsDTO userAccount = new UserDetailsDTO(role, role, username, password, email, fullname, phone, dob, gender);
+                    UserDetailsDTO userAccount = new UserDetailsDTO(0, role, username, password, email, fullname, phone, dob, "23b33efd6739a27e12124c02169572c0.jpg", gender, true);
+                    //System.out.println(userAccount);
+                    //System.out.println(gender);
                     //process - add into database
                     int key = 0;
                     key = dao.addUser(userAccount);
-                    if (key>0){
+                    if (key > 0) {
                         AddressDAO dao2 = new AddressDAO();
-                        AddressDTO address = new AddressDTO(0, key, province, ward, street, province, district); 
-                        boolean result = dao2.addAddress(address);                        
-                        if(result) url = siteMaps.getProperty(MyAplications.SignUpPageServlet.FINISH_PAGE);
-                    }
-                    else{
+                        AddressDTO address = new AddressDTO(0, key, province, ward, street, district, true);
+                        boolean result = dao2.addAddress(address);
+                        if (result) {
+                            url = SHOW_ITEM;
+                        }
+                    } else {
                         message += "Some thing wrong here! Can not registration, please try again.\n";
                         request.setAttribute("MESSAGE", message);
                         log("Can not registration!");
@@ -171,16 +171,13 @@ public class SignUpPageServlet extends HttpServlet {
             log("CreateNewAccountServlet SQL: " + ex.getMessage());
         } catch (NamingException ex) {
             log("CreateNewAccountServlet Naming: " + ex.getMessage());
-        }catch(ParseException ex){
+        } catch (ParseException ex) {
             log("CreateNewAccountServlet Parse: " + ex.getMessage());
-        }
-        finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }
-
-    
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

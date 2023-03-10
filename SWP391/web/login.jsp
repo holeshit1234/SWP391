@@ -20,12 +20,45 @@
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
     </head>
     <body>
-        <jsp:include page="header.jsp"/>
+        <header>
+            <div class="logo">
+                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
+            </div>
+            <div class="menu">
+                
+                <li><a href="SearchServlet">Search Page</a> </li>
+            </div>
+            <div class="orther">
+
+                <li>
+                    <form action="SearchServlet">
+                            <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                    </form>
+                </li>
+
+                <c:url var="urlprofile" value="DispatchController" >
+                    <c:param name="btAction" value="show" />
+                </c:url>
+                <c:if test="${not empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
+                    </c:if>
+
+                <c:if test="${empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="login.jsp"></a></li>
+                    </c:if>
+
+                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
+                    <c:if test="${not empty sessionScope.USER}">
+                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+                    <jsp:include page="logout.jsp"/>
+                </c:if>
+            </div>
+        </header>
         <div>
             <section class="login">
                 <div class="container">
                     <div class="sigin-signup">
-                        <form action="loginController" method="POST" class="sign-in-form">
+                        <form action="LoginServlet" method="POST" class="sign-in-form">
                             <h2 class="title">Login</h2>
                             <div class="input-field">
                                 <i class="fa fa-user"></i>
@@ -50,11 +83,11 @@
                             <div class="remember-forgot">
                                 <label><input type="checkbox" name="chkremember" value="ON" />
                                     Remember me</label>
-                                <a href="userVerifyPage">Forgot Password?</a>
+                                <a href="userVerify.jsp">Forgot Password?</a>
                             </div>
 
 
-                            <input type="submit" value="login" class="btn">
+                                    <input type="submit" value="login" class="btn" name="btAction">
                             
                             <p class="social-text">Or sign in with social platform</p>
                             <div class="social-media">
@@ -80,6 +113,6 @@
 
 
         </div>
-                                <jsp:include page="footer.jsp"/>
+                              
     </body>
 </html>

@@ -5,14 +5,22 @@
  */
 package DHTV.Controller;
 
+import DHTV.product.ProductDAO;
+import DHTV.product.ProductDTO;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+import java.util.List;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -33,15 +41,59 @@ public class SearchServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        
+
         String txtSearch = request.getParameter("txtSearch");
-        System.out.println(txtSearch);
-        byte[] bytes1 = txtSearch.getBytes(StandardCharsets.ISO_8859_1);
-        txtSearch = new String(bytes1, StandardCharsets.UTF_8);
-        
-    
+
+        String url = "indexSearch.jsp";
+
+        String indexPage = request.getParameter("index");
+
+        if (indexPage == null) {
+            indexPage = "1";
+        }
+        int index = Integer.parseInt(indexPage);
+
+        try {
+
+            //1. check valid search value --> search
+            if (txtSearch != null) {
+                if (txtSearch.trim().length() > 0) {
+                    //2. call DAO
+                    ProductDAO dao = new ProductDAO();
+                    int size =  dao.searchProduct(txtSearch);
+                    //.out.println("Kt search đã add chưa"+dao);
+                    //3. process
+                    System.out.println(size);
+                    //paging 
+                    int recordsPerPage = 12;
+                    int endPage = 0;
+                    endPage = size / recordsPerPage;
+                    if (size % recordsPerPage != 0) {
+                        endPage++;
+                    }
+                    System.out.println(endPage);
+
+                    List<ProductDTO> paging = dao.pagingProductSearch(txtSearch, index, recordsPerPage);
+                    // List<ProductDTO> paging = dao.pagingProduct(index);
+
+                    System.out.println(paging);
+
+                    request.setAttribute("PAGING_RESULT", paging);
+                    request.setAttribute("END_PAGE", endPage);
+                    request.setAttribute("CURRENT_PAGE", index);
+
+                }
+            }
+        } catch (NamingException ex) {
+//            ex.printStackTrace();
+            log(ex.getMessage());
+        } catch (SQLException ex) {
+//            ex.printStackTrace();
+            log(ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

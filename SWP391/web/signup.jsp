@@ -53,8 +53,24 @@
     </div>
     <div class="orther">
         <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
-        <li><a class="fa fa-user" href="login.html"></a></li>
-        <li><a class="fa fa-shopping-bag" href=""></a></li>
+        
+          <c:url var="urlprofile" value="DispatchController">
+                    <c:param name="btAction" value="show"/>
+                </c:url>
+        
+        <c:if test="${not empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="${urlprofile}"></a></li>
+                    </c:if>
+
+                <c:if test="${empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="login.jsp"></a></li>
+                    </c:if>
+
+                <li><a class="fa fa-shopping-bag" href=""></a></li>
+                    <c:if test="${not empty sessionScope.USER}">
+                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+                    <jsp:include page="logout.jsp"/>
+                    </c:if>
     </div>
 </header>
 <!---------sign-up-form-------->
@@ -182,7 +198,7 @@
 				</div>
 			</div>
 			<div class="button">
-				<input type="submit" value="Register">
+                            <input type="submit" value="Register" name="btAction">
 			</div>
 		</form>
 	</div>

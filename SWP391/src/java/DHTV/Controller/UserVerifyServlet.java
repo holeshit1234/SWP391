@@ -10,7 +10,6 @@ import DHTV.forgotpassword.UserDetailsForgetPasswordDTO;
 import DHTV.forgotpassword.VerifyError;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Properties;
@@ -31,6 +30,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "UserVerifyServlet", urlPatterns = {"/UserVerifyServlet"})
 public class UserVerifyServlet extends HttpServlet {
 
+    
+    private final String USER_VERIFY_PAGE="userVerify.jsp";
+    private final String CODE_VERIFY_PAGE="verifyCode.jsp";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -46,7 +49,7 @@ public class UserVerifyServlet extends HttpServlet {
 
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(MyAplications.UserVerifyServlet.USERVERIFY_PAGE);
+        String url = USER_VERIFY_PAGE;
 
         String email = request.getParameter("txtEmail");
         boolean errorFound = false;
@@ -90,8 +93,7 @@ public class UserVerifyServlet extends HttpServlet {
                         HttpSession session = request.getSession();
                         session.setAttribute("authcode", user);
                         session.setAttribute("email", email);
-                        url = siteMaps.getProperty(
-                                MyAplications.UserVerifyServlet.VERIFYCODE_PAGE);
+                        url = CODE_VERIFY_PAGE;
                     } else {
                         request.setAttribute("VERIFYMAIL_SCOPE", "Failed to send verification email");
                     }

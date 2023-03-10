@@ -5,6 +5,8 @@
  */
 package DHTV.product;
 
+import java.sql.Date;
+
 /**
  *
  * @author mthin
@@ -17,11 +19,12 @@ public class ProductDTO {
     private float price;
     private boolean status;
     private String description;
+    private String image;
 
     public ProductDTO() {
     }
 
-    public ProductDTO(int productID, String productName, int brandID, int categoryID, float price, boolean status, String description) {
+    public ProductDTO(int productID, String productName, int brandID, int categoryID, float price, boolean status, String description, String image) {
         this.productID = productID;
         this.productName = productName;
         this.brandID = brandID;
@@ -29,6 +32,7 @@ public class ProductDTO {
         this.price = price;
         this.status = status;
         this.description = description;
+        this.image = image;
     }
 
     public int getProductID() {
@@ -87,10 +91,19 @@ public class ProductDTO {
         this.description = description;
     }
 
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
     @Override
     public String toString() {
-        return "ProductDTO{" + "productID=" + productID + ", productName=" + productName + ", brandID=" + brandID + ", categoryID=" + categoryID + ", price=" + price + ", status=" + status + ", description=" + description + '}';
+        return "ProductDTO{" + "productID=" + productID + ", productName=" + productName + ", brandID=" + brandID + ", categoryID=" + categoryID + ", price=" + price + ", status=" + status + ", description=" + description + ", image=" + image + '}';
     }
+
     
    
 }

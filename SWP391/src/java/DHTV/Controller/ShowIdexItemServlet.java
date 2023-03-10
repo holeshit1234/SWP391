@@ -8,7 +8,7 @@ package DHTV.Controller;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import DHTV.product.ProductImgDAO;
-import DVHT.utils.MyAplications;
+import com.google.gson.Gson;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -22,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -29,6 +30,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "ShowIdexItemServlet", urlPatterns = {"/ShowIdexItemServlet"})
 public class ShowIdexItemServlet extends HttpServlet {
+
+    private final String INDEX_PAGE = "index.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,32 +45,45 @@ public class ShowIdexItemServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-         //1.get servlet Context
-        ServletContext context = this.getServletContext();
-        //Get siteMaps from context Scope
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = (String)siteMaps.get(MyAplications.ShowIdexItemServlet.INDEX_PAGE);
-      
+
+        String url = "index.jsp";
+        
+        String indexPage = request.getParameter("index");
+
+        if (indexPage == null) {
+            indexPage = "1";
+        }
+        int index = Integer.parseInt(indexPage);
+
         try {
-               //call dao
-               ProductDAO dao= new ProductDAO();
-               
-               dao.showProduct();
-               // process
-               List<ProductDTO> result = dao.getItemsList();
-               // send to view
-               request.setAttribute("ITEMS_RESULT", result);  
-               
-               ProductImgDAO dao2 = new ProductImgDAO();
-               System.out.println(dao2.getOneImgByProductID(1));
-                
-        }catch(NamingException ex) {
+            
+            ProductDAO dao = new ProductDAO();
+                                
+            int size = dao.getTotalProduct();           
+            System.out.println(size);
+            //paging 
+            int recordsPerPage = 8;
+            int endPage = 0;
+            endPage = size / recordsPerPage;
+            if (size % recordsPerPage != 0) {
+                endPage++;
+            }
+            System.out.println(endPage);
+            
+            List<ProductDTO> paging = dao.pagingProduct(index, recordsPerPage);
+           // List<ProductDTO> paging = dao.pagingProduct(index);
+            
+            System.out.println(paging);
+                      
+            request.setAttribute("PAGING_RESULT", paging);
+            request.setAttribute("END_PAGE", endPage);
+            request.setAttribute("CURRENT_PAGE", index);
+
+        } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
-        } 
-        catch (SQLException ex) {
+        } catch (SQLException ex) {
             log("ShowItemsServlet _ SQL _ " + ex.getMessage());
-        }  
-        finally {    
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

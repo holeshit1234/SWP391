@@ -51,6 +51,7 @@ a{
     padding: 20px;
     margin: 15px;
     cursor: pointer;
+    border-radius: 10px;
 }
 .profile-img{
     width: 50px;

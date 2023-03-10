@@ -9,7 +9,6 @@ import DHTV.address.AddressDAO;
 import DHTV.address.AddressDTO;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -35,6 +34,9 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "writeInformationGgServlet", urlPatterns = {"/writeInformationGgServlet"})
 public class writeInformationGgServlet extends HttpServlet {
 
+    private final String SHOW_ITEM_PAGE = "ShowIdexItemServlet";
+    private final String WRITE_INFOR_PAGE = "ResignGGAccount";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -47,22 +49,19 @@ public class writeInformationGgServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        
-        
+
         String gender = request.getParameter("txtGender");
-         byte[] bytes1 = gender.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes1 = gender.getBytes(StandardCharsets.ISO_8859_1);
         gender = new String(bytes1, StandardCharsets.UTF_8);
 
         String DOB = request.getParameter("txtDOB");
         String phone = request.getParameter("txtPhone");
         String province = request.getParameter("txtProvince");
-         byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes2, StandardCharsets.UTF_8);
 
         String district = request.getParameter("txtDistrict");
-         byte[] bytes3 = district.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes3 = district.getBytes(StandardCharsets.ISO_8859_1);
         district = new String(bytes3, StandardCharsets.UTF_8);
 
         String ward = request.getParameter("txtWard");
@@ -70,53 +69,44 @@ public class writeInformationGgServlet extends HttpServlet {
         ward = new String(bytes4, StandardCharsets.UTF_8);
 
         String street = request.getParameter("txtStreet");
-         byte[] bytes5 = street.getBytes(StandardCharsets.ISO_8859_1);
+        byte[] bytes5 = street.getBytes(StandardCharsets.ISO_8859_1);
         street = new String(bytes5, StandardCharsets.UTF_8);
 
 
-         //1 get servlet context
-        ServletContext context = this.getServletContext();
-        //2 get sitemap
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        
         HttpSession session = request.getSession(false);
-        
-        String url = (String) 
-                siteMaps.getProperty(MyAplications.writeInformationGgServlet.WRITE_INFORMATION);
-              
-        try  {
-            if(session != null){
-               //AddressDTO dto = (AddressDTO) session.getAttribute("USERE");
-               UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
+
+        String url = WRITE_INFOR_PAGE;
+
+        try {
+            if (session != null) {
+                //AddressDTO dto = (AddressDTO) session.getAttribute("USERE");
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
                 System.out.println(dto);
-                if(dto != null){
-                     int userid = dto.getUserID();
-                     
-                     Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
-                     
+                if (dto != null) {
+                    int userid = dto.getUserID();
+
+                    Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
+
                     UserDetailsDAO dao = new UserDetailsDAO();
                     boolean result = dao.updateGgAc(userid, phone, phone, dob, gender);
-                    
+
                     AddressDAO dao1 = new AddressDAO();
-                    boolean result1 = dao1.updateAddress(userid, street, province, district, ward);
-                    
-                    
-                    
-                    if(result && result1){
-                        url = (String) 
-                                siteMaps.getProperty(MyAplications.writeInformationGgServlet.PROFILE_PAGE);
+                    boolean result1 = dao1.updateAddressGG(userid, street, province, district, ward);
+
+                    if (result && result1) {
+                        url = SHOW_ITEM_PAGE;
                         //session.setAttribute("USER", result);
                     }
                 }
             }
-            
-        }catch (NamingException ex) {
+
+        } catch (NamingException ex) {
             log("UpdateProfileServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("UpdateProfileServlet_SQL " + ex.getMessage());
         } catch (ParseException ex) {
             log("UpdateProfileServelet_Parse " + ex.getMessage());
-        }finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

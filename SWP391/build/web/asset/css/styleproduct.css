@@ -126,7 +126,7 @@ section{
 .container{
 max-width: 100%;
 margin: auto;
-height: 95vh;
+height: 80vh;
 margin-top: 5%;
 background: white;
 box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.3);
@@ -148,15 +148,21 @@ overflow: hidden;
 .flex1{
     display: flex;
 }
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
 .main-image{
     width: auto;
     height: auto;
-    padding-left: 40px;
+    padding-right: 7px;
     
 }
 .main-image img{
-    width: 65%;
-    height: 80%;
+    width: 90%;
+    height: 90%;
     object-fit: cover;
     transform-origin: center;
 }
@@ -298,7 +304,7 @@ button{
     outline: none;
     background-color: #efe6e1 ;
     color: #333;
-    margin-top: 20px;
+    margin-top: 10px;
     border-radius: 30px;
 }
 .popup{
@@ -403,6 +409,14 @@ button{
     margin: 15px;
     cursor: pointer;
 }
+.testimonials-box2{
+    width: 800px;
+    box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+}
 .profile-img{
     width: 50px;
     height: 50px;
@@ -443,16 +457,16 @@ button{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 20px;
+    margin-bottom: 5px;
 }
 .client-comment p{
     font-size: 1.5rem;
     color: #4b4b4b;
 }
-.testimonials-box:hover{
+/*.testimonials-box:hover{
     transform: translateY(-10px);
     transition: all ease;
-}
+}*/
 .eva-cmt{
     display: flex;
     text-align: center;

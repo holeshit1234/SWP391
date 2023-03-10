@@ -8,7 +8,6 @@ package DHTV.Controller;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.userdetails.UserDetailsErr;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,7 +27,11 @@ import javax.servlet.http.HttpSession;
  * @author User
  */
 public class LoginServlet extends HttpServlet {
-
+    
+     private final String SHOW_INDEX_ITEM ="ShowIdexItemServlet";
+    private final String ADMIN_PAGE ="admin.jsp";
+    private final String MANAGER_PAGE ="manager.html";
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,10 +45,7 @@ public class LoginServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        //1. get servlet context
-        ServletContext context = this.getServletContext();
-        //2. get properties get sitemap
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+    
 
         //get parameter
         //   String checkbox = request.getParameter("chkRemember");
@@ -56,7 +56,7 @@ public class LoginServlet extends HttpServlet {
         UserDetailsErr error = new UserDetailsErr();
         boolean flag = false;
         //String url = siteMaps.getProperty(MyApplication.LoginServlet.INVALID_PAGE);
-        String url = (String) siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
+        String url = "login.jsp";
         try {
 
             if (password.trim().length() < 1 || username.trim().length() < 1) {
@@ -80,15 +80,15 @@ public class LoginServlet extends HttpServlet {
                 } else {
 
                     if (result.getRoleID() == 1) {
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.ADMIN_PAGE);
+                        url = "ShowUserByManagerServlet";
                         //url = MyAplications.LoginServlet.ADMIN_PAGE;
                     } else if (result.getRoleID() == 2) {
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.MANAGER_PAGE);
+                        url ="ShowUserByManagerServlet";
                         //url = MyAplications.LoginServlet.MANAGER_PAGE;
                     } else {
                         //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
                         //url = siteMaps.getProperty(MyAplications.LoginServlet.SEARCH_STORE_PAGE);
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
+                        url = SHOW_INDEX_ITEM;
                     }
 
                     //1. get session
@@ -97,7 +97,7 @@ public class LoginServlet extends HttpServlet {
                     session.setAttribute("USER", result);
                     if (ckrem != null) {
                         Cookie cookie = new Cookie(username, password);
-                        cookie.setMaxAge(60 * 3);
+                        cookie.setMaxAge(60 * 10);
                         response.addCookie(cookie);
                     } else {
                         Cookie cookie = new Cookie(username, password);
@@ -111,9 +111,10 @@ public class LoginServlet extends HttpServlet {
         } catch (/*ClassNotFoundException*/NamingException ex) {
             log("LoginServlet _Naming_ " + ex.getMessage());
         } finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
-//            response.sendRedirect(url);
+//            RequestDispatcher rd = request.getRequestDispatcher(url);
+//            rd.forward(request, response);
+                    
+            response.sendRedirect(url);
         }
     }
 

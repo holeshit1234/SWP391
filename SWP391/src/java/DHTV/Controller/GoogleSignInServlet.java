@@ -6,17 +6,11 @@ import DHTV.googlesignin.GoogleDTO;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.GoogleSupport;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
-import java.sql.Date;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Properties;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,16 +20,16 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "GoogleSignInServlet", urlPatterns = {"/GoogleSignInServlet"})
 public class GoogleSignInServlet extends HttpServlet {
-
+    
+    
+    private final String SHOW_ITEM_PAGE = "ShowIdexItemServlet";
+    private final String WRITE_INFOR_PAGE = "ResignGGAccount.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
         int key = 0;
-        //1 get servlet context
-        ServletContext context = this.getServletContext();
-        //2 get sitemap
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
 
         //String url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
         String url = "";
@@ -52,7 +46,7 @@ public class GoogleSignInServlet extends HttpServlet {
                 try {
                     user = UserDetailsDAO.getUser(email);
                     if (user != null) {
-                        url = siteMaps.getProperty(MyAplications.LoginServlet.ShowIdexItemServlet);
+                        url = SHOW_ITEM_PAGE;
 
                         HttpSession session = request.getSession();
                         session.setAttribute("USER", user);
@@ -68,7 +62,7 @@ public class GoogleSignInServlet extends HttpServlet {
                     String fullname = userToken.getGiven_name();
 
                     //user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
-                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
+                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other","23b33efd6739a27e12124c02169572c0.jpg");
                                                       
                     try {
                         
@@ -77,7 +71,7 @@ public class GoogleSignInServlet extends HttpServlet {
                         if (key != 0) {
  //                           AddressDAO dao = new AddressDAO();
                             AddressDTO addr = null;
-                            addr = new AddressDTO(0, key, "other", "other", "other", "other", "other");
+                            addr = new AddressDTO(0, key, "other", "other", "other", "other",true);
                             System.out.println(newUser);
                             
                             AddressDAO.addAddressGooogle(addr, key);
@@ -90,8 +84,7 @@ public class GoogleSignInServlet extends HttpServlet {
                             session.setAttribute("USER", newUser);
                             
                         }
-                         url = siteMaps.getProperty
-                                        (MyAplications.writeInformationGgServlet.WRITE_INFORMATION);
+                         url = WRITE_INFOR_PAGE;
                     } catch (SQLException ex) {
                         log("GoogleSignInServlet_SQL_ " + ex.getMessage());
                     } catch (NamingException ex) {

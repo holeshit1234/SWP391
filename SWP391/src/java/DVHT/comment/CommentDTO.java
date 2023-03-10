@@ -5,13 +5,15 @@
  */
 package DVHT.comment;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 /**
  *
  * @author vinht
  */
-public class CommentDTO {
+public class CommentDTO implements Serializable{
+
     private int CommentID;
     private int UserID;
     private int ProductID;
@@ -19,6 +21,7 @@ public class CommentDTO {
     private String Description;
     private int Point;
     private boolean status;
+    private String fullName;
 
     public CommentDTO() {
     }
@@ -31,6 +34,21 @@ public class CommentDTO {
         this.Description = Description;
         this.Point = Point;
         this.status = status;
+    }
+
+    public CommentDTO(int CommentID, int UserID, String Description, String fullName) {
+        this.CommentID = CommentID;
+        this.UserID = UserID;
+        this.Description = Description;
+        this.fullName = fullName;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
     }
 
     public int getCommentID() {
@@ -93,6 +111,5 @@ public class CommentDTO {
     public String toString() {
         return "CommentDTO{" + "CommentID=" + CommentID + ", UserID=" + UserID + ", ProductID=" + ProductID + ", Date=" + Date + ", Description=" + Description + ", Point=" + Point + ", status=" + status + '}';
     }
-    
-    
+
 }

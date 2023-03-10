@@ -13,25 +13,25 @@ import java.io.Serializable;
  */
 public class AddressDTO implements Serializable {
 
-    private int addressID; // match AddressID
+   private int addressID; // match AddressID
     private int userID; //match UserID
     private String Provice; //match Provice
     private String Ward; // match Ward
     private String Street; //match Street
-    private String Notice;// match Notice
     private String District;
+    private boolean status;
 
     public AddressDTO() {
     }
 
-    public AddressDTO(int addressID, int userID, String Provice, String Ward, String Street, String Notice, String District) {
+    public AddressDTO(int addressID, int userID, String Provice, String Ward, String Street, String District, boolean status) {
         this.addressID = addressID;
         this.userID = userID;
         this.Provice = Provice;
         this.Ward = Ward;
         this.Street = Street;
-        this.Notice = Notice;
         this.District = District;
+        this.status = status;
     }
 
     public int getAddressID() {
@@ -74,14 +74,6 @@ public class AddressDTO implements Serializable {
         this.Street = Street;
     }
 
-    public String getNotice() {
-        return Notice;
-    }
-
-    public void setNotice(String Notice) {
-        this.Notice = Notice;
-    }
-
     public String getDistrict() {
         return District;
     }
@@ -89,4 +81,18 @@ public class AddressDTO implements Serializable {
     public void setDistrict(String District) {
         this.District = District;
     }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    @Override
+    public String toString() {
+        return "AddressDTO{" + "addressID=" + addressID + ", userID=" + userID + ", Provice=" + Provice + ", Ward=" + Ward + ", Street=" + Street + ", District=" + District + ", status=" + status + '}';
+    }
+    
 }

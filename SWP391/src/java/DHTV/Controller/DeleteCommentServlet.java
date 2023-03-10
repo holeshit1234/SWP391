@@ -5,13 +5,19 @@
  */
 package DHTV.Controller;
 
+import DVHT.comment.CommentDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,17 +38,46 @@ public class DeleteCommentServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet DeleteCommentServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet DeleteCommentServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = "CommentServlet";
+        try {
+            //get para
+            int commentID = 0;
+            int userID = 0;
+            int productID = 0;
+            String txtUserID = request.getParameter("txtUserID");
+            if (txtUserID != null) {
+                userID = Integer.parseInt(txtUserID.trim());
+            }
+            String txtProductID = request.getParameter("txtProductID");
+            if (txtProductID != null) {
+                productID = Integer.parseInt(txtProductID.trim());
+            }
+            String txtCommentID = request.getParameter("txtCommentID");
+            if (txtCommentID != null) {
+                commentID = Integer.parseInt(txtCommentID.trim());
+            }
+            System.out.println(txtCommentID);            
+            System.out.println(commentID + " , " + productID + " , " + userID);
+
+            //-----------------------------------------------------------------------------------------------
+//            HttpSession session = request.getSession();
+//            UserDetailsDTO currentUserID = (UserDetailsDTO) session.getAttribute("USER");
+
+            CommentDAO dao = new CommentDAO();
+            boolean result = dao.deleteComment(commentID);
+            if (result) {
+                System.out.println("Deleted comment!");
+            }
+            request.setAttribute("PRODUCTID", productID);
+            request.setAttribute("USERID", userID);
+
+        } catch (NamingException ex) {
+            log("EditCommentServlet_Naming " + ex.getMessage());
+        } catch (SQLException ex) {
+            log("EditCommentServlet_SQL " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

@@ -61,7 +61,75 @@ public class CommentDAO {
         }
         return result;
     }
-    
+    public boolean editComment(int commentID, String newComment) throws SQLException, NamingException{       
+        //
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "UPDATE [Comment] " +
+                    "SET [Description] = ? " +
+                    "WHERE CommentID = ? ";
+                        
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setString(1, newComment);
+                stm.setInt(2,commentID);
+                //4.execute query
+                int rows = stm.executeUpdate();
+                //5. process result
+                if (rows > 0) {
+                    result = true;
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    public boolean deleteComment(int commentID) throws SQLException, NamingException{       
+        //
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "UPDATE [Comment]" +
+                    "SET [Status] = 0 " +
+                    "WHERE [CommentID] = ?";
+                        
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setInt(1,commentID);      
+                //4.execute query
+                int rows = stm.executeUpdate();
+                //5. process result
+                if (rows > 0) {
+                    result = true;
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
     
     private List<CommentDTO> commentList;
 
@@ -80,7 +148,7 @@ public class CommentDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                String sql = "select [CommentID],[UserID],[ProductID],[Date],[Description],[Point] " +
                             "from Comment " +
                             "where ProductID = ? and Status = 1";
                 // 3 stm create
@@ -96,9 +164,9 @@ public class CommentDAO {
                     Date date = rs.getDate("Date");
                     String Description= rs.getString("Description");
                     int Point=rs.getInt("Point");
-                   
+                    int commentID = rs.getInt("CommentID");
                     //create dto
-                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point , true);
+                    CommentDTO dto = new CommentDTO(commentID, UserID, ProductID, date, Description, Point , true);
                     System.out.println("Get data Comment:");
                     System.out.println(dto);
                     //add item to dto
@@ -134,7 +202,7 @@ public class CommentDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                String sql = "select [CommentID], [UserID],[ProductID],[Date],[Description],[Point] " +
                             "from Comment " +
                             "where ProductID = ? and Point = ? and Status = 1 ";
                 // 3 stm create
@@ -151,9 +219,10 @@ public class CommentDAO {
                     Date date = rs.getDate("Date");
                     String Description= rs.getString("Description");
                     int Point=rs.getInt("Point");
+                    int commentID = rs.getInt("CommentID");
                    
                     //create dto
-                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point, true);
+                    CommentDTO dto = new CommentDTO(commentID, UserID, ProductID, date, Description, Point, true);
                     System.out.println("Get data Comment:");
                     System.out.println(dto);
                     //add item to dto
@@ -228,7 +297,7 @@ public class CommentDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                String sql = "select [CommentID], [UserID],[ProductID],[Date],[Description],[Point] " +
                             "from Comment " +
                             "where ProductID = ? and Status = 1 " +
                             "order by [Date]";
@@ -245,9 +314,9 @@ public class CommentDAO {
                     Date date = rs.getDate("Date");
                     String Description= rs.getString("Description");
                     int Point=rs.getInt("Point");
-                   
+                    int commentID = rs.getInt("CommentID");
                     //create dto
-                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point,true);
+                    CommentDTO dto = new CommentDTO(commentID, UserID, ProductID, date, Description, Point,true);
                     System.out.println("Get data Comment:");
                     System.out.println(dto);
                     //add item to dto
@@ -282,7 +351,7 @@ public class CommentDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                String sql = "select [CommentID],[UserID],[ProductID],[Date],[Description],[Point] " +
                             "from Comment " +
                             "where ProductID = ? and Status = 1 " +
                             "order by [Date] desc";
@@ -299,9 +368,9 @@ public class CommentDAO {
                     Date date = rs.getDate("Date");
                     String Description= rs.getString("Description");
                     int Point=rs.getInt("Point");
-                   
+                    int commentID = rs.getInt("CommentID");
                     //create dto
-                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point,true);
+                    CommentDTO dto = new CommentDTO(commentID, UserID, ProductID, date, Description, Point,true);
                     System.out.println("Get data Comment:");
                     System.out.println(dto);
                     //add item to dto
@@ -337,7 +406,7 @@ public class CommentDAO {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select [UserID],[ProductID],[Date],[Description],[Point] " +
+                String sql = "select [CommentID],[UserID],[ProductID],[Date],[Description],[Point] " +
                             "from Comment " +
                             "where ProductID = ? and UserID = ? and Status = 1 ";
                 // 3 stm create
@@ -354,9 +423,9 @@ public class CommentDAO {
                     Date date = rs.getDate("Date");
                     String Description= rs.getString("Description");
                     int Point=rs.getInt("Point");
-                   
+                    int commentID = rs.getInt("CommentID");
                     //create dto
-                    CommentDTO dto = new CommentDTO(0, UserID, ProductID, date, Description, Point,true);
+                    CommentDTO dto = new CommentDTO(commentID, UserID, ProductID, date, Description, Point,true);
                     System.out.println("Get data Comment:");
                     System.out.println(dto);
                     //add item to dto
@@ -371,6 +440,90 @@ public class CommentDAO {
             if (rs != null) {
                 rs.close();
             }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+     
+     public int getUserOfThisComment(int commentID) throws SQLException, NamingException{       
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        int UserID = 0;
+        try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "Select [UserID]" +
+                        "from [Comment] " +
+                    "WHERE [CommentID] = ?  ";
+                        
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setInt(1,commentID);
+                //4.execute query
+                rs = stm.executeQuery();
+                //5. process result
+                if (rs.next()) {
+                    UserID=rs.getInt("UserID");
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return UserID;
+    }
+      private List<CommentDTO> ListUserReport;
+
+    public List<CommentDTO> getListUserReport() {
+        return ListUserReport;
+    }
+     
+     
+     public void getUserNeedCare(int commentID) throws SQLException, NamingException{       
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        CommentDTO result = null;
+        try {
+            //1.Conect Database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Sql command
+                String sql = "Select  cm.[UserID], us.FullName, cm.Description " +
+                        "from [Comment] cm "
+                        + "INNER JOIN [UserDetails] us on cm.UserID = us.UserID " +
+                    "WHERE [CommentID] = ?  ";
+                        
+                //3. Create Statement
+                stm = con.prepareStatement(sql);
+                stm.setInt(1,commentID);
+                //4.execute query
+                rs = stm.executeQuery();
+                //5. process result
+                while (rs.next()) {
+                    int userid =rs.getInt("UserID");
+                    String fullname = rs.getString("FullName");
+                    String des = rs.getString("Description");
+                    result = new CommentDTO(commentID, userid, des, fullname);
+                    
+                     if (this.ListUserReport == null) {
+                        this.ListUserReport = new ArrayList<>();
+                    }
+                    this.ListUserReport.add(result);
+                }
+            } //end con is availible
+        } finally {
             if (stm != null) {
                 stm.close();
             }

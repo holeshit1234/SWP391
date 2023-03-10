@@ -7,7 +7,6 @@ package DHTV.Controller;
 
 
 import DHTV.forgotpassword.UserDetailsForgetPasswordDTO;
-import DVHT.utils.MyAplications;
 import DHTV.forgotpassword.VerifyError;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +26,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "VerifyCodeServlet", urlPatterns = {"/VerifyCodeServlet"})
 public class VerifyCodeServlet extends HttpServlet {
-
+    
+    private final String VERIFY_CODE_PAGE = "verifyCode.jsp";
+    private final String RESET_PASSWORD_PAGE = "resetPassword.jsp";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -43,8 +44,7 @@ public class VerifyCodeServlet extends HttpServlet {
         
         ServletContext context = this.getServletContext();
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = siteMaps.getProperty(
-                MyAplications.VerifyCodeServlet.VERIFYCODE_PAGE);
+        String url =VERIFY_CODE_PAGE;
         
         String code1 = request.getParameter("txtCode1");
         String code2 = request.getParameter("txtCode2");
@@ -66,8 +66,7 @@ public class VerifyCodeServlet extends HttpServlet {
                 request.setAttribute("VERIFYCODE_SCOPE", errors);
             } else {
                 if (stringCode.equals(user.getCode())) {
-                    url = siteMaps.getProperty(
-                            MyAplications.VerifyCodeServlet.RESETPASSWORD_PAGE);
+                    url = RESET_PASSWORD_PAGE;
                 } else {
                     errors.setCodeNotExisted("Sorry, code is not wrong, please recheck and try again!");
                     request.setAttribute("VERIFYCODE_SCOPE", errors);

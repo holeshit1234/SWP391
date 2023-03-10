@@ -6,7 +6,6 @@
 package DHTV.Controller;
 
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Properties;
@@ -26,6 +25,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "LogoutAccountServlet", urlPatterns = {"/LogoutAccountServlet"})
 public class LogoutAccountServlet extends HttpServlet {
 
+    
+    private final String LOGOUT_PAGE = "ShowIdexItemServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,7 +45,7 @@ public class LogoutAccountServlet extends HttpServlet {
         //2 get sitemap
         Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String username ="";
-        String url = siteMaps.getProperty(MyAplications.LogoutAccountServlet.ShowIdexItemServlet);
+        String url = LOGOUT_PAGE;
         Cookie cookie = null;
         try {
             HttpSession session = request.getSession(false);

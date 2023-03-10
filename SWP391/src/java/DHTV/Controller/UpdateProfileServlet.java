@@ -10,7 +10,6 @@ import DHTV.address.AddressDTO;
 import DVHT.userdetails.UpdateUserDetailsErr;
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -35,7 +34,9 @@ import javax.servlet.http.HttpSession;
  */
 @WebServlet(name = "UpdateProfileServlet", urlPatterns = {"/UpdateProfileServlet"})
 public class UpdateProfileServlet extends HttpServlet {
-
+    
+    
+    private final String UPDATE_PAGE = "ShowProfileServlet";
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,32 +56,13 @@ public class UpdateProfileServlet extends HttpServlet {
 
         String DOB = request.getParameter("txtDOB");
         //Date dob = Date.valueOf(DOB);
-        String email = request.getParameter("txtEmail");
+        //String email = request.getParameter("txtEmail");
         String phone = request.getParameter("txtPhone");
 
-        String street = request.getParameter("txtStreet");
-        byte[] bytes1 = street.getBytes(StandardCharsets.ISO_8859_1);
-        street = new String(bytes1, StandardCharsets.UTF_8);
-
-        String province = request.getParameter("txtProvince");
-        byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
-        province = new String(bytes2, StandardCharsets.UTF_8);
-
-        String district = request.getParameter("txtDistrict");
-        byte[] bytes3 = district.getBytes(StandardCharsets.ISO_8859_1);
-        district = new String(bytes3, StandardCharsets.UTF_8);
-
-        String ward = request.getParameter("txtWard");
-        byte[] bytes4 = ward.getBytes(StandardCharsets.ISO_8859_1);
-        ward = new String(bytes4, StandardCharsets.UTF_8);
-
+        
         String password = request.getParameter("txtPassWord");
 
-        //1.get servlet Context
-        ServletContext context = this.getServletContext();
-        //2. get siteMap
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
-        String url = "ShowProfileServlet";
+        String url ="";
         HttpSession session = request.getSession(false);
 
         UpdateUserDetailsErr err = new UpdateUserDetailsErr();
@@ -99,57 +81,37 @@ public class UpdateProfileServlet extends HttpServlet {
 //                
                 if (dto != null) {
                     int userid = dto.getUserID();
-//                    if(password.trim().length() < 1 || password.trim().length() >20 ){
-//                        flag = true;
-//                        err.setNotEnoughWordPassWord("PassWord about 10 to 20");
-//                    }
+                    if(password.trim().length() < 8 || password.trim().length() >20 ){
+                        flag = true;
+                        err.setNotEnoughWordPassWord("PassWord about 10 to 20");
+                    }
                     if (fullName.trim().length() < 1 || fullName.trim().length() > 30) {
                         flag = true;
                         err.setNotEnoughWordFullName("FullName about 5 to 20");
                     }
-                    if (DOB.trim().length() < 1 || DOB.trim().length() > 20) {
-                        flag = true;
-                        err.setEmptyDOB("Form of DOB is yyyy-mm-dd");
-                    }
+                   
                     if (phone.trim().length() > 11 || phone.trim().length() < 9) {
                         flag = true;
-                        err.setEmptyDOB("phone has 10 number");
+                        err.setEmptyPhone("phone has 10 number");
                     }
-                    if (street.trim().length() < 1 || street.trim().length() > 30) {
-                        flag = true;
-                        err.setEmptyStreet("Street can not empty");
-                    }
-                    if (province.trim().length() < 1 || phone.trim().length() > 30) {
-                        flag = true;
-                        err.setEmptyPronvince("Province can not empty");
-                    }
-                    if (district.trim().length() < 1 || district.trim().length() > 30) {
-                        flag = true;
-                        err.setEmptyDistrict("District can not empty");
-                    }
-                    if (ward.trim().length() < 1 || ward.trim().length() > 30) {
-                        flag = true;
-                        err.setEmptyWard("Ward can not empty");
-                    }
+                    
                     if (flag) {
                         request.setAttribute("UP_ERROR", err);
-                        url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
+                        url = UPDATE_PAGE;
                     } else {
                         Date dob = new SimpleDateFormat("yyyy-MM-dd").parse(DOB);
 
                         UserDetailsDAO dao = new UserDetailsDAO();
-                        boolean result = dao.updateProfile(userid, email, fullName, phone, dob);
+                        boolean result = dao.updateProfile(userid, fullName, phone, dob, password);
 
                         //AddressDTO adto = (AddressDTO) session.getAttribute("INFO");
                         //if (adto != null) {
                         // int addressid = adto.getAddressID();
-                        AddressDAO dao2 = new AddressDAO();
-                        //boolean result2 = dao2.updateAddress(userid, street, province, district, ward, addressid);
-                        boolean result2 = dao2.updateAddress(userid, street, province, district, ward);
+                        
                         //refesh data grid
 
-                        if (result || result2) {
-                            url = (String) siteMaps.get(MyAplications.UpdateProfileServlet.UPDATE_PAGE);
+                        if (result) {
+                            url = UPDATE_PAGE;
                         }
                     }
                 }

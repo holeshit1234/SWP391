@@ -16,6 +16,8 @@ import java.sql.Statement;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.NamingException;
 
 /**
@@ -37,9 +39,9 @@ public class UserDetailsDAO implements Serializable {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. Sql command
-                String sql = "Select UserID, FullName, RoleID, Email, Phone, DOB, Gender "
+                String sql = "Select UserID, FullName, RoleID, Email, Phone, DOB, Gender, Picture "
                         + "From UserDetails "
-                        + "Where UserName = ? And PassWord = ?";
+                        + "Where UserName = ? And PassWord = ? and Status = 1";
                 //3. Create Statement
                 stm = con.prepareStatement(sql);
                 stm.setString(1, username);
@@ -53,13 +55,14 @@ public class UserDetailsDAO implements Serializable {
                     String fullname = rs.getString("FullName");
                     String email = rs.getString("Email");
                     String phone = rs.getString("Phone");
+                    String picture = rs.getString("Picture");
 
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
 
                     String gender = rs.getString("Gender");
                     result = new UserDetailsDTO(userid, role, username, password,
-                            email, fullname, phone, sqlDate, gender);
+                            email, fullname, phone, sqlDate, gender, picture);
                 }
             }
         } finally {
@@ -75,15 +78,15 @@ public class UserDetailsDAO implements Serializable {
         }
         return result;
     }
-    
+
     public static Boolean usernameExist(String username)
-    throws NamingException, SQLException{
-        
+            throws NamingException, SQLException {
+
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         Boolean result = false;
-           try {
+        try {
             //1.Conect Database
             con = DBHelpers.getConnection();
             if (con != null) {
@@ -93,15 +96,15 @@ public class UserDetailsDAO implements Serializable {
                         + "Where UserName = ?";
                 //3. Create Statement
                 stm = con.prepareStatement(sql);
-                stm.setString(1, username);              
+                stm.setString(1, username);
                 //4.execute query
                 rs = stm.executeQuery();
                 //5. process result
                 if (rs.next()) {
                     result = true;
-                }
-                else
+                } else {
                     result = false;
+                }
             } //end con is availible
         } finally {
             if (rs != null) {
@@ -116,14 +119,15 @@ public class UserDetailsDAO implements Serializable {
             return result;
         }
     }
+
     public static Boolean emailExist(String email)
-    throws NamingException, SQLException{
-        
+            throws NamingException, SQLException {
+
         Connection con = null;
         PreparedStatement stm = null;
         ResultSet rs = null;
         Boolean result = false;
-           try {
+        try {
             //1.Conect Database
             con = DBHelpers.getConnection();
             if (con != null) {
@@ -133,15 +137,15 @@ public class UserDetailsDAO implements Serializable {
                         + "Where Email = ?";
                 //3. Create Statement
                 stm = con.prepareStatement(sql);
-                stm.setString(1, email);              
+                stm.setString(1, email);
                 //4.execute query
                 rs = stm.executeQuery();
                 //5. process result
                 if (rs.next()) {
                     result = true;
-                }
-                else
+                } else {
                     result = false;
+                }
             } //end con is availible
         } finally {
             if (rs != null) {
@@ -156,7 +160,7 @@ public class UserDetailsDAO implements Serializable {
             return result;
         }
     }
-    
+
     public static int addUser(UserDetailsDTO user)
             throws NamingException, SQLException, ParseException {
 
@@ -171,9 +175,8 @@ public class UserDetailsDAO implements Serializable {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. Sql command
-                String sql = "insert into UserDetails ( RoleID, UserName, "
-                        + "[PassWord], Email, FullName, Phone, DOB, Gender )"
-                        + "values (?,?,?,?,?,?,?,?) ";
+                String sql = "insert into UserDetails ( RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender, Picture, [Status]) "
+                        + "values (?,?,?,?,?,?,?,?,?,?) ";
                 //3. Create Statement
                 stm = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
                 stm.setInt(1, user.getRoleID());
@@ -193,14 +196,16 @@ public class UserDetailsDAO implements Serializable {
                     stm.setDate(7, sqlDate);
                 }
                 stm.setString(8, user.getGender());
+                stm.setString(9, user.getPicture());
+                stm.setBoolean(10, user.isStatus());
                 //4.execute queryF
                 int rows = stm.executeUpdate();
+
                 rs = stm.getGeneratedKeys();
                 //5. process result
                 if (rs.next()) {
                     // result = true;
                     key = rs.getInt(1);
-                    System.out.println(key);
                 }
                 while (rows > 0) {
                     return key;
@@ -217,7 +222,8 @@ public class UserDetailsDAO implements Serializable {
         return key;
     }
 
-    public boolean updateProfile(int userid, String email, String fullName, String phone, Date DOB)
+    public boolean updateProfile(int userid, String fullName,
+            String phone, Date DOB, String password)
             throws NamingException, SQLException, ParseException {
         boolean result = false;
         Connection con = null;
@@ -228,24 +234,25 @@ public class UserDetailsDAO implements Serializable {
             con = DBHelpers.getConnection();
             //sql commmands
             String sql = "Update UserDetails "
-                    + "Set Email= ? , FullName =? , Phone=?, DOB=? "
+                    + "Set  FullName =? , Phone=?, DOB=?, PassWord=? "
                     + "Where UserID = ? ";
 
             //create statement
             stm = con.prepareStatement(sql);
-            stm.setString(1, email);
-            stm.setString(2, fullName);
-            stm.setString(3, phone);
+            // stm.setString(1, email);
+            stm.setString(1, fullName);
+            stm.setString(2, phone);
             if (DOB != null) {
                 java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
-                stm.setDate(4, sqlDate);
+                stm.setDate(3, sqlDate);
             } else {
                 String date = "1-1-1999";
                 DateFormat df = new SimpleDateFormat("MM-dd-yyyy");
                 Date defaultDate = df.parse(date);
                 java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
-                stm.setDate(4, sqlDate);
+                stm.setDate(3, sqlDate);
             }
+            stm.setString(4, password);
             stm.setInt(5, userid);
             //execute querry
             int rows = stm.executeUpdate();
@@ -280,7 +287,8 @@ public class UserDetailsDAO implements Serializable {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2. Sql command
-                String sql = "Select UserName ,PassWord, FullName, RoleID, Email, Phone, DOB, Gender "
+                String sql = "Select UserID, UserName ,PassWord, FullName, "
+                        + "RoleID, Email, Phone, DOB, Gender , Picture "
                         + "From UserDetails "
                         + "Where UserID = ?";
                 //3. Create Statement
@@ -300,8 +308,9 @@ public class UserDetailsDAO implements Serializable {
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
+                    String picture = rs.getString("Picture");
                     result = new UserDetailsDTO(userid, role, username,
-                            password, email, fullname, phone, sqlDate, gender);
+                            password, email, fullname, phone, sqlDate, gender, picture);
                 }
             } //end con is availible
         } finally {
@@ -333,7 +342,7 @@ public class UserDetailsDAO implements Serializable {
             if (con != null) {
                 //2 sql commands
                 String sql = "Select UserID, UserName, PassWord, FullName, "
-                        + "RoleID, Phone, DOB, Gender "
+                        + "RoleID, Phone, DOB, Gender, Picture "
                         + "From UserDetails "
                         + "Where Email =? ";
 
@@ -353,8 +362,9 @@ public class UserDetailsDAO implements Serializable {
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
+                    String picture = rs.getString("Picture");
                     result = new UserDetailsDTO(userid, role, username,
-                            password, email, fullname, phone, sqlDate, gender);
+                            password, email, fullname, phone, sqlDate, gender, picture);
                 }
             } //end con is availible   
         } finally {
@@ -377,7 +387,7 @@ public class UserDetailsDAO implements Serializable {
         PreparedStatement stm = null;
         ResultSet rs = null;
         UserDetailsDTO result = null;
-        
+
         try {
             //1 get connecttion
             con = DBHelpers.getConnection();
@@ -385,7 +395,7 @@ public class UserDetailsDAO implements Serializable {
             if (con != null) {
                 //2 sql commands
                 String sql = "Select UserID, UserName, PassWord, FullName, "
-                        + "RoleID, Phone, DOB, Gender "
+                        + "RoleID, Phone, DOB, Gender, Picture "
                         + "From UserDetails "
                         + "Where Email =? ";
 
@@ -405,8 +415,9 @@ public class UserDetailsDAO implements Serializable {
                     Date DOB = rs.getDate("DOB");
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
+                    String picture = rs.getString("Picture");
                     result = new UserDetailsDTO(userid, role, username,
-                            password, email, fullname, phone, sqlDate, gender);
+                            password, email, fullname, phone, sqlDate, gender, picture);
                 }
             } //end con is availible   
         } finally {
@@ -422,6 +433,7 @@ public class UserDetailsDAO implements Serializable {
         }
         return result;
     }
+
     public boolean updatePassword(String email, String password)
             throws SQLException, NamingException {
         Connection con = null;
@@ -454,7 +466,7 @@ public class UserDetailsDAO implements Serializable {
         }
         return result;
     }
-    
+
     public boolean updateGgAc(int userid, String fullName, String phone, Date DOB, String gender)
             throws NamingException, SQLException, ParseException {
         boolean result = false;
@@ -502,4 +514,289 @@ public class UserDetailsDAO implements Serializable {
 
         return result;
     }
+
+    public boolean UpdateImg(int id, String imaName) throws SQLException, NamingException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        ResultSet rs = null;
+
+        try {
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                String sql = "Update UserDetails "
+                        + "set Picture=? "
+                        + "where UserID = ? ";
+
+                stm = con.prepareStatement(sql);
+                stm.setString(1, imaName);
+                stm.setInt(2, id);
+
+                int rows = stm.executeUpdate();
+
+                if (rows > 0) {
+                    result = true;
+                }
+            }
+        } finally {
+
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+
+    public boolean banUser(int userid)
+            throws NamingException, SQLException, ParseException {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            //get connection
+            con = DBHelpers.getConnection();
+            //sql commmands
+            String sql = "Update UserDetails "
+                    + "Set  Status = 0 "
+                    + "Where UserID = ? ";
+
+            //create statement
+            stm = con.prepareStatement(sql);
+            // stm.setString(1, email);
+            stm.setInt(1, userid);
+            //execute querry
+            int rows = stm.executeUpdate();
+            //process result
+            if (rows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return result;
+    }
+
+    private List<UserDetailsDTO> userList;
+
+    public List<UserDetailsDTO> getUserList() {
+        return userList;
+    }
+
+    public void showUserByAdminAccount() throws SQLException, NamingException {
+
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "Select UserID,UserName ,PassWord,FullName, RoleID, "
+                        + "Email, Phone, DOB, Gender, Picture "
+                        + "from UserDetails "
+                        + " where RoleID  IN (2,3) ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int userid = rs.getInt("UserID");
+                    int role = rs.getInt("RoleID");
+                    String fullname = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String phone = rs.getString("Phone");
+                    String picture = rs.getString("Picture");
+                    String username = rs.getString("UserName");
+                    String password = rs.getString("PassWord");
+                    Date DOB = rs.getDate("DOB");
+                    java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+
+                    String gender = rs.getString("Gender");
+                    UserDetailsDTO dto = new UserDetailsDTO(userid, role, username, password,
+                            email, fullname, phone, sqlDate, gender, picture);
+
+                    //add item to dto
+                    if (this.userList == null) {
+                        this.userList = new ArrayList<>();
+                    }
+                    this.userList.add(dto);
+                }//end the list no exsited
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+    }
+
+    public void showUserByManagerAccount() throws SQLException, NamingException {
+
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "Select UserID,UserName ,PassWord,FullName, RoleID, "
+                        + "Email, Phone, DOB, Gender, Picture "
+                        + "from UserDetails "
+                        + " where RoleID = 3 ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int userid = rs.getInt("UserID");
+                    int role = rs.getInt("RoleID");
+                    String fullname = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String phone = rs.getString("Phone");
+                    String picture = rs.getString("Picture");
+                    String username = rs.getString("UserName");
+                    String password = rs.getString("PassWord");
+                    Date DOB = rs.getDate("DOB");
+                    java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+
+                    String gender = rs.getString("Gender");
+                    UserDetailsDTO dto = new UserDetailsDTO(userid, role, username, password,
+                            email, fullname, phone, sqlDate, gender, picture);
+
+                    //add item to dto
+                    if (this.userList == null) {
+                        this.userList = new ArrayList<>();
+                    }
+                    this.userList.add(dto);
+                }//end the list no exsited
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+
+    }
+
+    public UserDetailsDTO showUserById(int userid) throws SQLException, NamingException {
+
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        UserDetailsDTO dto = null;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "Select UserID,UserName ,PassWord,FullName, RoleID, "
+                        + "Email, Phone, DOB, Gender, Picture "
+                        + "from UserDetails "
+                        + " where UserID = ? ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, userid);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+
+                    int role = rs.getInt("RoleID");
+                    String fullname = rs.getString("FullName");
+                    String email = rs.getString("Email");
+                    String phone = rs.getString("Phone");
+                    String picture = rs.getString("Picture");
+                    String username = rs.getString("UserName");
+                    String password = rs.getString("PassWord");
+                    Date DOB = rs.getDate("DOB");
+                    java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
+
+                    String gender = rs.getString("Gender");
+                    dto = new UserDetailsDTO(userid, role, username, password,
+                            email, fullname, phone, sqlDate, gender, picture);
+
+                }//end the list no exsited
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return dto;
+    }
+
+    public boolean updateProfileAdmin(int userid, String fullName,
+            String phone, String password)
+            throws NamingException, SQLException, ParseException {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            //get connection
+            con = DBHelpers.getConnection();
+            //sql commmands
+            String sql = "Update UserDetails "
+                    + "Set  FullName =? , Phone=?, PassWord=? "
+                    + "Where UserID = ? ";
+
+            //create statement
+            stm = con.prepareStatement(sql);
+            // stm.setString(1, email);
+            stm.setString(1, fullName);
+            stm.setString(2, phone);
+            stm.setString(3, password);
+            stm.setInt(4, userid);
+            //execute querry
+            int rows = stm.executeUpdate();
+            //process result
+            if (rows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return result;
+    }
+
 }

@@ -22,17 +22,15 @@ public class UserDetailsDTO implements Serializable{
     private String fullName;
     private String phone;
     private Date DOB;
+    private String picture;
     private String gender;
+    private boolean status;
+    
             
     public UserDetailsDTO() {
     }
 
-
-  
-
-    public UserDetailsDTO(int UserID, int RoleID, String userName, 
-            String passWord, String email, String fullName, String phone, Date DOB, String gender) {
-
+    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, String email, String fullName, String phone, Date DOB, String gender, String picture) {
         this.UserID = UserID;
         this.RoleID = RoleID;
         this.userName = userName;
@@ -42,9 +40,35 @@ public class UserDetailsDTO implements Serializable{
         this.phone = phone;
         this.DOB = DOB;
         this.gender = gender;
+        this.picture = picture;
     }
-  
 
+    public UserDetailsDTO(int UserID, int RoleID, String userName, String passWord, String email, String fullName, String phone, Date DOB, String picture, String gender, boolean status) {
+        this.UserID = UserID;
+        this.RoleID = RoleID;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+        this.fullName = fullName;
+        this.phone = phone;
+        this.DOB = DOB;
+        this.picture = picture;
+        this.gender = gender;
+        this.status = status;
+    }
+
+    
+    
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+    
+    
     public int getUserID() {
         return UserID;
     }
@@ -101,7 +125,6 @@ public class UserDetailsDTO implements Serializable{
         this.phone = phone;
     }
 
-
     public Date getDOB() {
         return DOB;
     }
@@ -118,9 +141,21 @@ public class UserDetailsDTO implements Serializable{
         this.gender = gender;
     }
 
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
     @Override
     public String toString() {
-        return "UserDetailsDTO{" + "UserID=" + UserID + ", RoleID=" + RoleID + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fullName=" + fullName + ", phone=" + phone + ", DOB=" + DOB + ", gender=" + gender + '}';
+        return "UserDetailsDTO{" + "UserID=" + UserID + ", RoleID=" + RoleID + ", userName=" + userName + ", passWord=" + passWord + ", email=" + email + ", fullName=" + fullName + ", phone=" + phone + ", DOB=" + DOB + ", picture=" + picture + ", gender=" + gender + ", status=" + status + '}';
     }
+
+
+  
+
   
 }

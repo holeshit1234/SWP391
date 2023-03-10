@@ -7,7 +7,6 @@ package DHTV.Controller;
 
 import DVHT.userdetails.UserDetailsDAO;
 import DVHT.userdetails.UserDetailsDTO;
-import DVHT.utils.MyAplications;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -29,6 +28,11 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "FirstTimeRequestServlet", urlPatterns = {"/FirstTimeRequestServlet"})
 public class FirstTimeRequestServlet extends HttpServlet {
 
+    
+    private final String SHOW_INDEX_ITEM ="ShowIdexItemServlet";
+    private final String ADMIN_PAGE ="admin.jsp";
+    private final String MANAGER_PAGE ="manager.html";
+     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -41,10 +45,9 @@ public class FirstTimeRequestServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        ServletContext context = this.getServletContext();
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
 
-        String url = (String) siteMaps.get(MyAplications.firstTimeServlet.LOGIN_PAGE);
+        
+        String url = SHOW_INDEX_ITEM;
 
         try {
             //1. get cookie
@@ -67,14 +70,14 @@ public class FirstTimeRequestServlet extends HttpServlet {
 
                 if (result != null) {
                     if (result.getRoleID() == 1) {
-                        url = siteMaps.getProperty(MyAplications.firstTimeServlet.ADMIN_PAGE);
+                        url = ADMIN_PAGE;
                         //url = MyAplications.LoginServlet.ADMIN_PAGE;
                     } else if (result.getRoleID() == 2) {
-                        url = siteMaps.getProperty(MyAplications.firstTimeServlet.MANAGER_PAGE);
+                        url = MANAGER_PAGE;
                         //url = MyAplications.LoginServlet.MANAGER_PAGE;
                     } else {
                         //url = MyAplications.LoginServlet.SEARCH_STORE_PAGE;
-                        url = siteMaps.getProperty(MyAplications.firstTimeServlet.INDEX_PAGE);
+                        url = SHOW_INDEX_ITEM;
                     }
                 }
 //                }//cookie end traversal

@@ -18,7 +18,7 @@ and open the template in the editor.
             <label>Your point</label>
             <input type="number" name="txtPoint" min="1" max="5">
             </br>
-            <input type="submit" value="Submit">
+            <input type="submit" value="Post" name="btAction">
         </form>
         
         

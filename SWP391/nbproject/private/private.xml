@@ -3,10 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DVHT/comment/CommentDAO.java</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/web/product.jsp</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DHTV/Controller/CommentServlet.java</file>
-            <file>file:/E:/KY5/SWP/Dung/SWP391/SWP391/src/java/DVHT/comment/CommentDTO.java</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/src/java/DHTV/Controller/AddToCartServlet.java</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/src/java/DHTV/Controller/CodeProductServlet.java</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/web/erorCheckout.jsp</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/web/checkout.jsp</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/src/java/DHTV/payment/PaymentMethodDAO.java</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/web/product.jsp</file>
+            <file>file:/E:/KY5/SWP/Project/2/Main/SWP391/web/test.jsp</file>
         </group>
     </open-files>
 </project-private>

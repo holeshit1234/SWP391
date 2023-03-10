@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <c:url var="urllogout" value="logoutcontroller">
+        <c:url var="urllogout" value="LogoutAccountServlet">
             <c:param name="btAction" value="Logout"/>
         </c:url>
         <a href="${urllogout}">Logout</a>  
