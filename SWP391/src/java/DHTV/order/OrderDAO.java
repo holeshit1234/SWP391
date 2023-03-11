@@ -384,7 +384,7 @@ public class OrderDAO implements Serializable {
                 String sql = "    \n"
                         + "    SELECT MONTH(Date) AS month, SUM(TotalPrice) AS total_price,YEAR(Date) AS year\n"
                         + "FROM [Order]\n"
-                        + "Where YEAR(Date) = 2022\n"
+                        + "Where YEAR(Date) = 2023\n"
                         + "GROUP BY MONTH(Date) ,YEAR(Date) ";
                 //3. Create the PreparedStatement
                 stm = con.prepareStatement(sql);

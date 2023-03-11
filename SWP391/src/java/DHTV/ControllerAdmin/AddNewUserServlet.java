@@ -149,7 +149,7 @@ public class AddNewUserServlet extends HttpServlet {
                         //set default value                       
                         dob = null;
                         // new dto from the value
-                        UserDetailsDTO userAccount = new UserDetailsDTO(0, RoleID, username, password, email, fullname, phone, dob, gender, "23b33efd6739a27e12124c02169572c0.jpg",true);
+                        UserDetailsDTO userAccount = new UserDetailsDTO(0, RoleID, username, password, email, fullname, phone, dob, "23b33efd6739a27e12124c02169572c0.jpg", gender, true);
                         //process - add into database
                         int key = 0;
                         key = dao.addUser(userAccount);

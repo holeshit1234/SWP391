@@ -68,7 +68,7 @@ public class SavePhotoServlet extends HttpServlet {
 
                 if (result) {
                     //String directory = "D:/copylaij/SWP391/SWP391/web/asset/images/useravatar"; // Change this to the directory of your choice
-                    String directory = "E:/KY5/SWP/Project/2/SWP391/SWP391/web/asset/images/useravatar"; // Change this to the directory of your choice
+                    String directory = "D:/FPT/SWP/Moi/SWP391/SWP391/web/asset/images/useravatar"; // Change this to the directory of your choice
 
                     // Create the directory if it doesn't exist
                     File dir = new File(directory);
