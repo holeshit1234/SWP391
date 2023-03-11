@@ -125,15 +125,19 @@
                             </c:if>
                             <jsp:useBean id="daoAdd" class="DHTV.address.AddressDAO"/>                          
                             ${daoAdd.getAddress(requestScope.USERID)}
+                            <c:set var="firstIteration" value="true"/>
                             <c:forEach var="dto" items="${daoAdd.getInfoList()}" >
-                                <div class="inline">
-                                    <input name="txtAddressID" value="${dto.getAddressID()}" type="radio">
-                                    <div class="testimonials-box">                                
-                                        <div class="client-comment">
-                                            ${dto}
+                                <c:if test="${dto.isStatus() == true}">
+                                    <div class="inline">
+                                        <input name="txtAddressID" value="${dto.getAddressID()}" type="radio" ${firstIteration ? 'checked' : ''}>
+                                        <div class="testimonials-box">                                
+                                            <div class="client-comment">
+                                                ${dto}
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
+                                    <c:set var="firstIteration" value="false"/>
+                                </c:if>
                             </c:forEach>
 
                             <!--Add Address------------->

@@ -77,6 +77,19 @@
             }
 
         </style>
+
+        <style>
+            .alert {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                padding: 20px;
+                background-color: #f44336;
+                color: white;
+                font-size: 18px;
+            }
+        </style>
     </head>
     <body>
         <!---------HEADER-------->
@@ -85,7 +98,7 @@
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
-           
+
                 <li><a href="SearchServlet">Search Page</a> </li>
             </div>
             <div class="orther">
@@ -118,12 +131,12 @@
         <section>
             <div class="container flex">
                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
-             
+
                 <div class="left">
                     <div class="main-image" id="test">
                         <img id="myImage" class="center" src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}" alt="" class="slide">
                     </div>
-                    
+
                 </div>
                 <jsp:useBean id="dao" class="DVHT.comment.CommentDAO"/>                      
                 <jsp:useBean id="daoBrand" class="DHTV.brand.BrandDAO"/>                      
@@ -206,9 +219,24 @@
                             function showAlertAddToCart() {
                                 const addToCart = "${requestScope.ADDTOCART}";
                                 if (addToCart != null && addToCart !== '') {
-                                    alert('Item has been added to your cart.');
+                                    var alertDiv = document.createElement("div");
+                                    alertDiv.classList.add("alert");
+                                    alertDiv.innerHTML = "Item has been added to your cart.";
+                                    document.body.appendChild(alertDiv);
+                                    alertDiv.style.display = 'block';
+                                    setTimeout(function () {
+                                        alertDiv.style.display = 'none';
+                                    }, 2000);
                                 }
                             }
+
+
+                            <%-- function showAlertAddToCart() {
+                             const addToCart = "${requestScope.ADDTOCART}";
+                             if (addToCart != null && addToCart !== '') {
+                             alert('Item has been added to your cart.');
+                             }
+                 }--%>
                         </script>
 
                     </form>
@@ -421,7 +449,7 @@
                                         <c:set var="user" value="${sessionScope.USER}"/>
                                         <div class="review">
                                             <c:set var="cmtID" value="${dto.getCommentID()}"/>
-                                            
+
                                             <!------------------------------------------->
                                             <!-- The modal delete----------------------------------->                                         
                                             <c:if test="${user.getUserID() == dto.getUserID()}">

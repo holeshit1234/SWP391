@@ -1,14 +1,14 @@
 ﻿USE master
 GO
-if exists (select * from sysdatabases where name='OnlineShoppingDTVH')
-		drop database OnlineShoppingDTVH
+if exists (select * from sysdatabases where name='OnlineShoppingDTVHG')
+		drop database OnlineShoppingDTVHG
 
 go 
 
-create database OnlineShoppingDTVH
+create database OnlineShoppingDTVHG
 Go
 
-use OnlineShoppingDTVH
+use OnlineShoppingDTVHG
 
 Go 
 

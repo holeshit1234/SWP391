@@ -260,7 +260,7 @@ public class ProductDAO implements Serializable{
                     String img = rs.getString("Image");
                     //create dto
                     ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, img);
-                    System.out.println("kt dto có show ko :" + dto);
+             
                     //add item to dto
                     if (this.itemsList == null) {
                         this.itemsList = new ArrayList<>();
