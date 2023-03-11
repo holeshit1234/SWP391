@@ -34,6 +34,7 @@ public class SignUpPageServlet extends HttpServlet {
 
     private final String SIGNUP_PAGE = "signup.jsp";
     private final String SHOW_ITEM = "ShowIdexItemServlet";
+    private final String SIGNUPPAGE = "login.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -156,9 +157,10 @@ public class SignUpPageServlet extends HttpServlet {
                     if (key > 0) {
                         AddressDAO dao2 = new AddressDAO();
                         AddressDTO address = new AddressDTO(0, key, province, ward, street, district, true);
+
                         boolean result = dao2.addAddress(address);
                         if (result) {
-                            url = SHOW_ITEM;
+                            url = SIGNUPPAGE;
                         }
                     } else {
                         message += "Some thing wrong here! Can not registration, please try again.\n";

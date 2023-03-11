@@ -41,7 +41,7 @@ public class AddSizeServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = "showSizeServlet";
         try {
-            String size =request.getParameter("txtSize");
+            String size =request.getParameter("txtSize").toUpperCase();
             SizeDAO dao =new SizeDAO();
             dao.addNewSize(size);
               

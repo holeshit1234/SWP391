@@ -13,13 +13,133 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+            main {
+                padding: 20px;
+            }
 
+            .container-fluid {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .card {
+                background-color: #fff;
+                border-radius: 5px;
+                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+                padding: 20px;
+            }
+
+            .card h1 {
+                font-size: 24px;
+                font-weight: 700;
+                margin-bottom: 20px;
+            }
+
+            form label {
+                display: block;
+                margin-bottom: 5px;
+            }
+
+            form input[type="text"],
+            form select {
+                padding: 10px;
+                border: none;
+                border-radius: 5px;
+                width: 100%;
+                margin-bottom: 10px;
+                font-size: 16px;
+                color: #333;
+            }
+
+            form input[type="radio"] {
+                margin-right: 5px;
+            }
+
+            form input[type="submit"] {
+                background-color: #f39c12;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            .form-input {
+                margin-top: 10px;
+                display: none;
+            }
+
+            .form-input input[type="text"] {
+                width: 80px;
+                margin-left: 10px;
+            }
+
+            .size-option {
+                display: flex;
+                align-items: center;
+                margin-bottom: 5px;
+            }
+
+            .size-option label {
+                margin-left: 5px;
+                font-size: 16px;
+            }
+
+            .sex-option {
+                margin-bottom: 10px;
+            }
+            #product-name-input {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+            #price {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+            #description {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+            #quantity {
+                padding: 10px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                margin-bottom: 10px;
+            }
+            @media only screen and (max-width: 768px) {
+                .card {
+                    padding: 10px;
+                }
+
+                form input[type="text"],
+                form select {
+                    font-size: 14px;
+                }
+
+                form input[type="submit"] {
+                    font-size: 14px;
+                    padding: 8px 16px;
+                }
+            }
+
+        </style>
     </head>
     <body class="sb-nav-fixed">
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">DHTV STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -50,8 +170,8 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
@@ -88,6 +208,7 @@
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
                                 </nav>
                             </div> 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
@@ -99,12 +220,12 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>                       
+                            </div> 
                         </div>
                     </div>
-                    
+
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
                 </nav>
             </div>
@@ -141,7 +262,7 @@
                                     <label>Nam</label>
                                     <div class="form-input">
                                         <div class="input-row">
-                                            <select name="txtCate">
+                                            <select name="txtCate" disabled>
                                                 <c:forEach var="dto" items="${daoCategory.getCateList()}">
                                                     <c:if test="${dto.getGender() == 'Nam' }">
                                                         <option id="category" value="${dto.getCategoryID()}">${dto.getCategoryName()}</option>
@@ -157,7 +278,7 @@
                                     <label>Nữ</label>
                                     <div class="form-input">
                                         <div class="input-row">
-                                            <select name="txtCate">
+                                            <select name="txtCate" disabled>
                                                 <c:forEach var="dto" items="${daoCategory.getCateList()}">
                                                     <c:if test="${dto.getGender() == 'Nữ' }">
                                                         <option id="category" value="${dto.getCategoryID()}">${dto.getCategoryName()}</option>
@@ -173,7 +294,7 @@
                                     <label>Unisex</label>
                                     <div class="form-input">
                                         <div class="input-row">
-                                            <select name="txtCate">
+                                            <select name="txtCate" disabled>
                                                 <c:forEach var="dto" items="${daoCategory.getCateList()}">
                                                     <c:if test="${dto.getGender() == 'Unisex' }">
                                                         <option id="category" value="${dto.getCategoryID()}">${dto.getCategoryName()}</option>
@@ -183,8 +304,20 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <script>
-                                    function showCate(element) {
+                                    function showCate(radio) {
+                                        // Disable all select elements
+                                        var selectElements = document.querySelectorAll('.sex-option select');
+                                        for (var i = 0; i < selectElements.length; i++) {
+                                            selectElements[i].disabled = true;
+                                        }
+
+                                        // Enable the select element within the selected sex-option
+                                        var sexOption = radio.closest('.sex-option');
+                                        var selectElement = sexOption.querySelector('select');
+                                        selectElement.disabled = false;
+
                                         // Remove the "selected" class from all sex-options
                                         var sexOptions = document.querySelectorAll('.sex-option');
                                         for (var i = 0; i < sexOptions.length; i++) {
@@ -192,7 +325,6 @@
                                         }
 
                                         // Add the "selected" class to the clicked sex-option
-                                        var sexOption = element.closest('.sex-option');
                                         sexOption.classList.add('selected');
                                     }
                                 </script>
@@ -204,7 +336,6 @@
 
                                     .sex-option.selected .form-input {
                                         display: block;
-
                                     }
                                 </style>
 

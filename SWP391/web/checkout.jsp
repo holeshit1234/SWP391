@@ -32,8 +32,11 @@
         <div class="logo">
             <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
         </div>
-        <div class="menu">
-            <li><a href="SearchServlet">Search Page</a> </li>
+       <div class="menu">
+                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
+            </div>
         </div>
         <div class="orther">
 
@@ -43,9 +46,9 @@
                 </form>
             </li>
 
-            <c:url var="urlprofile" value="DispatchController" >
-                <c:param name="btAction" value="show" />
-            </c:url>
+          <c:url var="urlprofile" value="ShowProfileServlet" >
+                    <c:param name="btAction" value="show" />
+                </c:url>
             <c:if test="${not empty sessionScope.USER}">
                 <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
                 </c:if>
@@ -130,7 +133,7 @@
                                     <input name="txtAddressID" value="${dto.getAddressID()}" type="radio">
                                     <div class="testimonials-box">                                
                                         <div class="client-comment">
-                                            ${dto}
+                                            ${ dto.getStreet()}, ${dto.getProvice()}, ${ dto.getWard()}, ${dto.getDistrict()}
                                         </div>
                                     </div>
                                 </div>
@@ -166,16 +169,16 @@
                                 </c:if>
                             </tr>
                             <tr>
-                                <td>Giảm giá</td>
-                                <td><p >0<sup>vnd</sup></p></td>
-                            </tr>
-                            <tr>
-                                <c:if test="${not empty requestScope.TOTAL_PRICE}">
-                                    <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
-                                    <td>Tạm tính</td>
-                                    <td><p id="total-price" style="color: black; font-weight: bold;">${total}<sup>vnd</sup></p></td>
-                                </c:if>
-                            </tr>
+                            <td>Phí shipping</td>
+                            <td><p >30000<sup>vnd</sup></p></td>
+                        </tr>
+                        <tr>
+                            <c:if test="${not empty requestScope.TOTAL_PRICE}">
+                                <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
+                                <td>Tạm tính</td>
+                                <td><p id="total-price" style="color: black; font-weight: bold;">${total+30000}<sup>vnd</sup></p></td>
+                            </c:if>
+                        </tr>
                         </table>
                         <div class="cart-content-right-buttom">
                             <button>Tiếp tục mua hàng</button>                            

@@ -21,61 +21,37 @@
         <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
     </div>
     <div class="menu">
-        <!--        <li><a href="">Male</a>
-                    <ul class="sub-menu">
-                        <li><a href="">New products</a></li>
-                        <li><a href="">Collection</a></li>
-                        <li><a href="">Men's shirt</a>
-                            <ul>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Vest</a></li>
-                                <li><a href="">Sweater</a></li>
-                                <li><a href="">Coat</a></li>
-                            </ul>					
-                        </li>
-                        <li><a href="">Men's pants</a>
-                            <ul>
-                                <li><a href="">Jeans</a></li>
-                                <li><a href="">Short pant</a></li>
-                                <li><a href="">Trouser</a></li>
-                            </ul>					
-                        </li>
-                    </ul>
-                
-                </li>
-                <li><a href="">Female</a></li>
-                <li><a href="">Children</a></li>
-                <li><a href="">Sale</a></li>
-                <li><a href="">Collection</a></li>
-                <li><a href="">Information</a></li>-->
-        <li><a href="SearchServlet">Search Page</a> </li>
+        <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
+        <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
+        <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
     </div>
-    <div class="orther">
 
-        <li>
-            <form action="SearchServlet">
-                <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
-            </form>
-        </li>
+</div>
+<div class="orther">
 
-        <c:url var="urlprofile" value="DispatchController" >
-            <c:param name="btAction" value="show" />
-        </c:url>
-        <c:if test="${not empty sessionScope.USER}">
-            <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
-            </c:if>
+    <li>
+        <form action="SearchServlet">
+            <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+        </form>
+    </li>
 
-        <c:if test="${empty sessionScope.USER}">
-            <li><a class="fa fa-user" href="login.jsp"></a></li>
-            </c:if>
-
-        <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-            <c:if test="${not empty sessionScope.USER}">
-            <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
-            <jsp:include page="logout.jsp"/>
+    <c:url var="urlprofile" value="ShowProfileServlet" >
+                    <c:param name="btAction" value="show" />
+                </c:url>
+    <c:if test="${not empty sessionScope.USER}">
+        <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
         </c:if>
-    </div>
+
+    <c:if test="${empty sessionScope.USER}">
+        <li><a class="fa fa-user" href="login.jsp"></a></li>
+        </c:if>
+
+    <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
+        <c:if test="${not empty sessionScope.USER}">
+        <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
+        <jsp:include page="logout.jsp"/>
+    </c:if>
+</div>
 </header>
 <!----code------>
 <div class="body">
@@ -93,7 +69,7 @@
         </div>
         <div class="button">
             <a class="btn " href="ShowIdexItemServlet">Tiếp tục mua sắm</a>
-            <a class="btn" href="">Theo dõi đơn hàng</a>
+            <a class="btn" href="ShowOrderTrackingServlet">Theo dõi đơn hàng</a>
         </div>
     </div>
 </div>

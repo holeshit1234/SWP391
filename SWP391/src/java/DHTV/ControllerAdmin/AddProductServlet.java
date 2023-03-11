@@ -89,7 +89,7 @@ public class AddProductServlet extends HttpServlet {
             ProductDAO dao = new ProductDAO();
 
             key = dao.addProductAdmin(dto);
-            String directory = "D:/FPT/SWP/Vinh/Vinh/Vinh/SWP391/SWP391/web/asset/images/productpictures"; // Change this to the directory of your choice
+            String directory = "D:/FPT/SWP/Moi/SWP391/SWP391/web/asset/images/productpictures"; // Change this to the directory of your choice
 
             // Create the directory if it doesn't exist
             File dir = new File(directory);

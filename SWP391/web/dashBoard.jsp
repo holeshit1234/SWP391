@@ -26,7 +26,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="dashBoard.jsp">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">DHTV STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -57,8 +57,8 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
@@ -81,7 +81,7 @@
                                     <a class="nav-link" href="showCategoryServlet">Category</a>
                                     <a class="nav-link" href="showBrandServlet">Brand</a>
                                     <a class="nav-link" href="showSizeServlet">Size</a>
-                                    <a class="nav-link" href="layout-sidenav-light.html">Payment</a>
+                                    <a class="nav-link" href="GetPaymentMethodServlet">Payment</a>
                                 </nav>
                             </div>   
 
@@ -112,7 +112,7 @@
                     </div>
 
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
                 </nav>
             </div>
@@ -137,7 +137,7 @@
                         <div class="row">
                             <div class="col-xl-12">
 
-                                <h1>Monthly Sales Chart</h1>
+                                <h1>Top Product Sales Chart</h1>
                                 <img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart">
 
                             </div>
@@ -154,7 +154,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div class="text-muted">DHTV 2023</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

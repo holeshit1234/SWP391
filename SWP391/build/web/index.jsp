@@ -115,7 +115,7 @@
             }
         </script>
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
-        
+
     </head>
 
     <body>
@@ -125,8 +125,9 @@
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
-              
-                <li><a href="SearchServlet">Search Page</a> </li>
+                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
             </div>
             <div class="orther">
 
@@ -174,7 +175,7 @@
         <!---------Item-------->
         <section class="cartegory">
             <div class="container">             
-                
+
                 <div class="product-list-header">
                     <h2 class="category-title">All products</h2>
                     <div class="category-sort-cotainer">

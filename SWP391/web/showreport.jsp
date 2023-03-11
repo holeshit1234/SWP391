@@ -36,10 +36,10 @@
                     </font>
                 </div>
             </form>
-                    
-                    
-                    
-                    
+
+
+
+
             <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
@@ -59,8 +59,8 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
@@ -97,6 +97,7 @@
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
                                 </nav>
                             </div> 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
@@ -106,20 +107,15 @@
                             </a>
                             <div class="collapse" id="collapseReport" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                    <a class="nav-link" href="ShowAllReport">Show Report</a>                              
-                                    <a class="nav-link" href="ShowBanUser">Show Ban User</a>                              
+                                    <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>                       
+                            </div> 
                         </div>
                     </div>
+
                     <div class="sb-sidenav-footer">
                         <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
-
-                    <!---coppy tới đây --->
-                    
-                    
-                    
                 </nav>
             </div>
             <div id="layoutSidenav_content">

@@ -25,7 +25,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">DHTV STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -56,14 +56,14 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
 
 
-                            <a class="nav-link collapsed" href="#" >
+                            <a class="nav-link collapsed" href="ShowUserByManagerServlet" >
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 User Manage
 
@@ -91,18 +91,27 @@
                             </a>
                             <div class="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                              <a class="nav-link" href="showOrder">Wait to Confirm</a>
-                                    <a class="nav-link" href="showOrderConfirmed">Confirm</a>
+                                    <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
+                                    <a class="nav-link" href="showOrder">Order Confirmed</a>
+                                    <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
                                 </nav>
                             </div> 
-                            <a class="nav-link" href="#" >
+                            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                                 Report Manage
-                            </a>                        
+                                <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
+                            </a>
+                            <div class="collapse" id="collapseReport" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
+                                <nav class="sb-sidenav-menu-nested nav">
+                                    <a class="nav-link" href="ShowAllReport">Report</a>                              
+                                </nav>
+                            </div> 
                         </div>
                     </div>
+
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
                 </nav>
             </div>

@@ -24,9 +24,10 @@
             <div class="logo">
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
-            <div class="menu">
-                
-                <li><a href="SearchServlet">Search Page</a> </li>
+              <div class="menu">
+                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
             </div>
             <div class="orther">
 
@@ -36,7 +37,7 @@
                     </form>
                 </li>
 
-                <c:url var="urlprofile" value="DispatchController" >
+                <c:url var="urlprofile" value="ShowProfileServlet" >
                     <c:param name="btAction" value="show" />
                 </c:url>
                 <c:if test="${not empty sessionScope.USER}">

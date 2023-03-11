@@ -74,8 +74,8 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
@@ -109,9 +109,11 @@
                             </a>
                             <div class="collapse" id="collapseOrder" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                                 <nav class="sb-sidenav-menu-nested nav">
-                                   <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
+                                    <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
-                                    <a class="nav-link" href="showOrderCancle">Cancle Order</a>                                </nav>
+                                    <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
+                                </nav>
                             </div> 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
                                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
@@ -122,11 +124,12 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>                   
+                            </div> 
                         </div>
                     </div>
+
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
                 </nav>
             </div>
@@ -149,6 +152,7 @@
                                             <tr>
                                                 <th>id</th>
                                                 <th>Size</th>
+<!--                                                <th>Delete Size</th>-->
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -156,12 +160,24 @@
                                                 <tr>
                                                     <td>${dto.getSizeID()}</td>
                                                     <td>${dto.getSizeName()}</td>
+                                                    <td>
+<!--                                                        <form action="DeletSizeServlet" method="POST" onsubmit="return confirmDelete();">
+                                                            <input type="hidden" name ="txtSize" value="${dto.getSizeID()}">
+                                                            <input type="submit" value="Xóa sản phẩm"  />
+                                                        </form> -->
+                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
                                 </c:if>
+                                <script>
 
+                                    function confirmDelete() {
+                                        return confirm("Are you sure you want to delete this size?");
+                                    }
+
+                                </script>
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
                                     Thêm Size

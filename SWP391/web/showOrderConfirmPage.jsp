@@ -37,8 +37,7 @@
                     </font>
                 </div>
             </form>
-            <!-- Navbar-->
-            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+           <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -56,8 +55,8 @@
                     <div class="sb-sidenav-menu">
                         <div class="nav">
                             <div class="sb-sidenav-menu-heading">Core</div>
-                            <a class="nav-link" href="index.html">
-                                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                            <a class="nav-link" href="ShowDashBoard">
+                                <div class="sb-nav-link-icon" ><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
                             <div class="sb-sidenav-menu-heading">Manage</div>
@@ -94,6 +93,7 @@
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
                                 </nav>
                             </div> 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
@@ -105,15 +105,15 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>                    
+                            </div> 
                         </div>
                     </div>
+
                     <div class="sb-sidenav-footer">
-                        <div class="small">Logged in as: </div>
+                        <div class="small">Logged in as:  ${dto.fullName}</div>
                     </div>
                 </nav>
             </div>
-
 
             <div id="layoutSidenav_content">
                 <main>
@@ -160,7 +160,8 @@
                                                         </a>
                                                     </td>
                                                     <td>${dto.getDate()}</td>
-                                                    <td>${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}</td>
+                                                    
+                                                    <td>${daoUserDetail.getInfoUser(dto.getUserID()).getFullName()}</td>
                                                     <td>${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()},<br>
                                                         ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()},<br>
                                                         ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}
@@ -194,12 +195,7 @@
                                                             <input type="submit" id="submitBtn" value="Xác nhận"  />
                                                         </form>
                                                     </td>
-                                                    <!--                                                    <td>
-                                                                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm();">
-                                                                                                                <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                                                                                <input type="submit" id="submitBtn" value="Xác nhận"  />
-                                                                                                            </form>
-                                                                                                        </td>-->
+                                               
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
