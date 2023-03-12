@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
     <head>
@@ -105,12 +106,12 @@
 
                 <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
                     <c:if test="${not empty sessionScope.USER}">
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
+                        <jsp:include page="logout.jsp"/>
+                    </c:if>
             </div>
         </header>
- 
-        
+
+
         <!---------Item-------->
         <section class="cartegory" style="margin-top: 100px;">
             <div class="container">             
@@ -135,7 +136,10 @@
                                     <c:set var="gen" value="${product.getGender()}"/>
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
                                     <div class="product-name"> ${product.getProductName()}</div>
-                                    <div class="product-price">${product.getPrice()} vnđ </div>
+                                    <div class="product-price">
+                                        <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
+                                        vnđ 
+                                    </div>
                                 </div>
                             </a>
                         </div>

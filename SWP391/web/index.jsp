@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html lang="en">
 
     <head>
@@ -22,7 +23,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
-            
+
     </head>
 
     <body>
@@ -101,7 +102,9 @@
                                 <div class="item-product ">
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
                                     <div class="product-name"> ${product.getProductName()}</div>
-                                    <div class="product-price">${product.getPrice()} vnđ </div>
+                                    <div class="product-price">
+                                        <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
+                                        vnđ </div>
                                 </div>
                             </a>
                         </div>
@@ -143,25 +146,25 @@
 
 
     </body>
-     <script src="asset/js/Jsort.js"></script>
-     <script src="asset/js/Jindex.js"></script>
+    <script src="asset/js/Jsort.js"></script>
+    <script src="asset/js/Jindex.js"></script>
     <script>
-            function initMap() {
-                var myLatLng = {lat: 10.84142, lng: 106.81004};
+        function initMap() {
+            var myLatLng = {lat: 10.84142, lng: 106.81004};
 
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: myLatLng
-                });
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: myLatLng
+            });
 
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'My Location'
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'My Location'
+            });
+        }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
 
-    
+
 </html>

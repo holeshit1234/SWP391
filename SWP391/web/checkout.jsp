@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <html>
     <head>
         <title>SWP team project</title>
@@ -145,21 +146,23 @@
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
-                                    <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
-                                    <td>Tổng phí thanh toán</td>
-                                    <td><p>${total}<sup>vnd</sup></p></td>
-                                </c:if>
+                                <fmt:formatNumber var="totalprice" value="${requestScope.TOTAL_PRICE}" pattern="#,###,###"/>
+                                <td>Tổng phí thanh toán</td>
+                                <td><p>${totalprice}<sup>vnd</sup></p></td>
+                            </c:if>
+
                             </tr>
                             <tr>
                                 <td>Phí shipping</td>
-                                <td><p >30000<sup>vnd</sup></p></td>
+                                <td><p >30.000<sup>vnd</sup></p></td>
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
                                     <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
-                                    <td>Tạm tính</td>
-                                    <td><p id="total-price" style="color: black; font-weight: bold;">${total+30000}<sup>vnd</sup></p></td>
-                                </c:if>
+                                <fmt:formatNumber var="totalWithShipping" value="${total+30000}" pattern="#,###"/>                               
+                                <td>Tạm tính</td>
+                                <td><p id="total-price" style="color: black; font-weight: bold;">${totalWithShipping}<sup>vnd</sup></p></td>
+                            </c:if>
                             </tr>
                         </table>
                         <div class="cart-content-right-buttom">
