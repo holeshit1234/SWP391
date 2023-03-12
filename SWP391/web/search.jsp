@@ -147,40 +147,15 @@
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
-                <li><a href="">Nam</a>
-                    <ul class="sub-menu">
-                        <li><a href="">A</a></li>
-                        <li><a href="">B</a></li>
-                        <li><a href="">C</a>
-                            <ul>
-                                <li><a href="">Shirt</a></li>
-                                <li><a href="">T-shirt</a></li>
-                                <li><a href="">Vest</a></li>
-                                <li><a href="">Sweater</a></li>
-                                <li><a href="">Coat</a></li>
-                            </ul>					
-                        </li>
-                        <li><a href="">Men's pants</a>
-                            <ul>
-                                <li><a href="">Jeans</a></li>
-                                <li><a href="">Short pant</a></li>
-                                <li><a href="">Trouser</a></li>
-                            </ul>					
-                        </li>
-                    </ul>
-
-                </li>
-                <li><a href="">Nữ</a></li>
-                <li><a href="">Unisex</a></li>
-                <li><a href="">Brand</a></li>
-                <li><a href="">Brand</a></li>
-                <li><a href="">Brand</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
             </div>
             <div class="orther">
 
                 <li>
                     <form action="SearchServlet">
-                            <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
                     </form>
                 </li>
 
@@ -202,35 +177,35 @@
                 </c:if>
             </div>
         </header>
-        
+
         <!---------Item-------->
         <section class="cartegory">
             <div class="container">
-<!--                <div class=" row">
-
-
-                    <div class="cartegory-right-top-item">
-                        <form action="SearchServlet">
-                            <div class="row">
-                                <div  class="col-md-12">
-                                    <input type="text" placeholder="Search" class="form-control">
-                                </div>                                
-                            </div>
-                        </form>
-
-                    </div>
-                    <div class="cartegory-right-top-item">
-                        <button><span>Filter</span><i class="fa fa-sort-down"></i></button>
-                    </div>
-                    <div class="cartegory-right-top-item">
-                        <select name="" id="">
-                            <option value="">Arrange</option>
-                            <option value="">High to low price</option>
-                            <option value="">Low to high price</option>
-                        </select>
-                    </div>
-
-                </div>-->
+                <!--                <div class=" row">
+                
+                
+                                    <div class="cartegory-right-top-item">
+                                        <form action="SearchServlet">
+                                            <div class="row">
+                                                <div  class="col-md-12">
+                                                    <input type="text" placeholder="Search" class="form-control">
+                                                </div>                                
+                                            </div>
+                                        </form>
+                
+                                    </div>
+                                    <div class="cartegory-right-top-item">
+                                        <button><span>Filter</span><i class="fa fa-sort-down"></i></button>
+                                    </div>
+                                    <div class="cartegory-right-top-item">
+                                        <select name="" id="">
+                                            <option value="">Arrange</option>
+                                            <option value="">High to low price</option>
+                                            <option value="">Low to high price</option>
+                                        </select>
+                                    </div>
+                
+                                </div>-->
 
 
 

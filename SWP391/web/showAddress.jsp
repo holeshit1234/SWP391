@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-        <link rel="stylesheet" href="asset/css/styleaddress.css">
+        <link rel="stylesheet" href="asset/css/style.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
 
@@ -26,38 +26,7 @@
 
     <body>
         <!---------HEADER-------->
-        <header>
-            <div class="logo">
-                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
-
-            </div>
-            <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
-            </div>
-            <div class="orther">
-
-                <li>
-                    <form action="SearchServlet">
-                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
-                    </form>
-                </li>
-
-                <c:url var="urlprofile" value="ShowProfileServlet" >
-                    <c:param name="btAction" value="show" />
-                </c:url>
-                <c:if test="${not empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
-                    </c:if>
-
-                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-                    <c:if test="${not empty sessionScope.USER}">
-
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
-            </div>
-        </header>
+        <  <jsp:include page="header.jsp"/>
 
         <!---------profile-------->
         <c:if test="${not empty requestScope.USERS}" >

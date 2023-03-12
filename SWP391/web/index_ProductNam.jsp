@@ -15,41 +15,14 @@
         <!-- Bootstrap -->
         <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="asset/css/styleindex.css">
+        <link rel="stylesheet" href="asset/css/styleshow.css">
 
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-        <script>
-            $(document).ready(function () {
-                // Listen for changes to the select element
-                $('#sort-by').on('change', function () {
-                    // Get the selected value
-                    var selectedValue = $(this).val();
 
-                    // Sort the product items based on the selected value
-                    if (selectedValue === 'price-asc') {
-                        $('.product-item').sort(function (a, b) {
-                            return parseInt($(a).find('.product-price').text()) - parseInt($(b).find('.product-price').text());
-                        }).appendTo('.product-list-container');
-                    } else if (selectedValue === 'price-des') {
-                        $('.product-item').sort(function (a, b) {
-                            return parseInt($(b).find('.product-price').text()) - parseInt($(a).find('.product-price').text());
-                        }).appendTo('.product-list-container');
-                    } else if (selectedValue === 'name-a-z') {
-                        $('.product-item').sort(function (a, b) {
-                            return $(a).find('.product-name').text().localeCompare($(b).find('.product-name').text());
-                        }).appendTo('.product-list-container');
-                    } else if (selectedValue === 'name-z-a') {
-                        $('.product-item').sort(function (a, b) {
-                            return $(b).find('.product-name').text().localeCompare($(a).find('.product-name').text());
-                        }).appendTo('.product-list-container');
-                    }
-                });
-            });
-        </script>
 
         <style>
             #map {
@@ -97,25 +70,7 @@
                 font-size: 16px;
             }
 
-        </style>
-        <script>
-            function initMap() {
-                var myLatLng = {lat: 10.84142, lng: 106.81004};
-
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: myLatLng
-                });
-
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'My Location'
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
-
+        </style>       
     </head>
 
     <body>
@@ -125,9 +80,9 @@
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
             <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
             </div>
             <div class="orther">
 
@@ -150,30 +105,14 @@
 
                 <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
                     <c:if test="${not empty sessionScope.USER}">
-                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
                     <jsp:include page="logout.jsp"/>
                 </c:if>
             </div>
         </header>
-        <!---------Banner-slider-------->
-        <section id="slider">
-            <div class="aspect-ratio-169">
-                <img src="asset/images/banner1.jpg">
-                <img src="asset/images/banner2.jpg">
-                <img src="asset/images/banner3.jpg">
-                <img src="asset/images/banner4.jpg">
-                <img src="asset/images/banner5.jpg">
-            </div>
-            <div class="dot-container">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </section>
+ 
+        
         <!---------Item-------->
-        <section class="cartegory">
+        <section class="cartegory" style="margin-top: 100px;">
             <div class="container">             
 
                 <div class="product-list-header">
@@ -193,6 +132,7 @@
                         <div class="cartegory-right-content-item col-md-3 product-item">
                             <a href="CommentServlet?txtProductID=${product.productID}">
                                 <div class="item-product ">
+                                    <c:set var="gen" value="${product.getGender()}"/>
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
                                     <div class="product-name"> ${product.getProductName()}</div>
                                     <div class="product-price">${product.getPrice()} vnđ </div>
@@ -202,11 +142,11 @@
 
                     </c:forEach>
                 </div>
-<!--                <div class="pagination">
+                <div class="pagination">
                     <c:forEach begin="1" end="${END_PAGE}" var="i">
-                        <a href="ShowIdexItemServlet?index=${i}">${i}</a> 
+                        <a href="showProductByGenderServlet?index=${i}&gender=${gen}">${i}</a> 
                     </c:forEach>
-                </div>-->
+                </div>
             </div>
         </section>
         <!---------Footer-------->
@@ -237,46 +177,22 @@
 
 
     </body>
+    <script src="asset/js/Jsort.js"></script>
     <script>
-            //---------------------sticky-header---------------
-            const header = document.querySelector("header")
-            window.addEventListener("scroll", function () {
-                x = window.pageYOffset
-                if (x > 0) {
-                    header.classList.add("sticky")
-                } else {
-                    header.classList.remove("sticky")
-                }
-                //console.log(x)
-            })
+        function initMap() {
+            var myLatLng = {lat: 10.84142, lng: 106.81004};
 
-            //---------------------sliderbanner-dotcontroller---------------
-            const imgPosition = document.querySelectorAll(".aspect-ratio-169 img")
-            const imgContainer = document.querySelector('.aspect-ratio-169')
-            const dotItem = document.querySelectorAll(".dot")
-            let imgNumber = imgPosition.length
-            let index = 0
-            //console.log(imgPosition)
-            imgPosition.forEach(function (images, index) {
-                images.style.left = index * 100 + "%"
-                dotItem[index].addEventListener("click", function () {
-                    slider(index)
-                })
-            })
-            function imgSlide() {
-                index++;
-                console.log(index)
-                if (index >= imgNumber) {
-                    index = 0
-                }
-                slider(index)
-            }
-            function slider(index) {
-                imgContainer.style.left = "-" + index * 100 + "%"
-                const dotActive = document.querySelector('.active')
-                dotActive.classList.remove("active")
-                dotItem[index].classList.add("active")
-            }
-            setInterval(imgSlide, 5000)
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'My Location'
+            });
+        }
     </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
 </html>

@@ -9,6 +9,7 @@ import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.util.List;
 import javax.naming.NamingException;
@@ -38,6 +39,8 @@ public class showProductByGenderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        
+           
         String url = "index_ProductNam.jsp";
 
         String indexPage = request.getParameter("index");
@@ -49,9 +52,11 @@ public class showProductByGenderServlet extends HttpServlet {
 
         try {
             String gender = request.getParameter("gender");
+//            byte[] bytes1 = gender.getBytes(StandardCharsets.ISO_8859_1);
+//            gender = new String(bytes1, StandardCharsets.UTF_8);
             System.out.println(gender + "Gender");
 
-            if (gender.equals("nam")) {
+            if (gender.equals("Nam")) {
                 ProductDAO dao = new ProductDAO();
 
                 int size = dao.getTotalProductNam();
@@ -75,13 +80,13 @@ public class showProductByGenderServlet extends HttpServlet {
                 request.setAttribute("CURRENT_PAGE", index);
 
             }
-            if (gender.equals("nu")) {
+            if (gender.equals("Nữ")) {
                 ProductDAO dao = new ProductDAO();
 
                 int size = dao.getTotalProductNu();
                 System.out.println(size);
                 //paging 
-                int recordsPerPage = 8;
+                int recordsPerPage = 12;
                 int endPage = 0;
                 endPage = size / recordsPerPage;
                 if (size % recordsPerPage != 0) {
@@ -100,13 +105,13 @@ public class showProductByGenderServlet extends HttpServlet {
 
             }
 
-            if (gender.equals("unisex")) {
+            if (gender.equals("Unisex")) {
                 ProductDAO dao = new ProductDAO();
 
                 int size = dao.getTotalProductUnisex();
                 System.out.println(size);
                 //paging 
-                int recordsPerPage = 4;
+                int recordsPerPage = 12;
                 int endPage = 0;
                 endPage = size / recordsPerPage;
                 if (size % recordsPerPage != 0) {
@@ -114,8 +119,7 @@ public class showProductByGenderServlet extends HttpServlet {
                 }
                 System.out.println(endPage);
 
-//                List<ProductDTO> paging = dao.pagingProductUnisex();
-                // List<ProductDTO> paging = dao.pagingProduct(index);
+
                 List<ProductDTO> paging = dao.pagingProductUnisex(index, recordsPerPage);
                 System.out.println(paging);
 

@@ -24,16 +24,16 @@
             <div class="logo">
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
-              <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
+            <div class="menu">
+                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
             </div>
             <div class="orther">
 
                 <li>
                     <form action="SearchServlet">
-                            <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
                     </form>
                 </li>
 
@@ -72,15 +72,15 @@
                                 <input type="password" name="txtPassword" value="" /><br/>                                 
                             </div>
                             <c:if test="${not empty err.emptyUserNamePassWord}">
-                                    <font color="red">
-                                    ${err.emptyUserNamePassWord}
-                                    </font><br/>
-                                </c:if>
-                                <c:if test="${not empty err.wrongUserNamePassWord}">
-                                    <font color="red">
-                                    ${err.wrongUserNamePassWord}
-                                    </font><br/>
-                                </c:if>
+                                <font color="red">
+                                ${err.emptyUserNamePassWord}
+                                </font><br/>
+                            </c:if>
+                            <c:if test="${not empty err.wrongUserNamePassWord}">
+                                <font color="red">
+                                ${err.wrongUserNamePassWord}
+                                </font><br/>
+                            </c:if>
                             <div class="remember-forgot">
                                 <label><input type="checkbox" name="chkremember" value="ON" />
                                     Remember me</label>
@@ -88,8 +88,8 @@
                             </div>
 
 
-                                    <input type="submit" value="login" class="btn" name="btAction">
-                            
+                            <input type="submit" value="login" class="btn" name="btAction">
+
                             <p class="social-text">Or sign in with social platform</p>
                             <div class="social-media">
                                 <a href="http://accounts.google.com/o/oauth2/auth?scope=email profile&redirect_uri=http://localhost:8084/SWP391/GoogleSignInServlet&response_type=code
@@ -114,6 +114,6 @@
 
 
         </div>
-                              
+
     </body>
 </html>

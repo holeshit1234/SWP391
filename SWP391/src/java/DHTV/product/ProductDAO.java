@@ -260,7 +260,7 @@ public class ProductDAO implements Serializable {
                     String img = rs.getString("Image");
                     //create dto
                     ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, img);
-             
+
                     //add item to dto
                     if (this.itemsList == null) {
                         this.itemsList = new ArrayList<>();
@@ -621,7 +621,7 @@ public class ProductDAO implements Serializable {
 
         try {
             con = DBHelpers.getConnection();
-            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]  "
+            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image], C.[Gender]   "
                     + "FROM [Product] P  "
                     + "INNER JOIN [Category] C ON P.[CategoryID] = C.[CategoryID] "
                     + "WHERE P.[Status] = 1 AND C.[Gender] = 'Nam' "
@@ -642,8 +642,8 @@ public class ProductDAO implements Serializable {
                 boolean status = rs.getBoolean("Status");
                 String des = rs.getString("Description");
                 String image = rs.getString("Image");
-
-                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image);
+                String gender = rs.getString("Gender");
+                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image, gender);
                 list.add(dto);
             }
 
@@ -692,6 +692,7 @@ public class ProductDAO implements Serializable {
                     boolean status = rs.getBoolean("Status");
                     String description = rs.getString("Description");
                     String image = rs.getString("Image");
+
                     //create dto
                     ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
                     //System.out.println(dto);
@@ -726,7 +727,7 @@ public class ProductDAO implements Serializable {
 
         try {
             con = DBHelpers.getConnection();
-            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]  "
+            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image], C.[Gender]  "
                     + "FROM [Product] P  "
                     + "INNER JOIN [Category] C ON P.[CategoryID] = C.[CategoryID] "
                     + "WHERE P.[Status] = 1 AND C.[Gender] = N'Nữ' "
@@ -747,8 +748,8 @@ public class ProductDAO implements Serializable {
                 boolean status = rs.getBoolean("Status");
                 String des = rs.getString("Description");
                 String image = rs.getString("Image");
-
-                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image);
+                String gender = rs.getString("Gender");
+                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image, gender);
                 list.add(dto);
             }
 
@@ -830,7 +831,7 @@ public class ProductDAO implements Serializable {
 
         try {
             con = DBHelpers.getConnection();
-            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]  "
+            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image],C.[Gender]  "
                     + "FROM [Product] P  "
                     + "INNER JOIN [Category] C ON P.[CategoryID] = C.[CategoryID] "
                     + "WHERE P.[Status] = 1 AND C.[Gender] = 'Unisex' "
@@ -851,8 +852,8 @@ public class ProductDAO implements Serializable {
                 boolean status = rs.getBoolean("Status");
                 String des = rs.getString("Description");
                 String image = rs.getString("Image");
-
-                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image);
+                String gender = rs.getString("Gender");
+                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image, gender);
                 list.add(dto);
             }
 

@@ -25,45 +25,23 @@
                 border-radius: 10px;
 
             }
+
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                height: 40px;
+                cursor: pointer;
+                border-radius: 10px;
+                background: linear-gradient(135deg, #e7d0c4, #efe6e1);
+                border: none;
+                margin-right: 20px;
+                color: #333;
+                border: none;
+            }
         </style>
     </head>
     <!---------HEADER-------->
-    <header>
-        <div class="logo">
-            <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
-        </div>
-       <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
-            </div>
-        </div>
-        <div class="orther">
-
-            <li>
-                <form action="SearchServlet">
-                    <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
-                </form>
-            </li>
-
-          <c:url var="urlprofile" value="ShowProfileServlet" >
-                    <c:param name="btAction" value="show" />
-                </c:url>
-            <c:if test="${not empty sessionScope.USER}">
-                <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
-                </c:if>
-
-            <c:if test="${empty sessionScope.USER}">
-                <li><a class="fa fa-user" href="login.jsp"></a></li>
-                </c:if>
-
-            <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-                <c:if test="${not empty sessionScope.USER}">
-                <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
-                <jsp:include page="logout.jsp"/>
-            </c:if>
-        </div>
-    </header>
+    <jsp:include page="header.jsp"/>
     <!---------checkout-------->
     <div class="cart">
         <div class="container">
@@ -173,25 +151,24 @@
                                 </c:if>
                             </tr>
                             <tr>
-                            <td>Phí shipping</td>
-                            <td><p >30000<sup>vnd</sup></p></td>
-                        </tr>
-                        <tr>
-                            <c:if test="${not empty requestScope.TOTAL_PRICE}">
-                                <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
-                                <td>Tạm tính</td>
-                                <td><p id="total-price" style="color: black; font-weight: bold;">${total+30000}<sup>vnd</sup></p></td>
-                            </c:if>
-                        </tr>
+                                <td>Phí shipping</td>
+                                <td><p >30000<sup>vnd</sup></p></td>
+                            </tr>
+                            <tr>
+                                <c:if test="${not empty requestScope.TOTAL_PRICE}">
+                                    <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
+                                    <td>Tạm tính</td>
+                                    <td><p id="total-price" style="color: black; font-weight: bold;">${total+30000}<sup>vnd</sup></p></td>
+                                </c:if>
+                            </tr>
                         </table>
                         <div class="cart-content-right-buttom">
-                            <button>Tiếp tục mua hàng</button>                            
-                            <button type="submit">Xác nhận và hoàn tất</button>
+                            <a href="ShowIdexItemServlet" class="button">Tiếp tục mua hàng</a>
+                            <button type="submit">Xác nhận và hoàn tất</button>                                       
                         </div>
                     </div>
-
                 </div>
-            </form>
+            </form>    
         </div>
     </div>
     <c:set var="user" value="${sessionScope.USER}"/>
