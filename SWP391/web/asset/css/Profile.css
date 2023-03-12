@@ -155,14 +155,14 @@ header.sticky{
     border-right: #333 solid 1px;
 }
 .user img{
-    height: 17rem;
-    width: 17rem;
+    height: 10rem;
+    width: 10rem;
     border-radius: 50%;object-fit: cover;
     margin-bottom: 1rem;
     border: 2px solid #333;
 }
 .user .name{
-    font-size: 3rem;
+    font-size: 2rem;
     color: #333;
 }
 .user .post{
@@ -174,7 +174,7 @@ header.sticky{
 }
 .navbar ul{
     list-style: none;
-    padding: 1rem 3rem;
+    padding: 0rem 5rem;
 }
 .navbar ul li a{
     display: block;

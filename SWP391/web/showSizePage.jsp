@@ -38,6 +38,116 @@
             }
 
         </style>
+        <style>
+            /* Center the modal popup */
+            .modal-dialog {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+
+            /* Style the modal content */
+            .modal-content {
+                background-color: white;
+                border-radius: 10px;
+                box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
+                padding: 20px;
+            }
+
+            /* Style the modal header */
+            .modal-header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                border-bottom: none;
+            }
+
+            /* Style the modal title */
+            .modal-title {
+                font-size: 24px;
+                font-weight: bold;
+                margin: 0;
+                align-content: center;
+            }
+
+            /* Style the close button */
+            .btn-close {
+                padding: 0;
+                background-color: transparent;
+                border: none;
+                font-size: 1.5rem;
+                opacity: 0.5;
+            }
+
+            .btn-close:hover {
+                opacity: 1;
+            }
+
+            /* Style the modal body */
+            .modal-body {
+                padding: 0;
+            }
+
+            /* Style the form */
+            form {
+                display: flex;
+                flex-direction: column;
+            }
+
+            /* Style the table */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            th, td {
+                text-align: left;
+                padding: 8px;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #f2f2f2;
+                font-weight: bold;
+            }
+
+            /* Style the modal footer */
+            .modal-footer {
+                display: flex;
+                justify-content: flex-end;
+                align-items: center;
+                border-top: none;
+                margin-top: 20px;
+            }
+
+            /* Style the buttons */
+            .btn {
+                padding: 8px 16px;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .btn-secondary {
+                background-color: #6c757d;
+                color: white;
+                margin-right: 10px;
+            }
+
+            .btn-secondary:hover {
+                background-color: #5a6268;
+            }
+
+            .btn-primary {
+                background-color: #007bff;
+                color: white;
+            }
+
+            .btn-primary:hover {
+                background-color: #0069d9;
+            }
+
+        </style>
     </head>
     <body class="sb-nav-fixed">
 
@@ -133,26 +243,26 @@
                     </div>
                 </nav>
             </div>
+
+
             <div id="layoutSidenav_content">
-                <main>
+                <main>                    
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
-
 
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Size
+                                DataTable User
                             </div>
                             <div class="card-body">
                                 <c:set var="listSize" value="${requestScope.SIZE_RESULT}"/>
                                 <c:if test="${not empty listSize}">
-                                    <table id="datatablesSimple">
+                                    <table id="datatablesSimple" >
                                         <thead>
                                             <tr>
                                                 <th>id</th>
-                                                <th>Size</th>
-<!--                                                <th>Delete Size</th>-->
+                                                <th>Size</th>                                             
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -160,28 +270,16 @@
                                                 <tr>
                                                     <td>${dto.getSizeID()}</td>
                                                     <td>${dto.getSizeName()}</td>
-                                                    <td>
-<!--                                                        <form action="DeletSizeServlet" method="POST" onsubmit="return confirmDelete();">
-                                                            <input type="hidden" name ="txtSize" value="${dto.getSizeID()}">
-                                                            <input type="submit" value="Xóa sản phẩm"  />
-                                                        </form> -->
-                                                    </td>
                                                 </tr>
                                             </c:forEach>
                                         </tbody>
                                     </table>
                                 </c:if>
-                                <script>
 
-                                    function confirmDelete() {
-                                        return confirm("Are you sure you want to delete this size?");
-                                    }
-
-                                </script>
                                 <!-- Button trigger modal -->
-                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Thêm Size
-                                </button>
+                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                      Thêm Size
+                                  </button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -204,162 +302,12 @@
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
                                                         <button id="add-size-btn" type="submit" class="btn btn-primary" disabled>Thêm Size</button>
                                                     </div>
-                                                </form>
-
-                                                <script>
-                                                    // Lấy tham chiếu đến các phần tử trong DOM
-                                                    const sizeInput = document.getElementById('size');
-                                                    const sizeError = document.getElementById('size-error');
-                                                    const addSizeBtn = document.getElementById('add-size-btn');
-
-                                                    // Khai báo biến lưu trữ tên size hiện tại
-                                                    let currentSize = '';
-
-                                                    // Thiết lập sự kiện khi người dùng nhập liệu
-                                                    sizeInput.addEventListener('input', () => {
-                                                        currentSize = sizeInput.value.trim();
-                                                        if (currentSize === '') {
-                                                            // Nếu trường nhập liệu rỗng, vô hiệu hóa nút "Thêm Size"
-                                                            addSizeBtn.disabled = true;
-                                                            // Ẩn thông báo lỗi
-                                                            sizeError.classList.add('d-none');
-                                                        } else {
-                                                            // Kiểm tra tên size hiện tại có trùng với danh sách size hay không
-                                                            let sizeExists = false;
-                                                            const sizeList = document.querySelectorAll('#datatablesSize tbody td:nth-child(2)');
-                                                            sizeList.forEach(size => {
-                                                                if (size.textContent.trim().toLowerCase() === currentSize.toLowerCase()) {
-                                                                    sizeExists = true;
-                                                                }
-                                                            });
-                                                            // Nếu tên size đã tồn tại, hiển thị thông báo lỗi và vô hiệu hóa nút "Thêm Size"
-                                                            if (sizeExists) {
-                                                                addSizeBtn.disabled = true;
-                                                                sizeError.classList.remove('d-none');
-                                                            } else {
-                                                                // Ngược lại, cho phép thêm size mới và ẩn thông báo lỗi
-                                                                addSizeBtn.disabled = false;
-                                                                sizeError.classList.add('d-none');
-                                                            }
-                                                        }
-                                                    });
-                                                </script>
+                                                </form>                                           
                                             </div>
                                         </div>
-
                                     </div>
-                                </div>
-                            </div>
-                            <style>
-                                /* Center the modal popup */
-                                .modal-dialog {
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                }
-
-                                /* Style the modal content */
-                                .modal-content {
-                                    background-color: white;
-                                    border-radius: 10px;
-                                    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-                                    padding: 20px;
-                                }
-
-                                /* Style the modal header */
-                                .modal-header {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;
-                                    border-bottom: none;
-                                }
-
-                                /* Style the modal title */
-                                .modal-title {
-                                    font-size: 24px;
-                                    font-weight: bold;
-                                    margin: 0;
-                                    align-content: center;
-                                }
-
-                                /* Style the close button */
-                                .btn-close {
-                                    padding: 0;
-                                    background-color: transparent;
-                                    border: none;
-                                    font-size: 1.5rem;
-                                    opacity: 0.5;
-                                }
-
-                                .btn-close:hover {
-                                    opacity: 1;
-                                }
-
-                                /* Style the modal body */
-                                .modal-body {
-                                    padding: 0;
-                                }
-
-                                /* Style the form */
-                                form {
-                                    display: flex;
-                                    flex-direction: column;
-                                }
-
-                                /* Style the table */
-                                table {
-                                    border-collapse: collapse;
-                                    width: 100%;
-                                    margin-bottom: 20px;
-                                }
-
-                                th, td {
-                                    text-align: left;
-                                    padding: 8px;
-                                    border-bottom: 1px solid #ddd;
-                                }
-
-                                th {
-                                    background-color: #f2f2f2;
-                                    font-weight: bold;
-                                }
-
-                                /* Style the modal footer */
-                                .modal-footer {
-                                    display: flex;
-                                    justify-content: flex-end;
-                                    align-items: center;
-                                    border-top: none;
-                                    margin-top: 20px;
-                                }
-
-                                /* Style the buttons */
-                                .btn {
-                                    padding: 8px 16px;
-                                    border-radius: 5px;
-                                    cursor: pointer;
-                                }
-
-                                .btn-secondary {
-                                    background-color: #6c757d;
-                                    color: white;
-                                    margin-right: 10px;
-                                }
-
-                                .btn-secondary:hover {
-                                    background-color: #5a6268;
-                                }
-
-                                .btn-primary {
-                                    background-color: #007bff;
-                                    color: white;
-                                }
-
-                                .btn-primary:hover {
-                                    background-color: #0069d9;
-                                }
-
-                            </style>
+                                </div> 
+                            </div>                          
                         </div>
                     </div>
                 </main>
@@ -380,6 +328,44 @@
                 </footer>
             </div>
         </div>
+        <script>
+             // Lấy tham chiếu đến các phần tử trong DOM
+             const sizeInput = document.getElementById('size');
+             const sizeError = document.getElementById('size-error');
+             const addSizeBtn = document.getElementById('add-size-btn');
+
+            // Khai báo biến lưu trữ tên size hiện tại
+            let currentSize = '';
+
+            // Thiết lập sự kiện khi người dùng nhập liệu
+            sizeInput.addEventListener('input', () => {
+                currentSize = sizeInput.value.trim();
+                if (currentSize === '') {
+                    // Nếu trường nhập liệu rỗng, vô hiệu hóa nút "Thêm Size"
+                    addSizeBtn.disabled = true;
+                    // Ẩn thông báo lỗi
+                    sizeError.classList.add('d-none');
+                } else {
+                    // Kiểm tra tên size hiện tại có trùng với danh sách size hay không
+                    let sizeExists = false;
+                    const sizeList = document.querySelectorAll('#datatablesSize tbody td:nth-child(2)');
+                    sizeList.forEach(size => {
+                        if (size.textContent.trim().toLowerCase() === currentSize.toLowerCase()) {
+                            sizeExists = true;
+                        }
+                    });
+                    // Nếu tên size đã tồn tại, hiển thị thông báo lỗi và vô hiệu hóa nút "Thêm Size"
+                    if (sizeExists) {
+                        addSizeBtn.disabled = true;
+                        sizeError.classList.remove('d-none');
+                    } else {
+                        // Ngược lại, cho phép thêm size mới và ẩn thông báo lỗi
+                        addSizeBtn.disabled = false;
+                        sizeError.classList.add('d-none');
+                    }
+                }
+            });
+        </script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/js/slideBar.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

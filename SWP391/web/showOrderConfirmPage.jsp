@@ -135,7 +135,7 @@
                             <c:set var="result" value="${requestScope.ORDER_RESULT  }"/>
 
                             <c:if test="${not empty result}">
-                                <table border="1" >
+                                <table id="datatablesSimple" >
                                     <thead>
                                         <tr>
                                             <th>ID</th>

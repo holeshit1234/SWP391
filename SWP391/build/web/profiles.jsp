@@ -10,14 +10,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="asset/css/styleprofile.css">
+        <link rel="stylesheet" href="asset/css/Profile.css">
 
-
-        <!--        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
-                      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
-                      crossorigin="anonymous">-->
-
-        <!--<link href="asset/css/bootstrap.min.css" rel="stylesheet">-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -36,7 +30,7 @@
             <div class="context-profile" style="overflow-x: hidden;" >
                 <div class="row">
                     <div class="new">
-                        <div class="avt col-md-4">
+                        <div class="avt col-md-3">
                             <div class="user">
                                 <img src="asset/images/useravatar/${info_user.picture}" alt="">                                        
                                 <h3 class="name">${info_user.fullName}</h3>              
@@ -55,7 +49,7 @@
 
 
                         <c:set var="error" value="${requestScope.UP_ERROR}"/>
-                        <div class="sigup col-md-8">
+                        <div class="sigup col-md-9">
                             <div class="container ">
                                 <div class="title text-center">My account</div>
                                 <form action="UpdateProfileServlet" method="POST">

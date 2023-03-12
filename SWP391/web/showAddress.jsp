@@ -18,101 +18,71 @@
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
         <link rel="stylesheet" href="asset/css/styleaddress.css">
-
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
 
-        <style>
-            body{overflow-x: hidden;}
-
-            .confirm-box {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 9999;
-                background-color: white;
-                padding: 20px;
-                border: 1px solid black;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            }
-            .alert {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #f8d7da;
-                color: #721c24;
-                padding: 20px;
-                border: 1px solid #f5c6cb;
-                border-radius: 5px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-            }
-            .button-container {
-                display: flex;
-                justify-content: center;
-                margin-top: 20px;
-            }
-
-            .ok-button,
-            .cancel-button {
-                background-color: #007bff;
-                border: 1px solid #007bff;
-                color: #fff;
-                cursor: pointer;
-                padding: 8px 16px;
-                margin: 0 10px;
-                border-radius: 4px;
-                font-size: 14px;
-                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-            }
-
-            .ok-button:hover,
-            .cancel-button:hover {
-                background-color: #0056b3;
-                border-color: #0056b3;
-            }
-
-            .cancel-button {
-                background-color: transparent;
-                color: #007bff;
-            }
-
-            .cancel-button:hover {
-                background-color: #f8f9fa;
-                color: #007bff;
-            }
-
-        </style>
         <title>JSP Page</title>
     </head>
 
     <body>
         <!---------HEADER-------->
-       <jsp:include page="header.jsp"/>
+        <header>
+            <div class="logo">
+                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
+
+            </div>
+            <div class="menu">
+                <li><a href="showProductByGenderServlet?gender=nam">Nam</a></li>
+                <li><a href="showProductByGenderServlet?gender=nu">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=unisex">Unisex</a></li>
+            </div>
+            <div class="orther">
+
+                <li>
+                    <form action="SearchServlet">
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                    </form>
+                </li>
+
+                <c:url var="urlprofile" value="ShowProfileServlet" >
+                    <c:param name="btAction" value="show" />
+                </c:url>
+                <c:if test="${not empty sessionScope.USER}">
+                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
+                    </c:if>
+
+                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
+                    <c:if test="${not empty sessionScope.USER}">
+
+                    <jsp:include page="logout.jsp"/>
+                </c:if>
+            </div>
+        </header>
+
         <!---------profile-------->
         <c:if test="${not empty requestScope.USERS}" >
             <c:set var="user" value="${requestScope.USERS}"/>
             <div class="row content-detail" style="height: 100%;" >
-                <div class="avt col-md-4">
+                <div class="avt col-md-3">
                     <div class="user">
                         <img src="asset/images/useravatar/${user.getPicture()}" alt="">
                         <h3 class="name">${user.fullName}</h3>
                     </div>
 
-                    <nav class="navbar">
+                    <nav class="navbar" style="margin : auto;">
                         <ul>
                             <li><a href="ShowProfileServlet">Account information</a></li>
-                                    <li><a href="ShowOrderTrackingServlet">Order management</a></li>
-                                    <li><a href="ShowAddressServlet">Address number</a></li>
-                                    <li><a href="https://www.facebook.com/people/VDTH/100090772202536/">Contact us</a></li>
+                            <li><a href="ShowOrderTrackingServlet">Order management</a></li>
+                            <li><a href="ShowAddressServlet">Address number</a></li>
+                            <li><a href="https://www.facebook.com/people/VDTH/100090772202536/">Contact us</a></li>
 
                         </ul>
                     </nav>
                 </div>
 
-                <div class="col-md-8">
+
+
+                <div class="col-md-9">
                     <div class="container-fluid">
                         <div class="row ">
                             <div class="col-md-12 " >
@@ -182,9 +152,9 @@
                                                             <div class="row">
                                                                 <input type="hidden" name="txtaddid" value="${add.getAddressID()}" />
                                                                 <div class="col-md-6">
-                                                                    <p>Phone number: ${user.getPhone()}</p>
-                                                                    <p>Address: ${add.getStreet()}</p>
+                                                                    <p>Phone number: ${user.getPhone()}</p>                                                                    
                                                                     <p>Province: ${add.getProvice()}</p>
+                                                                    <p>Address: ${add.getStreet()}</p>
                                                                 </div>
                                                                 <div class="col-md-6">
                                                                     <p>District: ${add.getDistrict()}</p>
@@ -277,7 +247,7 @@
         </c:if>
         <!---------Footer-------->
 
-        <footer style="margin: 25px auto 0">
+        <footer>
             <div class="footer-content" style="width: 100%;">
                 <div class="footer-top">
                     <li><a href="">Contact</a></li>
@@ -304,6 +274,7 @@
 
 
     </body>
+
     <script src="asset/js/Jaddress.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>

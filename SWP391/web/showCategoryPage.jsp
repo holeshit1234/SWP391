@@ -252,17 +252,7 @@
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
-
-                        <c:if test="${not empty sessionScope.USER}">
-                            <c:set var="user" value="${sessionScope.USER}"/>
-                            <c:if test="${user.getRoleID() == 1}">
-                                <div style="margin-bottom: 10px">
-                                    <div >
-                                        <a type="submit" href="AddNewUser.jsp">Add New User</a>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:if>
+                       
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
