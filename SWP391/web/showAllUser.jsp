@@ -38,7 +38,7 @@
                 </div>
             </form>
             <!-- Navbar-->
-         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -206,6 +206,15 @@
                                                                    href="${urlDelete}">Delete User </a> <br>
                                                             </c:if>
                                                         </c:if>
+                                                        <c:if test="${not empty sessionScope.USER}">
+                                                            <c:set var="user" value="${sessionScope.USER}"/>
+                                                            <c:if test="${user.getRoleID() == 2}">
+                                                                <c:url var="urlBanUser" value="BanUserServletAtUserPage" >
+                                                                    <c:param name="userID" value="${dto.getUserID()}"/>
+                                                                </c:url>
+                                                            <a href="${urlBanUser}">Ban User</a>
+                                                        </c:if>
+                                                    </c:if>
 
                                                     </td>
                                                 </tr>

@@ -80,9 +80,8 @@
 
             .alert {
                 position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
+                top: 70px; /* set the distance from top */
+                right: 20px; /* set the distance from right */
                 padding: 20px;
                 background-color: #f44336;
                 color: white;
@@ -150,7 +149,7 @@
 
 
                 <div class="right">
-                    <form action="AddToCartServlet" method="GET">
+                    <form action="AddToCartServlet" method="POST">
                         <h3>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getProductName()} -
                             <c:set var="avgRate" value="
                                    ${ 
@@ -173,7 +172,7 @@
                             ${daoUtil.roundingFunction(avgRate)}
                             <i class="fa fa-star"></i>
                         </h3>
-                            
+
                         <h4> <fmt:formatNumber value="${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getPrice()}" pattern="#,###,###" />
                             <small>vnd</small>
                         </h4>
@@ -251,7 +250,7 @@
 
                 <div class="footer-top">
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 All
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,5) +
@@ -265,7 +264,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 5 <i class="fa fa-star"></i>
 
@@ -277,7 +276,7 @@
                     </li>
                     <li>
 
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 4 <i class="fa fa-star"></i>
 
@@ -288,7 +287,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 3 <i class="fa fa-star"></i>
 
@@ -299,7 +298,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 2 <i class="fa fa-star"></i>
 
@@ -310,7 +309,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 1 <i class="fa fa-star"></i>
 
@@ -321,7 +320,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 Gần nhất
                                 <input type="hidden" name="star" value="6" />
@@ -330,7 +329,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 Lâu nhất
                                 <input type="hidden" name="star" value="7" />
@@ -339,7 +338,7 @@
                         </form>
                     </li>
                     <li>
-                        <form action="CommentServlet" method="GET">
+                        <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 Your comment
                                 <input type="hidden" name="star" value="8" />
@@ -369,7 +368,7 @@
                         <div class="name-user">
                             <c:set var="productID" value="${requestScope.PRODUCTID}" />
                             ProductID = ${productID}
-                            <form action="CommentServlet" method="GET">
+                            <form action="CommentServlet" method="POST">
                                 <input type="hidden" name="txtProductID" value="${productID}" />
                                 <div class="enter-comment">
                                     <li>

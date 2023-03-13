@@ -309,6 +309,7 @@ public class UserDetailsDAO implements Serializable {
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
                     String picture = rs.getString("Picture");
+                  
                     result = new UserDetailsDTO(userid, role, username,
                             password, email, fullname, phone, sqlDate, gender, picture);
                 }
@@ -342,7 +343,7 @@ public class UserDetailsDAO implements Serializable {
             if (con != null) {
                 //2 sql commands
                 String sql = "Select UserID, UserName, PassWord, FullName, "
-                        + "RoleID, Phone, DOB, Gender, Picture "
+                        + "RoleID, Phone, DOB, Gender, Picture, Status "
                         + "From UserDetails "
                         + "Where Email =? ";
 
@@ -363,8 +364,9 @@ public class UserDetailsDAO implements Serializable {
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
                     String picture = rs.getString("Picture");
+                      boolean status = rs.getBoolean("Status");
                     result = new UserDetailsDTO(userid, role, username,
-                            password, email, fullname, phone, sqlDate, gender, picture);
+                            password, email, fullname, phone, sqlDate, gender, picture, status);
                 }
             } //end con is availible   
         } finally {

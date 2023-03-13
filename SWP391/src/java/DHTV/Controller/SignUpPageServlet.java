@@ -148,7 +148,7 @@ public class SignUpPageServlet extends HttpServlet {
                     int role = 3;
                     dob = null;
                     // new dto from the value
-                    UserDetailsDTO userAccount = new UserDetailsDTO(0, role, username, password, email, fullname, phone, dob, "23b33efd6739a27e12124c02169572c0.jpg", gender, true);
+                    UserDetailsDTO userAccount = new UserDetailsDTO(0, role, username, password, email, fullname, phone, dob, "logo.png", gender, true);
                     //System.out.println(userAccount);
                     //System.out.println(gender);
                     //process - add into database

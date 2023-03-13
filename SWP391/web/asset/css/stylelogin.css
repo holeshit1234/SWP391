@@ -134,7 +134,7 @@ header.sticky{
     height: 80vh;
     background: #fff;
     border-radius: 15px;
-    
+
 }
 
 .sigin-signup{
@@ -146,7 +146,7 @@ header.sticky{
     display: flex;
     align-items: center;
     justify-content: space-around;
-    
+
 }
 form{
     display: flex;
@@ -241,10 +241,21 @@ a{
     color: #333;
     border-color: #efe6e1;
 }
+
+.alert {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    font-size: 18px;
+}
 /*-----------Footer----------------*/
 footer{
     text-align: center;
-    
+
 }
 .footer-top{
     display: flex;

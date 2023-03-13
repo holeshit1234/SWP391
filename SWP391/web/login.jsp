@@ -14,10 +14,11 @@
 
         <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="asset/css/stylelogin.css">
+        <link rel="stylesheet" href="asset/css/styleOfLogin.css">
 
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+
     </head>
     <body>
         <header>
@@ -96,6 +97,22 @@
                                    &client_id=862594563658-nsdpdrc8k2ee7h28v6r1rg8t3obssjtv.apps.googleusercontent.com&approval_prompt=force" class="social-icon">
                                     <i class="fa fa-google"></i>                             
                                 </a>
+                                <script>
+                                    function showAlert() {
+                                        const alertMsg = "${!empty sessionScope.LOGIN_ERROR}";
+                                        console.log(alertMsg);
+                                        if (alertMsg === "true") {
+                                            var alertDiv = document.createElement("div");
+                                            alertDiv.classList.add("alert");
+                                            alertDiv.innerHTML = "This Email is banned.";
+                                            document.body.appendChild(alertDiv);
+                                            alertDiv.style.display = 'block';
+                                            setTimeout(function () {
+                                                alertDiv.style.display = 'none';
+                                            }, 2000);
+                                        }
+                                    }                                                                                                
+                                </script>
                             </div>
 
                         </form> 
@@ -103,17 +120,20 @@
                         <form action="signup.jsp" class="sign-up-form">
                             <h2 class="title">Become a customer of the store</h2>
 
-                            <p class="social-text">If you do not have an account on ivymoda.com, use this option to access the registration form. By providing IVY moda with your details, the buying process on ivymoda.com will be a more enjoyable and quicker experience.</p>
+                            <p class="social-text">If you do not have an account on DHTV, 
+                                use this option to access the registration form. 
+                                By providing DHTV with your details,
+                                the buying process on DHTV will be a more enjoyable and quicker experience.</p>
                             <input type="submit" value="Sign up" class="btn">
                             </div>
                         </form>
                     </div>
-
             </section>
-
-
-
-        </div>
-
+        </div>  
+                                        <script>
+                                            window.onload = function () {
+                                                showAlert();
+                                            };
+                                        </script>                           
     </body>
 </html>

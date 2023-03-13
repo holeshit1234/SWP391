@@ -189,17 +189,7 @@
                                                     </c:url>
                                                     <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
                                                 </c:if>
-                                                <%--  <c:if test="${(dto.getApprovalStatus() == 4)||(dto.getApprovalStatus() == 3)}">                                                
-                                                      <c:url var="repurchaseURL" value="RepurchaseServlet" >                                                    
-                                                          <c:param name="txtCommentID" value="${cmtID}" />
-                                                          <c:param name="txtProductID" value="${requestScope.PRODUCTID}" />
-                                                          <c:param name="txtUserID" value="${user.getUserID()}" />
-                                                      </c:url>
-                                                      <button class="btn btn-primary" type="button" onclick="confirmFlag('${repurchaseURL}')">
-                                                          <sup>Mua lại</sup>
-                                                      </button>
-                                                  </c:if>
-                                                --%>
+
                                             </div>
                                         </td>
 
@@ -211,7 +201,17 @@
                 </div>
             </div> 
         </div> 
-
+        <%--  <c:if test="${(dto.getApprovalStatus() == 4)||(dto.getApprovalStatus() == 3)}">                                                
+                                                          <c:url var="repurchaseURL" value="RepurchaseServlet" >                                                    
+                                                              <c:param name="txtCommentID" value="${cmtID}" />
+                                                              <c:param name="txtProductID" value="${requestScope.PRODUCTID}" />
+                                                              <c:param name="txtUserID" value="${user.getUserID()}" />
+                                                          </c:url>
+                                                          <button class="btn btn-primary" type="button" onclick="confirmFlag('${repurchaseURL}')">
+                                                              <sup>Mua lại</sup>
+                                                          </button>
+                                                      </c:if>
+        --%>
         <!---------Footer-------->
         <footer>
             <div class="footer-top">

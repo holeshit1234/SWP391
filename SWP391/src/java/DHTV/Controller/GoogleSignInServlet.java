@@ -20,11 +20,11 @@ import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "GoogleSignInServlet", urlPatterns = {"/GoogleSignInServlet"})
 public class GoogleSignInServlet extends HttpServlet {
-    
-    
+
     private final String SHOW_ITEM_PAGE = "ShowIdexItemServlet";
     private final String WRITE_INFOR_PAGE = "ResignGGAccount.jsp";
-    
+    private final String LOGIN = "login.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -46,10 +46,21 @@ public class GoogleSignInServlet extends HttpServlet {
                 try {
                     user = UserDetailsDAO.getUser(email);
                     if (user != null) {
-                        url = SHOW_ITEM_PAGE;
 
-                        HttpSession session = request.getSession();
-                        session.setAttribute("USER", user);
+                        if (user.isStatus() == true) {
+                            url = SHOW_ITEM_PAGE;
+
+                            HttpSession session = request.getSession();
+                            session.setAttribute("USER", user);
+                        } else {
+                            String message = "email ban";
+
+                            if (!message.isEmpty()) {
+                                HttpSession session = request.getSession();
+                                session.setAttribute("LOGIN_ERROR", message);
+                            }
+                            url = LOGIN;
+                        }
 
                     }
                 } catch (SQLException ex) {
@@ -62,34 +73,32 @@ public class GoogleSignInServlet extends HttpServlet {
                     String fullname = userToken.getGiven_name();
 
                     //user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
-                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other","23b33efd6739a27e12124c02169572c0.jpg");
-                                                      
+                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other", "logo.png");
+
                     try {
-                        
+
                         key = UserDetailsDAO.addUser(newUser);
                         newUser.setUserID(key);
                         if (key != 0) {
- //                           AddressDAO dao = new AddressDAO();
+                            //                           AddressDAO dao = new AddressDAO();
                             AddressDTO addr = null;
-                            addr = new AddressDTO(0, key, "other", "other", "other", "other",true);
+                            addr = new AddressDTO(0, key, "other", "other", "other", "other", true);
                             System.out.println(newUser);
-                            
+
                             AddressDAO.addAddressGooogle(addr, key);
-                            
-                           
+
                             HttpSession session = request.getSession();
-                            
+
                             //session.setAttribute("USERE", addr);
-                            
                             session.setAttribute("USER", newUser);
-                            
+
                         }
-                         url = WRITE_INFOR_PAGE;
+                        url = WRITE_INFOR_PAGE;
                     } catch (SQLException ex) {
                         log("GoogleSignInServlet_SQL_ " + ex.getMessage());
                     } catch (NamingException ex) {
                         log("GoogleSignInServlet_Naming_ " + ex.getMessage());
-                    }catch (ParseException ex) {
+                    } catch (ParseException ex) {
                         log("GoogleSignInServlet_Parse_ " + ex.getMessage());
                     }
                 }

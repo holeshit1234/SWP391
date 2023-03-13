@@ -37,7 +37,7 @@
                     </font>
                 </div>
             </form>
-           <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -120,7 +120,7 @@
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
 
-                        
+
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
@@ -160,11 +160,12 @@
                                                         </a>
                                                     </td>
                                                     <td>${dto.getDate()}</td>
-                                                    
+
                                                     <td>${daoUserDetail.getInfoUser(dto.getUserID()).getFullName()}</td>
                                                     <td>${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()},<br>
                                                         ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()},<br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
@@ -195,7 +196,7 @@
                                                             <input type="submit" id="submitBtn" value="Xác nhận"  />
                                                         </form>
                                                     </td>
-                                               
+
                                                 </tr>
                                             </c:if>
                                         </c:forEach>

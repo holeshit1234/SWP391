@@ -38,7 +38,7 @@
                 </div>
             </form>
             <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -147,10 +147,10 @@
                                             <th>Size </th>
                                             <th>Quantity </th>
                                             <th>Total</th>
-                                      
+
                                             <th>Status</th>
-                                           
-<!--                                            <th>Delete</th>-->
+
+                                            <!--                                            <th>Delete</th>-->
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -165,7 +165,8 @@
                                                     <td>${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}</td>
                                                     <td>${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
                                                         ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
@@ -188,17 +189,10 @@
 
 
                                                     <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
-                                                    
+
                                                     <td>
                                                         Đã Hủy
-                                                    </td>
-                                                    
-<!--                                                    <td>
-                                                        <form action="DeleteOrderServlet" method="POST" ">
-                                                            <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                            <input type="submit" id="submitBtn" value="Delete"  />
-                                                        </form>
-                                                    </td>-->
+                                                    </td>                                         
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
