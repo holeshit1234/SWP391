@@ -43,11 +43,11 @@ public class SendEmail {
 
             // your host email smtp server details
             Properties pr = new Properties();
-            pr.put("mail.smtp.host", "smtp.gmail.com");
-            pr.put("mail.smtp.port", "587");
-            pr.put("mail.smtp.auth", "true");
-            pr.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            pr.put("mail.smtp.starttls.enable", "true");
+//            pr.put("mail.smtp.host", "smtp.gmail.com");
+//            pr.put("mail.smtp.port", "587");
+//            pr.put("mail.smtp.auth", "true");
+//            pr.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//            pr.put("mail.smtp.starttls.enable", "true");
 
             //get session to authenticate the host email address and password
             Session session = Session.getInstance(pr, new Authenticator() {
