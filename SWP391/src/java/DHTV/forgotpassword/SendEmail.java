@@ -31,9 +31,9 @@ public class SendEmail {
     public boolean sendEmail(UserDetailsForgetPasswordDTO user) {
         boolean test = false;
         String toEmail = user.getEmail();
-        String fromEmail = "dunghmse161637@fpt.edu.vn";
+        String fromEmail = "";
 //        Mail ko có xác thực 2 lớp
-        String password = "macka123";
+        String password = "";
 //        MK Mail ko có xác thực 2 lớp
         try {
 
