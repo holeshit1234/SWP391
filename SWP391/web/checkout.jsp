@@ -106,7 +106,10 @@
                                 </font><br/>
                             </c:if>
                             <jsp:useBean id="daoAdd" class="DHTV.address.AddressDAO"/>                          
+                            <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO"/>                          
                             ${daoAdd.getAddress(requestScope.USERID)}
+
+                            <c:set var="user" value="${daoUser.showUserById(requestScope.USERID)}"/>
                             <c:set var="firstIteration" value="true"/>
                             <c:forEach var="dto" items="${daoAdd.getInfoList()}" >
                                 <c:if test="${dto.isStatus() == true}">
@@ -114,7 +117,9 @@
                                         <input name="txtAddressID" value="${dto.getAddressID()}" type="radio" ${firstIteration ? 'checked' : ''}>
                                         <div class="testimonials-box">                                
                                             <div class="client-comment">
-                                                ${ dto.getStreet()}, ${dto.getProvice()}, ${ dto.getWard()}, ${dto.getDistrict()}
+                                                ${user.getFullName()} <br>
+                                                ${user.getPhone()}<br>
+                                                ${dto.getStreet()}, ${dto.getProvice()}, ${ dto.getWard()}, ${dto.getDistrict()}
                                             </div>
                                         </div>
                                     </div>
@@ -146,10 +151,10 @@
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
-                                <fmt:formatNumber var="totalprice" value="${requestScope.TOTAL_PRICE}" pattern="#,###,###"/>
-                                <td>Tổng phí thanh toán</td>
-                                <td><p>${totalprice}<sup>vnd</sup></p></td>
-                            </c:if>
+                                    <fmt:formatNumber var="totalprice" value="${requestScope.TOTAL_PRICE}" pattern="#,###,###"/>
+                                    <td>Tổng phí thanh toán</td>
+                                    <td><p>${totalprice}<sup>vnd</sup></p></td>
+                                </c:if>
 
                             </tr>
                             <tr>
@@ -159,10 +164,10 @@
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
                                     <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
-                                <fmt:formatNumber var="totalWithShipping" value="${total+30000}" pattern="#,###"/>                               
-                                <td>Tạm tính</td>
-                                <td><p id="total-price" style="color: black; font-weight: bold;">${totalWithShipping}<sup>vnd</sup></p></td>
-                            </c:if>
+                                    <fmt:formatNumber var="totalWithShipping" value="${total+30000}" pattern="#,###"/>                               
+                                    <td>Tạm tính</td>
+                                    <td><p id="total-price" style="color: black; font-weight: bold;">${totalWithShipping}<sup>vnd</sup></p></td>
+                                </c:if>
                             </tr>
                         </table>
                         <div class="cart-content-right-buttom">
@@ -187,7 +192,7 @@
                 </div>
                 <div class="modal-body">
 
-                    <form action="AddAddressController" method="GET">
+                    <form action="AddAddressCheckout" method="POST">
 
                         <input type="text" name="txtuserid" value="${user.getUserID()}" 
                                style="display: none"/>
@@ -204,19 +209,36 @@
                                        value="${user.getPhone()}" disabled="disabled">
                             </div>
                             <div class="input-box">
-                                <span class="detail">Province</span>
-                                <input type="text" placeholder="Enter your province" name="txtProvince"
-                                       value="" required>
+                                <label class="field-label" for="stored-city">Province</label><br>
+                                <select class="field-input" id="stored-city" required>
+                                    <option class="field-input-item" data-name="" value="">
+                                        Choose Province / city
+                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                    </option>
+                                </select>
+                                <input type="hidden" id="txtProvinceDataName" name="txtProvinceDataName" value=""/>
+                            </div>
+
+                            <!-- DISTRICT -->
+                            <div class="input-box">
+                                <label class="field-label" for="stored-district">District</label><br>
+                                <select class="field-input" id="stored-district" required>
+                                    <option class="field-input-item" data-name="" value="">
+                                        Choose District
+                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                    </option>
+                                </select>
+                                <input type="hidden" id="txtDistrictDataName" name="txtDistrictDataName" value=""/>
                             </div>
                             <div class="input-box">
-                                <span class="detail">district</span>
-                                <input type="text" placeholder="Enter your district" name="txtDistrict"
-                                       value="" required>
-                            </div>
-                            <div class="input-box">
-                                <span class="detail">ward</span>
-                                <input type="text" placeholder="Enter your ward" name="txtWard"
-                                       value="" required>
+                                <label class="field-label" for="stored-ward">Ward</label><br>
+                                <select class="field-input" id="stored-ward" required>
+                                    <option class="field-input-item" data-name="" value="">
+                                        Choose Wards
+                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                    </option>
+                                </select>
+                                <input type="hidden" id="txtWardDataName" name="txtWardDataName" value=""/>
                             </div>
                             <div class="input-box">
                                 <span class="detail">Address</span>
@@ -258,7 +280,7 @@
             Â©IVYmoda All rights reserved
         </div>
     </footer>
-
+    <script src="asset/js/apiProvince.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU="crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

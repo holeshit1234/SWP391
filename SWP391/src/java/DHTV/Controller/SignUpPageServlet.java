@@ -79,15 +79,15 @@ public class SignUpPageServlet extends HttpServlet {
         String DOB = request.getParameter("txtDOB");
         Date dob = Date.valueOf(DOB);
         //
-        String province = request.getParameter("txtProvince");
+        String province = request.getParameter("txtProvinceDataName");
         bytes1 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes1, StandardCharsets.UTF_8);
         //
-        String district = request.getParameter("txtDistrist");
+        String district = request.getParameter("txtDistrictDataName");
         bytes1 = district.getBytes(StandardCharsets.ISO_8859_1);
         district = new String(bytes1, StandardCharsets.UTF_8);
-        //
-        String ward = request.getParameter("txtWard");
+//        //
+        String ward = request.getParameter("txtWardDataName");
         bytes1 = ward.getBytes(StandardCharsets.ISO_8859_1);
         ward = new String(bytes1, StandardCharsets.UTF_8);
         //

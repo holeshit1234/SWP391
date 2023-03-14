@@ -22,12 +22,13 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author vinht
+ * @author User
  */
-@WebServlet(name = "AddAddressController", urlPatterns = {"/AddAddressController"})
-public class AddAddressController extends HttpServlet {
+@WebServlet(name = "AddAddressCheckout", urlPatterns = {"/AddAddressCheckout"})
+public class AddAddressCheckout extends HttpServlet {
 
     private final String REFESH_PAGE = "ShowAddressServlet";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -40,54 +41,54 @@ public class AddAddressController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         String button = request.getParameter("btAction");
         String userid = request.getParameter("txtuserid");
-        int id = Integer.parseInt(userid); 
-        
+        int id = Integer.parseInt(userid);
+
         String province = request.getParameter("txtProvinceDataName");
         byte[] bytes1 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes1, StandardCharsets.UTF_8);
-        
+
         String district = request.getParameter("txtDistrictDataName");
         byte[] bytes2 = district.getBytes(StandardCharsets.ISO_8859_1);
         district = new String(bytes2, StandardCharsets.UTF_8);
-        
-        
+
         String ward = request.getParameter("txtWardDataName");
         byte[] bytes3 = ward.getBytes(StandardCharsets.ISO_8859_1);
         ward = new String(bytes3, StandardCharsets.UTF_8);
-        
+
         String street = request.getParameter("txtAddress");
         byte[] bytes4 = street.getBytes(StandardCharsets.ISO_8859_1);
         street = new String(bytes4, StandardCharsets.UTF_8);
-        
+
         String checkout = request.getParameter("checkout");
-        
+
         HttpSession session = request.getSession(false);
         UserDetailsDTO dto = new UserDetailsDTO();
 
         dto.setUserID(id);
-        
+
         String url = "";
-        try  {
-            if(button.equals("Add Address")){
+        try {
+            if (button.equals("Add Address")) {
                 AddressDAO dao = new AddressDAO();
-                
+
                 boolean result = dao.addNewAddress(id, province, ward, street, district, true);
-                
-                if(result){
-                    url =REFESH_PAGE;
-                    if(checkout !=null) url = "CheckOutServlet";
+
+                if (result) {
+                    url = REFESH_PAGE;
+                    if (checkout != null) {
+                        url = "CheckOutServlet";
+                    }
                 }
             }
-            
-        }catch (NamingException ex) {
+
+        } catch (NamingException ex) {
             log("AddAddressServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("AddAddressServlet_SQL " + ex.getMessage());
-        }finally{
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
