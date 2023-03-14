@@ -92,9 +92,9 @@ form .gender-detail .category{
     border: 5px solid transparent;
     transition: all 0.3s ease;
 }
- #dot-1:checked ~ .category label .one,
- #dot-2:checked ~ .category label .two,
- #dot-3:checked ~ .category label .three{
+#dot-1:checked ~ .category label .one,
+#dot-2:checked ~ .category label .two,
+#dot-3:checked ~ .category label .three{
     border-color: #d9d9d9;
     background: #9b59b6;
 }
@@ -124,13 +124,23 @@ form .button input:hover{
     font-size: 18px;
 }
 select[name="txtRole"] {
-  font-size: 16px; 
-  padding: 5px 15px; 
-  width: auto; 
-  max-width: 100%; 
-  box-sizing: border-box; 
+    font-size: 16px; 
+    padding: 5px 15px; 
+    width: auto; 
+    max-width: 100%; 
+    box-sizing: border-box; 
 }
-
+.field-input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px ;
+    transition: all 0.3s ease;
+}
 
 
 

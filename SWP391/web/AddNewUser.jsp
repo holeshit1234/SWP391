@@ -182,16 +182,36 @@
                                                 <input type="date" name="txtDOB" value="" placeholder="Enter Date of birth" required>
                                             </div>
                                             <div class="input-box">
-                                                <span class="detail">Province</span>
-                                                <input type="text" name="txtProvince" value="${param.txtProvince}" placeholder="Enter your province" required>
+                                                <label class="field-label" for="stored-city">Province</label><br>
+                                                <select class="field-input" id="stored-city" required>
+                                                    <option class="field-input-item" data-name="" value="">
+                                                        Choose Province / city
+                                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                    </option>
+                                                </select>
+                                                <input type="hidden" id="txtProvinceDataName" name="txtProvinceDataName" value=""/>
+                                            </div>
+
+                                            <!-- DISTRICT -->
+                                            <div class="input-box">
+                                                <label class="field-label" for="stored-district">District</label><br>
+                                                <select class="field-input" id="stored-district" required>
+                                                    <option class="field-input-item" data-name="" value="">
+                                                        Choose District
+                                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                    </option>
+                                                </select>
+                                                <input type="hidden" id="txtDistrictDataName" name="txtDistrictDataName" value=""/>
                                             </div>
                                             <div class="input-box">
-                                                <span class="detail">District</span>
-                                                <input type="text" name="txtDistrict" value="${param.txtDistrict}" placeholder="Enter your District" required>
-                                            </div>
-                                            <div class="input-box">
-                                                <span class="detail">Ward</span>
-                                                <input type="text" name="txtWard" value="${param.txtWard}" placeholder="Enter your Ward" required>
+                                                <label class="field-label" for="stored-ward">Ward</label><br>
+                                                <select class="field-input" id="stored-ward" required>
+                                                    <option class="field-input-item" data-name="" value="">
+                                                        Choose Wards
+                                                        <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                    </option>
+                                                </select>
+                                                <input type="hidden" id="txtWardDataName" name="txtWardDataName" value=""/>
                                             </div>
 
                                             <div class="input-box1">
@@ -246,5 +266,7 @@
         <script src="asset/js/text.js"></script>
         <script src="asset/js/datatables.js"></script>
         <link href="asset/js/datatables.min.js"/>
+        <script src="asset/js/apiProvince.js"></script> 
+
     </body>
 </html>

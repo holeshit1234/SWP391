@@ -176,19 +176,36 @@
                                                                value="${user.getPhone()}" disabled="disabled">
                                                     </div>
                                                     <div class="input-box">
-                                                        <span class="detail">Province</span>
-                                                        <input type="text" placeholder="Enter your province" name="txtProvince"
-                                                               value="" required>
+                                                        <label class="field-label" for="stored-city">Province</label><br>
+                                                        <select class="field-input" id="stored-city" required>
+                                                            <option class="field-input-item" data-name="" value="">
+                                                                Choose Province / city
+                                                                <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" id="txtProvinceDataName" name="txtProvinceDataName" value=""/>
+                                                    </div>
+
+                                                    <!-- DISTRICT -->
+                                                    <div class="input-box">
+                                                        <label class="field-label" for="stored-district">District</label><br>
+                                                        <select class="field-input" id="stored-district" required>
+                                                            <option class="field-input-item" data-name="" value="">
+                                                                Choose District
+                                                                <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" id="txtDistrictDataName" name="txtDistrictDataName" value=""/>
                                                     </div>
                                                     <div class="input-box">
-                                                        <span class="detail">district</span>
-                                                        <input type="text" placeholder="Enter your district" name="txtDistrict"
-                                                               value="" required>
-                                                    </div>
-                                                    <div class="input-box">
-                                                        <span class="detail">ward</span>
-                                                        <input type="text" placeholder="Enter your ward" name="txtWard"
-                                                               value="" required>
+                                                        <label class="field-label" for="stored-ward">Ward</label><br>
+                                                        <select class="field-input" id="stored-ward" required>
+                                                            <option class="field-input-item" data-name="" value="">
+                                                                Choose Wards
+                                                                <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                                            </option>
+                                                        </select>
+                                                        <input type="hidden" id="txtWardDataName" name="txtWardDataName" value=""/>
                                                     </div>
                                                     <div class="input-box">
                                                         <span class="detail">Address</span>
@@ -196,7 +213,7 @@
                                                                value=""  required>
                                                     </div>
                                                 </div>
-                                                <input type="submit" value="Add Address" name="btAction"/>
+                                                <input type="submit" value="Add Address" name="btAction" class="center-button"/>
                                             </form>
                                         </div>
                                         <div class="modal-footer">
@@ -245,6 +262,7 @@
     </body>
 
     <script src="asset/js/Jaddress.js"></script>
+    <script src="asset/js/apiProvince.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"
     integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
