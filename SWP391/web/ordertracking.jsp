@@ -150,7 +150,7 @@
                                     <div class="card mb-4">
                                         <div class="card-header">
                                             <i class="fas fa-table me-1"></i>
-                                            DataTable Report
+                                            Order Manage
                                         </div>
                                         <div class="card-body">
                                             <table id="datatablesSimple">
@@ -183,7 +183,6 @@
                                                                 <td><p>${dto.getDate()}</p></td>
                                                                 <td><p style="color: red;">${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p></td>
                                                                 <td>
-
                                                                     ${daoOrderDetail.showOrderDetailByOrderID(dto.getOrderID())}
                                                                     <c:forEach var="dtoDetail" items="${daoOrderDetail.getOrderDetailList()}" >
 
@@ -193,7 +192,6 @@
                                                                             x${dtoDetail.getQuantity()}
                                                                         </p>
                                                                     </c:forEach>
-
                                                                 </td>
                                                                 <td><p>${dto.getTotalPrice()+dto.getShippingFee()} <sup>vnd</sup></p></td>
                                                                 <td>
@@ -204,10 +202,8 @@
                                                                             </c:url>
                                                                             <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
                                                                         </c:if>
-
                                                                     </div>
                                                                 </td>
-
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>

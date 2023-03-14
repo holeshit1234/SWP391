@@ -53,12 +53,13 @@
     cursor: pointer;
     border: 1px solid transparent;
     margin: 0px 0px 20px 0px;
-    padding: 0.775rem 0.75rem;
-    font-size: 1rem;
+    padding: 1rem 4.5rem;
+    font-size: 1.5rem;
     line-height: 1.5;
     border-radius: 10px;
     text-transform: uppercase;
     background: linear-gradient(135deg, #e7d0c4, #efe6e1);
+    margin-right: 70px;
 }
 .forgot-function-choose{
     flex: 6;
@@ -74,8 +75,8 @@
     cursor: pointer;
     border: 1px solid transparent;
     margin: 0px 0px 20px 0px;
-    padding: 0.775rem 0.75rem;
-    font-size: 1rem;
+    padding: 1rem 4rem;
+    font-size: 1.5rem;
     line-height: 1.5;
     border-radius: 10px;
     text-transform: uppercase;
