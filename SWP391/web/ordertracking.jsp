@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -193,7 +194,10 @@
                                                                         </p>
                                                                     </c:forEach>
                                                                 </td>
-                                                                <td><p>${dto.getTotalPrice()+dto.getShippingFee()} <sup>vnd</sup></p></td>
+                                                                <td>
+                                                                     <fmt:formatNumber var="totalWithShipping" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                                     <p>${totalWithShipping} <sup>vnd</sup></p>
+                                                                </td>
                                                                 <td>
                                                                     <div class="add-buttom">
                                                                         <c:if test="${dto.getApprovalStatus() == 1}">
