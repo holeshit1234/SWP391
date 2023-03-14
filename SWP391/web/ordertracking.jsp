@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
-        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <!--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>-->
         <style>            
             .add-buttom button{
                 background: #e7d0c4;
@@ -149,7 +149,7 @@
                                 <div class="container-fluid px-4">                           
                                     <div class="card mb-4">
                                         <div class="card-header">
-                                            <i class="fas fa-table me-1"></i>
+                                            <i class="fa fa-table me-1"></i>
                                             Order Manage
                                         </div>
                                         <div class="card-body">
