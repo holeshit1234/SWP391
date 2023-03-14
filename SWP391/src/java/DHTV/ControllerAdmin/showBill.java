@@ -7,6 +7,8 @@ package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
+import DVHT.bill.BillDAO;
+import DVHT.bill.BillDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -23,8 +25,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author mthin
  */
-@WebServlet(name = "showOrder", urlPatterns = {"/showOrder"})
-public class showOrder extends HttpServlet {
+@WebServlet(name = "showBill", urlPatterns = {"/showBill"})
+public class showBill extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,12 +40,12 @@ public class showOrder extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "showOrderPage.jsp";
+        String url = "showBillPage.jsp";
         try {
-            OrderDAO dao = new OrderDAO();
-            dao.showListOrder();
-            List<OrderDTO> list = dao.getOrderList();
-            request.setAttribute("ORDER_RESULT", list);
+            BillDAO dao = new BillDAO();
+            dao.showListBillOldToNew();
+            List<BillDTO> list = dao.getBillList();
+            request.setAttribute("BILL_RESULT", list);
 
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());

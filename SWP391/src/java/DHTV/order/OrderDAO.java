@@ -364,8 +364,6 @@ public class OrderDAO implements Serializable {
         return result;
     }
 
-    
-    
     private List<OrderDTO> listPriceMonths;
 
     public List<OrderDTO> getListPriceMonths() {
@@ -463,5 +461,117 @@ public class OrderDAO implements Serializable {
                 con.close();
             }
         }
+    }
+
+    public void showListOrderFromBotToTop()
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [OrderID] ,[UserID] ,[PaymentID] ,[AddressID],Date,TotalPrice,Shippingfee,ApprovalStatusID,PaymentStatus "
+                        + "from [Order] "
+                        + "ORDER BY OrderID DESC";
+                stm = con.prepareStatement(sql);
+
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+
+                while (rs.next()) {
+                    int OrderID = rs.getInt("OrderID");
+                    int UserID = rs.getInt("UserID");
+                    int PaymentID = rs.getInt("PaymentID");
+                    int AddressID = rs.getInt("AddressID");
+                    Date date = rs.getDate("Date");
+                    double totalPrice = rs.getDouble("TotalPrice");
+                    double ShippingFee = rs.getDouble("Shippingfee");
+                    int ApprovalStatusID = rs.getInt("ApprovalStatusID");
+                    boolean PaymentStatus = rs.getBoolean("PaymentStatus");
+
+                    //create dto
+                    OrderDTO dto = new OrderDTO(OrderID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee, ApprovalStatusID, PaymentStatus);
+                    System.out.println("---------------ListOrder------------" + dto);
+                    if (this.orderList == null) {
+                        this.orderList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.orderList.add(dto);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+    }
+
+    public OrderDTO getOrderByOrderID(int orderID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        OrderDTO result = new OrderDTO();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [OrderID] ,[UserID] ,[PaymentID] ,[AddressID],Date,TotalPrice,Shippingfee,ApprovalStatusID,PaymentStatus "
+                        + "from [Order] "
+                        + "where OrderID =? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, orderID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+
+                while (rs.next()) {
+                    int OrderID = rs.getInt("OrderID");
+                    int UserID = rs.getInt("UserID");
+                    int PaymentID = rs.getInt("PaymentID");
+                    int AddressID = rs.getInt("AddressID");
+                    Date date = rs.getDate("Date");
+                    double totalPrice = rs.getDouble("TotalPrice");
+                    double ShippingFee = rs.getDouble("Shippingfee");
+                    int ApprovalStatusID = rs.getInt("ApprovalStatusID");
+                    boolean PaymentStatus = rs.getBoolean("PaymentStatus");
+
+                    //create dto
+                    OrderDTO dto = new OrderDTO(OrderID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee, ApprovalStatusID, PaymentStatus);
+                    System.out.println("---------------ListOrder------------" + dto);
+                    result = dto;
+                    if (this.orderList == null) {
+                        this.orderList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.orderList.add(dto);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return result;
     }
 }

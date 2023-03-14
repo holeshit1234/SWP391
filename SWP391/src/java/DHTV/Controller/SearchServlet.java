@@ -5,6 +5,8 @@
  */
 package DHTV.Controller;
 
+import DHTV.brand.BrandDAO;
+import DHTV.brand.BrandDTO;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import com.google.gson.Gson;
@@ -60,7 +62,7 @@ public class SearchServlet extends HttpServlet {
                 if (txtSearch.trim().length() > 0) {
                     //2. call DAO
                     ProductDAO dao = new ProductDAO();
-                    int size =  dao.searchProduct(txtSearch);
+                    int size = dao.searchProduct(txtSearch);
                     //.out.println("Kt search đã add chưa"+dao);
                     //3. process
                     System.out.println(size);
@@ -77,7 +79,12 @@ public class SearchServlet extends HttpServlet {
                     // List<ProductDTO> paging = dao.pagingProduct(index);
 
                     System.out.println(paging);
+                    BrandDAO brandDAO = new BrandDAO();
+                    brandDAO.listBrand();
+                    List<BrandDTO> listBrand = brandDAO.getBrandList();
+                    System.out.println("list brand" + listBrand);
 
+                    request.setAttribute("BRAND_RESULT", listBrand);
                     request.setAttribute("PAGING_RESULT", paging);
                     request.setAttribute("END_PAGE", endPage);
                     request.setAttribute("CURRENT_PAGE", index);
