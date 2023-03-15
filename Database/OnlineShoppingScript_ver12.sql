@@ -538,6 +538,7 @@ VALUES
 	(3,18, 7770000,1,N'Túi xách nữ',N'Túi xách nữ là một sản phẩm thời trang không thể thiếu trong bộ sưu tập của phái đẹp. Có nhiều kiểu dáng và kích thước khác nhau, từ túi xách nhỏ để đi dạo phố đến túi xách lớn để đi làm. Chất liệu của túi xách cũng đa dạng, từ da, vải thô, canvas, denim đến nhựa PVC. Túi xách nữ thường có màu sắc tươi sáng và thiết kế đẹp mắt, thích hợp để mang đi làm, đi chơi hay dạo phố.'
 	,'tuixach.jpg')
 
+
 go
 
 

@@ -23,7 +23,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
-
+        <style>
+            .product-price{
+                color: red;
+            }
+        </style>
     </head>
 
     <body>
@@ -101,7 +105,12 @@
                             <a href="CommentServlet?txtProductID=${product.productID}">
                                 <div class="item-product ">
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
-                                    <div class="product-name"> ${product.getProductName()}</div>
+                                    <div class="product-name"> 
+                                        <h4>
+                                            ${product.getProductName()}
+                                        </h4>
+                                        
+                                    </div>
                                     <div class="product-price">
                                         <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
                                         vnđ </div>
