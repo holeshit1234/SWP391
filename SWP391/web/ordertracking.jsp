@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -16,6 +17,9 @@
         <link rel="stylesheet" href="asset/css/styleindex.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="asset/css/styletest.css" rel="stylesheet" />
+        <!--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>-->
         <style>            
             .add-buttom button{
                 background: #e7d0c4;
@@ -101,7 +105,7 @@
                 <div class="container">
                     <div class="order-content row">
                         <div class="order-content-left" style="display: block;">
-                            <div class="content-left" style="margin-left: -150px;">
+                            <div class="content-left" style="margin-left: -85px;">
                                 <div class="user">
                                     <img src="asset/images/useravatar/${info_user.picture}" alt="">                                        
                                     <h3 class="name">${info_user.fullName}</h3>              
@@ -141,66 +145,84 @@
                                 </form>
                             </div>
                         </div>
-                        <table>
-                            <tr>
-                                <th>MÃ ĐƠN HÀNG</th>
-                                <th>NGÀY</th>
-                                <th>TRẠNG THÁI</th>
-                                <th>SẢN PHẨM</th>
-                                <th>Total</th>
-                                <th></th>
-                            </tr>
-                            <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
-                            <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
-                            <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
-                            <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
-                            <c:set var="userID" value="${sessionScope.USER.userID}"/>
+                        <div id="layoutSidenav_content">
+                            <main>
+                                <div class="container-fluid px-4">                           
+                                    <div class="card mb-4">
+                                        <div class="card-header">
+                                            <i class="fa fa-table me-1"></i>
+                                            Order Manage
+                                        </div>
+                                        <div class="card-body">
+                                            <table id="datatablesSimple">
+                                                <thead>
+                                                    <tr>
+                                                        <th>MÃ ĐƠN HÀNG</th>
+                                                        <th>NGÀY</th>
+                                                        <th>TRẠNG THÁI</th>
+                                                        <th>SẢN PHẨM</th>
+                                                        <th>Total</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
+                                                <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
+                                                <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
+                                                <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
+                                                <c:set var="userID" value="${sessionScope.USER.userID}"/>
 
 
-                            ${daoOrder.showOrderByUserID(userID)}
-                            <c:if test="${not empty requestScope.STATUS}">
-                                ${daoOrder.showOrderByUserIDAndStatus(userID, requestScope.STATUS)}
-                            </c:if>
-                            <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
-                                <c:if test="${dto.getApprovalStatus() != 4}">
-                                    <tr>
-                                        <td><p>VDTH${dto.getOrderID()}</p></td>
-                                        <td><p>${dto.getDate()}</p></td>
-                                        <td><p style="color: red;">${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p></td>
-                                        <td>
-
-                                            ${daoOrderDetail.showOrderDetailByOrderID(dto.getOrderID())}
-                                            <c:forEach var="dtoDetail" items="${daoOrderDetail.getOrderDetailList()}" >
-
-                                                <p>
-                                                    ${daoProduct.getInfoProductByProductID(dtoDetail.getProductID()).getProductName()} -
-                                                    size ${daoSize.getInfoSizeBySizeID(dtoDetail.getSizeID()).getSizeName()} 
-                                                    x${dtoDetail.getQuantity()}
-                                                </p>
-                                            </c:forEach>
-
-                                        </td>
-                                        <td><p>${dto.getTotalPrice()+dto.getShippingFee()} <sup>vnd</sup></p></td>
-                                        <td>
-                                            <div class="add-buttom">
-                                                <c:if test="${dto.getApprovalStatus() == 1}">
-                                                    <c:url var="CancelOrderURL" value="CancelOrderServlet" >
-                                                        <c:param name="txtOrderID" value="${dto.getOrderID()}" />                                            
-                                                    </c:url>
-                                                    <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
+                                                ${daoOrder.showOrderByUserID(userID)}
+                                                <c:if test="${not empty requestScope.STATUS}">
+                                                    ${daoOrder.showOrderByUserIDAndStatus(userID, requestScope.STATUS)}
                                                 </c:if>
+                                                <tbody>
+                                                    <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
+                                                        <c:if test="${dto.getApprovalStatus() != 4}">
+                                                            <tr>
+                                                                <td><p>VDTH${dto.getOrderID()}</p></td>
+                                                                <td><p>${dto.getDate()}</p></td>
+                                                                <td><p style="color: red;">${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p></td>
+                                                                <td>
+                                                                    ${daoOrderDetail.showOrderDetailByOrderID(dto.getOrderID())}
+                                                                    <c:forEach var="dtoDetail" items="${daoOrderDetail.getOrderDetailList()}" >
 
-                                            </div>
-                                        </td>
-
-                                    </tr>
-                                </c:if>
-                            </c:forEach>
-                        </table>
+                                                                        <p>
+                                                                            ${daoProduct.getInfoProductByProductID(dtoDetail.getProductID()).getProductName()} -
+                                                                            size ${daoSize.getInfoSizeBySizeID(dtoDetail.getSizeID()).getSizeName()} 
+                                                                            x${dtoDetail.getQuantity()}
+                                                                        </p>
+                                                                    </c:forEach>
+                                                                </td>
+                                                                <td>
+                                                                     <fmt:formatNumber var="totalWithShipping" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                                     <p>${totalWithShipping} <sup>vnd</sup></p>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="add-buttom">
+                                                                        <c:if test="${dto.getApprovalStatus() == 1}">
+                                                                            <c:url var="CancelOrderURL" value="CancelOrderServlet" >
+                                                                                <c:param name="txtOrderID" value="${dto.getOrderID()}" />                                            
+                                                                            </c:url>
+                                                                            <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </main>
+                        </div>
                     </div>
                 </div>
             </div> 
         </div> 
+
         <%--  <c:if test="${(dto.getApprovalStatus() == 4)||(dto.getApprovalStatus() == 3)}">                                                
                                                           <c:url var="repurchaseURL" value="RepurchaseServlet" >                                                    
                                                               <c:param name="txtCommentID" value="${cmtID}" />
@@ -240,5 +262,11 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="asset/js/Jorder.js"></script> 
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="asset/js/slideBar.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="asset/js/text.js"></script>
+        <script src="asset/js/datatables.js"></script>
+        <link href="asset/js/datatables.min.js"/>
     </body>
 </html>

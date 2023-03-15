@@ -41,7 +41,7 @@ public class showOrder extends HttpServlet {
         String url = "showOrderPage.jsp";
         try {
             OrderDAO dao = new OrderDAO();
-            dao.showListOrder();
+            dao.showListOrderFromBotToTop();
             List<OrderDTO> list = dao.getOrderList();
             request.setAttribute("ORDER_RESULT", list);
 

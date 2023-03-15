@@ -12,10 +12,70 @@
         <link rel="stylesheet" href="asset/css/stylesignup.css">
 
         <link rel="shortcut icon" href="images/logo.png">
-        <link rel="stylesheet" href="icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<<<<<<< HEAD
 
+        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
 
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+=======
+   
+>>>>>>> d73e1015c5c778582a66001ee9b0aed35a973185
     </head>
 
     <body>
@@ -28,6 +88,14 @@
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn">Brand</a>
+                    <div class="dropdown-content">
+                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
+                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        </c:forEach>
+                    </div>
+                </li>
             </div>
             <div class="orther">
                 <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
@@ -101,40 +169,65 @@
                             </c:if>
                         </div>
 
-
                         <div class="input-box">
                             <span class="detail">Email</span>
                             <input type="text" name="txtEmail" id="txtEmail" value="${param.txtEmail}" placeholder="example@gmail.com" required>
                             <span class="error-message" style="display: none; color: red"></span>
                         </div>
+
                         <div class="input-box">
                             <span class="detail">Phone</span>
                             <input type="text" name="txtPhone" value="${param.txtPhone}" placeholder="Enter your phone" required>
                             <span class="error-message phone" style="display: none;"></span>
                         </div>
+
                         <div class="input-box">
                             <span class="detail">Date of birth</span>
                             <input type="date" name="txtDOB" value="" placeholder="Enter Date of birth" required>
                         </div>
+
                         <div class="input-box">
-                            <span class="detail">Province</span>
-                            <input type="text" name="txtProvince" value="" placeholder="Enter your province" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="detail">District</span>
-                            <input type="text" name="txtDistrist" value="" placeholder="Enter your District" required>
-                        </div>
-                        <div class="input-box">
-                            <span class="detail">Ward</span>
-                            <input type="text" name="txtWard" value="" placeholder="Enter your Ward" required>
+                            <label class="field-label" for="stored-city">Province</label><br>
+                            <select class="field-input" id="stored-city" required>
+                                <option class="field-input-item" data-name="" value="">
+                                    Choose Province / city
+                                    <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                </option>
+                            </select>
+                            <input type="hidden" id="txtProvinceDataName" name="txtProvinceDataName" value=""/>
                         </div>
 
+                        <!-- DISTRICT -->
+                        <div class="input-box">
+                            <label class="field-label" for="stored-district">District</label><br>
+                            <select class="field-input" id="stored-district" required>
+                                <option class="field-input-item" data-name="" value="">
+                                    Choose District
+                                    <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                </option>
+                            </select>
+                            <input type="hidden" id="txtDistrictDataName" name="txtDistrictDataName" value=""/>
+                        </div>
+                        <div class="input-box">
+                            <label class="field-label" for="stored-ward">Ward</label><br>
+                            <select class="field-input" id="stored-ward" required>
+                                <option class="field-input-item" data-name="" value="">
+                                    Choose Wards
+                                    <!-- Ở ĐÂY OPTION MÌNH CÓ THỂ TRUYỀN ĐƯỢC data-properties={"nội dung"} và value ={} -->
+                                </option>
+                            </select>
+                            <input type="hidden" id="txtWardDataName" name="txtWardDataName" value=""/>
+                        </div>
 
+                        <!-- WARD -->
                         <div class="input-box1">
                             <span class="detail">Street</span>
                             <input type="text" placeholder="Enter your address" name="txtStreet" value="" required>
                         </div>	
                     </div>
+
+
+
                     <div class="gender-detail">
                         <input type="radio" name="gender" value="Nam" id="dot-1">
                         <input type="radio" name="gender" value="Nu" id="dot-2">
@@ -191,9 +284,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.26.1/axios.min.js"
                 integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="asset/province.js"></script>
-
-
+        <script src="asset/js/apiProvince.js"></script>
+       
     </body>
 
 </html>

@@ -14,6 +14,14 @@
         <link rel="stylesheet" href="asset/css/styleVerifyCode.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <li class="dropdown">
+                    <a class="dropbtn">Brand</a>
+                    <div class="dropdown-content">
+                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
+                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        </c:forEach>
+                    </div>
+                </li>
     </head>
     <body>
         <header>
@@ -24,6 +32,14 @@
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn">Brand</a>
+                    <div class="dropdown-content">
+                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
+                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        </c:forEach>
+                    </div>
+                </li>
             </div>
             <div class="orther">
                 <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>

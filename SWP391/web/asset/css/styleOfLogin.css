@@ -173,6 +173,7 @@ form{
     border-radius: 50px;
     display: flex;
     align-items: center;
+    padding-right: 5px;
 }
 .input-field i{
     flex: 1;

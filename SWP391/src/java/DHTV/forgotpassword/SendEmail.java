@@ -31,19 +31,23 @@ public class SendEmail {
     public boolean sendEmail(UserDetailsForgetPasswordDTO user) {
         boolean test = false;
         String toEmail = user.getEmail();
-        String fromEmail = "dunghmse161637@fpt.edu.vn";
-//        Mail ko có xác thực 2 lớp
-        String password = "macka123";
-//        MK Mail ko có xác thực 2 lớp
+
+
+        String fromEmail = "";
+////        Mail ko có xác thực 2 lớp
+
+      String password = "";
+////        MK Mail ko có xác thực 2 lớp
+
         try {
 
             // your host email smtp server details
             Properties pr = new Properties();
-            pr.put("mail.smtp.host", "smtp.gmail.com");
-            pr.put("mail.smtp.port", "587");
-            pr.put("mail.smtp.auth", "true");
-            pr.put("mail.smtp.ssl.protocols", "TLSv1.2");
-            pr.put("mail.smtp.starttls.enable", "true");
+//            pr.put("mail.smtp.host", "smtp.gmail.com");
+//            pr.put("mail.smtp.port", "587");
+//            pr.put("mail.smtp.auth", "true");
+//            pr.put("mail.smtp.ssl.protocols", "TLSv1.2");
+//            pr.put("mail.smtp.starttls.enable", "true");
 
             //get session to authenticate the host email address and password
             Session session = Session.getInstance(pr, new Authenticator() {

@@ -9,6 +9,7 @@ import DHTV.address.AddressDAO;
 import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -43,11 +44,25 @@ public class AddAddressController extends HttpServlet {
         
         String button = request.getParameter("btAction");
         String userid = request.getParameter("txtuserid");
-        int id = Integer.parseInt(userid);        
-        String province = request.getParameter("txtProvince");
-        String district = request.getParameter("txtDistrict");
-        String ward = request.getParameter("txtWard");
+        int id = Integer.parseInt(userid); 
+        
+        String province = request.getParameter("txtProvinceDataName");
+        byte[] bytes1 = province.getBytes(StandardCharsets.ISO_8859_1);
+        province = new String(bytes1, StandardCharsets.UTF_8);
+        
+        String district = request.getParameter("txtDistrictDataName");
+        byte[] bytes2 = district.getBytes(StandardCharsets.ISO_8859_1);
+        district = new String(bytes2, StandardCharsets.UTF_8);
+        
+        
+        String ward = request.getParameter("txtWardDataName");
+        byte[] bytes3 = ward.getBytes(StandardCharsets.ISO_8859_1);
+        ward = new String(bytes3, StandardCharsets.UTF_8);
+        
         String street = request.getParameter("txtAddress");
+        byte[] bytes4 = street.getBytes(StandardCharsets.ISO_8859_1);
+        street = new String(bytes4, StandardCharsets.UTF_8);
+        
         String checkout = request.getParameter("checkout");
         
         HttpSession session = request.getSession(false);

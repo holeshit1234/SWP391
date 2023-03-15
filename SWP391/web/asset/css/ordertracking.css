@@ -201,7 +201,7 @@ header.sticky{
 }
 /*--------------------------*/
 .order-content-left{
-    flex: 1;
+    flex: 0.5;
     border-right: 2px solid #dddddd;
     text-align: center;
     align-items: center;

@@ -10,11 +10,10 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="asset/css/styleUserVerify.css" />
+        <link rel="stylesheet" href="asset/css/styleUserVerifyEmail.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" 
               integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" 
               crossorigin="anonymous">
-
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <title>JSP Page</title>
@@ -37,7 +36,7 @@
                         <div class="forgot-form">
                             <input type="email" name="txtEmail"
                                    class="forgot-input-email"
-                                   placeholder="Email"
+                                   placeholder="Example@gmail.com"
                                    value="${param.txtEmail}"><br/>
                             <div class="phat">
                                 <c:if test="${not empty scope.emailLengthError}">
@@ -57,12 +56,7 @@
                                 </font><br/>
                             </c:if>
                         </div>
-                        <div class="forgot-function">
-                            <p class="forgot-function-security">
-                                This site is protected by reCAPTCHA and the Google
-                                <a href="https://policies.google.com/terms">Privacy Policy</a> and
-                                <a href="https://policies.google.com/privacy">Terms of Service</a> apply.
-                            </p>
+                            <div class="forgot-function" style="margin-top: 10px">                            
                             <div class="forgot-function-choose">
                                 <input class="forgot-function-btn" type="submit" value="Send"
                                        name = "btAction">

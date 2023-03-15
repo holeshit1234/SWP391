@@ -5,6 +5,8 @@
  */
 package DHTV.Controller;
 
+import DHTV.brand.BrandDAO;
+import DHTV.brand.BrandDTO;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import com.google.gson.Gson;
@@ -46,7 +48,7 @@ public class ShowIdexItemServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String url = "index.jsp";
-        
+
         String indexPage = request.getParameter("index");
 
         if (indexPage == null) {
@@ -55,10 +57,10 @@ public class ShowIdexItemServlet extends HttpServlet {
         int index = Integer.parseInt(indexPage);
 
         try {
-            
+
             ProductDAO dao = new ProductDAO();
-                                
-            int size = dao.getTotalProduct();           
+
+            int size = dao.getTotalProduct();
             System.out.println(size);
             //paging 
             int recordsPerPage = 8;
@@ -68,12 +70,17 @@ public class ShowIdexItemServlet extends HttpServlet {
                 endPage++;
             }
             System.out.println(endPage);
-            
+
             List<ProductDTO> paging = dao.pagingProduct(index, recordsPerPage);
-           // List<ProductDTO> paging = dao.pagingProduct(index);
-            
+            // List<ProductDTO> paging = dao.pagingProduct(index);
+
             System.out.println(paging);
-                      
+            BrandDAO brandDAO = new BrandDAO();
+            brandDAO.listBrand();
+            List<BrandDTO> listBrand = brandDAO.getBrandList();
+            System.out.println("list brand" + listBrand);
+
+            request.setAttribute("BRAND_RESULT", listBrand);
             request.setAttribute("PAGING_RESULT", paging);
             request.setAttribute("END_PAGE", endPage);
             request.setAttribute("CURRENT_PAGE", index);

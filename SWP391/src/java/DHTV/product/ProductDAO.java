@@ -872,4 +872,108 @@ public class ProductDAO implements Serializable {
         }
         return list;
     }
+     public int getTotalProductByBrand(int BrandID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select P.[ProductID],P.[ProductName],P.[BrandID],P.[CategoryID],P.[Price],P.[Status],P.[Description],P.[Image] "
+                        + "from  Product P "
+                       
+                        + " where P.BrandID = ? ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, BrandID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int productID = rs.getInt("ProductID");
+                    String productName = rs.getString("ProductName");
+                    int brandID = rs.getInt("BrandID");
+                    int categoryID = rs.getInt("CategoryID");
+                    float price = rs.getFloat("Price");
+                    boolean status = rs.getBoolean("Status");
+                    String description = rs.getString("Description");
+                    String image = rs.getString("Image");
+                    //create dto
+                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
+                    //System.out.println(dto);
+                    //add item to dto
+                    if (this.itemsList == null) {
+                        this.itemsList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.itemsList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return this.itemsList.size();
+    }
+
+    public List<ProductDTO> pagingProductByBrand(int BrandID,int index, int recordsPerPage)
+            throws NamingException, SQLException {
+
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        List<ProductDTO> list = new ArrayList<>();
+
+        try {
+            con = DBHelpers.getConnection();
+            String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]   "
+                    + "FROM [Product] P  "
+                    
+                    + "WHERE P.[BrandID] = ? "
+                    + "ORDER BY P.[ProductID] "
+                    + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
+            stm = con.prepareStatement(sql);
+            stm.setInt(1, BrandID);
+            stm.setInt(2, (index - 1) * recordsPerPage);
+            stm.setInt(3, recordsPerPage);
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                int productid = rs.getInt("ProductID");
+                String name = rs.getString("ProductName");
+                int brandid = rs.getInt("BrandID");
+                int cate = rs.getInt("CategoryID");
+                float price = rs.getFloat("Price");
+                boolean status = rs.getBoolean("Status");
+                String des = rs.getString("Description");
+                String image = rs.getString("Image");
+               
+                ProductDTO dto = new ProductDTO(productid, name, brandid, cate, price, status, des, image);
+                list.add(dto);
+            }
+
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+
+            if (stm != null) {
+                stm.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+        return list;
+    }
 }

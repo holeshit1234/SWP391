@@ -306,14 +306,15 @@ public class AddressDAO implements Serializable {
             if(con != null){
                 //2.sql commnands 
                 String sql = "insert into Address (UserId, Province, Ward, "
-                        + "Street, district) "
-                        + "values(?,?,?,?,?) ";
+                        + "Street, district, Status ) "
+                        + "values(?,?,?,?,?,? ) ";
                 stm= con.prepareStatement(sql);
                 stm.setInt(1, key);
                 stm.setString(2, addr.getProvice());
                 stm.setString(3, addr.getWard());
                 stm.setString(4, addr.getStreet());
                 stm.setString(5, addr.getDistrict());                
+                stm.setBoolean(6, addr.isStatus());                
                 rows = stm.executeUpdate();
                 
                 if(rows>0){

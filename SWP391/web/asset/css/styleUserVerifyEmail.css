@@ -1,0 +1,134 @@
+/*-----------Header----------------*/
+
+/*-----------Code----------------*/
+.content{
+    font-family: "lato", sans-serif;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    margin: 0;
+    border-bottom: 2px solid #333;
+
+}
+.container{
+    background: #fbf7f7 ;
+    border-radius: 10px;
+    padding: 30px;
+    max-width: 1000px;
+    text-align: center;
+}
+.forgot-heading h1{
+    font-size: 25px;
+    font-weight: 600;
+    position: relative;
+}
+.forgot-form-container p{
+    margin-bottom: 30px;
+    font-size: 1    rem;
+}
+.forgot-form input{
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px ;
+    transition: all 0.3s ease;
+}
+.forgot-function p a {
+    text-decoration: none;
+}
+.forgot-function-choose input{
+    font-family: "lato", sans-serif;
+    min-width: 70px;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0px 0px 20px 0px;
+    padding: 1rem 4.5rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    border-radius: 10px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #e7d0c4, #efe6e1);
+    margin-right: 70px;
+}
+.forgot-function-choose{
+    flex: 6;
+}
+.forgot-function-choose a{
+    font-family: "lato", sans-serif;
+    min-width: 70px;
+    display: inline-block;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    cursor: pointer;
+    border: 1px solid transparent;
+    margin: 0px 0px 20px 0px;
+    padding: 1rem 4rem;
+    font-size: 1.5rem;
+    line-height: 1.5;
+    border-radius: 10px;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #e7d0c4, #efe6e1);
+}
+.forgot-function-cancel{
+    color: #333;
+    text-decoration: none;
+}
+.btn-primary{
+    color: #333;
+}
+/*-----------Footer----------------*/
+footer{
+    text-align: center;
+    
+}
+.footer-top{
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+    height: 70px;
+}
+.footer-top li{
+    padding: 0 12px;
+    position: relative;
+}
+.footer-top li::after{
+    content: "";
+    display: block;
+    width: 1px;
+    height: 80%;
+    background: #ccc;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.footer-top li:last-child::after{
+    display: none;
+}
+.footer-top li:last-child a{
+    margin-right: 12px;
+    color: #333;
+}
+.footer-center{
+    text-align: center;
+}
+.footer-bottom{
+    margin: 20px 0;
+    text-align: center;
+}
+

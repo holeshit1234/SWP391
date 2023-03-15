@@ -5,6 +5,8 @@
  */
 package DHTV.Controller;
 
+import DHTV.brand.BrandDAO;
+import DHTV.brand.BrandDTO;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import java.io.IOException;
@@ -39,8 +41,7 @@ public class showProductByGenderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-           
+
         String url = "index_ProductNam.jsp";
 
         String indexPage = request.getParameter("index");
@@ -74,7 +75,12 @@ public class showProductByGenderServlet extends HttpServlet {
                 List<ProductDTO> paging = dao.pagingProductNam(index, recordsPerPage);
 
                 System.out.println(paging);
+                BrandDAO brandDAO = new BrandDAO();
+                brandDAO.listBrand();
+                List<BrandDTO> listBrand = brandDAO.getBrandList();
+                System.out.println("list brand" + listBrand);
 
+                request.setAttribute("BRAND_RESULT", listBrand);
                 request.setAttribute("PRODUCT_GENDER_RESULT", paging);
                 request.setAttribute("END_PAGE", endPage);
                 request.setAttribute("CURRENT_PAGE", index);
@@ -118,7 +124,6 @@ public class showProductByGenderServlet extends HttpServlet {
                     endPage++;
                 }
                 System.out.println(endPage);
-
 
                 List<ProductDTO> paging = dao.pagingProductUnisex(index, recordsPerPage);
                 System.out.println(paging);

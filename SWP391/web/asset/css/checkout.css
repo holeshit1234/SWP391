@@ -1,32 +1,32 @@
 .inline input,
 .inline .testimonials-box {
-  display: inline-block;
-  vertical-align: middle; /* optional: to align elements vertically */
+    display: inline-block;
+    vertical-align: middle; /* optional: to align elements vertically */
 }
 
 
 .modal-header {
     background: linear-gradient(135deg, #e7d0c4, #efe6e1);
     color: #333;
-  }
-  .btn{
+}
+.btn{
     color: #333;
-  }
-  .review{
+}
+.review{
     background: #e7d0c4;
     border: none;
     border-radius: 10px;
-  }
-  .add-buttom{
+}
+.add-buttom{
     padding-top: 20px;
-  }
-  .add-buttom button{
+}
+.add-buttom button{
     background: #e7d0c4;
     border: none;
     border-radius: 10px;
 
-  }
-  .user-detail{
+}
+.user-detail{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
@@ -58,7 +58,7 @@
 }
 
 
-  /*-----------Header----------------*/
+/*-----------Header----------------*/
 *{
     margin: 0;
     padding: 0;
@@ -362,11 +362,38 @@ header.sticky{
     color: #333;
 }
 
- 
+.field-input {
+    height: 45px;
+    width: 100%;
+    outline: none;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding-left: 15px;
+    font-size: 16px;
+    border-bottom-width: 2px ;
+    transition: all 0.3s ease;
+}
+
+input[name="btAction"] {
+    background-color: #4CAF50;
+    border: none;
+    color: white;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    margin-left: 165px;
+    cursor: pointer;
+    border-radius: 5px 
+
+}
+
 /*-----------Footer----------------*/
 footer{
     text-align: center;
-    
+
 }
 .footer-top{
     display: flex;
