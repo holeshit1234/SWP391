@@ -56,15 +56,15 @@ public class writeInformationGgServlet extends HttpServlet {
 
         String DOB = request.getParameter("txtDOB");
         String phone = request.getParameter("txtPhone");
-        String province = request.getParameter("txtProvince");
+        String province = request.getParameter("txtProvinceDataName");
         byte[] bytes2 = province.getBytes(StandardCharsets.ISO_8859_1);
         province = new String(bytes2, StandardCharsets.UTF_8);
 
-        String district = request.getParameter("txtDistrict");
+        String district = request.getParameter("txtDistrictDataName");
         byte[] bytes3 = district.getBytes(StandardCharsets.ISO_8859_1);
         district = new String(bytes3, StandardCharsets.UTF_8);
 
-        String ward = request.getParameter("txtWard");
+        String ward = request.getParameter("txtWardDataName");
         byte[] bytes4 = ward.getBytes(StandardCharsets.ISO_8859_1);
         ward = new String(bytes4, StandardCharsets.UTF_8);
 

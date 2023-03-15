@@ -73,7 +73,9 @@ public class GoogleSignInServlet extends HttpServlet {
                     String fullname = userToken.getGiven_name();
 
                     //user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
-                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other", "logo.png");
+          
+                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null,  "logo.png", "other", true);
+       
 
                     try {
 
