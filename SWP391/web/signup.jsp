@@ -14,7 +14,68 @@
         <link rel="shortcut icon" href="images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<<<<<<< HEAD
+
+        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>
+=======
    
+>>>>>>> d73e1015c5c778582a66001ee9b0aed35a973185
     </head>
 
     <body>
@@ -27,6 +88,14 @@
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn">Brand</a>
+                    <div class="dropdown-content">
+                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
+                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        </c:forEach>
+                    </div>
+                </li>
             </div>
             <div class="orther">
                 <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>

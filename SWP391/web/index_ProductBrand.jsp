@@ -22,8 +22,57 @@
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
         <style>
+            #map {
+                height: 300px;
+                width: 100%;
+            }
+            .pagination {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .pagination a {
+                color: #555;
+                background-color: #fff;
+                padding: 8px 16px;
+                text-decoration: none;
+                border: 1px solid #ddd;
+                margin: 0 4px;
+                transition: background-color 0.3s ease;
+            }
+
+            .pagination a.active {
+                background-color: #4CAF50;
+                color: white;
+                border: 1px solid #4CAF50;
+            }
+
+            .pagination a:hover:not(.active) {
+                background-color: #ddd;
+            }
+
+            .pagination a.prev, .pagination a.next {
+                background-color: #f1f1f1;
+                color: #555;
+                border: 1px solid #ddd;
+            }
+
+            .pagination a.disabled {
+                pointer-events: none;
+                opacity: 0.6;
+            }
+
+            .pagination a i {
+                font-size: 16px;
+            }
+
+        </style>   
+                <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -74,6 +123,7 @@
                 </li>
             </div>
             <div class="orther">
+
                 <li>
                     <form action="SearchServlet">
                         <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
@@ -93,30 +143,14 @@
 
                 <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
                     <c:if test="${not empty sessionScope.USER}">
-                    <!--<li> <a href="LogoutAccountServlet">(Logout)</a>  </li>-->
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
+                        <jsp:include page="logout.jsp"/>
+                    </c:if>
             </div>
         </header>
-        <!---------Banner-slider-------->
-        <section id="slider">
-            <div class="aspect-ratio-169">
-                <img src="asset/images/banner1.jpg">
-                <img src="asset/images/banner2.jpg">
-                <img src="asset/images/banner3.jpg">
-                <img src="asset/images/banner4.jpg">
-                <img src="asset/images/banner5.jpg">
-            </div>
-            <div class="dot-container">
-                <div class="dot active"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-                <div class="dot"></div>
-            </div>
-        </section>
+
+
         <!---------Item-------->
-        <section class="cartegory">
+        <section class="cartegory" style="margin-top: 100px;">
             <div class="container">             
 
                 <div class="product-list-header">
@@ -131,16 +165,18 @@
                     </div>
                 </div>
                 <div class="product-list-container row">
-                    <c:forEach var="product" items="${PAGING_RESULT}">
+                    <c:forEach var="product" items="${PRODUCT_BRAND_RESULT}">
 
                         <div class="cartegory-right-content-item col-md-3 product-item">
                             <a href="CommentServlet?txtProductID=${product.productID}">
                                 <div class="item-product ">
+                                   <c:set var="brandId" value="${product.getBrandID()}"/>
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
                                     <div class="product-name"> ${product.getProductName()}</div>
                                     <div class="product-price">
                                         <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
-                                        vnđ </div>
+                                        vnđ 
+                                    </div>
                                 </div>
                             </a>
                         </div>
@@ -149,7 +185,7 @@
                 </div>
                 <div class="pagination">
                     <c:forEach begin="1" end="${END_PAGE}" var="i">
-                        <a href="ShowIdexItemServlet?index=${i}">${i}</a> 
+                        <a href="ShowProuductByBrandID?index=${i}&brandID=${brandId}">${i}</a> 
                     </c:forEach>
                 </div>
             </div>
@@ -183,7 +219,6 @@
 
     </body>
     <script src="asset/js/Jsort.js"></script>
-    <script src="asset/js/Jindex.js"></script>
     <script>
         function initMap() {
             var myLatLng = {lat: 10.84142, lng: 106.81004};
@@ -201,6 +236,4 @@
         }
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
-
-
 </html>

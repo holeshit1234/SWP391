@@ -88,6 +88,63 @@
                 font-size: 18px;
             }
         </style>
+                <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
+
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+        </style>
     </head>
 
     <body>
@@ -100,6 +157,14 @@
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
+                <li class="dropdown">
+                    <a class="dropbtn">Brand</a>
+                    <div class="dropdown-content">
+                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
+                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        </c:forEach>
+                    </div>
+                </li>
             </div>
             <div class="orther">
 

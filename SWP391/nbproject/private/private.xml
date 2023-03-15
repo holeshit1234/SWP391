@@ -2,10 +2,37 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+<<<<<<< HEAD
         <group>
             <file>file:/D:/copylaij/check/SWP391/SWP391/web/asset/css/resignGG.css</file>
             <file>file:/D:/copylaij/check/SWP391/SWP391/web/asset/css/styleAddNewUser.css</file>
             <file>file:/D:/copylaij/check/SWP391/SWP391/web/ResignGGAccount.jsp</file>
         </group>
+=======
+<<<<<<< HEAD
+        <group>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/SearchServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowProduct.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/CheckOutServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/web/cartpage.jsp</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowProuductByBrandID.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowOrderTrackingServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowProfileServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowAddressServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/SavePhotoServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/AddAddressController.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/CancelOrderServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowProductDetailServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/UpdateAddressServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/showProductByGenderServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ShowIdexItemServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/ViewCartServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/AddToCartServlet.java</file>
+            <file>file:/D:/FPT/SWP/Moi2/SWP391/SWP391/src/java/DHTV/Controller/SignUpPageServlet.java</file>
+        </group>
+=======
+        <group/>
+>>>>>>> d73e1015c5c778582a66001ee9b0aed35a973185
+>>>>>>> df07ce2fcf6873686799ea99c2086ce818535de3
     </open-files>
 </project-private>
