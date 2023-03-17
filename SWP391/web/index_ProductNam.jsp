@@ -16,7 +16,7 @@
         <!-- Bootstrap -->
         <link href="asset/css/bootstrap.min.css" rel="stylesheet">
 
-        <link rel="stylesheet" href="asset/css/styleshow.css">
+        <link rel="stylesheet" href="asset/css/styleForAllIndex.css">
 
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">

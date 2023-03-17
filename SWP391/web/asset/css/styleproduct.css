@@ -1,3 +1,6 @@
+
+
+
 /*-----------Header----------------*/
 *{
     margin: 0;
@@ -124,13 +127,13 @@ section{
     padding-bottom: 40px;
 }
 .container{
-max-width: 100%;
-margin: auto;
-height: 80vh;
-margin-top: 5%;
-background: white;
-box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.3);
-overflow: hidden;
+    max-width: 100%;
+    margin: auto;
+    height: 80vh;
+    margin-top: 5%;
+    background: white;
+    box-shadow: 5px 5px 10px 3px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
 }
 .left, .right{
     width: 50%;
@@ -143,34 +146,30 @@ overflow: hidden;
 }
 .flex{
     display: flex;
-    
+
 }
 .flex1{
     display: flex;
 }
 .center {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 .main-image{
     width: auto;
     height: auto;
     padding-right: 7px;
-    
+
 }
 .main-image img{
-    width: 90%;
-    height: 90%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
     transform-origin: center;
 }
-.option img{
-    width: 75px;
-    height: 75px;
-    padding: 10px;
-}
+
 .right{
     padding: 10px 5px 50px 50px;
 }
@@ -222,33 +221,33 @@ h3{
 
 .rating {
     display: inline-block;
-  }
-  
-  .rating input {
+}
+
+.rating input {
     display: none;
     background: none;
-  }
-  
-  .rating label {
+}
+
+.rating label {
     color: grey;
     font-size: 12px;
     cursor: pointer;
     margin: -5px;
-  }
-  
-  .rating label:before {
+}
+
+.rating label:before {
     content: "\2605";
     margin: 5px;
-  }
-  
-  .rating input:checked ~ label {
+}
+
+.rating input:checked ~ label {
     color: orange;
-  }
-  
-  .rating label:hover,
-  .rating label:hover ~ label {
+}
+
+.rating label:hover,
+.rating label:hover ~ label {
     color: orange;
-  }
+}
 h5, p, small{
     color: #837d7c;
 }
@@ -360,7 +359,7 @@ button{
 }
 /*-----------Comment----------------*/
 .col-lg-12{
-   display: none;
+    display: none;
 }
 #testimonials{
     display: flex;
@@ -501,7 +500,7 @@ button{
 .eva-star-cmt{
     top: 0;
     margin-top: 0.5px;
-    
+
 }
 li{
     list-style: none;
@@ -510,34 +509,34 @@ li{
 
 .rating-cmt {
     display: inline-block;
-  }
-  
-  .rating-cmt input {
+}
+
+.rating-cmt input {
     display: none;
     background: none;
-  }
-  
-  .rating-cmt label {
+}
+
+.rating-cmt label {
     color: grey;
     font-size: 15px;
     cursor: pointer;
     margin: -5px;
-  }
-  
-  .rating-cmt label:before {
+}
+
+.rating-cmt label:before {
     content: "\2605";
     margin: 5px;
-  }
-  
-  .rating-cmt input:checked ~ label {
+}
+
+.rating-cmt input:checked ~ label {
     color: #f9d71c;
-  }
-  
-  .rating-cmt label:hover,
-  .rating-cmt label:hover ~ label {
+}
+
+.rating-cmt label:hover,
+.rating-cmt label:hover ~ label {
     color: #f9d71c;
-  }
-  .popup{
+}
+.popup{
     width: 400px;
     box-shadow: 2px 2px 30px rgba(0, 0, 0, 0.1);
     background-color: #ffffff;

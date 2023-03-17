@@ -91,6 +91,9 @@
                 box-shadow: 0 0 10px rgba(102,175,233,.6);
             }
 
+            .icon {
+                cursor: pointer;
+            }
 
         </style>
     </head>
@@ -180,25 +183,48 @@
                                                     <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
                                                         <c:if test="${dto.getApprovalStatus() != 4}">
                                                             <tr>
-                                                                <td><p>VDTH${dto.getOrderID()}</p></td>
+                                                                <td><p>VDTH ${dto.getOrderID()}</p></td>
                                                                 <td><p>${dto.getDate()}</p></td>
-                                                                <td><p style="color: red;">${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p></td>
+                                                                <td>
+                                                                    <c:if test="${dto.getApprovalStatus() == 1}">
+                                                                        
+                                                                        <p style="color:gold;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
+                                                                        
+                                                                    </c:if>
+                                                                    <c:if test="${dto.getApprovalStatus() == 2}">
+                                                                 
+                                                                        <p style="color : green;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
+                                                                       
+                                                                    </c:if>
+                                                                    <c:if test="${dto.getApprovalStatus() == 3}">
+                                                                     
+                                                                        <p style="color : green;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
+                                                                 
+                                                                    </c:if>
+
+                                                                </td>
                                                                 <td>
                                                                     ${daoOrderDetail.showOrderDetailByOrderID(dto.getOrderID())}
                                                                     <c:forEach var="dtoDetail" items="${daoOrderDetail.getOrderDetailList()}" >
 
                                                                         <p>
+                                                                            <fmt:formatNumber var="totalPriceOfPro" 
+                                                                                              value="${daoProduct.getProductByProductID(dtoDetail.getProductID()).getPrice() * dtoDetail.getQuantity()}" 
+                                                                                              pattern="#,###"/>
                                                                             ${daoProduct.getInfoProductByProductID(dtoDetail.getProductID()).getProductName()} -
                                                                             size ${daoSize.getInfoSizeBySizeID(dtoDetail.getSizeID()).getSizeName()} 
-                                                                            x${dtoDetail.getQuantity()}
+                                                                            x${dtoDetail.getQuantity()} - <br> 
+                                                                            total ${totalPriceOfPro} <sup>vnd</sup>
                                                                         </p>
                                                                     </c:forEach>
                                                                 </td>
                                                                 <td>
-                                                                     <fmt:formatNumber var="totalWithShipping" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
-                                                                     <p>${totalWithShipping} <sup>vnd</sup></p>
+                                                                    <fmt:formatNumber var="totalWithShipping" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                                    <p>${totalWithShipping} <sup>vnd</sup></p>
                                                                 </td>
                                                                 <td>
+
+
                                                                     <div class="add-buttom">
                                                                         <c:if test="${dto.getApprovalStatus() == 1}">
                                                                             <c:url var="CancelOrderURL" value="CancelOrderServlet" >

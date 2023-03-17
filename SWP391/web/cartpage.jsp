@@ -79,7 +79,60 @@
                 outline: 0;
                 box-shadow: 0 0 10px rgba(102,175,233,.6);
             }
+            .your-cart-body-left-product-detail-left-count {
+                display: inline-flex;
+                align-items: center;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                padding: 0px;
+            }
 
+            .your-cart-body-left-product-detail-left-count a {
+                display: inline-block;
+                padding: 5px 10px;
+                background-color: #ccc;
+                border-radius: 5px;
+                color: #000;
+                text-decoration: none;
+                margin-right: -1px; /* added this line */
+            }
+
+            .your-cart-body-left-product-detail-left-count a:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            .your-cart-body-left-product-detail-left-count a:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+
+            .your-cart-body-left-product-detail-left-count a:hover {
+                background-color: #999;
+                color: #fff;
+            }
+
+            .your-cart-body-left-product-detail-left-count span {
+                display: inline-block;
+                padding: 5px;
+                border: none;
+                font-weight: bold;
+                box-sizing: border-box;
+                width: 30px;
+                text-align: center;
+            }
+            .cart-content-left table thead tr th{
+                text-align: center;
+            }
+            .delete-button {
+                font-size: 1.2em; /* increase font size */
+                outline: none; /* remove outline */
+                border: none; /* remove border */
+            }
+
+            .delete-button :hover {
+                cursor: pointer; /* add pointer cursor on hover */
+            }
         </style>
     </head>
     <!---------HEADER-------->
@@ -105,48 +158,52 @@
             <div class="cart-content row">
                 <div class="cart-content-left">
                     <table>
-                        <tr>
-                            <th>Product</th>
-                            <th>Name product</th>              
-                            <th>Size</th>
-                            <th>Number</th>
-                            <th>Price</th>
-                            <th>Delete</th>
-                        </tr>
-
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Name product</th>              
+                                <th>Size</th>
+                                <th>Number</th>
+                                <th>Price</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
                         <c:if test="${not empty requestScope.CART_RESULT}">
-                            <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
-                            <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
-                            <c:forEach var="dto" items="${requestScope.CART_RESULT}" >
+                            <tbody>
                                 <tr>
-                                    <td><img src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(dto.getProductID()).getImage()}" alt="" srcset=""></td>
-                                    <td>${daoProduct.getInfoProductByProductID(dto.getProductID()).getProductName()}</td>
-                                    <td><p>${daoSize.getInfoSizeBySizeID(dto.getSizeID()).getSizeName()}</p></td>
-                                    <td>
-                                        <div class="your-cart-body-left-product-detail-left-count">
-                                            <a class="your-cart-body-left-product-detail-left-minus" 
-                                               href=" UpdateCartServlet?action=des&cartId=${dto.getCartID()}&productId=${dto.getProductID()}">-</a>
-                                            <span class="your-cart-body-left-product-detail-left-count-update" 
-                                                  id="quantity${dto.getProductID()}">${dto.getQuantity()}</span>
-                                            <a class="your-cart-body-left-product-detail-left-plus" 
-                                               href="UpdateCartServlet?action=inc&cartId=${dto.getCartID()}&productId=${dto.getProductID()}">+</a>
-                                        </div>
-                                    </td>
-                                    <td>
-                                        <fmt:formatNumber var="price" value="${dto.getPrice()}" pattern="#,###,###"/>
-                                        <span id="price">${price}</span>₫
-                                    </td> 
-                                    <td>
-                                        <c:url var="cartURL" value="DeleteCartServlet">
-                                            <c:param name="txtCartID" value="${dto.getCartID()}" />
-                                        </c:url>
+                                    <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
+                                    <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
+                                    <c:forEach var="dto" items="${requestScope.CART_RESULT}" >
 
-                                        <button type="button" onclick="confirmDeleteProductInCart('${cartURL}')">
-                                            <a class="fa fa-trash"></a>
-                                        </button>
-                                    </td>
-                                </tr>
-                            </c:forEach>
+                                        <td><img src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(dto.getProductID()).getImage()}" alt="" srcset=""></td>
+                                        <td>${daoProduct.getInfoProductByProductID(dto.getProductID()).getProductName()}</td>
+                                        <td><p>${daoSize.getInfoSizeBySizeID(dto.getSizeID()).getSizeName()}</p></td>
+                                        <td>
+                                            <div class="your-cart-body-left-product-detail-left-count">
+                                                <a class="your-cart-body-left-product-detail-left-minus" 
+                                                   href=" UpdateCartServlet?action=des&cartId=${dto.getCartID()}&productId=${dto.getProductID()}">-</a>
+                                                <span class="your-cart-body-left-product-detail-left-count-update" 
+                                                      id="quantity${dto.getProductID()}">${dto.getQuantity()}</span>
+                                                <a class="your-cart-body-left-product-detail-left-plus" 
+                                                   href="UpdateCartServlet?action=inc&cartId=${dto.getCartID()}&productId=${dto.getProductID()}">+</a>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <fmt:formatNumber var="price" value="${dto.getPrice()}" pattern="#,###,###"/>
+                                            <span id="price">${price}</span>₫
+                                        </td> 
+                                        <td>
+                                            <c:url var="cartURL" value="DeleteCartServlet">
+                                                <c:param name="txtCartID" value="${dto.getCartID()}" />
+                                            </c:url>
+
+                                            <button type="button" onclick="confirmDeleteProductInCart('${cartURL}')" class="delete-button">
+                                                <a class="fa fa-trash"></a>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
                         </c:if>                        
 
                     </table>

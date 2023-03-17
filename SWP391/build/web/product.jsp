@@ -13,6 +13,14 @@
         <link rel="stylesheet" href="asset/css/styleproduct.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js"
+        integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
         <style>
             .confirm-box {
                 position: fixed;
@@ -88,7 +96,7 @@
                 font-size: 18px;
             }
         </style>
-                <style>
+        <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -116,7 +124,10 @@
                 border: none;
                 cursor: pointer;
             }
-        </style>        <style>
+
+
+        </style>       
+        <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -144,6 +155,7 @@
                 border: none;
                 cursor: pointer;
             }
+            
         </style>
     </head>
 
@@ -199,10 +211,29 @@
                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO" />
 
                 <div class="left">
-                    <div class="main-image" id="test">
-                        <img id="myImage" class="center"
+                    <div class="main-image" >
+                       
+                        <img   id="myImage"
                              src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
                              alt="" class="slide">
+                        
+                        <script>
+                            const container = document.getElementById("myImage");
+                            const img = document.querySelector(".main-image img");
+
+                            container.addEventListener("mousemove", (e) => {
+                                const x = e.clientX - e.target.offsetLeft;
+                                const y = e.clientY - e.target.offsetTop;
+                                img.style.transformOrigin = `${x}px ${y}px`;
+                                img.style.transform = "scale(2)";
+                            });
+
+                            container.addEventListener("mouseleave", () => {
+                                img.style.transformOrigin = "center";
+                                img.style.transform = "scale(1)";
+                            });
+                        </script>
+
                     </div>
 
                 </div>
@@ -427,7 +458,7 @@
                     <!--profile------------->
                     <div class="profile">
                         <div class="profile-img">
-                            <img src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg">
+                            <img src="asset/images/useravatar/cr.jpg">
                         </div>
 
                         <div class="name-user">
@@ -498,7 +529,7 @@
                                         <div class="profile">
                                             <div class="profile-img">
                                                 <img
-                                                    src="asset/images/296059556_584764606675134_7640748425626229317_n.jpg">
+                                                    src="asset/images/useravatar/cr.jpg">
                                             </div>
                                             <div class="name-user">
                                                 <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO" />
@@ -744,6 +775,7 @@
                 showAlertAddToCart();
             };
         </script>
+
 
     </body>
 

@@ -49,41 +49,46 @@ public class ShowIdexItemServlet extends HttpServlet {
 
         String url = "index.jsp";
 
-        String indexPage = request.getParameter("index");
-
-        if (indexPage == null) {
-            indexPage = "1";
-        }
-        int index = Integer.parseInt(indexPage);
+//        String indexPage = request.getParameter("index");
+//
+//        if (indexPage == null) {
+//            indexPage = "1";
+//        }
+//        int index = Integer.parseInt(indexPage);
 
         try {
 
             ProductDAO dao = new ProductDAO();
-
-            int size = dao.getTotalProduct();
-            System.out.println(size);
-            //paging 
-            int recordsPerPage = 8;
-            int endPage = 0;
-            endPage = size / recordsPerPage;
-            if (size % recordsPerPage != 0) {
-                endPage++;
-            }
-            System.out.println(endPage);
-
-            List<ProductDTO> paging = dao.pagingProduct(index, recordsPerPage);
+            
+            dao.showTop4NewProduct();
+            
+            List<ProductDTO> result = dao.getItemsList();
+            
+            request.setAttribute("Product", result);
+//            int size = dao.getTotalProduct();
+//            System.out.println(size);
+//            //paging 
+//            int recordsPerPage = 8;
+//            int endPage = 0;
+//            endPage = size / recordsPerPage;
+//            if (size % recordsPerPage != 0) {
+//                endPage++;
+//            }
+//            System.out.println(endPage);
+//
+//            List<ProductDTO> paging = dao.pagingProduct(index, recordsPerPage);
             // List<ProductDTO> paging = dao.pagingProduct(index);
 
-            System.out.println(paging);
-            BrandDAO brandDAO = new BrandDAO();
-            brandDAO.listBrand();
-            List<BrandDTO> listBrand = brandDAO.getBrandList();
-            System.out.println("list brand" + listBrand);
+//            System.out.println(paging);
+//            BrandDAO brandDAO = new BrandDAO();
+//            brandDAO.listBrand();
+//            List<BrandDTO> listBrand = brandDAO.getBrandList();
+//            System.out.println("list brand" + listBrand);
 
-            request.setAttribute("BRAND_RESULT", listBrand);
-            request.setAttribute("PAGING_RESULT", paging);
-            request.setAttribute("END_PAGE", endPage);
-            request.setAttribute("CURRENT_PAGE", index);
+//            request.setAttribute("BRAND_RESULT", listBrand);
+//            request.setAttribute("PAGING_RESULT", paging);
+//            request.setAttribute("END_PAGE", endPage);
+//            request.setAttribute("CURRENT_PAGE", index);
 
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
