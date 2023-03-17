@@ -27,11 +27,11 @@ import javax.servlet.http.HttpSession;
  * @author User
  */
 public class LoginServlet extends HttpServlet {
-    
-     private final String SHOW_INDEX_ITEM ="ShowIdexItemServlet";
-    private final String ADMIN_PAGE ="admin.jsp";
-    private final String MANAGER_PAGE ="manager.html";
-    
+
+    private final String SHOW_INDEX_ITEM = "ShowIdexItemServlet";
+    private final String ADMIN_PAGE = "admin.jsp";
+    private final String MANAGER_PAGE = "manager.html";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -44,8 +44,6 @@ public class LoginServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-    
 
         //get parameter
         //   String checkbox = request.getParameter("chkRemember");
@@ -81,14 +79,18 @@ public class LoginServlet extends HttpServlet {
 
                     if (result.getRoleID() == 1) {
                         url = "ShowDashBoard";
-                
+
                     } else if (result.getRoleID() == 2) {
-                        url ="ShowDashBoard";
-   
+                        url = "ShowDashBoard";
+
                     } else {
-             
-              
-                        url = SHOW_INDEX_ITEM;
+                        String productId = request.getParameter("txtProductID");
+                        if (productId != null) {
+                            url = "CommentServlet?txtProductID=" + productId;
+                        } else {
+
+                            url = SHOW_INDEX_ITEM;
+                        }
                     }
 
                     //1. get session
@@ -110,10 +112,12 @@ public class LoginServlet extends HttpServlet {
             log("LoginServlet _SQL_ " + ex.getMessage());
         } catch (/*ClassNotFoundException*/NamingException ex) {
             log("LoginServlet _Naming_ " + ex.getMessage());
+        }catch (NullPointerException ex) {
+            log("LoginServlet _Null_ " + ex.getMessage());
         } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
-                    
+
 //            response.sendRedirect(url);
         }
     }

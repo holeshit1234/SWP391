@@ -79,7 +79,11 @@ public class AddToCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             UserDetailsDTO currentUserID = (UserDetailsDTO) session.getAttribute("USER");
             if (currentUserID == null) {
-                url="login.jsp";
+                
+                session.setAttribute("productId", txtProductID);
+                 
+                url="login.jsp?txtProductID =" + txtProductID;
+                
             } else {
 
                 //check size not null

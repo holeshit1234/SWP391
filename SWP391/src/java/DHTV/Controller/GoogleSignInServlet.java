@@ -46,17 +46,23 @@ public class GoogleSignInServlet extends HttpServlet {
                 try {
                     user = UserDetailsDAO.getUser(email);
                     if (user != null) {
+                        HttpSession session = request.getSession();
+                        String productId = (String) session.getAttribute("productId");
+                        
+                        if (productId != null) {
+                            url = "CommentServlet?txtProductID=" + productId;
+                            session.setAttribute("USER", user);
+                        } else if (user.isStatus() == true) {
 
-                        if (user.isStatus() == true) {
                             url = SHOW_ITEM_PAGE;
 
-                            HttpSession session = request.getSession();
+//                            HttpSession session = request.getSession();
                             session.setAttribute("USER", user);
                         } else {
                             String message = "email ban";
 
                             if (!message.isEmpty()) {
-                                HttpSession session = request.getSession();
+//                                HttpSession session = request.getSession();
                                 session.setAttribute("LOGIN_ERROR", message);
                             }
                             url = LOGIN;
@@ -73,9 +79,7 @@ public class GoogleSignInServlet extends HttpServlet {
                     String fullname = userToken.getGiven_name();
 
                     //user = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "other");
-          
-                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null,  "logo.png", "other", true);
-       
+                    UserDetailsDTO newUser = new UserDetailsDTO(0, 3, email, "user", email, fullname, "other", null, "logo.png", "other", true);
 
                     try {
 

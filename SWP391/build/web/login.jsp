@@ -93,6 +93,7 @@
             </div>
         </header>
         <div>
+            
             <section class="login">
                 <div class="container">
                     <div class="sigin-signup">
@@ -108,6 +109,8 @@
                                 <i class="fa fa-lock"></i>
                                 <input type="password" name="txtPassword" value="" /><br/>                                 
                             </div>
+                            <input type="hidden" name="txtProductID" value="${param.txtProductID}">
+                            
                             <c:if test="${not empty err.emptyUserNamePassWord}">
                                 <font color="red">
                                 ${err.emptyUserNamePassWord}
