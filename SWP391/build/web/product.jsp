@@ -325,7 +325,11 @@
                         <input type="hidden" name="txtUserID" value="${requestScope.USERID}" />
 
                         <div class="enter-comment">
-                            <button type="submit" class="btn btn-secondary">Add to cart</button>
+                            
+                            <c:if test="${daoProductDetail.isOutOfStock(requestScope.PRODUCTID) == false}">
+                                             <button type="submit" class="btn btn-secondary">Add to cart</button>
+                                        </c:if>
+                            
                         </div>
 
                         <c:if test="${not empty requestScope.ADDTOCART}">

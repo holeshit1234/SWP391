@@ -56,44 +56,7 @@
 
     <body>
         <!---------HEADER-------->
-        <header>
-            <div class="logo">
-                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
-            </div>
-            <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
-
-            </div>                                                              
-            <div class="orther">
-
-                <li>
-                    <form action="SearchServlet">
-                        <input placeholder="Search" type="text" name="txtSearch" value="${param.txtSearch}"> <i class="fa fa-search"></i>                                                                                 
-                    </form>
-                </li>
-
-                <c:url var="urlprofile" value="ShowProfileServlet" >
-                    <c:param name="btAction" value="show" />
-                </c:url>
-                <c:if test="${not empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
-                    </c:if>
-
-                <c:if test="${empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="login.jsp"></a></li>
-                    </c:if>
-
-                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-
-
-                <c:if test="${not empty sessionScope.USER}">
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
-            </div>
-        </header>
-
+         <jsp:include page="header.jsp"/>
         <!---------Item-------->
         <section class="cartegory" style="margin-top: 150px">
             <div class="container">

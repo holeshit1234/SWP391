@@ -63,7 +63,8 @@
 
         <body>
             <!---------HEADER-------->
-            <header>
+            
+<%--            <header>
                 <div class="logo">
                     <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
                 </div>
@@ -78,7 +79,7 @@
                                     <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
                                 </c:forEach>
                             </div>
-                        </li> --%>
+                        </li> 
                 </div>
                 <div class="orther">
                     <li>
@@ -103,7 +104,10 @@
                             <jsp:include page="logout.jsp"/>
                         </c:if>
                 </div>
-            </header>
+            </header>-->--%>
+                        <jsp:include page="header.jsp"/>
+                        
+                
             <!---------Banner-slider-------->
             <section id="slider">
                 <div class="aspect-ratio-169">
