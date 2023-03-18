@@ -252,14 +252,13 @@
                                                             <td>                                                                                                              
                                                                 <p style="color : green;">Đã giao hàng</p>                                                           
                                                             </td>
-                                                            <td>
-                                                                
-                                                                ${daoBillDetail.showListBillDetail(dto1.getBillID())}
+                                                            <td>                                                             
+                                                                <input type="hidden" name="bill" value="${daoBillDetail.showListBillDetail(dto1.getBillID())}" /> 
                                                                 <c:forEach var="dtoDetailBill" items="${daoBillDetail.getBillDetailList()}" >
 
                                                                     <p>
                                                                         <fmt:formatNumber var="totalPriceOfPro" 
-                                                                                          value="${daoProduct.getProductByProductID(dtoDetailBill.getProductID()).getPrice() * dtoDetail1.getQuantity()}" 
+                                                                                          value="${daoProduct.getProductByProductID(dtoDetailBill.getProductID()).getPrice() * dtoDetailBill.getQuantity()}" 
                                                                                           pattern="#,###"/>
                                                                         ${daoProduct.getInfoProductByProductID(dtoDetailBill.getProductID()).getProductName()} -
                                                                         size ${daoSize.getInfoSizeBySizeID(dtoDetailBill.getSizeID()).getSizeName()} 

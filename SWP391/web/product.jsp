@@ -21,90 +21,7 @@
         crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-        <style>
-            .confirm-box {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: white;
-                border: 1px solid black;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-                max-width: 500px;
-                width: 100%;
-            }
-
-            .confirm-box p {
-                margin-top: 0;
-            }
-
-            .button-container {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 20px;
-            }
-
-            .ok-button,
-            .cancel-button {
-                padding: 10px 20px;
-                border-radius: 5px;
-                border: none;
-                cursor: pointer;
-            }
-
-            .ok-button {
-                background-color: #EEDBD0;
-                color: black;
-                margin-right: 10px;
-            }
-
-            .cancel-button {
-                background-color: #E7D0C4;
-                color: black;
-            }
-
-            .ok-button:hover,
-            .cancel-button:hover {
-                background-color: #D5C0A7;
-            }
-
-            .confirm-box input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-                margin-top: 10px;
-            }
-
-            .confirm-box input[type="text"]:focus {
-                border-color: #66afe9;
-                outline: 0;
-                box-shadow: 0 0 10px rgba(102, 175, 233, .6);
-
-            }
-
-            .alert {
-                position: fixed;
-                top: 70px; /* set the distance from top */
-                right: 20px; /* set the distance from right */
-                padding: 20px;
-                background-color: #f44336;
-                color: white;
-                font-size: 18px;
-            }
-            .fa-star, .fa-star-half-o, .fa-star-o{
-                color: yellow;
-                font-size: 25px;
-            }
-        </style>
-
-
-
+        crossorigin="anonymous"></script>     
     </head>
 
     <body>
@@ -133,32 +50,7 @@
                             <img   id="myImage2"
                                    src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
                                    alt="" class="slide">
-                        </div>
-                        <script>
-                            let zoom = document.querySelector('.main-image');
-                            let imgZoom = document.getElementById('myImage');
-
-                            zoom.addEventListener('mousemove', (event) => {
-                                imgZoom.style.opacity = 1;
-                                let positionPx = event.x - zoom.getBoundingClientRect().left;
-                                let positionX = (positionPx / zoom.offsetWidth) * 100;
-
-                                let positionPy = event.y - zoom.getBoundingClientRect().top;
-                                let positionY = (positionPy / zoom.offsetHeight) * 100;
-
-                                imgZoom.style.setProperty('--zoom-x', positionX + '%');
-                                imgZoom.style.setProperty('--zoom-y', positionY + '%');
-
-                                let transformX = -(positionX - 50) / 3.5;
-                                let transformY = -(positionY - 50) / 3.5;
-                                imgZoom.style.transform = `scale(1.5) translateX(${transformX}%) translateY(${transformY}%)`;
-                            })
-                            zoom.addEventListener('mouseout', () => {
-                                imgZoom.style.opacity = 0;
-                            })
-                        </script>
-
-
+                        </div>                     
                     </div>
 
                 </div>
@@ -193,52 +85,7 @@
                             ${daoUtil.roundingFunction(avgRate)}
 
                             <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5 "></starts-review>
-                            <script>
-                                class starsReview extends HTMLElement {
-                                    constructor() {
-                                        super();
-                                        this.drawStars();
-                                    }
-                                    drawStars() {
-                                        this.innerHTML = '';
-                                        let value = parseFloat(this.getAttribute('value'));
-                                        let max = parseInt(this.getAttribute('max'));
-
-                                        if (value > max)
-                                            value = max;
-
-                                        let nWholes = Math.floor(value);
-                                        let nParts = value % 1 == 0 ? 0 : 1;
-                                        let nEmpty = max - nWholes - nParts;
-
-                                        for (let i = 0; i < nWholes; i++) {
-                                            var iElement = document.createElement('i');
-                                            iElement.setAttribute('index', i);
-                                            iElement.classList.add('fa');
-                                            iElement.classList.add('fa-star');
-                                            this.append(iElement)
-                                        }
-
-                                        for (let i = 0; i < nParts; i++) {
-                                            var iElement = document.createElement('i');
-                                            iElement.setAttribute('index', i + nWholes);
-                                            iElement.classList.add('fa');
-                                            iElement.classList.add('fa-star-half-o');
-                                            this.append(iElement)
-                                        }
-
-                                        for (let i = 0; i < nEmpty; i++) {
-                                            var iElement = document.createElement('i');
-                                            iElement.setAttribute('index', i + nWholes + nParts);
-                                            iElement.classList.add('fa');
-                                            iElement.classList.add('fa-star-o');
-                                            this.append(iElement)
-                                        }
-                                    }
-                                }
-                                window.customElements.define('starts-review', starsReview)
-                            </script>
-
+                          
 
                         </h3>
 
@@ -284,55 +131,8 @@
                                     <button id="btn-di" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
-                            <style>
-
-                                #btn-di{
-                                    outline: none;
-                                    cursor: pointer;
-                                    border: 0;
-                                    font-size: 20px;
-                                    font-weight: 300;
-                                    line-height: 1;
-                                    letter-spacing: 0;
-                                    display: flex;
-                                    align-items: center;
-                                    justify-content: center;
-                                    transition: background-color .1s cubic-bezier(.4,0,.6,1);
-                                    border: 1px solid rgba(0,0,0,.09);
-                                    border-radius: 2px;
-                                    background: transparent;
-                                    color: rgba(0,0,0,.8);
-                                    width: 32px;
-                                    height: 32px;
-                                    background-color: #ccc;
-
-                                }
-
-                                .quantity-control {
-                                    display: flex;
-                                    align-items: center;
-                                    outline-color:  #66afe9 ;
-                                }
-
-                                .desins {
-                                    display: flex;
-                                    align-items: center;
-                                    padding-bottom: 10px;
-
-
-                                }
-                                #inputQuantity{
-                                    width: 50px;
-                                    height: 32px;
-                                    padding-top: 4px; 
-                                    align-items: center;
-                                    border: 1px solid rgba(0,0,0,.09);
-                                    justify-content: center;
-                                    text-align: center;
-                                }
-
-                            </style>
-                            <div>
+                          
+                            <div style="margin-top: 15px;">
                                 <span id="maxQuantity"></span> sản phẩm có sẵn
                             </div>
                         </c:if>
@@ -514,14 +314,11 @@
                                 <div class="enter-comment">
                                     <li>
                                         <input placeholder="Enter your comment" type="text" name="txtDescription">
-
                                     </li>
                                 </div>
                                 <div class="rating-cmt">
                                     <div class="eva-cmt">
-
                                         <li class="eva-star-cmt">
-
                                             <input type="radio" name="rating" value="5" id="star5">
                                             <label for="star5"></label>
                                             <input type="radio" name="rating" value="4" id="star4">
@@ -551,16 +348,11 @@
                                                 value="submit">Submit</button>
                                     </li>
                                 </div>
-
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-
-
-
             <!-----------------------------------------box-2-------------------------------------->
             <c:if test="${not empty sessionScope}">
                 <c:set var="list" value="${sessionScope.INFOCOMMENT}" />
@@ -688,139 +480,14 @@
 
         </footer>
 
-        <script>
-                                                    $(".col-lg-12").slice(0, 3).show();
-                                                    $(".loadMore").on("click", function () {
-                                                        $(".col-lg-12:hidden").slice(0, 3).show();
-                                                        if ($(".col-lg-12:hidden").length == 0) {
-                                                            $(".loadMore").fadeOut();
-                                                        }
-                                                    })
-
-        </script>
-        <script>
-            function confirmDelete(url) {
-                var confirmBox = document.createElement('div');
-                confirmBox.classList.add('confirm-box');
-                confirmBox.classList.add('alert'); // Add alert class
-
-
-                var message = document.createElement('p');
-                message.innerHTML = 'Are you sure you want to delete this comment?';
-                confirmBox.appendChild(message);
-
-                var buttons = document.createElement('div');
-                buttons.classList.add('button-container'); // Add button container class
-
-                var okButton = document.createElement('button');
-                okButton.innerHTML = 'OK';
-                okButton.classList.add('ok-button'); // Add OK button class
-                okButton.addEventListener('click', function () {
-                    window.location.href = url;
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(okButton);
-
-                var cancelButton = document.createElement('button');
-                cancelButton.innerHTML = 'Cancel';
-                cancelButton.classList.add('cancel-button'); // Add cancel button class
-                cancelButton.addEventListener('click', function () {
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(cancelButton);
-
-                confirmBox.appendChild(buttons);
-
-                document.body.appendChild(confirmBox);
-            }
-
-            function confirmFlag(url) {
-                var confirmBox = document.createElement('div');
-                confirmBox.classList.add('confirm-box');
-                confirmBox.classList.add('alert'); // Add alert class
-
-                var message = document.createElement('p');
-                message.innerHTML = 'Please tell us the reason you report this comment.';
-                confirmBox.appendChild(message);
-
-                var inputField = document.createElement('input');
-                inputField.type = 'text';
-                inputField.name = 'reason';
-                inputField.placeholder = 'Enter reason for reporting...';
-                confirmBox.appendChild(inputField);
-
-                var buttons = document.createElement('div');
-                buttons.classList.add('button-container'); // Add button container class
-
-                var okButton = document.createElement('button');
-                okButton.innerHTML = 'OK';
-                okButton.classList.add('ok-button'); // Add OK button class
-                okButton.addEventListener('click', function () {
-                    var reason = inputField.value;
-                    window.location.href = url + '&reason=' + encodeURIComponent(reason);
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(okButton);
-
-                var cancelButton = document.createElement('button');
-                cancelButton.innerHTML = 'Cancel';
-                cancelButton.classList.add('cancel-button'); // Add cancel button class
-                cancelButton.addEventListener('click', function () {
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(cancelButton);
-
-                confirmBox.appendChild(buttons);
-
-                document.body.appendChild(confirmBox);
-            }
-            function confirmEdit(url) {
-                var confirmBox = document.createElement('div');
-                confirmBox.classList.add('confirm-box');
-                confirmBox.classList.add('alert'); // Add alert class
-
-                var message = document.createElement('p');
-                message.innerHTML = 'Are you sure you want to edit this item?';
-                confirmBox.appendChild(message);
-
-                var inputField = document.createElement('input');
-                inputField.type = 'text';
-                inputField.name = 'description';
-                inputField.placeholder = 'Enter new description...';
-                confirmBox.appendChild(inputField);
-
-                var buttons = document.createElement('div');
-                buttons.classList.add('button-container'); // Add button container class
-
-                var okButton = document.createElement('button');
-                okButton.innerHTML = 'OK';
-                okButton.classList.add('ok-button'); // Add OK button class
-                okButton.addEventListener('click', function () {
-                    var description = inputField.value;
-                    window.location.href = url + '&description=' + encodeURIComponent(description);
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(okButton);
-
-                var cancelButton = document.createElement('button');
-                cancelButton.innerHTML = 'Cancel';
-                cancelButton.classList.add('cancel-button'); // Add cancel button class
-                cancelButton.addEventListener('click', function () {
-                    confirmBox.parentNode.removeChild(confirmBox);
-                });
-                buttons.appendChild(cancelButton);
-
-                confirmBox.appendChild(buttons);
-
-                document.body.appendChild(confirmBox);
-            }
-        </script>
+       
         <script>
             window.onload = function () {
                 showAlertAddToCart();
             };
         </script>
-
+        
+        <script src="asset/js/JProduct.js"></script>
         <script src="asset/js/desins.js"></script>
     </body>
 
