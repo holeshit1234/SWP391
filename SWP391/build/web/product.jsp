@@ -97,8 +97,12 @@
                 color: white;
                 font-size: 18px;
             }
+            .fa-star, .fa-star-half-o, .fa-star-o{
+                color: yellow;
+                font-size: 25px;
+            }
         </style>
-     
+
 
 
     </head>
@@ -114,25 +118,44 @@
                 <div class="left">
                     <div class="main-image" >
 
-                        <img   id="myImage"
-                               src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
-                               alt="" class="slide">
+                        <a href="#popup1">
+                            <img   
+                                src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                                alt="" class="slide">
 
+                            <img   id="myImage"
+                                   src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                                   alt="" class="slide">
+                        </a>
+
+                        <div id="popup1" class="popup">
+                            <a href="#" class="close">&times;</a>
+                            <img   id="myImage2"
+                                   src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                                   alt="" class="slide">
+                        </div>
                         <script>
-                            const container = document.getElementById("myImage");
-                            const img = document.querySelector(".main-image img");
+                            let zoom = document.querySelector('.main-image');
+                            let imgZoom = document.getElementById('myImage');
 
-                            container.addEventListener("mousemove", (e) => {
-                                const x = e.clientX - e.target.offsetLeft;
-                                const y = e.clientY - e.target.offsetTop;
-                                img.style.transformOrigin = `${x}px ${y}px`;
-                                img.style.transform = "scale(2)";
-                            });
+                            zoom.addEventListener('mousemove', (event) => {
+                                imgZoom.style.opacity = 1;
+                                let positionPx = event.x - zoom.getBoundingClientRect().left;
+                                let positionX = (positionPx / zoom.offsetWidth) * 100;
 
-                            container.addEventListener("mouseleave", () => {
-                                img.style.transformOrigin = "center";
-                                img.style.transform = "scale(1)";
-                            });
+                                let positionPy = event.y - zoom.getBoundingClientRect().top;
+                                let positionY = (positionPy / zoom.offsetHeight) * 100;
+
+                                imgZoom.style.setProperty('--zoom-x', positionX + '%');
+                                imgZoom.style.setProperty('--zoom-y', positionY + '%');
+
+                                let transformX = -(positionX - 50) / 3.5;
+                                let transformY = -(positionY - 50) / 3.5;
+                                imgZoom.style.transform = `scale(1.5) translateX(${transformX}%) translateY(${transformY}%)`;
+                            })
+                            zoom.addEventListener('mouseout', () => {
+                                imgZoom.style.opacity = 0;
+                            })
                         </script>
 
 
@@ -169,21 +192,51 @@
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             ${daoUtil.roundingFunction(avgRate)}
 
-                            <div id="product-1">
-                                <div class="product_star">
-                                    <div class="stars-outer">
-                                        <div class="stars-inner"></div>
-                                    </div>
-                                    <span class="number-rating"></span>
-                                </div>
-                            </div>
+                            <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5 "></starts-review>
                             <script>
-                                const productSelect = document.getElementById('product-select');
-                                const ratingControl = document.getElementById('rating-control');
-                                const ratings = {
-                                    'product-1': 3
-                                };
+                                class starsReview extends HTMLElement {
+                                    constructor() {
+                                        super();
+                                        this.drawStars();
+                                    }
+                                    drawStars() {
+                                        this.innerHTML = '';
+                                        let value = parseFloat(this.getAttribute('value'));
+                                        let max = parseInt(this.getAttribute('max'));
 
+                                        if (value > max)
+                                            value = max;
+
+                                        let nWholes = Math.floor(value);
+                                        let nParts = value % 1 == 0 ? 0 : 1;
+                                        let nEmpty = max - nWholes - nParts;
+
+                                        for (let i = 0; i < nWholes; i++) {
+                                            var iElement = document.createElement('i');
+                                            iElement.setAttribute('index', i);
+                                            iElement.classList.add('fa');
+                                            iElement.classList.add('fa-star');
+                                            this.append(iElement)
+                                        }
+
+                                        for (let i = 0; i < nParts; i++) {
+                                            var iElement = document.createElement('i');
+                                            iElement.setAttribute('index', i + nWholes);
+                                            iElement.classList.add('fa');
+                                            iElement.classList.add('fa-star-half-o');
+                                            this.append(iElement)
+                                        }
+
+                                        for (let i = 0; i < nEmpty; i++) {
+                                            var iElement = document.createElement('i');
+                                            iElement.setAttribute('index', i + nWholes + nParts);
+                                            iElement.classList.add('fa');
+                                            iElement.classList.add('fa-star-o');
+                                            this.append(iElement)
+                                        }
+                                    }
+                                }
+                                window.customElements.define('starts-review', starsReview)
                             </script>
 
 
@@ -282,49 +335,49 @@
                             <div>
                                 <span id="maxQuantity"></span> sản phẩm có sẵn
                             </div>
-                    </c:if>
-                    <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                    <input type="hidden" name="txtStoreID" value="1" />
-                    <input type="hidden" name="txtUserID" value="${requestScope.USERID}" />
+                        </c:if>
+                        <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
+                        <input type="hidden" name="txtStoreID" value="1" />
+                        <input type="hidden" name="txtUserID" value="${requestScope.USERID}" />
 
-                    <div class="enter-comment">
+                        <div class="enter-comment">
 
-                        <c:if test="${daoProductDetail.isOutOfStock(requestScope.PRODUCTID) == false}">
+                            <c:if test="${daoProductDetail.isOutOfStock(requestScope.PRODUCTID) == false}">
 
-                            <button type="submit" class="btn btn-secondary">Add to cart</button>
+                                <button type="submit" class="btn btn-secondary">Add to cart</button>
+                            </c:if>
+
+                        </div>
+
+                        <c:if test="${not empty requestScope.ADDTOCART}">
+                            ${requestScope.ADDTOCART}
                         </c:if>
 
-                    </div>
-
-                    <c:if test="${not empty requestScope.ADDTOCART}">
-                        ${requestScope.ADDTOCART}
-                    </c:if>
-
-                    <c:if test="${not empty requestScope.STOCK}">
-                        <font color='red'>
-                        ${requestScope.STOCK}
-                        </font><br />
-                    </c:if>
-                    <c:if test="${not empty requestScope.NULLSIZE}">
-                        <font color='red'>
-                        ${requestScope.NULLSIZE}
-                        </font><br />
-                    </c:if>
-                    <script>
-                        function showAlertAddToCart() {
-                            const addToCart = "${requestScope.ADDTOCART}";
-                            if (addToCart != null && addToCart !== '') {
-                                var alertDiv = document.createElement("div");
-                                alertDiv.classList.add("alert");
-                                alertDiv.innerHTML = "Item has been added to your cart.";
-                                document.body.appendChild(alertDiv);
-                                alertDiv.style.display = 'block';
-                                setTimeout(function () {
-                                    alertDiv.style.display = 'none';
-                                }, 2000);
+                        <c:if test="${not empty requestScope.STOCK}">
+                            <font color='red'>
+                            ${requestScope.STOCK}
+                            </font><br />
+                        </c:if>
+                        <c:if test="${not empty requestScope.NULLSIZE}">
+                            <font color='red'>
+                            ${requestScope.NULLSIZE}
+                            </font><br />
+                        </c:if>
+                        <script>
+                            function showAlertAddToCart() {
+                                const addToCart = "${requestScope.ADDTOCART}";
+                                if (addToCart != null && addToCart !== '') {
+                                    var alertDiv = document.createElement("div");
+                                    alertDiv.classList.add("alert");
+                                    alertDiv.innerHTML = "Item has been added to your cart.";
+                                    document.body.appendChild(alertDiv);
+                                    alertDiv.style.display = 'block';
+                                    setTimeout(function () {
+                                        alertDiv.style.display = 'none';
+                                    }, 2000);
+                                }
                             }
-                        }
-                    </script>
+                        </script>
 
                     </form>
                 </div>
