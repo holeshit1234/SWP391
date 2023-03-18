@@ -127,7 +127,7 @@
                                 <i class="fas fa-table me-1"></i>
                                 DataTable Order
                             </div>
-                            <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
+                            <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
                             <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
@@ -171,20 +171,20 @@
                                                     ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                 </td>
                                                 <td>
-                                                    <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getBillID())}"/>
-                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                    <c:set var="listP" value="${daoBillDetail.showListBillDetail(dto.getBillID())}"/>
+                                                    <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
                                                         ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
                                                     </c:forEach>
                                                 </td>
                                                 <td>
 
-                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                    <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
                                                         ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
                                                     </c:forEach>
                                                 </td>
                                                 <td>
 
-                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                    <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
                                                         ${list.getQuantity()} <br>
                                                     </c:forEach>
                                                 </td>

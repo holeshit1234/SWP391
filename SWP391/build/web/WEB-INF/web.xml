@@ -30,7 +30,5 @@
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
-    <classpath>
-        <pathelement location="lib/redisson-3.20.0.jar"/> <!-- Replace {version} with the version of Redisson you downloaded -->
-    </classpath>
+   
 </web-app>

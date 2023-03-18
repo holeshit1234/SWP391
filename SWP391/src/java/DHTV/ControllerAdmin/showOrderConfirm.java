@@ -7,6 +7,8 @@ package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
+import DVHT.bill.BillDAO;
+import DVHT.bill.BillDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -44,6 +46,9 @@ public class showOrderConfirm extends HttpServlet {
             dao.showListOrder();
             List<OrderDTO> list = dao.getOrderList();
             request.setAttribute("ORDER_RESULT", list);
+            
+            
+           
 
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());

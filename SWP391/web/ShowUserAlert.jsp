@@ -37,7 +37,7 @@
                 </div>
             </form>
             <!-- Navbar-->
-           <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -92,7 +92,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
-                                     <a class="nav-link" href="showBill">Bill</a>
+                                    <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
 
                                 </nav>
@@ -142,35 +142,55 @@
                                                 <th>Comment ID</th>
                                                 <th>Comment Reported</th>                          
                                                 <th>Total</th>                          
+                                                <th>Status</th>                          
                                                 <th>Detail</th>
                                                 <th>Ban User</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <c:forEach var="dto" items="${coment}">
-                                                <c:if test="${dto.isStatus() == true}">
-                                                    <tr>
-                                                        <td>${dto.getUserID()}</td>                               
-                                                        <td>${dto.getFullName()}</td>
-                                                        <td>${dto.getCommentID()}</td>
-                                                        <td>${dto.getDescription()}</td>
-                                                        <td>
-                                                            <c:forEach var="count" items="${countList}">
-                                                                <c:if test="${count.getCommentID() == dto.getCommentID()}">
-                                                                    ${count.getCount()}
-                                                                </c:if>
-                                                            </c:forEach>
-                                                        </td>
-                                                        <c:url var="urlDetail" value="GetDetailCommentID">
-                                                            <c:param name="id" value="${dto.getCommentID()}"/>
-                                                        </c:url>
-                                                        <td><a href="${urlDetail}">detail</a></td>
-                                                        <c:url var="urlBanUser" value="BanUserServlet" >
-                                                            <c:param name="userID" value="${dto.getUserID()}"/>
-                                                        </c:url>
-                                                        <td><a href="${urlBanUser}">Ban User</a></td>
-                                                    </tr> 
-                                                </c:if>
+
+                                                <tr>
+                                                    <td>${dto.getUserID()}</td>                               
+                                                    <td>${dto.getFullName()}</td>
+                                                    <td>${dto.getCommentID()}</td>                                                    
+                                                    <td>${dto.getDescription()}</td>
+                                                    <td>
+                                                        <c:forEach var="count" items="${countList}">
+                                                            <c:if test="${count.getCommentID() == dto.getCommentID()}">
+                                                                ${count.getCount()}
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
+                                                        <c:choose>
+                                                            <c:when test="${dto.isStatus() == true}">Chưa Chặn</c:when>
+                                                            <c:when test="${dto.isStatus() == false}">Đã Chặn</c:when>
+                                                            <c:otherwise>Unknown</c:otherwise>
+                                                        </c:choose>
+                                                    </td>
+                                                    <c:url var="urlDetail" value="GetDetailCommentID">
+                                                        <c:param name="id" value="${dto.getCommentID()}"/>
+                                                    </c:url>
+                                                    <td><a href="${urlDetail}">detail</a></td>
+                                                    <c:url var="urlBanUser" value="BanUserServlet" >                                                           
+                                                        <c:param name="btAction" value="Ban"/>
+                                                        <c:param name="userID" value="${dto.getUserID()}"/>                                                           
+                                                    </c:url>
+                                                    <c:url var="urlBanUser" value="BanUserServlet" >                                                           
+                                                        <c:param name="btAction" value="Unban"/>
+                                                        <c:param name="userID" value="${dto.getUserID()}"/>                                                           
+                                                    </c:url>
+                                                    <td>
+                                                        <c:if test="${dto.isStatus() == true}">
+                                                            <a href="${urlBanUser}">Ban User</a>
+                                                        </c:if>
+
+                                                        <c:if test="${dto.isStatus() == false}">
+                                                            <a href="${urlBanUser}">Unban User</a>
+                                                        </c:if>
+                                                    </td>
+                                                </tr>                                          
                                             </c:forEach>
                                         </tbody>
                                     </table>                

@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -93,7 +94,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
-                                     <a class="nav-link" href="showBill">Bill</a>
+                                    <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
 
                                 </nav>
@@ -128,57 +129,60 @@
                                 <i class="fas fa-table me-1"></i>
                                 DataTable Order
                             </div>
-                                  <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
-                                   <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
-                                   <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
-                                   <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
-                                   <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
-                                   <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
+                            <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
+                            <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
+                            <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
+                            <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
+                            <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
+                            <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>                         
+                            <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>  
 
-                            <c:set var="result" value="${requestScope.ORDER_RESULT  }"/>
-                            <c:if test="${not empty result}">
-                                <table id="datatablesSimple" >
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Date</th>
-                                            <th>Full Name</th>
-                                            <th>Location</th>
-                                            <th>Product </th>
-                                            <th>Size </th>
-                                            <th>Quantity </th>
-                                            <th>Total</th>
-                                            <th>Payment Status</th>
-                                            <th>Status</th>                                          
-                                            <th></th>                                          
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                              <c:forEach var="dto" items="${result}">
-                                                  <c:if test="${dto.getApprovalStatus()>=2 && dto.getApprovalStatus()<=3}">
-                                                      <tr>
-                                                          <td>
-                                                              <a> DTVH ${dto.getOrderID()} </a>                                                     
-                                                          </td>
-                                                          <td>
-                                                              ${dto.getDate()}
-                                                          </td>
-                                                          <td>
-                                                              ${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}
-                                                          </td>
-                                                          <td>
-                                                              ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
-                                                              ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                              ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
-                                                              ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
-                                                          </td>
-                                                          <td>
-                                                              <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
-                                                              <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                                  ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
-                                                              </c:forEach>
-                                                          </td>
-                                                          <td>
+                            <c:set var="result" value="${requestScope.ORDER_RESULT}"/>
+                            <c:set var="result1" value="${requestScope.BILL_RESULT}"/>
+
+                            <table id="datatablesSimple" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Full Name</th>
+                                        <th>Location</th>
+                                        <th>Product </th>
+                                        <th>Size </th>
+                                        <th>Quantity </th>
+                                        <th>Total</th>
+                                        <th>Payment Status</th>
+                                        <th>Status</th>                                          
+                                        <th></th>                                          
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:if test="${not empty result}">
+                                        <c:forEach var="dto" items="${result}">
+                                            <c:if test="${dto.getApprovalStatus()>=2 && dto.getApprovalStatus()<=3}">
+                                                <tr>
+                                                    <td>
+                                                        <a> DTVH ${dto.getOrderID()} </a>                                                     
+                                                    </td>
+                                                    <td>
+                                                        ${dto.getDate()}
+                                                    </td>
+                                                    <td>
+                                                        ${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}
+                                                    </td>
+                                                    <td>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
+                                                    </td>
+                                                    <td>
+                                                        <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
+                                                        <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                        </c:forEach>
+                                                    </td>
+                                                    <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
                                                             ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
@@ -192,11 +196,15 @@
                                                     </td>
 
 
-                                                    <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
+                                                    <td>
+                                                        <fmt:formatNumber var="totalprice" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                        ${totalprice}<sup>vnđ</sup>
+                                                        
+                                                    </td>
                                                     <td> 
 
                                                         <c:choose>
-                                                            <c:when test="${dto.isPaymentStatus() == true}">Đã  thanh toán</c:when>
+                                                            <c:when test="${dto.isPaymentStatus() == true}">Đã thanh toán</c:when>
                                                             <c:when test="${dto.isPaymentStatus() == false}">Chờ thanh toán</c:when>
                                                         </c:choose>
                                                     </td>
@@ -218,19 +226,63 @@
                                                 </tr>
                                             </c:if>
                                         </c:forEach>    
-<!--                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  
-                                    <td>Status</td>  -->
-                                    </tbody>
-                                </table>
-                            </c:if>
+                                    </c:if>
+
+
+
+                                    <c:forEach var="dto1" items="${result1}">
+
+                                        <tr>
+                                            <td>
+                                                <a> DTVH${dto1.getBillID()} </a>                                                     
+                                            </td>
+                                            <td>
+                                                ${dto1.getDate()}
+                                            </td>
+                                            <td>
+                                                ${daoUserDetail.getInfoUser(dto1.getBillID()).getFullName()}
+                                            </td>
+                                            <td>
+                                                ${daoAddress.getAddress(dto1.getUserID(), dto1.getAddressID()).getWard()}, <br>
+                                                ${daoAddress.getAddress(dto1.getUserID(), dto1.getAddressID()).getDistrict()}, <br>
+                                                ${daoAddress.getAddress(dto1.getUserID(), dto1.getAddressID()).getProvice()}, <br>
+                                                ${daoAddress.getAddress(dto1.getUserID(), dto1.getAddressID()).getStreet()}
+                                            </td>
+                                            <td>
+                                                <c:set var="listP" value="${daoBillDetail.showListBillDetail(dto1.getBillID())}"/>
+                                                <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
+                                                    ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+
+                                                <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
+                                                    ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                </c:forEach>
+                                            </td>
+                                            <td>
+
+                                                <c:forEach var="list" items="${daoBillDetail.getBillDetailList()}">
+                                                    ${list.getQuantity()} <br>
+                                                </c:forEach>
+                                            </td>
+
+
+                                            <td>
+                                                  <fmt:formatNumber var="price" value="${dto1.getTotalPrice()+dto1.getShippingPee()}" pattern="#,###"/>
+                                                        ${price}<sup>vnđ</sup>
+                                                
+                                            </td>
+                                            <td> 
+                                                Đã  thanh toán
+                                            </td>
+                                            <td>
+                                                Đã giao hàng
+                                            </td>
+                                        </tr>
+                                    </c:forEach>   
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </main>

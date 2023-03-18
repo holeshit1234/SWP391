@@ -309,7 +309,7 @@ public class UserDetailsDAO implements Serializable {
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
                     String picture = rs.getString("Picture");
-                  
+
                     result = new UserDetailsDTO(userid, role, username,
                             password, email, fullname, phone, sqlDate, gender, picture);
                 }
@@ -364,7 +364,7 @@ public class UserDetailsDAO implements Serializable {
                     java.sql.Date sqlDate = new java.sql.Date(DOB.getTime());
                     String gender = rs.getString("Gender");
                     String picture = rs.getString("Picture");
-                      boolean status = rs.getBoolean("Status");
+                    boolean status = rs.getBoolean("Status");
                     result = new UserDetailsDTO(userid, role, username,
                             password, email, fullname, phone, sqlDate, gender, picture, status);
                 }
@@ -589,6 +589,44 @@ public class UserDetailsDAO implements Serializable {
         return result;
     }
 
+    public boolean unbanUser(int userid)
+            throws NamingException, SQLException, ParseException {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stm = null;
+
+        try {
+            //get connection
+            con = DBHelpers.getConnection();
+            //sql commmands
+            String sql = "Update UserDetails "
+                    + "Set  Status = 1 "
+                    + "Where UserID = ? ";
+
+            //create statement
+            stm = con.prepareStatement(sql);
+            // stm.setString(1, email);
+            stm.setInt(1, userid);
+            //execute querry
+            int rows = stm.executeUpdate();
+            //process result
+            if (rows > 0) {
+                result = true;
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+
+            if (con != null) {
+                con.close();
+            }
+        }
+
+        return result;
+    }
+    
+    
     private List<UserDetailsDTO> userList;
 
     public List<UserDetailsDTO> getUserList() {

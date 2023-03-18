@@ -85,8 +85,9 @@ public class LoginServlet extends HttpServlet {
 
                     } else {
                         String productId = request.getParameter("txtProductID");
-                        if (productId != null) {
-                            url = "CommentServlet?txtProductID=" + productId;
+                        System.out.println(productId);
+                        if (productId.trim().length() > 0) {
+                            url = "CommentServlet?txtPưroductID=" + productId;
                         } else {
 
                             url = SHOW_INDEX_ITEM;

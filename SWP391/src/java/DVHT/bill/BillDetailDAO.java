@@ -14,6 +14,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.naming.NamingException;
 
@@ -73,5 +74,68 @@ public class BillDetailDAO {
             }
         }
         return key;
+    }
+        
+    
+      private List<BillDetailDTO> billDetailList;
+
+    public List<BillDetailDTO> getBillDetailList() {
+        return billDetailList;
+    }
+
+      
+      
+      
+    public BillDetailDTO showListBillDetail(int BillID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        BillDetailDTO result = new BillDetailDTO();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [BillDetailID] ,[BillID] ,[ProductID] ,[SizeID],Quantity,Price "
+                        + "from BillDetail "
+                        + "where BillID= ? ";
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, BillID);
+                //execute query  
+                rs = stm.executeQuery();
+
+                //5 process
+                while (rs.next()) {
+//                    int BillID = rs.getInt("BillID");
+                    int BillDetailID = rs.getInt("BillDetailID");
+                    int ProductID = rs.getInt("ProductID");
+                    int SizeID = rs.getInt("SizeID");
+                    int Quantity = rs.getInt("Quantity");
+                    Double Price = rs.getDouble("Price");
+
+                    //create dto
+                    BillDetailDTO dto = new BillDetailDTO(BillDetailID, BillID, ProductID, SizeID, Quantity, SizeID);
+                    
+                    result = dto;
+                    if (this.billDetailList == null) {
+                        this.billDetailList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.billDetailList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+        return result;
     }
 } 

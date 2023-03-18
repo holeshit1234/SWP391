@@ -6,6 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +93,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
-                                     <a class="nav-link" href="showBill">Bill</a>
+                                    <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
 
                                 </nav>
@@ -127,32 +128,34 @@
                                 <i class="fas fa-table me-1"></i>
                                 DataTable User
                             </div>
+                            
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
                             <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
-                            <c:set var="result" value="${requestScope.ORDER_RESULT  }"/>
+                            <c:set var="result" value="${requestScope.ORDER_RESULT}"/>
+                           
 
-                            <c:if test="${not empty result}">
-                                <table id="datatablesSimple" >
-                                    <thead>
-                                        <tr>
-                                            <th>ID</th>
-                                            <th>Date</th>
-                                            <th>Full Name</th>
-                                            <th>Location</th>
-                                            <th>Product </th>
-                                            <th>Size </th>
-                                            <th>Quantity </th>
-                                            <th>Total</th>
-                                            <th>Status</th>
-                                            <th>Confirm</th>
-                                            <!--                                            <th>Delete</th>-->
-                                        </tr>
-                                    </thead>
-                                    <tbody>
+                            <table id="datatablesSimple" >
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Date</th>
+                                        <th>Full Name</th>
+                                        <th>Location</th>
+                                        <th>Product </th>
+                                        <th>Size </th>
+                                        <th>Quantity </th>
+                                        <th>Total</th>
+                                        <th>Status</th>
+                                        <th>Confirm</th>
+                                        <!--                                            <th>Delete</th>-->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:if test="${not empty result}">
                                         <c:forEach var="dto" items="${result}">
                                             <c:if test="${dto.getApprovalStatus()==1}">
                                                 <tr>
@@ -188,7 +191,10 @@
                                                     </td>
 
 
-                                                    <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
+                                                    <td>
+                                                         <fmt:formatNumber var="totalprice" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                        ${totalprice}<sup>vnđ</sup>
+                                                    </td>
                                                     <td>Chờ xác nhận</td>
                                                     <td>
                                                         <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm();">
@@ -197,23 +203,21 @@
                                                             <input type="submit" id="submitBtn" value="Xác nhận"  />
                                                         </form>
                                                     </td>
-
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
-                                    <script>
-                                        function confirm() {
-                                            alert("bạn có chắc chắn quyết định của mình ");
-                                        }
-                                    </script>
-                                    </tbody>
-                                </table>
-
-                            </c:if>
+                                    </c:if> 
+                                    
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </main>
-
+                <script>
+                    function confirm() {
+                        alert("bạn có chắc chắn quyết định của mình ");
+                    }
+                </script>
 
 
                 <footer class="py-4 bg-light mt-auto">

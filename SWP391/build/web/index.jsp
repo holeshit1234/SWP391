@@ -135,7 +135,7 @@
 
                                 <div class="cartegory-right-content-item col-md-3 product-item">
                                     <a href="CommentServlet?txtProductID=${product.productID}">
-                                        <div class="item-product ">
+                                        <div class="item-product">
                                             <div><img src="asset/images/productpictures/${product.image}"></div>
                                             <div class="product-name"> 
                                                 <h4>

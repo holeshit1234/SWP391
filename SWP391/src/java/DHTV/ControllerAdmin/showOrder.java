@@ -7,6 +7,8 @@ package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
+import DVHT.bill.BillDAO;
+import DVHT.bill.BillDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -44,7 +46,14 @@ public class showOrder extends HttpServlet {
             dao.showListOrderFromBotToTop();
             List<OrderDTO> list = dao.getOrderList();
             request.setAttribute("ORDER_RESULT", list);
-
+            
+            
+            
+             BillDAO dao1 = new BillDAO();
+            dao1.showListBillOldToNew();
+            List<BillDTO> list1 = dao1.getBillList();
+            request.setAttribute("BILL_RESULT", list1);
+            
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

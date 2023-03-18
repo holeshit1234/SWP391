@@ -3,11 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/CommentServlet.java</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/LoginServlet.java</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/login.jsp</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/GoogleSignInServlet.java</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/AddToCartServlet.java</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DVHT/bill/BillDetailDTO.java</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DVHT/bill/BillDTO.java</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/ordertracking.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DVHT/bill/BillDAO.java</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/order/OrderDAO.java</file>
         </group>
     </open-files>
 </project-private>

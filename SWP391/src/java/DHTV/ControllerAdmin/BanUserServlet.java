@@ -37,19 +37,27 @@ public class BanUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        
-       String useid = request.getParameter("userID");
+
+        String useid = request.getParameter("userID");
         int id = Integer.parseInt(useid);
+        String button = request.getParameter("btAction");
         String url = "";
         try {
+            if (button.equals("Ban")) {
+                UserDetailsDAO dao = new UserDetailsDAO();
 
-            UserDetailsDAO dao = new UserDetailsDAO();
+                boolean result = dao.banUser(id);
+                if (result) {
+                    url = "GetUserNeedToCare";
+                }
+            } 
+            if(button.equals("Unban")) {
+                 UserDetailsDAO dao = new UserDetailsDAO();
 
-            boolean result = dao.banUser(id);
-            if (result) {
-                url = "GetUserNeedToCare";
+                boolean result = dao.unbanUser(id);
+                if (result) {
+                    url = "GetUserNeedToCare";
+                }
             }
 
         } catch (NamingException ex) {

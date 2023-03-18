@@ -169,17 +169,23 @@
                                                     </tr>
                                                 </thead>
                                                 <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
+                                                <jsp:useBean id="daoBill" class="DVHT.bill.BillDAO"/>
                                                 <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
+                                                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>
                                                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
                                                 <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
                                                 <c:set var="userID" value="${sessionScope.USER.userID}"/>
 
 
                                                 ${daoOrder.showOrderByUserID(userID)}
+                                                ${daoBill.showBillByUserID(userID)}
                                                 <c:if test="${not empty requestScope.STATUS}">
                                                     ${daoOrder.showOrderByUserIDAndStatus(userID, requestScope.STATUS)}
                                                 </c:if>
                                                 <tbody>
+
+
+
                                                     <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
                                                         <c:if test="${dto.getApprovalStatus() != 4}">
                                                             <tr>
@@ -187,19 +193,19 @@
                                                                 <td><p>${dto.getDate()}</p></td>
                                                                 <td>
                                                                     <c:if test="${dto.getApprovalStatus() == 1}">
-                                                                        
+
                                                                         <p style="color:gold;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
-                                                                        
+
                                                                     </c:if>
                                                                     <c:if test="${dto.getApprovalStatus() == 2}">
-                                                                 
+
                                                                         <p style="color : green;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
-                                                                       
+
                                                                     </c:if>
                                                                     <c:if test="${dto.getApprovalStatus() == 3}">
-                                                                     
+
                                                                         <p style="color : green;"> ${daoOrder.getApprovalStatus(dto.getApprovalStatus())}</p>
-                                                                 
+
                                                                     </c:if>
 
                                                                 </td>
@@ -237,6 +243,45 @@
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>
+
+                                                    <c:forEach var="dto1" items="${daoBill.getAllBillList()}" >
+
+                                                        <tr>
+                                                            <td><p>VDTH ${dto1.getBillID()}</p></td>
+                                                            <td><p>${dto1.getDate()}</p></td>
+                                                            <td>                                                                                                              
+                                                                <p style="color : green;">Đã giao hàng</p>                                                           
+                                                            </td>
+                                                            <td>
+                                                           
+                                                                ${daoBillDetail.showListBillDetail(dto1.getBillID())}
+                                                                <c:forEach var="dtoDetail" items="${daoBillDetail.getBillDetailList()}" >
+
+                                                                    <p>
+                                                                        <fmt:formatNumber var="totalPriceOfPro" 
+                                                                                          value="${daoProduct.getProductByProductID(dtoDetail.getProductID()).getPrice() * dtoDetail.getQuantity()}" 
+                                                                                          pattern="#,###"/>
+                                                                        ${daoProduct.getInfoProductByProductID(dtoDetail.getProductID()).getProductName()} -
+                                                                        size ${daoSize.getInfoSizeBySizeID(dtoDetail.getSizeID()).getSizeName()} 
+                                                                        x${dtoDetail.getQuantity()} - <br> 
+                                                                        total ${totalPriceOfPro} <sup>vnd</sup>
+                                                                    </p>
+                                                                </c:forEach>
+                                                            </td>
+                                                            <td>
+                                                                <fmt:formatNumber var="totalWithShipping1" value="${dto1.getTotalPrice()+dto1.getShippingPee()}" pattern="#,###"/>
+                                                                <p>${totalWithShipping1} <sup>vnd</sup></p>
+                                                            </td>
+                                                            <td>
+
+
+
+                                                            </td>
+                                                        </tr>
+
+                                                    </c:forEach>       
+
+
                                                 </tbody>
                                             </table>
                                         </div>

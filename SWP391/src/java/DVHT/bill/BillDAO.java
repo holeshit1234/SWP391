@@ -23,15 +23,16 @@ import javax.naming.NamingException;
  * @author mthin
  */
 public class BillDAO {
-      private List<BillDTO> orderList;
+
+    private List<BillDTO> orderList;
 
     public List<BillDTO> getBillList() {
         return orderList;
     }
-     public static int addBill(OrderDTO dto)
+
+    public static int addBill(OrderDTO dto)
             throws NamingException, SQLException, ParseException {
         //set current date
-       
 
         int key = 0;
         Connection con = null;
@@ -56,7 +57,6 @@ public class BillDAO {
                 stm.setDouble(5, dto.getTotalPrice());
                 stm.setDouble(6, dto.getShippingFee());
 
-
                 //4.execute query
                 int rows = stm.executeUpdate();
                 rs = stm.getGeneratedKeys();
@@ -79,8 +79,8 @@ public class BillDAO {
         }
         return key;
     }
-     
-     public void showListBillOldToNew()
+
+    public void showListBillOldToNew()
             throws NamingException, SQLException {
         Connection con = null;
         ResultSet rs = null;
@@ -108,10 +108,9 @@ public class BillDAO {
                     Date date = rs.getDate("Date");
                     float totalPrice = rs.getFloat("TotalPrice");
                     float ShippingFee = rs.getFloat("Shippingfee");
-                 
 
                     //create dto
-                   BillDTO dto = new BillDTO(BillID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee);
+                    BillDTO dto = new BillDTO(BillID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee);
                     System.out.println("---------------ListOrder------------" + dto);
                     if (this.orderList == null) {
                         this.orderList = new ArrayList<>();
@@ -131,6 +130,71 @@ public class BillDAO {
                 con.close();
             }
 
+        }
+    }
+
+    private List<BillDTO> allBillList;
+
+    public List<BillDTO> getAllBillList() {
+        return allBillList;
+    }
+
+   
+
+    
+
+   
+
+    public void showBillByUserID(int userID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.allBillList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select [BillID] ,[UserID] ,[PaymentID] ,[AddressID],Date,TotalPrice,Shippingfee "
+                        + "from [Bill] "
+                        + "Where UserID = ? ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, userID);
+
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int billid = rs.getInt("BillID");
+                    int paymentID = rs.getInt("PaymentID");
+                    int addressID = rs.getInt("AddressID");
+                    Date date = rs.getDate("Date");
+                    float totalPrice = rs.getFloat("TotalPrice");
+                    float shippingfee = rs.getFloat("Shippingfee");
+              
+                    //create dto
+                    BillDTO dto = new BillDTO(billid, userID, paymentID, addressID, date, totalPrice, shippingfee);
+                    System.out.println(dto);
+
+                    //add item to dto
+                    if (this.allBillList == null) {
+                        this.allBillList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.allBillList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         }
     }
 }
