@@ -181,7 +181,7 @@
                             <c:forEach var="product1" items="${Top4}">
 
                                 <div class="cartegory-right-content-item col-md-3 product-item">
-                                    <a href="CommentServlet?txtProductID=${product.productID}">
+                                    <a href="CommentServlet?txtProductID=${product1.productID}">
                                         <div class="item-product ">
                                             <div>
                                                 <img src="asset/images/productpictures/${product1.image}">
