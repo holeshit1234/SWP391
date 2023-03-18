@@ -50,50 +50,13 @@
                 border: none;
                 cursor: pointer;
             }
- 
+
         </style>
     </head>
 
     <body>
         <!---------HEADER-------->
-        <header>
-            <div class="logo">
-                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
-            </div>
-            <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
-
-            </div>                                                              
-            <div class="orther">
-
-                <li>
-                    <form action="SearchServlet">
-                        <input placeholder="Search" type="text" name="txtSearch" value="${param.txtSearch}"> <i class="fa fa-search"></i>                                                                                 
-                    </form>
-                </li>
-
-                <c:url var="urlprofile" value="ShowProfileServlet" >
-                    <c:param name="btAction" value="show" />
-                </c:url>
-                <c:if test="${not empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
-                </c:if>
-
-                <c:if test="${empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="login.jsp"></a></li>
-                </c:if>
-
-                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-
-
-                <c:if test="${not empty sessionScope.USER}">
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
-            </div>
-        </header>
-
+         <jsp:include page="header.jsp"/>
         <!---------Item-------->
         <section class="cartegory" style="margin-top: 150px">
             <div class="container">
@@ -109,18 +72,32 @@
                         </select>
                     </div>
                 </div>
-
+                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>  
+                <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                 <div class="product-list-container row">
                     <c:forEach var="product" items="${PAGING_RESULT}">
 
                         <div class="cartegory-right-content-item col-md-3 product-item">
                             <a href="CommentServlet?txtProductID=${product.productID}">
-                                <div class="item-product ">
-                                    <div><img src="asset/images/productpictures/${product.image}"></div>
+                                <div class="item-product " style="position: relative">
+
+                                    <div>
+                                        <img src="asset/images/productpictures/${product.image}">   
+                                        <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                            <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
+                                                <font color='red'>
+                                                OUT OF STOCK !
+                                                </font>
+                                            </div>
+                                        </c:if>
+                                    </div>
                                     <div class="product-name"> ${product.getProductName()}</div>
                                     <div class="product-price">
                                         <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
                                         vnđ 
+                                    </div>
+                                    <div>
+                                        Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
                                     </div>
                                 </div>
                             </a>

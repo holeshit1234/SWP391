@@ -171,13 +171,23 @@
                     </div>
                 </div>
                 <div class="product-list-container row">
+                    <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                     <c:forEach var="product" items="${PRODUCT_GENDER_RESULT}">
 
                         <div class="cartegory-right-content-item col-md-3 product-item">
                             <a href="CommentServlet?txtProductID=${product.productID}">
                                 <div class="item-product ">
                                     <c:set var="gen" value="${product.getGender()}"/>
-                                    <div><img src="asset/images/productpictures/${product.image}"></div>
+                                    <div>
+                                        <img src="asset/images/productpictures/${product.image}">
+                                        <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                            <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
+                                                <font color='red'>
+                                                OUT OF STOCK !
+                                                </font>
+                                            </div>
+                                        </c:if>
+                                    </div>
                                     <div class="product-name"> ${product.getProductName()}</div>
                                     <div class="product-price">
                                         <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  

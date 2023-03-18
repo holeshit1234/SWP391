@@ -74,6 +74,7 @@
                     </div>
                 </li>
             </div>
+            <jsp:useBean id="daoCart" class="DHTV.cart.CartDAO"/>  
             <div class="orther">
 
                 <li>
@@ -94,10 +95,27 @@
                     <li><a class="fa fa-user" href="${urlprofile}" ></a></li>
                     </c:if>
 
-                <li><a class="fa fa-shopping-bag" href="ViewCartServlet"></a></li>
-                    <c:if test="${not empty sessionScope.USER}">
+                <li>
+                    <div style="position: relative; padding-right: 15px;">
 
+                        <a class="fa fa-shopping-bag" href="ViewCartServlet">
+                            <c:if test="${not empty sessionScope.USER}">
+                                <div style=" position: absolute; right: 0; top:0;">
+                                    <sup style="background: red; border-radius: 50%; padding:0 0.3em 0 0.3em; color: #fff;">
+                                     
+                                         ${daoCart.getQuantityCartOfUser(sessionScope.USER.userID)}
+                                         
+                                    </sup>
+                                </div>
+                            </c:if>
+                        </a>
+
+                    </div>
+                </li>
+                <c:if test="${not empty sessionScope.USER}">
+                    <li>
                     <jsp:include page="logout.jsp"/>
+                    </li>
                 </c:if>
             </div>
 
