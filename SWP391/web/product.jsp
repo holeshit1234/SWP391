@@ -155,7 +155,12 @@
                 border: none;
                 cursor: pointer;
             }
-            
+
+            .fa-star, .fa-star-half-o, .fa-star-o{
+                color: yellow;
+                font-size: 25   px;
+            }
+
         </style>
     </head>
 
@@ -212,11 +217,19 @@
 
                 <div class="left">
                     <div class="main-image" >
-                       
-                        <img   id="myImage"
-                             src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
-                             alt="" class="slide">
-                        
+                        <a href="#popup1">
+                            <img   id="myImage"
+                                   src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                                   alt="" class="slide">
+                        </a>
+
+                        <div id="popup1" class="popup">
+                            <a href="#" class="close">&times;</a>
+                            <img   id="myImage"
+                                   src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                                   alt="" class="slide">
+                        </div>
+
                         <script>
                             const container = document.getElementById("myImage");
                             const img = document.querySelector(".main-image img");
@@ -224,8 +237,10 @@
                             container.addEventListener("mousemove", (e) => {
                                 const x = e.clientX - e.target.offsetLeft;
                                 const y = e.clientY - e.target.offsetTop;
+
                                 img.style.transformOrigin = `${x}px ${y}px`;
-                                img.style.transform = "scale(2)";
+                                img.style.transform = "scale(1.5)";
+                                console.log(x, y);
                             });
 
                             container.addEventListener("mouseleave", () => {
@@ -266,7 +281,8 @@
                                    " />
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             ${daoUtil.roundingFunction(avgRate)}
-                            <i class="fa fa-star"></i>
+
+                            <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5 "></starts-review>
                         </h3>
 
                         <h4> <fmt:formatNumber value="${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getPrice()}" pattern="#,###,###" />
@@ -642,15 +658,60 @@
             </div>
 
         </footer>
+        <script>
+                                                    class starsReview extends HTMLElement {
+                                                        constructor() {
+                                                            super();
+                                                            this.drawStars();
+                                                        }
+                                                        drawStars() {
+                                                            this.innerHTML = '';
+                                                            let value = parseFloat(this.getAttribute('value'));
+                                                            let max = parseInt(this.getAttribute('max'));
+
+                                                            if (value > max)
+                                                                value = max;
+
+                                                            let nWholes = Math.floor(value);
+                                                            let nParts = value % 1 == 0 ? 0 : 1;
+                                                            let nEmpty = max - nWholes - nParts;
+
+                                                            for (let i = 0; i < nWholes; i++) {
+                                                                var iElement = document.createElement('i');
+                                                                iElement.setAttribute('index', i);
+                                                                iElement.classList.add('fa');
+                                                                iElement.classList.add('fa-star');
+                                                                this.append(iElement)
+                                                            }
+
+                                                            for (let i = 0; i < nParts; i++) {
+                                                                var iElement = document.createElement('i');
+                                                                iElement.setAttribute('index', i + nWholes);
+                                                                iElement.classList.add('fa');
+                                                                iElement.classList.add('fa-star-half-o');
+                                                                this.append(iElement)
+                                                            }
+
+                                                            for (let i = 0; i < nEmpty; i++) {
+                                                                var iElement = document.createElement('i');
+                                                                iElement.setAttribute('index', i + nWholes + nParts);
+                                                                iElement.classList.add('fa');
+                                                                iElement.classList.add('fa-star-o');
+                                                                this.append(iElement)
+                                                            }
+                                                        }
+                                                    }
+                                                    window.customElements.define('starts-review', starsReview)
+        </script>
 
         <script>
-                                                    $(".col-lg-12").slice(0, 3).show();
-                                                    $(".loadMore").on("click", function () {
-                                                        $(".col-lg-12:hidden").slice(0, 3).show();
-                                                        if ($(".col-lg-12:hidden").length == 0) {
-                                                            $(".loadMore").fadeOut();
-                                                        }
-                                                    })
+            $(".col-lg-12").slice(0, 3).show();
+            $(".loadMore").on("click", function () {
+                $(".col-lg-12:hidden").slice(0, 3).show();
+                if ($(".col-lg-12:hidden").length == 0) {
+                    $(".loadMore").fadeOut();
+                }
+            })
 
         </script>
         <script>
