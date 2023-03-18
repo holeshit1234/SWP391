@@ -72,9 +72,9 @@ public class writeInformationGgServlet extends HttpServlet {
         byte[] bytes5 = street.getBytes(StandardCharsets.ISO_8859_1);
         street = new String(bytes5, StandardCharsets.UTF_8);
 
-
         HttpSession session = request.getSession(false);
 
+        String productId = (String) session.getAttribute("productId");
         String url = WRITE_INFOR_PAGE;
 
         try {
@@ -94,8 +94,12 @@ public class writeInformationGgServlet extends HttpServlet {
                     boolean result1 = dao1.updateAddressGG(userid, street, province, district, ward);
 
                     if (result && result1) {
-                        url = SHOW_ITEM_PAGE;
-                        //session.setAttribute("USER", result);
+                        if (productId != null) {
+                            url = "CommentServlet?txtProductID=" + productId;
+                        } else {
+                            url = SHOW_ITEM_PAGE;
+                            //session.setAttribute("USER", result);
+                        }
                     }
                 }
             }
