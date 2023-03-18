@@ -1027,5 +1027,64 @@ public class ProductDAO implements Serializable {
             }
         }
     }
+    
+    
+    private List<ProductDTO> getTop4Sell;
 
+    public List<ProductDTO> getGetTop4Sell() {
+        return getTop4Sell;
+    }
+    
+    
+     public void showTop4BestSalesProduct()
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.getTop4Sell = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "SELECT TOP 4 [ProductID], [ProductName], [BrandID], [CategoryID], [Price], [Status], [Description], [Image] "
+                        + "FROM  Product "
+                        + "WHERE Status = 1 "
+                        + "ORDER BY [Price] ASC ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int productID = rs.getInt("ProductID");
+                    String productName = rs.getString("ProductName");
+                    int brandID = rs.getInt("BrandID");
+                    int categoryID = rs.getInt("CategoryID");
+                    float price = rs.getFloat("Price");
+                    boolean status = rs.getBoolean("Status");
+                    String description = rs.getString("Description");
+                    String image = rs.getString("Image");
+                    //create dto
+                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
+                    System.out.println(dto);
+                    //add item to dto
+                    if (this.getTop4Sell == null) {
+                        this.getTop4Sell = new ArrayList<>();
+                    }//end the list no exsited
+                    this.getTop4Sell.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
 }

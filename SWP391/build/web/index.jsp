@@ -163,20 +163,20 @@
 
                         </div>
                         <div class="product-list-container row">
-                            <c:forEach var="product" items="${Product}">
+                            <c:forEach var="product1" items="${Top4}">
 
                                 <div class="cartegory-right-content-item col-md-3 product-item">
                                     <a href="CommentServlet?txtProductID=${product.productID}">
                                         <div class="item-product ">
-                                            <div><img src="asset/images/productpictures/${product.image}"></div>
+                                            <div><img src="asset/images/productpictures/${product1.image}"></div>
                                             <div class="product-name"> 
                                                 <h4>
-                                                    ${product.getProductName()}
+                                                    ${product1.getProductName()}
                                                 </h4>
 
                                             </div>
                                             <div class="product-price">
-                                                <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
+                                                <fmt:formatNumber value="${product1.getPrice()}" pattern="#,###,###" />                                  
                                                 vnđ </div>
                                         </div>
                                     </a>

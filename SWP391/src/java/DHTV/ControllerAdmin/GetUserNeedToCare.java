@@ -49,23 +49,24 @@ public class GetUserNeedToCare extends HttpServlet {
             ReportDAO dao = new ReportDAO();
 
             dao.getUserNeedToCare();
-            
+
             List<ReportDTO> result = dao.getGetCareList();
-
             List<CommentDTO> allResults = new ArrayList<>();
-            for (ReportDTO report : result) {
-                int commentid = report.getCommentID();
+            if (result != null) {
 
-                CommentDAO dao1 = new CommentDAO();
+                for (ReportDTO report : result) {
+                    int commentid = report.getCommentID();
 
-                dao1.getUserNeedCare(commentid);
+                    CommentDAO dao1 = new CommentDAO();
 
-                List<CommentDTO> result1 = dao1.getListUserReport();
+                    dao1.getUserNeedCare(commentid);
 
-                allResults.addAll(result1);
-                //}
+                    List<CommentDTO> result1 = dao1.getListUserReport();
+
+                    allResults.addAll(result1);
+                    //}
+                }
             }
-
             //for (CommentDTO comment : result1) {
             //int userid = comment.getUserID();
             // UserDetailsDAO dao2 = new UserDetailsDAO();

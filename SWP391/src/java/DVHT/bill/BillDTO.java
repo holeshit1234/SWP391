@@ -24,6 +24,7 @@ public class BillDTO implements Serializable{
     private Date date;
     private float totalPrice;
     private float shippingPee;
+    private String month;
 
     public BillDTO() {
     }
@@ -38,6 +39,22 @@ public class BillDTO implements Serializable{
         this.shippingPee = shippingPee;
     }
 
+    public BillDTO(float totalPrice, String month) {
+        this.totalPrice = totalPrice;
+        this.month = month;
+    }
+    
+    
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    
     public int getBillID() {
         return billID;
     }

@@ -186,7 +186,7 @@
 
 
 
-                                                    <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
+                                                 <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
                                                         <c:if test="${dto.getApprovalStatus() != 4}">
                                                             <tr>
                                                                 <td><p>VDTH ${dto.getOrderID()}</p></td>
@@ -242,7 +242,7 @@
                                                                 </td>
                                                             </tr>
                                                         </c:if>
-                                                    </c:forEach>
+                                                    </c:forEach>  
 
                                                     <c:forEach var="dto1" items="${daoBill.getAllBillList()}" >
 
@@ -253,17 +253,17 @@
                                                                 <p style="color : green;">Đã giao hàng</p>                                                           
                                                             </td>
                                                             <td>
-                                                           
+                                                                
                                                                 ${daoBillDetail.showListBillDetail(dto1.getBillID())}
-                                                                <c:forEach var="dtoDetail" items="${daoBillDetail.getBillDetailList()}" >
+                                                                <c:forEach var="dtoDetailBill" items="${daoBillDetail.getBillDetailList()}" >
 
                                                                     <p>
                                                                         <fmt:formatNumber var="totalPriceOfPro" 
-                                                                                          value="${daoProduct.getProductByProductID(dtoDetail.getProductID()).getPrice() * dtoDetail.getQuantity()}" 
+                                                                                          value="${daoProduct.getProductByProductID(dtoDetailBill.getProductID()).getPrice() * dtoDetail1.getQuantity()}" 
                                                                                           pattern="#,###"/>
-                                                                        ${daoProduct.getInfoProductByProductID(dtoDetail.getProductID()).getProductName()} -
-                                                                        size ${daoSize.getInfoSizeBySizeID(dtoDetail.getSizeID()).getSizeName()} 
-                                                                        x${dtoDetail.getQuantity()} - <br> 
+                                                                        ${daoProduct.getInfoProductByProductID(dtoDetailBill.getProductID()).getProductName()} -
+                                                                        size ${daoSize.getInfoSizeBySizeID(dtoDetailBill.getSizeID()).getSizeName()} 
+                                                                        x${dtoDetailBill.getQuantity()} - <br> 
                                                                         total ${totalPriceOfPro} <sup>vnd</sup>
                                                                     </p>
                                                                 </c:forEach>

@@ -9,6 +9,10 @@ import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
+import DVHT.bill.BillDAO;
+import DVHT.bill.BillDTO;
+import DVHT.bill.BillDetailDAO;
+import DVHT.bill.BillDetailDTO;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -50,14 +54,14 @@ public class ShowDashBoard extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
-            OrderDetailDAO dao = new OrderDetailDAO();
+            BillDetailDAO dao = new BillDetailDAO();
 
             dao.getTop10Products();
 
-            List<OrderDetailDTO> top10Products = dao.getListdto();
+            List<BillDetailDTO> top10Products = dao.getListdto();
             // Create a dataset
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (OrderDetailDTO product : top10Products) {
+            for (BillDetailDTO product : top10Products) {
                 dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
             }
             // Create a chart
@@ -85,12 +89,12 @@ public class ShowDashBoard extends HttpServlet {
             
             
             
-            OrderDAO dao1 = new OrderDAO();
+            BillDAO dao1 = new BillDAO();
             dao1.getTotalPriceWithMonth();
-            List<OrderDTO> totalPriceWithMonths = dao1.getListPriceMonths();
+            List<BillDTO> totalPriceWithMonths = dao1.getListPriceMonths();
             // Create a dataset
             DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-            for (OrderDTO order : totalPriceWithMonths) {
+            for (BillDTO order : totalPriceWithMonths) {
                 dataset1.addValue(order.getTotalPrice(),"Total Price", order.getMonth());
             }
             // Create a chart
@@ -109,7 +113,7 @@ public class ShowDashBoard extends HttpServlet {
             chart1.setBackgroundPaint(Color.WHITE);
 
             // Generate a PNG image of the chart
-            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(600, 400));
+            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(800, 400));
 
             // Store the chart image as a Base64-encoded string in a request attribute
             String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);

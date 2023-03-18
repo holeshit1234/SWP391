@@ -364,104 +364,104 @@ public class OrderDAO implements Serializable {
         return result;
     }
 
-    private List<OrderDTO> listPriceMonths;
-
-    public List<OrderDTO> getListPriceMonths() {
-        return listPriceMonths;
-    }
-
-    public void getTotalPriceWithMonth() throws NamingException, SQLException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            //1. Connect to the database
-            con = DBHelpers.getConnection();
-            if (con != null) {
-                //2. Define the SQL query to retrieve the top 10 products based on their quantity
-                String sql = "    \n"
-                        + "    SELECT MONTH(Date) AS month, SUM(TotalPrice) AS total_price,YEAR(Date) AS year\n"
-                        + "FROM [Order]\n"
-                        + "Where YEAR(Date) = 2023\n"
-                        + "GROUP BY MONTH(Date) ,YEAR(Date) ";
-                //3. Create the PreparedStatement
-                stm = con.prepareStatement(sql);
-                //4. Execute the query and retrieve the results
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    //5. Retrieve the data from the result set and create a ProductDTO object
-                    OrderDTO product = new OrderDTO();
-                    String montn = rs.getString("month");
-                    Double total = rs.getDouble("total_price");
-                    //6. Add the product to the list
-                    product = new OrderDTO(total, montn);
-
-                    if (this.listPriceMonths == null) {
-                        this.listPriceMonths = new ArrayList<>();
-                    }
-                    this.listPriceMonths.add(product);
-                }
-            } //end con is available
-        } finally {
-            //7. Close the database resources
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
-
-    public void getTotalPriceWithMonthByYear(String year) throws NamingException, SQLException {
-        Connection con = null;
-        PreparedStatement stm = null;
-        ResultSet rs = null;
-        try {
-            //1. Connect to the database
-            con = DBHelpers.getConnection();
-            if (con != null) {
-                //2. Define the SQL query to retrieve the top 10 products based on their quantity
-                String sql = "    \n"
-                        + "    SELECT MONTH(Date) AS month, SUM(TotalPrice) AS total_price,YEAR(Date) AS year\n"
-                        + "FROM [Order]\n"
-                        + "Where YEAR(Date) = ?\n"
-                        + "GROUP BY MONTH(Date) ,YEAR(Date) ";
-                //3. Create the PreparedStatement
-                stm = con.prepareStatement(sql);
-                stm.setString(1, year);
-                //4. Execute the query and retrieve the results
-                rs = stm.executeQuery();
-                while (rs.next()) {
-                    //5. Retrieve the data from the result set and create a ProductDTO object
-                    OrderDTO product = new OrderDTO();
-                    String month = rs.getString("month");
-                    Double total = rs.getDouble("total_price");
-                    //6. Add the product to the list
-                    product = new OrderDTO(total, month);
-
-                    if (this.listPriceMonths == null) {
-                        this.listPriceMonths = new ArrayList<>();
-                    }
-                    this.listPriceMonths.add(product);
-                }
-            } //end con is available
-        } finally {
-            //7. Close the database resources
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
+//    private List<OrderDTO> listPriceMonths;
+//
+//    public List<OrderDTO> getListPriceMonths() {
+//        return listPriceMonths;
+//    }
+//
+//    public void getTotalPriceWithMonth() throws NamingException, SQLException {
+//        Connection con = null;
+//        PreparedStatement stm = null;
+//        ResultSet rs = null;
+//        try {
+//            //1. Connect to the database
+//            con = DBHelpers.getConnection();
+//            if (con != null) {
+//                //2. Define the SQL query to retrieve the top 10 products based on their quantity
+//                String sql = "    \n"
+//                        + "    SELECT MONTH(Date) AS month, SUM(TotalPrice) AS total_price,YEAR(Date) AS year\n"
+//                        + "FROM [Order]\n"
+//                        + "Where YEAR(Date) = 2023\n"
+//                        + "GROUP BY MONTH(Date) ,YEAR(Date) ";
+//                //3. Create the PreparedStatement
+//                stm = con.prepareStatement(sql);
+//                //4. Execute the query and retrieve the results
+//                rs = stm.executeQuery();
+//                while (rs.next()) {
+//                    //5. Retrieve the data from the result set and create a ProductDTO object
+//                    OrderDTO product = new OrderDTO();
+//                    String montn = rs.getString("month");
+//                    Double total = rs.getDouble("total_price");
+//                    //6. Add the product to the list
+//                    product = new OrderDTO(total, montn);
+//
+//                    if (this.listPriceMonths == null) {
+//                        this.listPriceMonths = new ArrayList<>();
+//                    }
+//                    this.listPriceMonths.add(product);
+//                }
+//            } //end con is available
+//        } finally {
+//            //7. Close the database resources
+//            if (rs != null) {
+//                rs.close();
+//            }
+//            if (stm != null) {
+//                stm.close();
+//            }
+//            if (con != null) {
+//                con.close();
+//            }
+//        }
+//    }
+//
+//    public void getTotalPriceWithMonthByYear(String year) throws NamingException, SQLException {
+//        Connection con = null;
+//        PreparedStatement stm = null;
+//        ResultSet rs = null;
+//        try {
+//            //1. Connect to the database
+//            con = DBHelpers.getConnection();
+//            if (con != null) {
+//                //2. Define the SQL query to retrieve the top 10 products based on their quantity
+//                String sql = "    \n"
+//                        + "    SELECT MONTH(Date) AS month, SUM(TotalPrice) AS total_price,YEAR(Date) AS year\n"
+//                        + "FROM [Order]\n"
+//                        + "Where YEAR(Date) = ?\n"
+//                        + "GROUP BY MONTH(Date) ,YEAR(Date) ";
+//                //3. Create the PreparedStatement
+//                stm = con.prepareStatement(sql);
+//                stm.setString(1, year);
+//                //4. Execute the query and retrieve the results
+//                rs = stm.executeQuery();
+//                while (rs.next()) {
+//                    //5. Retrieve the data from the result set and create a ProductDTO object
+//                    OrderDTO product = new OrderDTO();
+//                    String month = rs.getString("month");
+//                    Double total = rs.getDouble("total_price");
+//                    //6. Add the product to the list
+//                    product = new OrderDTO(total, month);
+//
+//                    if (this.listPriceMonths == null) {
+//                        this.listPriceMonths = new ArrayList<>();
+//                    }
+//                    this.listPriceMonths.add(product);
+//                }
+//            } //end con is available
+//        } finally {
+//            //7. Close the database resources
+//            if (rs != null) {
+//                rs.close();
+//            }
+//            if (stm != null) {
+//                stm.close();
+//            }
+//            if (con != null) {
+//                con.close();
+//            }
+//        }
+//    }
 
     public void showListOrderFromBotToTop()
             throws NamingException, SQLException {

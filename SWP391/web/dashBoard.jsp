@@ -138,13 +138,13 @@
                         <div class="row">
                             <div class="col-xl-12">
 
-                                <h1>Top Product Sales Chart</h1>
+                                <h1>Top Product Sales Chart In Months</h1>
                                 <img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart">
 
                             </div>
                             <div class="col-xl-12">
 
-                                <h1>Monthly Sales Chart</h1>
+                                <h1>Revenue of Year</h1>
                                 <img src="data:image/png;base64,${base64EncodedChart2}" alt="Monthly Sales Chart">
                             </div>
                         </div>

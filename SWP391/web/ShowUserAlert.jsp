@@ -195,7 +195,9 @@
                                         </tbody>
                                     </table>                
                                 </c:if>                                           
-
+                                <c:if test="${ empty requestScope.COMENT}">
+                                    No one get alert
+                                </c:if>
                             </div>
 
                         </div>
