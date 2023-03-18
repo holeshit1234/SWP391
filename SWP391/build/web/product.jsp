@@ -127,36 +127,7 @@
 
 
         </style>       
-        <style>
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
 
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-
-            .dropbtn {
-                /*                padding: 12px 16px;*/
-                border: none;
-                cursor: pointer;
-            }
-            
-        </style>
     </head>
 
     <body>
@@ -212,11 +183,11 @@
 
                 <div class="left">
                     <div class="main-image" >
-                       
+
                         <img   id="myImage"
-                             src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
-                             alt="" class="slide">
-                        
+                               src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                               alt="" class="slide">
+
                         <script>
                             const container = document.getElementById("myImage");
                             const img = document.querySelector(".main-image img");
@@ -285,16 +256,80 @@
                         </p>
                         Size :
                         <br>
-                        ${daoProductDetail.showSizeListByProductID(requestScope.PRODUCTID)}
-                        <c:if test="${empty daoProductDetail.getSizeList()}">
+                        <input type="hidden" value=" ${daoProductDetail.getSizeIdById(requestScope.PRODUCTID)}"/>
+                        <c:if test="${empty daoProductDetail.getDetailList()}">
                             The product is temporarily out of stock!
                         </c:if>
                         <div class="add flex1">
-                            <c:forEach var="dto" items="${daoProductDetail.getSizeList()}">
-                                <input type="radio" name="txtSizeID" value="${dto.getSizeID()}">
-                                <label
-                                    for="age1">${daoSize.getInfoSizeBySizeID(dto.getSizeID()).getSizeName()}</label><br>
+                            <c:forEach var="dto" items="${daoProductDetail.getDetailList()}">
+                                <c:if test="${dto.getQuantity() != 0}">
+                                    <input type="radio" name="txtSizeID" value="${dto.getSizeID()}" onchange="showQuantity(this)" data-maxquantity="${dto.getQuantity()}">
+                                    <label for="age1">${daoSize.getInfoSizeBySizeID(dto.getSizeID()).getSizeName()}</label>
+                                    <input type="hidden" name="maxQuantity" value="${dto.getQuantity()}" />
+                                </c:if>
                             </c:forEach>
+                        </div>
+                        Số lượng :
+
+                        <div class="quantity-control">
+                            <div class="desins">
+                                <button id="btn-di" type="button" onclick="decrementValue()">-</button>
+                            </div>
+                            <input  id="inputQuantity" type="text" name="txtQuantity" value="1" min="1" max="maxQuantity" step="1" oninput="checkQuantity()">
+                            <div class="desins">
+                                <button id="btn-di" type="button" onclick="incrementValue()">+</button>
+                            </div>
+                        </div>
+                        <style>
+
+                            #btn-di{
+                                outline: none;
+                                cursor: pointer;
+                                border: 0;
+                                font-size: 20px;
+                                font-weight: 300;
+                                line-height: 1;
+                                letter-spacing: 0;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                transition: background-color .1s cubic-bezier(.4,0,.6,1);
+                                border: 1px solid rgba(0,0,0,.09);
+                                border-radius: 2px;
+                                background: transparent;
+                                color: rgba(0,0,0,.8);
+                                width: 32px;
+                                height: 32px;
+                                background-color: #ccc;
+
+                            }
+
+                            .quantity-control {
+                                display: flex;
+                                align-items: center;
+                                outline-color:  #66afe9 ;
+                            }
+
+                            .desins {
+                                display: flex;
+                                align-items: center;
+                                padding-bottom: 10px;
+
+
+                            }
+                            #inputQuantity{
+                                width: 50px;
+                                height: 32px;
+                                padding-top: 4px; 
+                                align-items: center;
+                                border: 1px solid rgba(0,0,0,.09);
+                                justify-content: center;
+                                text-align: center;
+                            }
+
+                        </style>
+                        <div>
+                            <span id="maxQuantity"></span> sản phẩm có sẵn
                         </div>
                         <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
                         <input type="hidden" name="txtStoreID" value="1" />
@@ -776,7 +811,7 @@
             };
         </script>
 
-
+        <script src="asset/js/desins.js"></script>
     </body>
 
 </html>

@@ -22,7 +22,12 @@
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>      
-                <style>
+               
+    </head>
+
+    <body>
+        <!---------HEADER-------->
+              <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -50,28 +55,30 @@
                 border: none;
                 cursor: pointer;
             }
+            .brand-content{
+                background-color:#e1c5a7 ;
+            }
         </style>
-    </head>
 
-    <body>
-        <!---------HEADER-------->
         <header>
             <div class="logo">
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
+            <jsp:useBean id="brand" class="DHTV.brand.BrandDAO" />
+            ${brand.listBrand()}
             <div class="menu">
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
-                 <li class="dropdown">
+                <li class="dropdown">
                     <a class="dropbtn">Brand</a>
                     <div class="dropdown-content">
-                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
-                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        <c:forEach var="bl" items="${brand.getBrandList()}">
+                            <a class="brand-content" href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
                         </c:forEach>
                     </div>
                 </li>
-            </div>                                                              
+            </div>                                                             
             <div class="orther">
 
                 <li>

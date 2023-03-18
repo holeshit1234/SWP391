@@ -72,7 +72,12 @@
             }
 
         </style>   
-                <style>
+
+    </head>
+
+    <body>
+        <!---------HEADER-------->
+        <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -100,15 +105,17 @@
                 border: none;
                 cursor: pointer;
             }
+            .brand-content{
+                background-color:#e1c5a7 ;
+            }
         </style>
-    </head>
 
-    <body>
-        <!---------HEADER-------->
         <header>
             <div class="logo">
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
             </div>
+            <jsp:useBean id="brand" class="DHTV.brand.BrandDAO" />
+            ${brand.listBrand()}
             <div class="menu">
                 <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
                 <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
@@ -116,8 +123,8 @@
                 <li class="dropdown">
                     <a class="dropbtn">Brand</a>
                     <div class="dropdown-content">
-                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
-                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
+                        <c:forEach var="bl" items="${brand.getBrandList()}">
+                            <a class="brand-content" href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
                         </c:forEach>
                     </div>
                 </li>
@@ -170,7 +177,7 @@
                         <div class="cartegory-right-content-item col-md-3 product-item">
                             <a href="CommentServlet?txtProductID=${product.productID}">
                                 <div class="item-product ">
-                                   <c:set var="brandId" value="${product.getBrandID()}"/>
+                                    <c:set var="brandId" value="${product.getBrandID()}"/>
                                     <div><img src="asset/images/productpictures/${product.image}"></div>
                                     <div class="product-name"> ${product.getProductName()}</div>
                                     <div class="product-price">
