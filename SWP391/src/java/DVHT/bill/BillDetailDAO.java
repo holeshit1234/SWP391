@@ -241,4 +241,43 @@ public class BillDetailDAO {
             }
         }
     }
+    
+    
+    public int getQuantityByProductID (int productID)
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        int quantity = 0;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                 String sql = "SELECT [Quantity] " +
+                            "FROM [BillDetail] " +
+                            "where ProductID = ?";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, productID);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while(rs.next()){
+                    quantity += rs.getInt("Quantity");
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return quantity;
+        }
+    }
 }

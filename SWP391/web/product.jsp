@@ -10,6 +10,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Bootstrap -->
         <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+        <link href="http://use.fontawesome.com/releases/v5.0.8/css/all.css" rel="stylesheet">
         <link rel="stylesheet" href="asset/css/styleproduct.css">
         <link rel="shortcut icon" href="asset/images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
@@ -21,6 +22,7 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
         <style>
             .confirm-box {
                 position: fixed;
@@ -155,8 +157,12 @@
                 border: none;
                 cursor: pointer;
             }
-            
+
         </style>
+        
+        
+        
+        
     </head>
 
     <body>
@@ -212,27 +218,27 @@
 
                 <div class="left">
                     <div class="main-image" >
-                       
+
                         <img   id="myImage"
-                             src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
-                             alt="" class="slide">
+                               src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getImage()}"
+                               alt="" class="slide">
+
+                        <!--                        <script>
+                                                    const container = document.getElementById("myImage");
+                                                    const img = document.querySelector(".main-image img");
                         
-                        <script>
-                            const container = document.getElementById("myImage");
-                            const img = document.querySelector(".main-image img");
-
-                            container.addEventListener("mousemove", (e) => {
-                                const x = e.clientX - e.target.offsetLeft;
-                                const y = e.clientY - e.target.offsetTop;
-                                img.style.transformOrigin = `${x}px ${y}px`;
-                                img.style.transform = "scale(2)";
-                            });
-
-                            container.addEventListener("mouseleave", () => {
-                                img.style.transformOrigin = "center";
-                                img.style.transform = "scale(1)";
-                            });
-                        </script>
+                                                    container.addEventListener("mousemove", (e) => {
+                                                        const x = e.clientX - e.target.offsetLeft;
+                                                        const y = e.clientY - e.target.offsetTop;
+                                                        img.style.transformOrigin = `${x}px ${y}px`;
+                                                        img.style.transform = "scale(2)";
+                                                    });
+                        
+                                                    container.addEventListener("mouseleave", () => {
+                                                        img.style.transformOrigin = "center";
+                                                        img.style.transform = "scale(1)";
+                                                    });
+                                                </script>-->
 
                     </div>
 
@@ -266,7 +272,25 @@
                                    " />
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             ${daoUtil.roundingFunction(avgRate)}
-                            <i class="fa fa-star"></i>
+
+                            <div id="product-1">
+                                <div class="product_star">
+                                    <div class="stars-outer">
+                                        <div class="stars-inner"></div>
+                                    </div>
+                                    <span class="number-rating"></span>
+                                </div>
+                            </div>
+                            <script>
+                                const productSelect = document.getElementById('product-select');
+                                const ratingControl = document.getElementById('rating-control');
+                                const ratings = {
+                                    'product-1': 3
+                                };
+
+                            </script>
+
+
                         </h3>
 
                         <h4> <fmt:formatNumber value="${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getPrice()}" pattern="#,###,###" />
