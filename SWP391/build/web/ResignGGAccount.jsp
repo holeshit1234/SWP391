@@ -24,21 +24,8 @@
     <body>
 
         <!---------HEADER-------->
-        <header>
-            <div class="logo">
-                <img src="asset/images/logo-circle.png">
-            </div>
-            <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
-            </div>
-            <div class="orther">
-                <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
-                <li><a class="fa fa-user" href="login.html"></a></li>
-                <li><a class="fa fa-shopping-bag" href=""></a></li>
-            </div>
-        </header>
+
+        <jsp:include page="header.jsp"/>
         <!---------resingin-GG-form-------->
         <div class="body">
             <div class="container">

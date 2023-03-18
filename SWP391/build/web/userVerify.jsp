@@ -21,53 +21,53 @@
     <body>
         <jsp:include page="header.jsp"/>
 
-<div class="content">
-        <div class="forgot">
-            <div class="container">
-                <div class="forgot-heading">
-                    <h1>Login</h1>
-                </div>
-                <img srcset="images/Login-line.png 2x" alt="" />
-                <div class="forgot-form-container">
+        <div class="content">
+            <div class="forgot">
+                <div class="container">
+                    <div class="forgot-heading">
+                        <h1>Login</h1>
+                    </div>
+                    <img srcset="images/Login-line.png 2x" alt="" />
+                    <div class="forgot-form-container">
 
-                    <form action="UserVerifyServlet" method="POST">
-                        <p class="forgot-text">Password Recovery</p>
-                        <c:set var = "scope" value="${requestScope.VERIFYMAIL_SCOPE}"/>
-                        <div class="forgot-form">
-                            <input type="email" name="txtEmail"
-                                   class="forgot-input-email"
-                                   placeholder="Example@gmail.com"
-                                   value="${param.txtEmail}"><br/>
-                            <div class="phat">
-                                <c:if test="${not empty scope.emailLengthError}">
-                                    <font color="red" >
-                                    ${scope.emailLengthError}
+                        <form action="UserVerifyServlet" method="POST">
+                            <p class="forgot-text">Password Recovery</p>
+                            <c:set var = "scope" value="${requestScope.VERIFYMAIL_SCOPE}"/>
+                            <div class="forgot-form">
+                                <input type="email" name="txtEmail"
+                                       class="forgot-input-email"
+                                       placeholder="Example@gmail.com"
+                                       value="${param.txtEmail}"><br/>
+                                <div class="phat">
+                                    <c:if test="${not empty scope.emailLengthError}">
+                                        <font color="red" >
+                                        ${scope.emailLengthError}
+                                        </font><br/>
+                                    </c:if>
+                                </div>
+                                <c:if test="${not empty scope.emailNotExisted}">
+                                    <font color="red">
+                                    ${scope.emailNotExisted}
+                                    </font><br/>
+                                </c:if>
+                                <c:if test="${not empty scope.signUpWithGoogleAccount}">
+                                    <font color="red">
+                                    ${scope.signUpWithGoogleAccount}
                                     </font><br/>
                                 </c:if>
                             </div>
-                            <c:if test="${not empty scope.emailNotExisted}">
-                                <font color="red">
-                                ${scope.emailNotExisted}
-                                </font><br/>
-                            </c:if>
-                            <c:if test="${not empty scope.signUpWithGoogleAccount}">
-                                <font color="red">
-                                ${scope.signUpWithGoogleAccount}
-                                </font><br/>
-                            </c:if>
-                        </div>
                             <div class="forgot-function" style="margin-top: 10px">                            
-                            <div class="forgot-function-choose">
-                                <input class="forgot-function-btn" type="submit" value="Send"
-                                       name = "btAction">
-                                <a href="login.jsp" class="forgot-function-cancel">Cancel</a>
+                                <div class="forgot-function-choose">
+                                    <input class="forgot-function-btn" type="submit" value="Send"
+                                           name = "btAction">
+                                    <a href="login.jsp" class="forgot-function-cancel">Cancel</a>
+                                </div>
                             </div>
-                        </div>
-                    </form>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
 
         <!---------Footer-------->
         <footer>

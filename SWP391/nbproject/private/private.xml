@@ -2,24 +2,22 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-        <group/>
-=======
         <group>
-<<<<<<< HEAD
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/writeInformationGgServlet.java</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/META-INF/context.xml</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/updateaddress.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/product.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/userVerify.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/index_ProductBrand.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/showAddress.jsp</file>
             <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/src/java/DHTV/Controller/GoogleSignInServlet.java</file>
-=======
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/cart/CartDAO.java</file>
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/product.jsp</file>
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/product/ProductDetailDAO.java</file>
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/Controller/CodeProductServlet.java</file>
-            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/header.jsp</file>
->>>>>>> ea7799ffba7507d746053714fc6105709dec4860
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/login.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/search.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/ResignGGAccount.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/profiles.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/ordertracking.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/resetPassword.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/signup.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/index_ProductNam.jsp</file>
+            <file>file:/D:/copylaij/NewMain/SWP391/SWP391/web/verifyCode.jsp</file>
         </group>
->>>>>>> 3be31487af2219b0f9f8c138c1531b9263a86718
     </open-files>
 </project-private>

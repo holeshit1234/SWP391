@@ -14,111 +14,12 @@
         <link rel="shortcut icon" href="images/logo.png">
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<<<<<<< HEAD
 
-        <style>
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
-
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-
-            .dropbtn {
-                /*                padding: 12px 16px;*/
-                border: none;
-                cursor: pointer;
-            }
-        </style>        <style>
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
-
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-
-            .dropbtn {
-                /*                padding: 12px 16px;*/
-                border: none;
-                cursor: pointer;
-            }
-        </style>
-=======
-   
->>>>>>> d73e1015c5c778582a66001ee9b0aed35a973185
     </head>
 
     <body>
         <!---------HEADER-------->
-        <header>
-            <div class="logo">
-                <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
-            </div>
-            <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
-                <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
-                <li class="dropdown">
-                    <a class="dropbtn">Brand</a>
-                    <div class="dropdown-content">
-                        <c:forEach var="bl" items="${requestScope.BRAND_RESULT}">
-                            <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
-                        </c:forEach>
-                    </div>
-                </li>
-            </div>
-            <div class="orther">
-                <li><input placeholder="Search" type="text"><i class="fa fa-search"></i></li>
-
-                <c:url var="urlprofile" value="ShowProfileServlet">
-                    <c:param name="btAction" value="show"/>
-                </c:url>
-
-                <c:if test="${not empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="${urlprofile}"></a></li>
-                    </c:if>
-
-                <c:if test="${empty sessionScope.USER}">
-                    <li><a class="fa fa-user" href="login.jsp"></a></li>
-                    </c:if>
-
-                <li><a class="fa fa-shopping-bag" href=""></a></li>
-                    <c:if test="${not empty sessionScope.USER}">
-
-                    <jsp:include page="logout.jsp"/>
-                </c:if>
-            </div>
-        </header>
+        <jsp:include page="header.jsp"/>
         <!---------sign-up-form-------->
         <section class="sigup">
             <div class="container">
@@ -285,7 +186,7 @@
                 integrity="sha512-bPh3uwgU5qEMipS/VOmRqynnMXGGSRv+72H/N260MQeXZIK4PG48401Bsby9Nq5P5fz7hy5UGNmC/W1Z51h2GQ=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="asset/js/apiProvince.js"></script>
-       
+
     </body>
 
 </html>
