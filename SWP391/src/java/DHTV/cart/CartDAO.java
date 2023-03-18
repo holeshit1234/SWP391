@@ -154,6 +154,39 @@ public class CartDAO implements Serializable{
             return result;
         }
     }
+      
+public int getQuantityCartOfUser(int userID) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int result = 0;
+        ResultSet rs = null;
+        try {
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //create sql
+                String sql = "select * " +
+                    "from [Cart] " +
+                    "where UserID = ?";
+                //create stm
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, userID);                   
+                //execute
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    result ++;
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return result;
+        }
+    }
+
     
 public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLException {
         Connection con = null;

@@ -23,47 +23,15 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>       
-        <style>
 
-            .product-price{
-                color: red;
+    </head>
 
-                .dropdown {
-                    position: relative;
-                    display: inline-block;
-                }
+    <body>
+     
 
-                .dropdown-content {
-                    display: none;
-                    position: absolute;
-                    z-index: 1;
-                }
-
-                .dropdown-content a {
-                    color: black;
-                    padding: 12px 16px;
-                    text-decoration: none;
-                    display: block;
-                }
-
-                .dropdown:hover .dropdown-content {
-                    display: block;
-                }
-
-                .dropbtn {
-                    /*                padding: 12px 16px;*/
-                    border: none;
-                    cursor: pointer;
-
-                }
-
-
-            </style>
-        </head>
-
-        <body>
-            <!---------HEADER-------->
-            <header>
+    
+            
+<%--            <header>
                 <div class="logo">
                     <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
                 </div>
@@ -78,7 +46,7 @@
                                     <a href="ShowProuductByBrandID?brandID=${bl.getBrandId()}">${bl.getBrandName()}</a>
                                 </c:forEach>
                             </div>
-                        </li> --%>
+                        </li> 
                 </div>
                 <div class="orther">
                     <li>
@@ -103,7 +71,10 @@
                             <jsp:include page="logout.jsp"/>
                         </c:if>
                 </div>
-            </header>
+            </header>-->--%>
+                        <jsp:include page="header.jsp"/>
+                        
+                
             <!---------Banner-slider-------->
             <section id="slider">
                 <div class="aspect-ratio-169">
@@ -123,7 +94,9 @@
             </section>
             <!---------Item-------->
             <section class="cartegory">
-                <div class="container">             
+                <div class="container">            
+                    <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/> 
+                    <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                     <div class="new-prod">
                         <div class="product-list-header" style="margin-top:45px">
 
@@ -136,7 +109,16 @@
                                 <div class="cartegory-right-content-item col-md-3 product-item">
                                     <a href="CommentServlet?txtProductID=${product.productID}">
                                         <div class="item-product">
-                                            <div><img src="asset/images/productpictures/${product.image}"></div>
+                                            <div>
+                                                <img src="asset/images/productpictures/${product.image}">
+                                                <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                                    <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
+                                                        <font color='red'>
+                                                        OUT OF STOCK !
+                                                        </font>
+                                                    </div>
+                                                </c:if>
+                                            </div>
                                             <div class="product-name"> 
                                                 <h4>
                                                     ${product.getProductName()}
@@ -146,6 +128,10 @@
                                             <div class="product-price">
                                                 <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
                                                 vnđ </div>
+                                            <div>
+                                                Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
+                                            </div>
+
                                         </div>
                                     </a>
                                 </div>
@@ -168,7 +154,16 @@
                                 <div class="cartegory-right-content-item col-md-3 product-item">
                                     <a href="CommentServlet?txtProductID=${product1.productID}">
                                         <div class="item-product ">
-                                            <div><img src="asset/images/productpictures/${product1.image}"></div>
+                                            <div>
+                                                <img src="asset/images/productpictures/${product1.image}">
+                                                <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                                    <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
+                                                        <font color='red'>
+                                                        OUT OF STOCK !
+                                                        </font>
+                                                    </div>
+                                                </c:if>
+                                            </div>
                                             <div class="product-name"> 
                                                 <h4>
                                                     ${product1.getProductName()}
@@ -178,6 +173,10 @@
                                             <div class="product-price">
                                                 <fmt:formatNumber value="${product1.getPrice()}" pattern="#,###,###" />                                  
                                                 vnđ </div>
+                                            <div>
+                                                Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
+                                            </div>
+
                                         </div>
                                     </a>
                                 </div>
@@ -194,56 +193,57 @@
 
                             </div>
                         </div>
-                       
-                </div>
-            </section>
-            <!---------Footer-------->
-            <footer>
-                <div class="footer-top">
-                    <li><a href="">Contact</a></li>
-                    <li><a href="">Recruit</a></li>
-                    <li><a href="">Introduce</a></li>
-                    <li>
-                        <a href="https://www.facebook.com/people/VDTH/100090772202536/" class="fa fa-facebook"></a>
-                        <a href="" class="fa fa-twitter"></a>
-                        <a href="" class="fa fa-youtube"></a>
-                    </li>
-                </div>
-                <div class="footer-center">
-                    <p>
-                        Contact phone number: 0909990099 <br>
-                        Registration address: 512 đường Nguyễn Xiển, Phường Long Thạnh Mỹ, Quận 9 <br>
-                        Order online: <b>0988377521</b>
-                    </p>
-                </div>
-                <div id="map"></div>
-                <div class="footer-bottom">
-                    VHTH All rights reserved
-                </div>
-            </footer>
+
+                    </div>
+                </section>
+                <!---------Footer-------->
+                <footer>
+                    <div class="footer-top">
+                        <li><a href="">Contact</a></li>
+                        <li><a href="">Recruit</a></li>
+                        <li><a href="">Introduce</a></li>
+                        <li>
+                            <a href="https://www.facebook.com/people/VDTH/100090772202536/" class="fa fa-facebook"></a>
+                            <a href="" class="fa fa-twitter"></a>
+                            <a href="" class="fa fa-youtube"></a>
+                        </li>
+                    </div>
+                    <div class="footer-center">
+                        <p>
+                            Contact phone number: 0909990099 <br>
+                            Registration address: 512 đường Nguyễn Xiển, Phường Long Thạnh Mỹ, Quận 9 <br>
+                            Order online: <b>0988377521</b>
+                        </p>
+                    </div>
+                    <div id="map"></div>
+                    <div class="footer-bottom">
+                        VHTH All rights reserved
+                    </div>
+                </footer>
 
 
 
-        </body>
-        <script src="asset/js/Jsort.js"></script>
-        <script src="asset/js/Jindex.js"></script>
-        <script>
-            function initMap() {
-                var myLatLng = {lat: 10.84142, lng: 106.81004};
+            </body>
+            <script src="asset/js/Jsort.js"></script>
+            <script src="asset/js/Jindex.js"></script>
+            <script>
+                function initMap() {
+                    var myLatLng = {lat: 10.84142, lng: 106.81004};
 
-                var map = new google.maps.Map(document.getElementById('map'), {
-                    zoom: 15,
-                    center: myLatLng
-                });
+                    var map = new google.maps.Map(document.getElementById('map'), {
+                        zoom: 15,
+                        center: myLatLng
+                    });
 
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
-                    title: 'My Location'
-                });
-            }
-        </script>
-        <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
+                    var marker = new google.maps.Marker({
+                        position: myLatLng,
+                        map: map,
+                        title: 'My Location'
+                    });
+                }
+            </script>
+            <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDc7PnOq3Hxzq6dxeUVaY8WGLHIePl0swY&callback=initMap"></script>
 
 
-    </html>
+        </html>
+>>>>>>> 3be31487af2219b0f9f8c138c1531b9263a86718
