@@ -22,38 +22,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <style>
-            .dropdown {
-                position: relative;
-                display: inline-block;
-            }
 
-            .dropdown-content {
-                display: none;
-                position: absolute;
-                z-index: 1;
-            }
-
-            .dropdown-content a {
-                color: black;
-                padding: 12px 16px;
-                text-decoration: none;
-                display: block;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: block;
-            }
-
-            .dropbtn {
-                /*                padding: 12px 16px;*/
-                border: none;
-                cursor: pointer;
-            }
-            .brand-content{
-                background-color:#e1c5a7 ;
-            }
-        </style>
 
         <header>
             <div class="logo">
