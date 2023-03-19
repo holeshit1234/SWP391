@@ -96,6 +96,7 @@
                                     <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
 
+
                                 </nav>
                             </div> 
                             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseReport" aria-expanded="false" aria-controls="collapseReport">
@@ -135,7 +136,7 @@
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
 
-                            <c:set var="result" value="${requestScope.ORDER_RESULT  }"/>
+                            <c:set var="result" value="${requestScope.BILL_RESULT  }"/>
                             <c:if test="${not empty result}">
                                 <table id="datatablesSimple" >
                                     <thead>
@@ -148,92 +149,55 @@
                                             <th>Size </th>
                                             <th>Quantity </th>
                                             <th>Total</th>
-                                            <th>Payment Status</th>
-                                            <th>Status</th>                                          
-                                            <th></th>                                          
+
+
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <c:forEach var="dto" items="${result}">
-                                            <c:if test="${dto.getApprovalStatus()>=2 && dto.getApprovalStatus()<=3}">
-                                                <tr>
-                                                    <td>
-                                                        <a> DTVH ${dto.getOrderID()} </a>                                                     
-                                                    </td>
-                                                    <td>
-                                                        ${dto.getDate()}
-                                                    </td>
-                                                    <td>
-                                                        ${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}
-                                                    </td>
-                                                    <td>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
-                                                    </td>
-                                                    <td>
-                                                        <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
-                                                        <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>
 
-                                                        <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
-                                                        </c:forEach>
-                                                    </td>
-                                                    <td>
+                                            <tr>
+                                                <td>
+                                                    <a> DTVH${dto.getBillID()} </a>                                                     
+                                                </td>
+                                                <td>
+                                                    ${dto.getDate()}
+                                                </td>
+                                                <td>
+                                                    ${daoUserDetail.getInfoUser(dto.getBillID()).getFullName()}
+                                                </td>
+                                                <td>
+                                                    ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
+                                                    ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
+                                                    ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                    ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
+                                                </td>
+                                                <td>
+                                                    <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getBillID())}"/>
+                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                        ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                    </c:forEach>
+                                                </td>
+                                                <td>
 
-                                                        <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${list.getQuantity()} <br>
-                                                        </c:forEach>
-                                                    </td>
+                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                        ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                    </c:forEach>
+                                                </td>
+                                                <td>
+
+                                                    <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                        ${list.getQuantity()} <br>
+                                                    </c:forEach>
+                                                </td>
 
 
-                                                    <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
-                                                    <td> 
+                                                <td>${dto.getTotalPrice()+dto.getShippingPee()}</td>
 
-                                                        <c:choose>
-                                                            <c:when test="${dto.isPaymentStatus() == true}">Đã  thanh toán</c:when>
-                                                            <c:when test="${dto.isPaymentStatus() == false}">Chờ thanh toán</c:when>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td>
-                                                        <c:choose>
-                                                            <c:when test="${dto.getApprovalStatus() == 2}">Đã xác nhận</c:when>
-                                                            <c:when test="${dto.getApprovalStatus() == 3}">Đã giao hàng</c:when>
-                                                        </c:choose>
-                                                    </td>
-                                                    <td>
-                                                        <c:if test="${dto.getApprovalStatus() ==2 }">
-                                                            <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm();">
-                                                                <input type="hidden" name ="txtApprovalStatus" value="${dto.getApprovalStatus()}">
-                                                                <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                                <input type="submit" id="submitBtn" value="Đã giao hàng" />
-                                                            </form>
-                                                        </c:if>
-                                                    </td>
-                                                    <td>
-                                                        <form action="DeleteOrderServlet" method="POST" onsubmit="return deleteconfirm();">
-                                                            <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                            <input type="submit" id="submitBtn" value="Delete"  style="color: red"/>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            </c:if>
+                                            </tr>
+
                                         </c:forEach>    
-                                        <!--                                    <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  -->
+
                                     </tbody>
                                 </table>
                             </c:if>
@@ -269,9 +233,6 @@
             }
             function confirm() {
                 alert("bạn có chắc chắn quyết định của mình ");
-            }
-            function deleteconfirm() {
-                alert("Nếu bạn chắn chắn xóa hãy ấn OK  ");
             }
         </script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

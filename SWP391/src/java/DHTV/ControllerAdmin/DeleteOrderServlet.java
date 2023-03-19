@@ -43,7 +43,7 @@ public class DeleteOrderServlet extends HttpServlet {
             
                 OrderDAO dao = new OrderDAO();
                 dao.setApprovalStatusOrder(orderID, ApprovalStatus);
-                url = "showOrderConfirm";
+                url = "showOrder";
             
 
         } catch (NamingException ex) {

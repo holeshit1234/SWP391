@@ -73,7 +73,7 @@ public class AddToCartServlet extends HttpServlet {
                 price = Double.parseDouble(pri);
             }
             System.out.println(productID + " , " + userID + " , " + sizeID + " , " + price);
-            int quantity = 1;
+            int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
             //------------------------------------------------------------------------------
             //checkLogin
             HttpSession session = request.getSession();
