@@ -3,19 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showBillPage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showAllProduct.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showOrderCanclePage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showProduct.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showCategoryPage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showSizePage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showBrandPage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showOrderPage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showAllUser.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showOrderConfirmPage.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/src/java/DHTV/Controller/CodeProductServlet.java</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/showAddress.jsp</file>
-            <file>file:/D:/FPT/SWP/moi8/SWP391/SWP391/web/addProductPage.jsp</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/index.jsp</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/brand/BrandDAO.java</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/product.jsp</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/header.jsp</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/UpdateInfoAdminManager.jsp</file>
         </group>
     </open-files>
 </project-private>

@@ -24,7 +24,7 @@ function showQuantity(radio) {
 
 function incrementValue() {
     var quantityInput = document.getElementsByName("txtQuantity")[0];
-    if (parseInt(quantityInput.value) <= parseInt(maxQuantity)) {
+    if (parseInt(quantityInput.value) < parseInt(maxQuantity)) {
         quantityInput.value = parseInt(quantityInput.value) + 1;
     } else {
         quantityInput.value = maxQuantity; // Set giá trị về số lớn nhất

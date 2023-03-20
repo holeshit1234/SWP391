@@ -75,7 +75,7 @@ public class BrandDAO implements Serializable{
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
- 
+        this.brandList = new ArrayList<>();
         try {
             //1 get comnnection
             con = DBHelpers.getConnection();
