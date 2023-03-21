@@ -1,0 +1,22 @@
+
+.date {
+    text-align: center;
+}
+
+.month input {
+    padding: 0px 60px;
+}
+input[type="submit"] {
+    min-width: 150px;
+    background-color: blue;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: darkblue;
+}
+

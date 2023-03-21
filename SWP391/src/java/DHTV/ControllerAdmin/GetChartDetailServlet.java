@@ -91,6 +91,14 @@ public class GetChartDetailServlet extends HttpServlet {
             request.setAttribute("base64EncodedChart", base64EncodedChart);
 
             BillDAO dao1 = new BillDAO();
+            
+               BillDTO result1 = dao1.getTotalPriceAtYear(year);
+            
+            if ( result1 != null) {
+//                request.setAttribute("date", result);
+                request.setAttribute("date1", result1);
+            }
+            
             dao1.getTotalPriceWithMonthByYear(year);
             List<BillDTO> totalPriceWithMonths = dao1.getListPriceMonths();
             // Create a dataset

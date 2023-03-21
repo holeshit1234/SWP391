@@ -54,6 +54,7 @@ public class ShowDashBoard extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try {
+
             BillDetailDAO dao = new BillDetailDAO();
 
             dao.getTop10Products();
@@ -85,17 +86,25 @@ public class ShowDashBoard extends HttpServlet {
             // Store the chart image as a Base64-encoded string in a request attribute
             String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
             request.setAttribute("base64EncodedChart", base64EncodedChart);
-            
-            
-            
-            
+
             BillDAO dao1 = new BillDAO();
+
+//            BillDTO result = dao1.getTotalPriceAtMonth();
+            BillDTO result1 = dao1.getTotalPriceAtYear();
+            
+            if ( result1 != null) {
+//                request.setAttribute("date", result);
+
+
+                request.setAttribute("date1", result1);
+            }
+
             dao1.getTotalPriceWithMonth();
             List<BillDTO> totalPriceWithMonths = dao1.getListPriceMonths();
             // Create a dataset
             DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
             for (BillDTO order : totalPriceWithMonths) {
-                dataset1.addValue(order.getTotalPrice(),"Total Price", order.getMonth());
+                dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
             }
             // Create a chart
             JFreeChart chart1 = ChartFactory.createBarChart(
@@ -118,7 +127,6 @@ public class ShowDashBoard extends HttpServlet {
             // Store the chart image as a Base64-encoded string in a request attribute
             String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);
             request.setAttribute("base64EncodedChart2", base64EncodedChart1);
-
 
         } catch (NamingException ex) {
             log("Naming" + ex.getMessage());

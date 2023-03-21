@@ -25,7 +25,8 @@ public class BillDTO implements Serializable{
     private float totalPrice;
     private float shippingPee;
     private String month;
-
+    private String year;
+    
     public BillDTO() {
     }
 
@@ -42,6 +43,24 @@ public class BillDTO implements Serializable{
     public BillDTO(float totalPrice, String month) {
         this.totalPrice = totalPrice;
         this.month = month;
+    }
+
+    public BillDTO(float totalPrice, String month, String year) {
+        this.totalPrice = totalPrice;
+        this.month = month;
+        this.year = year;
+    }
+    
+    
+    
+    
+    
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
     }
     
     

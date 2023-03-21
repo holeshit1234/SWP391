@@ -19,6 +19,8 @@ public class BillDetailDTO implements Serializable{
     private int quantity;
     private float price;
     private String productName;
+    private String month;
+    private String year;
 
     public BillDetailDTO() {
     }
@@ -38,6 +40,31 @@ public class BillDetailDTO implements Serializable{
         this.productName = productName;
     }
 
+    public BillDetailDTO(int productID, int quantity, String productName, String month, String year) {
+        this.productID = productID;
+        this.quantity = quantity;
+        this.productName = productName;
+        this.month = month;
+        this.year = year;
+    }
+
+    public String getMonth() {
+        return month;
+    }
+
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+    
+    
     public String getProductName() {
         return productName;
     }
