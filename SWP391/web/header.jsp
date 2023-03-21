@@ -23,7 +23,38 @@
     </head>
     <body>
 
+        <style>
+            .dropdown {
+                position: relative;
+                display: inline-block;
+            }
 
+            .dropdown-content {
+                display: none;
+                position: absolute;
+                z-index: 1;
+            }
+
+            .dropdown-content a {
+                color: black;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: block;
+            }
+
+            .dropbtn {
+                /*                padding: 12px 16px;*/
+                border: none;
+                cursor: pointer;
+            }
+            .brand-content{
+                background-color:#e1c5a7 ;
+            }
+        </style>
         <header>
             <div class="logo">
                 <a href="ShowIdexItemServlet"><img src="asset/images/logo-circle.png"></a>
@@ -71,9 +102,9 @@
                             <c:if test="${not empty sessionScope.USER}">
                                 <div style=" position: absolute; right: 0; top:0;">
                                     <sup style="background: red; border-radius: 50%; padding:0 0.3em 0 0.3em; color: #fff;">
-                                     
-                                         ${daoCart.getQuantityCartOfUser(sessionScope.USER.userID)}
-                                         
+
+                                        ${daoCart.getQuantityCartOfUser(sessionScope.USER.userID)}
+
                                     </sup>
                                 </div>
                             </c:if>
@@ -83,7 +114,7 @@
                 </li>
                 <c:if test="${not empty sessionScope.USER}">
                     <li>
-                    <jsp:include page="logout.jsp"/>
+                        <jsp:include page="logout.jsp"/>
                     </li>
                 </c:if>
             </div>

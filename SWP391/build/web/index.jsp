@@ -112,7 +112,7 @@
                                     <div class="item-product ">
                                         <div>
                                             <img src="asset/images/productpictures/${product1.image}">
-                                            <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                            <c:if test="${daoProductDetail.isOutOfStock(product1.getProductID()) == true}">
                                                 <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
                                                     <font color='red'>
                                                     OUT OF STOCK !

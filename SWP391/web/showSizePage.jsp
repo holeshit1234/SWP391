@@ -221,7 +221,9 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
+                                    <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
+
 
                                 </nav>
                             </div> 
@@ -277,9 +279,9 @@
                                 </c:if>
 
                                 <!-- Button trigger modal -->
-                                  <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                      Thêm Size
-                                  </button>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+                                    Thêm Size
+                                </button>
 
                                 <!-- Modal -->
                                 <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -329,10 +331,10 @@
             </div>
         </div>
         <script>
-             // Lấy tham chiếu đến các phần tử trong DOM
-             const sizeInput = document.getElementById('size');
-             const sizeError = document.getElementById('size-error');
-             const addSizeBtn = document.getElementById('add-size-btn');
+            // Lấy tham chiếu đến các phần tử trong DOM
+            const sizeInput = document.getElementById('size');
+            const sizeError = document.getElementById('size-error');
+            const addSizeBtn = document.getElementById('add-size-btn');
 
             // Khai báo biến lưu trữ tên size hiện tại
             let currentSize = '';

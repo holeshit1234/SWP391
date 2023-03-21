@@ -84,7 +84,7 @@
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             ${daoUtil.roundingFunction(avgRate)}
 
-                            <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5 "></starts-review>
+                            <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5"></starts-review>
                           
 
                         </h3>
