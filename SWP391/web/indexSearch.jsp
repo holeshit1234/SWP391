@@ -22,12 +22,12 @@
         <link rel="stylesheet" href="asset/icon fronts/font-awesome-4.7.0/css/font-awesome.min.css">
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/paginationjs/2.1.4/pagination.min.js"></script>      
-               
+
     </head>
 
     <body>
         <!---------HEADER-------->
-              <style>
+        <style>
             .dropdown {
                 position: relative;
                 display: inline-block;
@@ -57,6 +57,9 @@
             }
             .brand-content{
                 background-color:#e1c5a7 ;
+            }
+            .empty-product{
+                font-size: 30px;
             }
         </style>
 
@@ -125,30 +128,37 @@
                 </div>
 
                 <div class="product-list-container row">
-                    <c:forEach var="product" items="${PAGING_RESULT}">
+                    <c:if test="${not empty requestScope.PAGING_RESULT}">
+                        <c:forEach var="product" items="${PAGING_RESULT}">
 
-                        <div class="cartegory-right-content-item col-md-3 product-item">
-                            <a href="CommentServlet?txtProductID=${product.productID}">
-                                <div class="item-product ">
-                                    <div>
-                                        <img src="asset/images/productpictures/${product.image}">
-                                        <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
-                                            <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
-                                                <font color='red'>
-                                                OUT OF STOCK !
-                                                </font>
-                                            </div>
-                                        </c:if>F
+                            <div class="cartegory-right-content-item col-md-3 product-item">
+                                <a href="CommentServlet?txtProductID=${product.productID}">
+                                    <div class="item-product ">
+                                        <div>
+                                            <img src="asset/images/productpictures/${product.image}">
+                                            <c:if test="${daoProductDetail.isOutOfStock(product.getProductID()) == true}">
+                                                <div style=" position: absolute; right: 10px; top:10px; background-color: rgba(0,0,0,0.3); padding: 10px;">
+                                                    <font color='red'>
+                                                    OUT OF STOCK !
+                                                    </font>
+                                                </div>
+                                            </c:if>F
+                                        </div>
+                                        <div class="product-name"> ${product.getProductName()}</div>
+                                        <div class="product-price">
+                                            <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
+                                            vnđ 
+                                        </div>
                                     </div>
-                                    <div class="product-name"> ${product.getProductName()}</div>
-                                    <div class="product-price">
-                                        <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
-                                        vnđ 
-                                    </div>
-                                </div>
-                            </a>
+                                </a>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${empty requestScope.PAGING_RESULT}">
+                        <div class="empty-product">
+                            Không có kết quả tìm kiếm "${param.txtSearch}"
                         </div>
-                    </c:forEach>
+                    </c:if>
                 </div>
                 <div class="pagination">
                     <c:forEach begin="1" end="${END_PAGE}" var="i">
