@@ -137,7 +137,7 @@ public class BillDAO {
 
     public List<BillDTO> getAllBillList() {
         return allBillList;
-    } 
+    }
 
     public void showBillByUserID(int userID)
             throws NamingException, SQLException {
@@ -167,7 +167,7 @@ public class BillDAO {
                     Date date = rs.getDate("Date");
                     float totalPrice = rs.getFloat("TotalPrice");
                     float shippingfee = rs.getFloat("Shippingfee");
-              
+
                     //create dto
                     BillDTO dto = new BillDTO(billid, userID, paymentID, addressID, date, totalPrice, shippingfee);
                     System.out.println(dto);
@@ -191,7 +191,7 @@ public class BillDAO {
             }
         }
     }
-    
+
     private List<BillDTO> listPriceMonths;
 
     public List<BillDTO> getListPriceMonths() {
@@ -290,5 +290,94 @@ public class BillDAO {
             }
         }
     }
+
+
+    public BillDTO getTotalPriceAtYear() throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        BillDTO product = null;
+        try {
+            //1. Connect to the database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Define the SQL query to retrieve the top 10 products based on their quantity
+                String sql = "SELECT  SUM(TotalPrice) AS total_price,YEAR(Date) AS year "
+                        + "FROM [Bill]\n"
+                        + "Where YEAR(Date) = YEAR(GETDATE()) \n"
+                        + "GROUP BY  YEAR(Date) ";
+                //3. Create the PreparedStatement
+                stm = con.prepareStatement(sql);
+
+                //4. Execute the query and retrieve the results
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    //5. Retrieve the data from the result set and create a ProductDTO object             
+                    String year = rs.getString("year");
+                    float total = rs.getFloat("total_price");
+                    //6. Add the product to the list
+                    product = new BillDTO(total, year);
+
+                }
+            } //end con is available
+        } finally {
+            //7. Close the database resources
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return product;
+    }
+
     
+    public BillDTO getTotalPriceAtYear(String year) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        BillDTO product = null;
+        try {
+            //1. Connect to the database
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2. Define the SQL query to retrieve the top 10 products based on their quantity
+                String sql = "SELECT  SUM(TotalPrice) AS total_price, YEAR(Date) AS year "
+                        + "FROM [Bill]\n"
+                        + "Where YEAR(Date) = ?\n"
+                        + "GROUP BY  YEAR(Date) ";
+                //3. Create the PreparedStatement
+                stm = con.prepareStatement(sql);
+                stm.setString(1, year);
+                //4. Execute the query and retrieve the results
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    //5. Retrieve the data from the result set and create a ProductDTO object                               
+                    float total = rs.getFloat("total_price");
+                    //6. Add the product to the list
+                    product = new BillDTO(total, year);
+                    
+
+                }
+            } //end con is available
+        } finally {
+            //7. Close the database resources
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return product;
+    }
+
+
 }
