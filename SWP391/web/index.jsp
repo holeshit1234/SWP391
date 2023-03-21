@@ -130,7 +130,7 @@
                                             <fmt:formatNumber value="${product1.getPrice()}" pattern="#,###,###" />                                  
                                             vnđ </div>
                                         <div>
-                                            Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
+                                            Đã bán:${daoBillDetail.getQuantityByProductID(product1.getProductID())}
                                         </div>
 
                                     </div>

@@ -49,7 +49,7 @@ public class UpdateNewSizeServlet extends HttpServlet {
                 SizeID = Integer.parseInt(Size[i]);
                 ProductDetailDAO dao = new ProductDetailDAO();
                 dao.addProductDetailAdmin(productID, SizeID, quantity, store);
-                url = "ShowAllListProductServlet";
+                url = "EditProductServlet";
             }
 
         } catch (NamingException ex) {
