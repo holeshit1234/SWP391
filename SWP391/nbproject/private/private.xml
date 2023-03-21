@@ -3,21 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/updateaddress.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/brand/BrandDAO.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/profiles.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/indexSearch.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/showAddress.jsp</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DVHT/bill/BillDAO.java</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/showOrderPage.jsp</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DVHT/bill/BillDetailDAO.java</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/cartpage.jsp</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/ControllerAdmin/GetChartDetailServlet.java</file>
             <file>file:/D:/copylaij/sau/SWP391/SWP391/web/ordertracking.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/index.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/header.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/Controller/AddAddressController.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/Controller/UpdateAddressServlet.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/Controller/SavePhotoServlet.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/Controller/DeleteAddressServlet.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/product.jsp</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DVHT/utils/DBHelpers.java</file>
-            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/Controller/ShowAddressServlet.java</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/asset/css/styledashboard.css</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/web/dashBoard.jsp</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DVHT/bill/BillDTO.java</file>
+            <file>file:/D:/copylaij/sau/SWP391/SWP391/src/java/DHTV/ControllerAdmin/ShowDashBoard.java</file>
         </group>
     </open-files>
 </project-private>
