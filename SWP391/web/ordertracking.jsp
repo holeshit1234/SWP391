@@ -114,7 +114,7 @@
                                     <h3 class="name">${info_user.fullName}</h3>              
                                 </div>
                             </c:if> 
-                            <nav class="navbar" style="margin-left: 65px;">
+                            <nav class="navbar" >
                                 <ul>
                                     <li><a href="ShowProfileServlet">Account information</a></li>
                                     <li><a href="ShowOrderTrackingServlet">Order management</a></li>

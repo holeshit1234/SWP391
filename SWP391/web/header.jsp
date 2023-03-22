@@ -79,7 +79,9 @@
 
                 <li>
                     <form action="SearchServlet">
-                        <input placeholder="Search" type="text" name="txtSearch" value=""> <i class="fa fa-search"></i>                        
+                        <div style="display: flex;">
+                        <input placeholder="Search" type="text" name="txtSearch" value=""> <button class="fa fa-search"></button>                        
+                        </div>
                     </form>
                 </li>
 
