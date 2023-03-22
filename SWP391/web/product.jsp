@@ -21,7 +21,41 @@
         crossorigin="anonymous"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
                 integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>     
+        crossorigin="anonymous"></script>   
+        <style>
+            .confirm-box {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                background-color: white; /* update to white */
+                padding: 20px;
+                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            }
+
+
+            .button-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .ok-button, .cancel-button {
+                background-color: #E7D0C4;
+                color: #000;
+                border: none;
+                padding: 10px 20px;
+                margin-right: 10px;
+                cursor: pointer;
+                transition: background-color 0.3s ease;
+            }
+
+            .ok-button:hover, .cancel-button:hover {
+                background-color: #E7C4B2;
+            }
+
+        </style>
     </head>
 
     <body>
@@ -85,7 +119,7 @@
                             ${daoUtil.roundingFunction(avgRate)}
 
                             <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5"></starts-review>
-                          
+
 
                         </h3>
 
@@ -131,7 +165,7 @@
                                     <button id="btn-di" type="button" onclick="incrementValue()">+</button>
                                 </div>
                             </div>
-                          
+
                             <div style="margin-top: 15px;">
                                 <span id="maxQuantity"></span> sản phẩm có sẵn
                             </div>
@@ -480,13 +514,13 @@
 
         </footer>
 
-       
+
         <script>
-            window.onload = function () {
-                showAlertAddToCart();
-            };
+                                                    window.onload = function () {
+                                                        showAlertAddToCart();
+                                                    };
         </script>
-        
+
         <script src="asset/js/JProduct.js"></script>
         <script src="asset/js/desins.js"></script>
     </body>

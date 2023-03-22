@@ -93,7 +93,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="showOrderConfirm">Wait to Comfirm</a>
                                     <a class="nav-link" href="showOrder">Order Confirmed</a>
-                                     <a class="nav-link" href="showBill">Bill</a>
+                                    <a class="nav-link" href="showBill">Bill</a>
                                     <a class="nav-link" href="showOrderCancle">Cancle Order</a>
 
                                 </nav>
@@ -107,7 +107,11 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div> 
+                            </div>
+                            <a class="nav-link collapsed" href="ShowAllCommentServlet" >
+                                <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
+                                Comment
+                            </a>
                         </div>
                     </div>
 

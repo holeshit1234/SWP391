@@ -110,6 +110,10 @@
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
                             </div> 
+                            <a class="nav-link collapsed" href="ShowAllCommentServlet" >
+                                <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
+                                Comment
+                            </a>
                         </div>
                     </div>
 
@@ -143,7 +147,7 @@
                                 <input type="submit" value="Submit" />
                             </form>
                         </div>
-                        
+
                         <div class="row" style="margin-top:10px; ">           
 
 
@@ -157,7 +161,7 @@
                                                     <c:if test="${empty param.year}">
                                                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                             Earnings at now  </div>
-                                                        <fmt:formatNumber var="total" value="${date1.getTotalPrice()}" pattern="#,###"/> 
+                                                            <fmt:formatNumber var="total" value="${date1.getTotalPrice()}" pattern="#,###"/> 
                                                         <div class="h5 mb-0 font-weight-bold text-gray-800">${total}<sup>vnđ</sup></div>
                                                     </c:if>
                                                     <c:if test="${not empty param.year}">
@@ -171,7 +175,7 @@
                                                 <c:if test="${ empty requestScope.date1}">
                                                     <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                                         Earnings at ${date1.getYear()} </div>
-                                                        <div class="h5 mb-0 font-weight-bold text-gray-800">0<sup>vnđ</sup></div>
+                                                    <div class="h5 mb-0 font-weight-bold text-gray-800">0<sup>vnđ</sup></div>
                                                 </c:if>
                                             </div>
                                             <div class="col-auto">

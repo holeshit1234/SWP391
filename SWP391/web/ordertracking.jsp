@@ -186,7 +186,7 @@
 
 
 
-                                                 <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
+                                                    <c:forEach var="dto" items="${daoOrder.getOrderList()}" >
                                                         <c:if test="${dto.getApprovalStatus() != 4}">
                                                             <tr>
                                                                 <td><p>VDTH ${dto.getOrderID()}</p></td>
@@ -229,8 +229,6 @@
                                                                     <p>${totalWithShipping} <sup>vnd</sup></p>
                                                                 </td>
                                                                 <td>
-
-
                                                                     <div class="add-buttom">
                                                                         <c:if test="${dto.getApprovalStatus() == 1}">
                                                                             <c:url var="CancelOrderURL" value="CancelOrderServlet" >
@@ -239,22 +237,29 @@
                                                                             <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
                                                                         </c:if>
                                                                     </div>
+                                                                    <div class="add-buttom">
+                                                                        <c:if test="${dto.getApprovalStatus() == 3}">
+                                                                            <c:url var="RatingOrderURL" value="ratingorder.jsp" >
+                                                                                <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
+                                                                            </c:url>
+                                                                            <button class="btn btn-primary" type="submit" onclick="window.location.href='${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
+                                                                        </c:if>
+                                                                    </div>
                                                                 </td>
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>  
-
-                                                    <c:forEach var="dto1" items="${daoBill.getAllBillList()}" >
-
-                                                        <tr>
-                                                            <td><p>VDTH ${dto1.getBillID()}</p></td>
-                                                            <td><p>${dto1.getDate()}</p></td>
-                                                            <td>                                                                                                              
-                                                                <p style="color : green;">Đã giao hàng</p>                                                           
-                                                            </td>
-                                                            <td>                                                             
-                                                                <input type="hidden" name="bill" value="${daoBillDetail.showListBillDetail(dto1.getBillID())}" /> 
-                                                                <c:forEach var="dtoDetailBill" items="${daoBillDetail.getBillDetailList()}" >
+                                                    <%--
+                                             <c:forEach var="dto1" items="${daoBill.getAllBillList()}" >
+                                                 <tr>
+                                                     <td><p>VDTH ${dto1.getBillID()}</p></td>
+                                                     <td><p>${dto1.getDate()}</p></td>
+                                                     <td>                                                                                                              
+                                                         <p style="color : green;">Đã giao hàng</p>                                                           
+                                                     </td>
+                                                     <td>                                                             
+                                                         <input type="hidden" name="bill" value="${daoBillDetail.showListBillDetail(dto1.getBillID())}" /> 
+                                                         <c:forEach var="dtoDetailBill" items="${daoBillDetail.getBillDetailList()}" >
 
                                                                     <p>
                                                                         <fmt:formatNumber var="totalPriceOfPro" 
@@ -272,13 +277,9 @@
                                                                 <p>${totalWithShipping1} <sup>vnd</sup></p>
                                                             </td>
                                                             <td>
-
-
-
                                                             </td>
                                                         </tr>
-
-                                                    </c:forEach>       
+                                                    </c:forEach>     --%>  
 
 
                                                 </tbody>
@@ -305,6 +306,9 @@
                                                       </c:if>
         --%>
         <!---------Footer-------->
+
+
+
         <footer>
             <div class="footer-top">
                 <li><a href="">Contact</a></li>

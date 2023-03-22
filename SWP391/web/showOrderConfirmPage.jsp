@@ -108,6 +108,10 @@
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
                             </div> 
+                            <a class="nav-link collapsed" href="ShowAllCommentServlet" >
+                                <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
+                                Comment
+                            </a>
                         </div>
                     </div>
 
@@ -128,7 +132,7 @@
                                 <i class="fas fa-table me-1"></i>
                                 DataTable User
                             </div>
-                            
+
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
@@ -136,7 +140,7 @@
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
                             <c:set var="result" value="${requestScope.ORDER_RESULT}"/>
-                           
+
 
                             <table id="datatablesSimple" >
                                 <thead>
@@ -192,7 +196,7 @@
 
 
                                                     <td>
-                                                         <fmt:formatNumber var="totalprice" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                        <fmt:formatNumber var="totalprice" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
                                                         ${totalprice}<sup>vnđ</sup>
                                                     </td>
                                                     <td>Chờ xác nhận</td>
@@ -207,7 +211,7 @@
                                             </c:if>
                                         </c:forEach>
                                     </c:if> 
-                                    
+
                                 </tbody>
                             </table>
                         </div>

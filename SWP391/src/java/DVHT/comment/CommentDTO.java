@@ -22,6 +22,8 @@ public class CommentDTO implements Serializable{
     private int Point;
     private boolean status;
     private String fullName;
+    private String productName;
+    
 
     public CommentDTO() {
     }
@@ -44,6 +46,27 @@ public class CommentDTO implements Serializable{
         this.fullName = fullName;
     }
 
+    public CommentDTO(int CommentID, int UserID, int ProductID, Date Date, String Description, boolean status, String fullName, String productName) {
+        this.CommentID = CommentID;
+        this.UserID = UserID;
+        this.ProductID = ProductID;
+        this.Date = Date;
+        this.Description = Description;
+        this.status = status;
+        this.fullName = fullName;
+        this.productName = productName;
+    }
+    
+    
+    
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+    
   
     public String getFullName() {
         return fullName;
