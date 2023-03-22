@@ -5,13 +5,23 @@
  */
 package DHTV.Controller;
 
+import DHTV.order.OrderDetailDAO;
+import DHTV.order.OrderDetailDTO;
+import DVHT.comment.CommentDAO;
+import DVHT.comment.CommentDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -32,17 +42,56 @@ public class RatingOrderServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RatingOrderServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RatingOrderServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = "ordertracking.jsp";
+
+        try {
+            System.out.println("Start into Rating Servlet");
+            //--------------------------------
+
+            //get UserID
+            int userID = 0;
+            HttpSession session = request.getSession();
+            UserDetailsDTO user = (UserDetailsDTO) session.getAttribute("USER");
+            if (user != null) {
+                userID = user.getUserID();
+            }
+            //get OrderID           
+            String txtorderID = request.getParameter("orderID");
+            int orderID = 0;
+            if (txtorderID != null) {
+                orderID = Integer.parseInt(txtorderID.trim());
+            }
+            if (userID > 0) {
+                //process
+                String rate = request.getParameter("rating");
+                int point = 0;
+                if (rate != null) {
+                    point = Integer.parseInt(rate.trim());
+                }
+                CommentDAO dao = new CommentDAO();
+                OrderDetailDAO daoOrderDetail = new OrderDetailDAO();
+                daoOrderDetail.showOrderDetailByOrderID(orderID);
+                List<OrderDetailDTO> list =daoOrderDetail.getOrderDetailList();
+                for (OrderDetailDTO dto:list){
+                    int productID = dto.getProductID();
+                    String des = null;                    
+                    CommentDTO cmt = new CommentDTO(0, userID, productID, null, des, point ,true );
+                    boolean result = dao.addComment(cmt);
+                }
+            } else {
+                String message = "Please sign in again!";
+                if (!message.isEmpty()) {
+                    request.setAttribute("SIGN_IN", message);
+                }
+            }
+
+        } catch (SQLException ex) {
+            log("Rating Servlet SQL: " + ex.getMessage());
+        } catch (NamingException ex) {
+            log("Rating Servlet Naming: " + ex.getMessage());
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

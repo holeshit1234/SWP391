@@ -20,79 +20,39 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
         <!--<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>-->
-        <style>            
-            .add-buttom button{
-                background: #e7d0c4;
-                border: none;
-                border-radius: 10px;
+        <style>
 
+            .rating-cmt {
+                display: inline-block;
             }
 
-            .confirm-box {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: white;
-                border: 1px solid black;
-                padding: 20px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-                max-width: 500px;
-                width: 100%;
+            .rating-cmt input {
+                display: none;
+                background: none;
             }
 
-            .confirm-box p {
-                margin-top: 0;
-            }
-
-            .button-container {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 20px;
-            }
-
-            .ok-button,
-            .cancel-button {
-                padding: 10px 20px;
-                border-radius: 5px;
-                border: none;
+            .rating-cmt label {
+                color: grey;
+                font-size: 15px;
                 cursor: pointer;
+                margin: -5px;
             }
 
-            .ok-button {
-                background-color: #EEDBD0;
-                color: black;
-                margin-right: 10px;
+            .rating-cmt label:before {
+                content: "\2605";
+                margin: 5px;
             }
 
-            .cancel-button {
-                background-color: #E7D0C4;
-                color: black;
+            .rating-cmt input:checked ~ label {
+                color: #f9d71c;
             }
 
-            .ok-button:hover,
-            .cancel-button:hover {
-                background-color: #D5C0A7;
+            .rating-cmt label:hover,
+            .rating-cmt label:hover ~ label {
+                color: #f9d71c;
             }
-
-            .confirm-box input[type="text"] {
-                width: 100%;
-                padding: 10px;
-                border: 1px solid #ccc;
-                border-radius: 4px;
-                box-sizing: border-box;
-                margin-top: 10px;
-            }
-
-            .confirm-box input[type="text"]:focus {
-                border-color: #66afe9;
-                outline: 0;
-                box-shadow: 0 0 10px rgba(102,175,233,.6);
-            }
-
-            .icon {
-                cursor: pointer;
+            img{
+                width: 50px;
             }
 
         </style>
@@ -164,8 +124,7 @@
                                                         <th>HÌNH ẢNH</th>
                                                         <th>TÊN SẢN PHẨM</th>
                                                         <th>GIÁ TIỀN</th>
-                                                        <th>ĐÁNH GIÁ</th>
-                                                        <th>SAO</th>
+
                                                     </tr>
                                                 </thead>
                                                 <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
@@ -183,27 +142,52 @@
 
                                                     <form action="CommentServlet" method="POST">
                                                         <tr>
+                                                            <fmt:formatNumber var="totalPriceOfPro" 
+                                                                              value="${daoProduct.getProductByProductID(dto.getProductID()).getPrice() * dto.getQuantity()}" 
+                                                                              pattern="#,###"/>
                                                             <td>VDTH${orderID}</td>
-                                                            <td>ok</td>
+                                                            <td><img src="asset/images/productpictures/${daoProduct.getInfoProductByProductID(dto.getProductID()).getImage()}" alt="" srcset=""></td>
                                                             <td>${daoProduct.getInfoProductByProductID(dto.getProductID()).getProductName()}</td>
-                                                            <td>ok</td>
-                                                            <td>
-                                                                <input placeholder="Enter your comment" type="text" name="txtDescription">
-                                                            </td>
-                                                            <td>
-                                                                <input type="number" name="rating" min="1" max="5" step="1">
-                                                            </td>
+                                                            <td>${totalPriceOfPro} <sup>vnd</sup></td>
+
                                                         </tr>
                                                     </form>
 
                                                 </c:forEach>                                                 
                                                 </tbody>
+
                                             </table>
+                                            <form action="RatingOrderServlet" >
+                                                <input type="hidden" name="orderID" value="${param.OrderID}" />
+                                                <div class="rating-cmt">
+                                                    <div class="eva-cmt">
+                                                        <li class="eva-star-cmt">
+                                                            <input type="radio" name="rating" value="5" id="star5">
+                                                            <label for="star5"></label>
+                                                            <input type="radio" name="rating" value="4" id="star4">
+                                                            <label for="star4"></label>
+                                                            <input type="radio" name="rating" value="3" id="star3">
+                                                            <label for="star3"></label>
+                                                            <input type="radio" name="rating" value="2" id="star2">
+                                                            <label for="star2"></label>
+                                                            <input type="radio" name="rating" value="1" checked="checked" id="star1">
+                                                            <label for="star1"></label>
+                                                        </li>
+                                                    </div>
+                                                </div>
+                                                <input type="submit" value="Save" />
+                                            </form>
                                         </div>
                                     </div>
                                 </div> 
+
                             </main>
+
                         </div>
+
+
+
+
                     </div>
                 </div>
             </div> 
