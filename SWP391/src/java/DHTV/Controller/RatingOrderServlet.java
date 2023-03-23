@@ -5,6 +5,7 @@
  */
 package DHTV.Controller;
 
+import DHTV.order.OrderDAO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
 import DVHT.comment.CommentDAO;
@@ -68,15 +69,21 @@ public class RatingOrderServlet extends HttpServlet {
                 if (rate != null) {
                     point = Integer.parseInt(rate.trim());
                 }
-                CommentDAO dao = new CommentDAO();
-                OrderDetailDAO daoOrderDetail = new OrderDetailDAO();
-                daoOrderDetail.showOrderDetailByOrderID(orderID);
-                List<OrderDetailDTO> list =daoOrderDetail.getOrderDetailList();
-                for (OrderDetailDTO dto:list){
-                    int productID = dto.getProductID();
-                    String des = null;                    
-                    CommentDTO cmt = new CommentDTO(0, userID, productID, null, des, point ,true );
-                    boolean result = dao.addComment(cmt);
+//                CommentDAO dao = new CommentDAO();
+//                OrderDetailDAO daoOrderDetail = new OrderDetailDAO();
+//                daoOrderDetail.showOrderDetailByOrderID(orderID);
+//                List<OrderDetailDTO> list =daoOrderDetail.getOrderDetailList();
+//                for (OrderDetailDTO dto:list){
+//                    int productID = dto.getProductID();
+//                    String des = null;                    
+//                    CommentDTO cmt = new CommentDTO(0, userID, productID, null, des, point ,true );
+//                    boolean result = dao.addComment(cmt);
+//                }
+                OrderDAO daoOrder = new OrderDAO();
+               
+                boolean result = daoOrder.updateOrderPoint(orderID, point);
+                if(!result){
+                    System.out.println("Rating order lỗi cmnr");
                 }
             } else {
                 String message = "Please sign in again!";

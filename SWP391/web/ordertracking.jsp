@@ -237,11 +237,14 @@
                                                                         </c:if>
                                                                     </div>
                                                                     <div class="add-buttom">
-                                                                        <c:if test="${dto.getApprovalStatus() == 3}">
+                                                                        <c:if test="${dto.getApprovalStatus() == 3 && daoOrder.checkOrderPoint(dto.getOrderID())}">
                                                                             <c:url var="RatingOrderURL" value="ratingorder.jsp" >
                                                                                 <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
                                                                             </c:url>
                                                                             <button class="btn btn-primary" type="submit" onclick="window.location.href = '${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
+                                                                        </c:if>
+                                                                        <c:if test="${dto.getApprovalStatus() == 3 && !daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                                            <p>Đã đánh giá</p>
                                                                         </c:if>
                                                                     </div>
                                                                 </td>

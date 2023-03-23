@@ -2,6 +2,14 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DVHT/comment/CommentDAO.java</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/asset/css/styleproduct.css</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/web/index.jsp</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DVHT/utils/Util.java</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/order/OrderDetailDAO.java</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/order/OrderDAO.java</file>
+            <file>file:/E:/KY5/SWP/Vinh/SWP391/SWP391/src/java/DHTV/Controller/CommentServlet.java</file>
+        </group>
     </open-files>
 </project-private>

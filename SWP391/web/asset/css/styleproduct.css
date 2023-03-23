@@ -382,7 +382,7 @@ button{
 }
 .testimonial-heading{
     letter-spacing: 1px;
-    margin: 30px 0px;
+    margin: 30px 0px 0px 0px;
     padding: 10px 20px;
     display: flex;
     flex-direction: column;
@@ -417,6 +417,7 @@ button{
     background-color: #ffffff;
     padding: 20px;
     margin: 15px;
+    margin-top: 0px;
     cursor: pointer;
 }
 .testimonials-box2{
@@ -580,7 +581,7 @@ li{
     position: relative;
 }
 .enter-comment > li:first-child input{
-    margin-top: 3em;
+    margin-top: 1.5em;
     width: 100%;
     border: none;
     border-bottom: 1px solid #333;
@@ -728,7 +729,7 @@ footer{
     text-align: center;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+   
     height: 70px;
 }
 .footer-top li{

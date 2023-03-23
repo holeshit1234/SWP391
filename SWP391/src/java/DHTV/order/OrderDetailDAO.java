@@ -124,7 +124,7 @@ public class OrderDetailDAO implements Serializable {
         }
     }
 
-    public OrderDetailDTO showListOrderDetail(int orderID)
+    public void showListOrderDetail(int orderID)
             throws NamingException, SQLException {
         Connection con = null;
         ResultSet rs = null;
@@ -173,7 +173,7 @@ public class OrderDetailDAO implements Serializable {
             }
 
         }
-        return result;
+     
     }
 
     private List<OrderDetailDTO> listdto;

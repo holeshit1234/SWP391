@@ -79,6 +79,82 @@ public class OrderDAO implements Serializable {
         }
         return key;
     }
+    public boolean updateOrderPoint(int orderID, int point) throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "UPDATE [Order] SET point=? "
+                        + "Where OrderID = ? ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+
+                stm.setInt(1, point);
+                stm.setInt(2, orderID);
+
+                //execute query  
+                int rows = stm.executeUpdate();
+                //5 process
+                if (rows>0) {
+                    result = true;
+                }//end the list no exsited
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
+    public boolean checkOrderPoint(int orderID) throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        boolean result = false;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "Select * from [Order] "
+                        + "Where OrderID = ? and point is null ";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+
+         
+                stm.setInt(1, orderID);
+
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                if (rs.next()) {
+                    result = true;
+                }//end the list no exsited
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return result;
+    }
 
     private List<OrderDTO> orderList;
 
@@ -118,6 +194,60 @@ public class OrderDAO implements Serializable {
                     boolean paymentStatus = rs.getBoolean("PaymentStatus");
                     //create dto
                     OrderDTO dto = new OrderDTO(orderID, userID, paymentID, addressID, date, totalPrice, shippingfee, approvalStatusID, paymentStatus);
+                    System.out.println(dto);
+
+                    //add item to dto
+                    if (this.orderList == null) {
+                        this.orderList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.orderList.add(dto);
+                }
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
+    
+    public void showOrderList()
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.orderList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select * "
+                        + "from  [Order] ";
+
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                while (rs.next()) {
+                    int orderID = rs.getInt("OrderID");
+                    int userID = rs.getInt("UserID");
+                    int paymentID = rs.getInt("PaymentID");
+                    int addressID = rs.getInt("AddressID");
+                    Date date = rs.getDate("Date");
+                    double totalPrice = rs.getFloat("TotalPrice");
+                    double shippingfee = rs.getFloat("Shippingfee");
+                    int approvalStatusID = rs.getInt("ApprovalStatusID");
+                    boolean paymentStatus = rs.getBoolean("PaymentStatus");
+                    int point = rs.getInt("point");
+                    //create dto
+                    OrderDTO dto = new OrderDTO(orderID, userID, paymentID, addressID, date, totalPrice, shippingfee, approvalStatusID, paymentStatus,point);
                     System.out.println(dto);
 
                     //add item to dto
@@ -276,7 +406,7 @@ public class OrderDAO implements Serializable {
         Connection con = null;
         ResultSet rs = null;
         PreparedStatement stm = null;
-
+        this.orderList = new ArrayList<>();
         try {
             //1 get comnnection
             con = DBHelpers.getConnection();
@@ -304,6 +434,59 @@ public class OrderDAO implements Serializable {
                     //create dto
                     OrderDTO dto = new OrderDTO(OrderID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee, ApprovalStatusID, PaymentStatus);
                     System.out.println("---------------ListOrder------------" + dto);
+                    if (this.orderList == null) {
+                        this.orderList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.orderList.add(dto);
+                }
+
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        }
+    }
+    public void showListOrderRated()
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.orderList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select * "
+                        + "from [Order] where point is not null";
+                stm = con.prepareStatement(sql);
+
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+
+                while (rs.next()) {
+                    int OrderID = rs.getInt("OrderID");
+                    int UserID = rs.getInt("UserID");
+                    int PaymentID = rs.getInt("PaymentID");
+                    int AddressID = rs.getInt("AddressID");
+                    Date date = rs.getDate("Date");
+                    double totalPrice = rs.getDouble("TotalPrice");
+                    double ShippingFee = rs.getDouble("Shippingfee");
+                    int ApprovalStatusID = rs.getInt("ApprovalStatusID");
+                    boolean PaymentStatus = rs.getBoolean("PaymentStatus");
+                    int point = rs.getInt("point");
+                    //create dto
+                    OrderDTO dto = new OrderDTO(OrderID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee, ApprovalStatusID, PaymentStatus,point);
+                    System.out.println("---------------ListOrderRated------------" + dto);
                     if (this.orderList == null) {
                         this.orderList = new ArrayList<>();
                     }//end the list no exsited

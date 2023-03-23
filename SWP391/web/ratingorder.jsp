@@ -23,36 +23,42 @@
         <style>
 
             .rating-cmt {
-                display: inline-block;
+               
+                text-align: center;
             }
 
-            .rating-cmt input {
+            .rating-cmt input  {
                 display: none;
                 background: none;
             }
-
             .rating-cmt label {
                 color: grey;
-                font-size: 15px;
+                font-size: 35px;
                 cursor: pointer;
                 margin: -5px;
             }
-
             .rating-cmt label:before {
                 content: "\2605";
                 margin: 5px;
             }
-
             .rating-cmt input:checked ~ label {
                 color: #f9d71c;
             }
-
             .rating-cmt label:hover,
             .rating-cmt label:hover ~ label {
                 color: #f9d71c;
             }
             img{
                 width: 50px;
+            }
+            .eva-cmt{                  
+            }
+            .eva-star-cmt{           
+            }
+            .center{
+                display: flex;
+  justify-content: center;
+
             }
 
         </style>
@@ -128,9 +134,9 @@
                                                     </tr>
                                                 </thead>
                                                 <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
-                                                <jsp:useBean id="daoBill" class="DVHT.bill.BillDAO"/>
+
                                                 <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
-                                                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>
+
                                                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
                                                 <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
                                                 <c:set var="orderID" value="${param.OrderID}"/>
@@ -159,10 +165,13 @@
                                             </table>
                                             <form action="RatingOrderServlet" >
                                                 <input type="hidden" name="orderID" value="${param.OrderID}" />
+                                                    <div class="center">
+                                                        <h5>Please give your rating for that order</h5>
+                                                </div>
                                                 <div class="rating-cmt">
                                                     <div class="eva-cmt">
                                                         <li class="eva-star-cmt">
-                                                            <input type="radio" name="rating" value="5" id="star5">
+                                                            <input type="radio" name="rating" value="5" checked="checked" id="star5">
                                                             <label for="star5"></label>
                                                             <input type="radio" name="rating" value="4" id="star4">
                                                             <label for="star4"></label>
@@ -170,12 +179,15 @@
                                                             <label for="star3"></label>
                                                             <input type="radio" name="rating" value="2" id="star2">
                                                             <label for="star2"></label>
-                                                            <input type="radio" name="rating" value="1" checked="checked" id="star1">
+                                                            <input type="radio" name="rating" value="1"  id="star1">
                                                             <label for="star1"></label>
                                                         </li>
                                                     </div>
+                                                    
                                                 </div>
-                                                <input type="submit" value="Save" />
+                                                <div class="center">
+                                                <input type="submit" class="btn btn-primary" value="Save" />
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

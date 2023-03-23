@@ -54,7 +54,9 @@
             .ok-button:hover, .cancel-button:hover {
                 background-color: #E7C4B2;
             }
-
+            .alert{
+                color: black;
+            }
         </style>
     </head>
 
@@ -98,6 +100,7 @@
                 <div class="right">
                     <form action="AddToCartServlet" method="POST">
                         <h3>${daoProduct.getInfoProductByProductID(requestScope.PRODUCTID).getProductName()} -
+                            <%--
                             <c:set var="avgRate" value="
                                    ${ 
                                    (   (dao.countCommentListByStar(requestScope.PRODUCTID,5)) * 5 +
@@ -117,7 +120,10 @@
                                    " />
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             ${daoUtil.roundingFunction(avgRate)}
-
+                            --%>
+                            <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
+                            <c:set var="avgRate" value="${daoUtil.getAvgRate(requestScope.PRODUCTID)}" />
+                            
                             <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5"></starts-review>
 
 
@@ -238,11 +244,10 @@
                             </button>
                         </form>
                     </li>
-                    <li>
+<!--                    <li>
                         <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
                                 5 <i class="fa fa-star"></i>
-
                                 (${dao.countCommentListByStar(requestScope.PRODUCTID,5)})
                                 <input type="hidden" name="star" value="5" />
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
@@ -293,7 +298,7 @@
                                 <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
                             </button>
                         </form>
-                    </li>
+                    </li>-->
                     <li>
                         <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
@@ -342,7 +347,7 @@
 
                         <div class="name-user">
                             <c:set var="productID" value="${requestScope.PRODUCTID}" />
-                            ProductID = ${productID}
+                            <%--ProductID = ${productID}--%>
                             <form action="CommentServlet" method="POST">
                                 <input type="hidden" name="txtProductID" value="${productID}" />
                                 <div class="enter-comment">
@@ -350,7 +355,7 @@
                                         <input placeholder="Enter your comment" type="text" name="txtDescription">
                                     </li>
                                 </div>
-                                <div class="rating-cmt">
+<!--                                <div class="rating-cmt">
                                     <div class="eva-cmt">
                                         <li class="eva-star-cmt">
                                             <input type="radio" name="rating" value="5" id="star5">
@@ -365,7 +370,7 @@
                                             <label for="star1"></label>
                                         </li>
                                     </div>
-                                </div>
+                                </div>-->
                                 <c:if test="${not empty requestScope.MESSAGE}">
                                     <font color='red'>
                                     ${requestScope.MESSAGE}

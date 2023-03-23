@@ -24,6 +24,7 @@ public class OrderDTO implements Serializable {
     private int approvalStatus;
     private boolean paymentStatus;
     private String month;
+    private int point;
 
     public OrderDTO() {
     }
@@ -38,6 +39,20 @@ public class OrderDTO implements Serializable {
         this.totalPrice = totalprice;
         this.month = month;
     }
+
+    public OrderDTO(int orderID, int userID, int paymentID, int addressID, Date date, double totalPrice, double shippingFee, int approvalStatus, boolean paymentStatus, int point) {
+        this.orderID = orderID;
+        this.userID = userID;
+        this.paymentID = paymentID;
+        this.addressID = addressID;
+        this.date = date;
+        this.totalPrice = totalPrice;
+        this.shippingFee = shippingFee;
+        this.approvalStatus = approvalStatus;
+        this.paymentStatus = paymentStatus;
+        this.point = point;
+    }
+    
 
     public OrderDTO(int orderID, int userID, int paymentID, int addressID, Date date, double totalPrice, double shippingFee, int approvalStatus, boolean paymentStatus) {
         this.orderID = orderID;
@@ -133,9 +148,20 @@ public class OrderDTO implements Serializable {
         this.paymentStatus = paymentStatus;
     }
 
+    public int getPoint() {
+        return point;
+    }
+
+    public void setPoint(int point) {
+        this.point = point;
+    }
+
     @Override
     public String toString() {
-        return "OrderDTO{" + "orderID=" + orderID + ", userID=" + userID + ", paymentID=" + paymentID + ", addressID=" + addressID + ", date=" + date + ", totalPrice=" + totalPrice + ", shippingFee=" + shippingFee + ", approvalStatus=" + approvalStatus + ", paymentStatus=" + paymentStatus + '}';
+        return "OrderDTO{" + "orderID=" + orderID + ", userID=" + userID + ", paymentID=" + paymentID + ", addressID=" + addressID + ", date=" + date + ", totalPrice=" + totalPrice + ", shippingFee=" + shippingFee + ", approvalStatus=" + approvalStatus + ", paymentStatus=" + paymentStatus + ", month=" + month + ", point=" + point + '}';
     }
+    
+
+    
 
 }

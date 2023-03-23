@@ -77,19 +77,19 @@ public class CommentServlet extends HttpServlet {
             if (userID > 0) {
                 //process
                 String description = request.getParameter("txtDescription");
-                String rate = request.getParameter("rating");
-                int point = 0;
-                if (rate != null) {
-                    point = Integer.parseInt(rate.trim());
-                }
+//                String rate = request.getParameter("rating");
+//                int point = 0;
+//                if (rate != null) {
+//                    point = Integer.parseInt(rate.trim());
+//                }
                 CommentDAO dao = new CommentDAO();
 
-                if (description != null && point > 0) {
-                    CommentDTO dto = new CommentDTO(0, userID, productID, null, description, point ,true );
+                if (description != null) {
+                    CommentDTO dto = new CommentDTO(0, userID, productID, null, description, 0 ,true );
                     boolean result = dao.addComment(dto);
                 } else {
                     if (button != null) {
-                        String message = "Please enter at least your rating !";
+                        String message = "Please enter your comment !";
                         if (!message.isEmpty()) {
                             request.setAttribute("MESSAGE2", message);
                         }

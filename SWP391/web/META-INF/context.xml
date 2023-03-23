@@ -2,6 +2,6 @@
 <Context path="/SWP391">
     <Resource name="MrBean" type="javax.sql.DataSource" auth="Container"
     driverClassName="com.microsoft.sqlserver.jdbc.SQLServerDriver"
-    url="jdbc:sqlserver://localhost:1433;databaseName=OnlineShoppingDTVHG"
+    url="jdbc:sqlserver://localhost:1433;databaseName=OnlineShoppingDTVH"
     username="sa" password="12345" />
 </Context>
