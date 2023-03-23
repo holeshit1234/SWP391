@@ -28,7 +28,7 @@ import org.apache.catalina.Session;
  * @author User
  */
 @WebServlet(name = "GetAddressServelts", urlPatterns = {"/GetAddressServelts"})
-public class GetAddressServelts extends HttpServlet {
+public class GetAddressUserByManagerAdminServelt extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>

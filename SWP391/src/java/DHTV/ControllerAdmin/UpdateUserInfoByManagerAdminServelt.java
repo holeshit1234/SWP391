@@ -26,9 +26,9 @@ import javax.servlet.http.HttpSession;
  * @author User
  */
 @WebServlet(name = "UpdateUserInfoServelt", urlPatterns = {"/UpdateUserInfoServelt"})
-public class UpdateUserInfoServelt extends HttpServlet {
+public class UpdateUserInfoByManagerAdminServelt extends HttpServlet {
 
-    private final String UPDATE_FAIL ="UpdateInfoAdminManager.jsp";
+    private final String UPDATE_FAIL ="updateInfoUserByAdminManager.jsp";
 //    private final String UPDATE_FAIL ="testUpdate.jsp";
     private final String UPDATE_SUCCESS ="GetUserUpdate";
     

@@ -19,7 +19,68 @@
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <style>
+            .confirm-box {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                z-index: 9999;
+                background-color: white;
+                padding: 20px;
+                border: 1px solid black;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            }
 
+            .alert {
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background-color: #f8d7da;
+                color: #721c24;
+                padding: 20px;
+                border: 1px solid #f5c6cb;
+                border-radius: 5px;
+                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+            }
+
+            .button-container {
+                display: flex;
+                justify-content: center;
+                margin-top: 20px;
+            }
+
+            .ok-button,
+            .cancel-button {
+                background-color: #007bff;
+                border: 1px solid #007bff;
+                color: #fff;
+                cursor: pointer;
+                padding: 8px 16px;
+                margin: 0 10px;
+                border-radius: 4px;
+                font-size: 14px;
+                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+            }
+
+            .ok-button:hover,
+            .cancel-button:hover {
+                background-color: #0056b3;
+                border-color: #0056b3;
+            }
+
+            .cancel-button {
+                background-color: transparent;
+                color: #007bff;
+            }
+
+            .cancel-button:hover {
+                background-color: #f8f9fa;
+                color: #007bff;
+            }
+        </style>
     </head>
     <body class="sb-nav-fixed">
 
@@ -207,8 +268,10 @@
                                                                 <c:url var="urlDelete" value="DeleteUserServlet">                                                                  
                                                                     <c:param name="userid" value="${dto.getUserID()}"/>
                                                                 </c:url>
-                                                                <a type="button" 
-                                                                   href="${urlDelete}">Delete User </a> <br>
+
+                                                                <button type="button" onclick="confirmDelete('${urlDelete}')">
+                                                                    Delete User
+                                                                </button> <br>
                                                             </c:if>
                                                         </c:if>
                                                         <c:if test="${not empty sessionScope.USER}">
@@ -217,7 +280,11 @@
                                                                 <c:url var="urlBanUser" value="BanUserServletAtUserPage" >
                                                                     <c:param name="userID" value="${dto.getUserID()}"/>
                                                                 </c:url>
-                                                                <a href="${urlBanUser}">Ban User</a>
+
+                                                                <button type="button" onclick="confirmDelete('${urlBanUser}')">
+                                                                    Ban User
+                                                                </button> <br>
+
                                                             </c:if>
                                                         </c:if>
 
@@ -249,6 +316,8 @@
                 </footer>
             </div>
         </div>
+
+        <script src="asset/js/Jaddress.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/js/slideBar.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>

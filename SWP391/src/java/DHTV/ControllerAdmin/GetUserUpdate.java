@@ -52,7 +52,7 @@ public class GetUserUpdate extends HttpServlet {
                 UserDetailsDTO result = dao.showUserById(userID);
                 
                 if(result != null){
-                    url = "UpdateInfoAdminManager.jsp";
+                    url = "updateInfoUserByAdminManager.jsp";
 //                    url = "testUpdate.jsp";
                     HttpSession session = request.getSession();
                     session.setAttribute("USER_INFO", result);
