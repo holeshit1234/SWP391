@@ -51,7 +51,6 @@
         <!---------Item-------->
         <section class="cartegory">
             <div class="container">            
-                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/> 
                 <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                 <div class="new-prod">
                     <div class="product-list-header" style="margin-top:45px">

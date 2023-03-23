@@ -18,75 +18,15 @@
         <title>Tables - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
+        <link href="asset/css/showAllUser.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <style>
-            .confirm-box {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                z-index: 9999;
-                background-color: white;
-                padding: 20px;
-                border: 1px solid black;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-            }
-
-            .alert {
-                position: fixed;
-                top: 50%;
-                left: 50%;
-                transform: translate(-50%, -50%);
-                background-color: #f8d7da;
-                color: #721c24;
-                padding: 20px;
-                border: 1px solid #f5c6cb;
-                border-radius: 5px;
-                box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
-                z-index: 9999;
-            }
-
-            .button-container {
-                display: flex;
-                justify-content: center;
-                margin-top: 20px;
-            }
-
-            .ok-button,
-            .cancel-button {
-                background-color: #007bff;
-                border: 1px solid #007bff;
-                color: #fff;
-                cursor: pointer;
-                padding: 8px 16px;
-                margin: 0 10px;
-                border-radius: 4px;
-                font-size: 14px;
-                transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-            }
-
-            .ok-button:hover,
-            .cancel-button:hover {
-                background-color: #0056b3;
-                border-color: #0056b3;
-            }
-
-            .cancel-button {
-                background-color: transparent;
-                color: #007bff;
-            }
-
-            .cancel-button:hover {
-                background-color: #f8f9fa;
-                color: #007bff;
-            }
-        </style>
+       
     </head>
     <body class="sb-nav-fixed">
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -299,20 +239,6 @@
                     </div>
                 </main>
 
-
-
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
             </div>
         </div>
 

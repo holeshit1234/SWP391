@@ -5,11 +5,11 @@
  */
 package DHTV.ControllerAdmin;
 
-import DHTV.product.ProductDAO;
-import DHTV.product.ProductDTO;
+import DVHT.userdetails.UserDetailsDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.text.ParseException;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author mthin
+ * @author User
  */
-@WebServlet(name = "ChangeStatusProductServlet", urlPatterns = {"/ChangeStatusProductServlet"})
-public class ChangeStatusProductServlet extends HttpServlet {
+@WebServlet(name = "BanUserServlet", urlPatterns = {"/BanUserServlet"})
+public class UserAvailableServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,28 +37,38 @@ public class ChangeStatusProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = "ShowAllListProductServlet";
+
+        String useid = request.getParameter("userID");
+        int id = Integer.parseInt(useid);
+        String button = request.getParameter("btAction");
+        String url = "";
         try {
-            String txtStatus = request.getParameter("txtStatus");
-            boolean status = Boolean.parseBoolean(txtStatus);
-            if(status==true){
-                 status=false;
-            }else{
-                status =true;
+            if (button.equals("Ban")) {
+                UserDetailsDAO dao = new UserDetailsDAO();
+
+                boolean result = dao.banUser(id);
+                if (result) {
+                    url = "GetUserNeedToCare";
+                }
             } 
-           
-            String txtProductID= request.getParameter("txtProductID");
-            int productID= Integer.parseInt(txtProductID);
-            ProductDAO  dao = new ProductDAO();
-            dao.ChangeStatusProduct(productID, status);
-                        
-        }catch (NamingException ex) {
-            log(" _ Naming _ " + ex.getMessage());
+            if(button.equals("Unban")) {
+                 UserDetailsDAO dao = new UserDetailsDAO();
+
+                boolean result = dao.unbanUser(id);
+                if (result) {
+                    url = "GetUserNeedToCare";
+                }
+            }
+
+        } catch (NamingException ex) {
+            log("BanUser _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
-            log(" _ SQL _ " + ex.getMessage());
-        }  finally {
-            RequestDispatcher rd = request.getRequestDispatcher(url);
-            rd.forward(request, response);
+            log("BanUser _ SQL _ " + ex.getMessage());
+        } catch (ParseException ex) {
+            log("BanUser _ Parse _ " + ex.getMessage());
+        } finally {
+            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
+            dispatcher.forward(request, response);
         }
     }
 

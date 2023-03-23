@@ -5,15 +5,11 @@
  */
 package DHTV.ControllerAdmin;
 
-import DVHT.comment.CommentDAO;
-import DVHT.comment.CommentDTO;
-import DVHT.report.ReportDAO;
-import DVHT.report.ReportDTO;
+import DHTV.product.ProductDAO;
+import DHTV.product.ProductDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -24,10 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author User
+ * @author mthin
  */
-@WebServlet(name = "GetDetailCommentID", urlPatterns = {"/GetDetailCommentID"})
-public class GetDetailCommentID extends HttpServlet {
+@WebServlet(name = "ChangeStatusProductServlet", urlPatterns = {"/ChangeStatusProductServlet"})
+public class DeleteProductServlet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,41 +37,26 @@ public class GetDetailCommentID extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        String url = "";
-        String commentid = request.getParameter("id");
-        int comid = Integer.parseInt(commentid);
+        String url = "ShowAllListProductServlet";
         try {
-            ReportDAO dao = new ReportDAO();
-            
-            dao.getReportByCommentID(comid);
-            
-            List<ReportDTO> result = dao.getGetListReport();
-            
-             List<CommentDTO> allResults = new ArrayList<>();
-             for (ReportDTO report : result) {
-                int id = report.getCommentID();
-
-                CommentDAO dao1 = new CommentDAO();
-
-                dao1.getUserNeedCare(id);
-
-                List<CommentDTO> result1 = dao1.getListUserReport();
-
-                allResults.addAll(result1);
-                //}
-            }
-            
-            request.setAttribute("RESULT", result);
-            request.setAttribute("NAME", allResults);
-            
-            url = "ShowDetailReport.jsp";
-            
-        } catch (NamingException ex) {
-            log("GetUserNeedToCare _Naming " + ex.getMessage());
+            String txtStatus = request.getParameter("txtStatus");
+            boolean status = Boolean.parseBoolean(txtStatus);
+            if(status==true){
+                 status=false;
+            }else{
+                status =true;
+            } 
+           
+            String txtProductID= request.getParameter("txtProductID");
+            int productID= Integer.parseInt(txtProductID);
+            ProductDAO  dao = new ProductDAO();
+            dao.ChangeStatusProduct(productID, status);
+                        
+        }catch (NamingException ex) {
+            log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
-            log("GetUserNeedToCare _SQL " + ex.getMessage());
-        } finally {
+            log(" _ SQL _ " + ex.getMessage());
+        }  finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

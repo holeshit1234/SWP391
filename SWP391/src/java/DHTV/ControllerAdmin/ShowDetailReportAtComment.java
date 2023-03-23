@@ -5,11 +5,15 @@
  */
 package DHTV.ControllerAdmin;
 
-import DVHT.userdetails.UserDetailsDAO;
+import DVHT.comment.CommentDAO;
+import DVHT.comment.CommentDTO;
+import DVHT.report.ReportDAO;
+import DVHT.report.ReportDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -22,8 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author User
  */
-@WebServlet(name = "BanUserServlet", urlPatterns = {"/BanUserServlet"})
-public class BanUserServlet extends HttpServlet {
+@WebServlet(name = "GetDetailCommentID", urlPatterns = {"/GetDetailCommentID"})
+public class ShowDetailReportAtComment extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,38 +41,43 @@ public class BanUserServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
-        String useid = request.getParameter("userID");
-        int id = Integer.parseInt(useid);
-        String button = request.getParameter("btAction");
+        
         String url = "";
+        String commentid = request.getParameter("id");
+        int comid = Integer.parseInt(commentid);
         try {
-            if (button.equals("Ban")) {
-                UserDetailsDAO dao = new UserDetailsDAO();
+            ReportDAO dao = new ReportDAO();
+            
+            dao.getReportByCommentID(comid);
+            
+            List<ReportDTO> result = dao.getGetListReport();
+            
+             List<CommentDTO> allResults = new ArrayList<>();
+             for (ReportDTO report : result) {
+                int id = report.getCommentID();
 
-                boolean result = dao.banUser(id);
-                if (result) {
-                    url = "GetUserNeedToCare";
-                }
-            } 
-            if(button.equals("Unban")) {
-                 UserDetailsDAO dao = new UserDetailsDAO();
+                CommentDAO dao1 = new CommentDAO();
 
-                boolean result = dao.unbanUser(id);
-                if (result) {
-                    url = "GetUserNeedToCare";
-                }
+                dao1.getUserNeedCare(id);
+
+                List<CommentDTO> result1 = dao1.getListUserReport();
+
+                allResults.addAll(result1);
+                //}
             }
-
+            
+            request.setAttribute("RESULT", result);
+            request.setAttribute("NAME", allResults);
+            
+            url = "ShowDetailReport.jsp";
+            
         } catch (NamingException ex) {
-            log("BanUser _ Naming _ " + ex.getMessage());
+            log("GetUserNeedToCare _Naming " + ex.getMessage());
         } catch (SQLException ex) {
-            log("BanUser _ SQL _ " + ex.getMessage());
-        } catch (ParseException ex) {
-            log("BanUser _ Parse _ " + ex.getMessage());
+            log("GetUserNeedToCare _SQL " + ex.getMessage());
         } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
-            dispatcher.forward(request, response);
+            RequestDispatcher rd = request.getRequestDispatcher(url);
+            rd.forward(request, response);
         }
     }
 

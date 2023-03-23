@@ -12,134 +12,15 @@
         <title>Tables - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
+        <link href="asset/css/addProductPageStyle.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <style>
-            main {
-                padding: 20px;
-            }
-
-            .container-fluid {
-                max-width: 1200px;
-                margin: 0 auto;
-            }
-
-            .card {
-                background-color: #fff;
-                border-radius: 5px;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-                padding: 20px;
-            }
-
-            .card h1 {
-                font-size: 24px;
-                font-weight: 700;
-                margin-bottom: 20px;
-            }
-
-            form label {
-                display: block;
-                margin-bottom: 5px;
-            }
-
-            form input[type="text"],
-            form select {
-                padding: 10px;
-                border: none;
-                border-radius: 5px;
-                width: 100%;
-                margin-bottom: 10px;
-                font-size: 16px;
-                color: #333;
-            }
-
-            form input[type="radio"] {
-                margin-right: 5px;
-            }
-
-            form input[type="submit"] {
-                background-color: #f39c12;
-                color: #fff;
-                border: none;
-                border-radius: 5px;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
-
-            .form-input {
-                margin-top: 10px;
-                display: none;
-            }
-
-            .form-input input[type="text"] {
-                width: 80px;
-                margin-left: 10px;
-            }
-
-            .size-option {
-                display: flex;
-                align-items: center;
-                margin-bottom: 5px;
-            }
-
-            .size-option label {
-                margin-left: 5px;
-                font-size: 16px;
-            }
-
-            .sex-option {
-                margin-bottom: 10px;
-            }
-            #product-name-input {
-                padding: 10px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
-            }
-            #price {
-                padding: 10px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
-            }
-            #description {
-                padding: 10px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
-            }
-            #quantity {
-                padding: 10px;
-                font-size: 16px;
-                border-radius: 5px;
-                border: 1px solid #ccc;
-                margin-bottom: 10px;
-            }
-            @media only screen and (max-width: 768px) {
-                .card {
-                    padding: 10px;
-                }
-
-                form input[type="text"],
-                form select {
-                    font-size: 14px;
-                }
-
-                form input[type="submit"] {
-                    font-size: 14px;
-                    padding: 8px 16px;
-                }
-            }
-
-        </style>
+       
     </head>
     <body class="sb-nav-fixed">
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="ShowDashBoard">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -360,34 +241,7 @@
                                         </div>
                                     </div>
                                 </c:forEach>
-                                <style>
-                                    .size-option {
-                                        display: flex;
-                                        align-items: center;
-                                    }
-
-                                    .form-input {
-                                        display: none;
-                                        margin-left: 20px;
-                                    }
-
-                                    .form-input {
-                                        display: none;
-                                    }
-
-                                    .form-input.show {
-                                        display: flex;
-                                        flex-wrap: wrap;
-                                        background-color: #ffffff; /* updated color */
-                                    }
-
-                                    .form-input .input-row span {
-                                        margin-right: 5px;
-                                    }
-                                    #size {
-                                        font-size: 20px;
-                                    }
-                                </style>
+                              
 
                                 <script>
                                     function showForm(checkbox) {
@@ -411,18 +265,7 @@
 
 
 
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+               
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

@@ -25,7 +25,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -154,6 +154,7 @@
                                             <th>Payment Status</th>
                                             <th>Status</th>                                          
                                             <th></th>                                          
+                                            <th></th>                                          
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -161,7 +162,7 @@
                                             <c:if test="${dto.getApprovalStatus()>=2 && dto.getApprovalStatus()<=3}">
                                                 <tr>
                                                     <td>
-                                                        <a> DTVH ${dto.getOrderID()} </a>                                                     
+                                                        <a> VDTH ${dto.getOrderID()} </a>                                                     
                                                     </td>
                                                     <td>
                                                         ${dto.getDate()}
@@ -219,24 +220,17 @@
                                                         </c:if>
                                                     </td>
                                                     <td>
-                                                        <form action="DeleteOrderServlet" method="POST" onsubmit="return deleteconfirm();">
-                                                            <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                            <input type="submit" id="submitBtn" value="Delete"  style="color: red"/>
-                                                        </form>
+                                                        <c:if test="${dto.getApprovalStatus()== 2 }">
+                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return deleteconfirm();">
+                                                                <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
+                                                                <input type="submit" id="submitBtn" value="Delete"  style="color: red"/>
+                                                            </form>
+                                                        </c:if>
                                                     </td>
                                                 </tr>
                                             </c:if>
                                         </c:forEach>    
-                                        <!--                                    <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  
-                                                                            <td>Status</td>  -->
+
                                     </tbody>
                                 </table>
                             </c:if>
@@ -249,11 +243,11 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
+                            <div class="text-muted"></div>
                             <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
+                                <a href="#"></a>
+
+                                <a href="#"></a>
                             </div>
                         </div>
                     </div>

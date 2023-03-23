@@ -264,7 +264,7 @@ public class ReportDAO implements Serializable{
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "select * from Report "
+                String sql = "select ReportID, UserID, Date, Description from Report "
                         + "where CommentID =? ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);

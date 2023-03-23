@@ -64,15 +64,10 @@ public class GetUserNeedToCare extends HttpServlet {
                     List<CommentDTO> result1 = dao1.getListUserReport();
 
                     allResults.addAll(result1);
-                    //}
+                 
                 }
             }
-            //for (CommentDTO comment : result1) {
-            //int userid = comment.getUserID();
-            // UserDetailsDAO dao2 = new UserDetailsDAO();
-            //dao2.showUserById(userid);
-            // List<UserDetailsDTO> result2 = dao2.getListReport();
-            //request.setAttribute("REPORT", result);
+     
             request.setAttribute("COMENT", allResults);
             request.setAttribute("COUNTREPORT", result);
 

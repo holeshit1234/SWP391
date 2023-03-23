@@ -1,0 +1,144 @@
+main {
+    padding: 20px;
+}
+
+.container-fluid {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.card {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card h1 {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form input[type="text"],
+form select {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    width: 100%;
+    margin-bottom: 10px;
+    font-size: 16px;
+    color: #333;
+}
+
+form input[type="radio"] {
+    margin-right: 5px;
+}
+
+form input[type="submit"] {
+    background-color: #f39c12;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.form-input {
+    margin-top: 10px;
+    display: none;
+}
+
+.form-input input[type="text"] {
+    width: 80px;
+    margin-left: 10px;
+}
+
+.size-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.size-option label {
+    margin-left: 5px;
+    font-size: 16px;
+}
+
+.sex-option {
+    margin-bottom: 10px;
+}
+#product-name-input {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+#price {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+#description {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+#quantity {
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-bottom: 10px;
+}
+@media only screen and (max-width: 768px) {
+    .card {
+        padding: 10px;
+    }
+
+    form input[type="text"],
+    form select {
+        font-size: 14px;
+    }
+
+    form input[type="submit"] {
+        font-size: 14px;
+        padding: 8px 16px;
+    }
+}
+.size-option {
+    display: flex;
+    align-items: center;
+}
+
+.form-input {
+    display: none;
+    margin-left: 20px;
+}
+
+.form-input {
+    display: none;
+}
+
+.form-input.show {
+    display: flex;
+    flex-wrap: wrap;
+    background-color: #ffffff; /* updated color */
+}
+
+.form-input .input-row span {
+    margin-right: 5px;
+}
+#size {
+    font-size: 20px;
+}

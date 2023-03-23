@@ -18,29 +18,15 @@
         <title>Tables - SB Admin</title>
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="asset/css/styletest.css" rel="stylesheet" />
+        <link href="asset/css/showBrandPageStyle.css" rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
-        <style>
-            input[type=checkbox] {
-                margin-right: 10px;
-            }                                              
-            #brand {
-                width: 280px;
-            }
-            #description {
-                width: 280px;
-                height:150px;
-            }
-            label {
-                font-weight: bold;
-            }
-
-        </style>
+     
     </head>
     <body class="sb-nav-fixed">
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -270,20 +256,7 @@
                                                             }
                                                         });
                                                     </script>
-                                                    <!--                                                    <script>
-                                                                                                            function confirmSubmit() {
-                                                                                                                var brand = document.getElementById("brand").value;
-                                                                                                                var Status = document.querySelector('input[name="txtStatus"]:checked');
-                                                                                                                var description = document.getElementById("description").value;
-                                                    
-                                                                                                                if (brand === "" || Status === null || description === "") {
-                                                                                                                    alert("Please fill in all fields.");
-                                                                                                                    return false;
-                                                                                                                } else {
-                                                                                                                    return true;
-                                                                                                                }
-                                                                                                            }
-                                                                                                        </script>-->
+                             
                                                 </form>
                                             </div>
                                         </div>
@@ -291,134 +264,14 @@
                                     </div>
                                 </div>
                             </div>
-                            <style>
-                                /* Center the modal popup */
-                                .modal-dialog {
-                                    display: flex;
-                                    justify-content: center;
-                                    align-items: center;
-                                }
-
-                                /* Style the modal content */
-                                .modal-content {
-                                    background-color: white;
-                                    border-radius: 10px;
-                                    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.2);
-                                    padding: 20px;
-                                }
-
-                                /* Style the modal header */
-                                .modal-header {
-                                    display: flex;
-                                    justify-content: space-between;
-                                    align-items: center;
-                                    border-bottom: none;
-                                }
-
-                                /* Style the modal title */
-                                .modal-title {
-                                    font-size: 24px;
-                                    font-weight: bold;
-                                    margin: 0;
-                                    align-content: center;
-                                }
-
-                                /* Style the close button */
-                                .btn-close {
-                                    padding: 0;
-                                    background-color: transparent;
-                                    border: none;
-                                    font-size: 1.5rem;
-                                    opacity: 0.5;
-                                }
-
-                                .btn-close:hover {
-                                    opacity: 1;
-                                }
-
-                                /* Style the modal body */
-                                .modal-body {
-                                    padding: 0;
-                                }
-
-                                /* Style the form */
-                                form {
-                                    display: flex;
-                                    flex-direction: column;
-                                }
-
-                                /* Style the table */
-                                table {
-                                    border-collapse: collapse;
-                                    width: 100%;
-                                    margin-bottom: 20px;
-                                }
-
-                                th, td {
-                                    text-align: left;
-                                    padding: 8px;
-                                    border-bottom: 1px solid #ddd;
-                                }
-
-                                th {
-                                    background-color: #f2f2f2;
-                                    font-weight: bold;
-                                }
-
-                                /* Style the modal footer */
-                                .modal-footer {
-                                    display: flex;
-                                    justify-content: flex-end;
-                                    align-items: center;
-                                    border-top: none;
-                                    margin-top: 20px;
-                                }
-
-                                /* Style the buttons */
-                                .btn {
-                                    padding: 8px 16px;
-                                    border-radius: 5px;
-                                    cursor: pointer;
-                                }
-
-                                .btn-secondary {
-                                    background-color: #6c757d;
-                                    color: white;
-                                    margin-right: 10px;
-                                }
-
-                                .btn-secondary:hover {
-                                    background-color: #5a6268;
-                                }
-
-                                .btn-primary {
-                                    background-color: #007bff;
-                                    color: white;
-                                }
-
-                                .btn-primary:hover {
-                                    background-color: #0069d9;
-                                }
-
-                            </style>
+                            
                         </div>
                     </div>
                 </main>
 
 
 
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2022</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+                
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>

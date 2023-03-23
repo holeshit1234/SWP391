@@ -25,7 +25,7 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">DHTV STORE</a>
+            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
@@ -162,7 +162,7 @@
                                             <c:if test="${dto.getApprovalStatus()==4}">
                                                 <tr>
                                                     <td>
-                                                        <a>DTVH${dto.getOrderID()}
+                                                        <a>VDTH ${dto.getOrderID()}
                                                         </a>
                                                     </td>
                                                     <td>${dto.getDate()}</td>

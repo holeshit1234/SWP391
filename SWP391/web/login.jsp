@@ -118,10 +118,10 @@
                         <form action="signup.jsp" class="sign-up-form">
                             <h2 class="title">Become a customer of the store</h2>
 
-                            <p class="social-text">If you do not have an account on DHTV, 
+                            <p class="social-text">If you do not have an account on VDTH, 
                                 use this option to access the registration form. 
-                                By providing DHTV with your details,
-                                the buying process on DHTV will be a more enjoyable and quicker experience.</p>
+                                By providing VDTH with your details,
+                                the buying process on VDTH will be a more enjoyable and quicker experience.</p>
                             <input type="submit" value="Sign up" class="btn">
                             </div>
                         </form>
