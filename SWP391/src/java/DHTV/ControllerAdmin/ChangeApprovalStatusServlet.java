@@ -6,17 +6,8 @@
 package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
-import DHTV.order.OrderDTO;
-import DHTV.order.OrderDetailDAO;
-import DHTV.order.OrderDetailDTO;
-import DVHT.bill.BillDAO;
-import DVHT.bill.BillDTO;
-import DVHT.bill.BillDetailDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
-import java.text.ParseException;
-import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -58,34 +49,15 @@ public class ChangeApprovalStatusServlet extends HttpServlet {
                 boolean paymentStatus = true;
                 OrderDAO dao = new OrderDAO();
                 dao.setApprovalAndPaymentStatusOrder(orderID, ApprovalStatus, paymentStatus);
-                //Add order to bill
-                OrderDAO daoOrder = new OrderDAO();
-                OrderDTO dtoOrder = daoOrder.getOrderByOrderID(orderID);
-                int key = 0;
-                BillDAO billDAO = new BillDAO();
-                key = billDAO.addBill(dtoOrder);
-                
-                //Add orderdetail to bill detail
-                OrderDetailDAO oddao = new OrderDetailDAO();
-                oddao.showListOrderDetail(orderID);
-                List<OrderDetailDTO> oddto = oddao.getOrderDetailList();
-                
-                BillDetailDAO billDetailDAO =new BillDetailDAO();
-                
-                for(OrderDetailDTO i: oddto ){
-                    billDetailDAO.addBillDetail(key, i);
-                }
-                             
-                
-                url = "showOrder";
+
             }
 
+            url = "showOrder";
+
         } catch (NamingException ex) {
-            log("ShowItemsServlet _ Naming _ " + ex.getMessage());
+            log("ChangeApprove _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
-            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
-        } catch (ParseException ex) {
-            log("ShowItemsServlet _ SQL _ " + ex.getMessage());
+            log("ChangeApprove _ SQL _ " + ex.getMessage());
         } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);

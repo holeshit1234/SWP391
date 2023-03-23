@@ -168,10 +168,9 @@
                                                         <th></th>
                                                     </tr>
                                                 </thead>
+                                                
                                                 <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
-                                                <jsp:useBean id="daoBill" class="DVHT.bill.BillDAO"/>
                                                 <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
-                                                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>
                                                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
                                                 <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
                                                 <c:set var="userID" value="${sessionScope.USER.userID}"/>
@@ -242,44 +241,13 @@
                                                                             <c:url var="RatingOrderURL" value="ratingorder.jsp" >
                                                                                 <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
                                                                             </c:url>
-                                                                            <button class="btn btn-primary" type="submit" onclick="window.location.href='${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
+                                                                            <button class="btn btn-primary" type="submit" onclick="window.location.href = '${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
                                                                         </c:if>
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                         </c:if>
                                                     </c:forEach>  
-                                                    <%--
-                                             <c:forEach var="dto1" items="${daoBill.getAllBillList()}" >
-                                                 <tr>
-                                                     <td><p>VDTH ${dto1.getBillID()}</p></td>
-                                                     <td><p>${dto1.getDate()}</p></td>
-                                                     <td>                                                                                                              
-                                                         <p style="color : green;">Đã giao hàng</p>                                                           
-                                                     </td>
-                                                     <td>                                                             
-                                                         <input type="hidden" name="bill" value="${daoBillDetail.showListBillDetail(dto1.getBillID())}" /> 
-                                                         <c:forEach var="dtoDetailBill" items="${daoBillDetail.getBillDetailList()}" >
-
-                                                                    <p>
-                                                                        <fmt:formatNumber var="totalPriceOfPro" 
-                                                                                          value="${daoProduct.getProductByProductID(dtoDetailBill.getProductID()).getPrice() * dtoDetailBill.getQuantity()}" 
-                                                                                          pattern="#,###"/>
-                                                                        ${daoProduct.getInfoProductByProductID(dtoDetailBill.getProductID()).getProductName()} -
-                                                                        size ${daoSize.getInfoSizeBySizeID(dtoDetailBill.getSizeID()).getSizeName()} 
-                                                                        x${dtoDetailBill.getQuantity()} - <br> 
-                                                                        total ${totalPriceOfPro} <sup>vnd</sup>
-                                                                    </p>
-                                                                </c:forEach>
-                                                            </td>
-                                                            <td>
-                                                                <fmt:formatNumber var="totalWithShipping1" value="${dto1.getTotalPrice()+dto1.getShippingPee()}" pattern="#,###"/>
-                                                                <p>${totalWithShipping1} <sup>vnd</sup></p>
-                                                            </td>
-                                                            <td>
-                                                            </td>
-                                                        </tr>
-                                                    </c:forEach>     --%>  
 
 
                                                 </tbody>

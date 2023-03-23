@@ -7,8 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
-import DVHT.bill.BillDAO;
-import DVHT.bill.BillDTO;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;

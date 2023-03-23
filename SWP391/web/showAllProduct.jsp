@@ -72,7 +72,7 @@
                         </select>
                     </div>
                 </div>
-                <jsp:useBean id="daoBillDetail" class="DVHT.bill.BillDetailDAO"/>  
+
                 <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                 <div class="product-list-container row">
                     <c:forEach var="product" items="${PAGING_RESULT}">

@@ -9,10 +9,7 @@ import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
-import DVHT.bill.BillDAO;
-import DVHT.bill.BillDTO;
-import DVHT.bill.BillDetailDAO;
-import DVHT.bill.BillDetailDTO;
+
 
 import java.awt.Color;
 import java.awt.Font;
@@ -55,14 +52,14 @@ public class ShowDashBoard extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try {
 
-            BillDetailDAO dao = new BillDetailDAO();
+            OrderDetailDAO dao = new OrderDetailDAO();
 
             dao.getTop10Products();
 
-            List<BillDetailDTO> top10Products = dao.getListdto();
+            List<OrderDetailDTO> top10Products = dao.getListdto();
             // Create a dataset
             DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (BillDetailDTO product : top10Products) {
+            for (OrderDetailDTO product : top10Products) {
                 dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
             }
             // Create a chart
@@ -87,10 +84,10 @@ public class ShowDashBoard extends HttpServlet {
             String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
             request.setAttribute("base64EncodedChart", base64EncodedChart);
 
-            BillDAO dao1 = new BillDAO();
+            OrderDAO dao1 = new OrderDAO();
 
 //            BillDTO result = dao1.getTotalPriceAtMonth();
-            BillDTO result1 = dao1.getTotalPriceAtYear();
+            OrderDTO result1 = dao1.getTotalPriceAtYear();
             
             if ( result1 != null) {
 //                request.setAttribute("date", result);
@@ -100,10 +97,10 @@ public class ShowDashBoard extends HttpServlet {
             }
 
             dao1.getTotalPriceWithMonth();
-            List<BillDTO> totalPriceWithMonths = dao1.getListPriceMonths();
+            List<OrderDTO> totalPriceWithMonths = dao1.getListPriceMonths();
             // Create a dataset
             DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-            for (BillDTO order : totalPriceWithMonths) {
+            for (OrderDTO order : totalPriceWithMonths) {
                 dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
             }
             // Create a chart
