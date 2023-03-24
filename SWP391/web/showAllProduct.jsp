@@ -72,7 +72,7 @@
                         </select>
                     </div>
                 </div>
-
+                <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO" />
                 <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
                 <div class="product-list-container row">
                     <c:forEach var="product" items="${PAGING_RESULT}">
@@ -97,7 +97,7 @@
                                         vnđ 
                                     </div>
                                     <div>
-                                        Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
+                                        Đã bán:${daoOrderDetail.getQuantitySoldByProductID(product.getProductID())}
                                     </div>
                                 </div>
                             </a>

@@ -168,7 +168,7 @@
                                                         <th></th>
                                                     </tr>
                                                 </thead>
-                                                
+
                                                 <jsp:useBean id="daoOrder" class="DHTV.order.OrderDAO"/>
                                                 <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>
                                                 <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>
@@ -227,30 +227,58 @@
                                                                     <fmt:formatNumber var="totalWithShipping" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
                                                                     <p>${totalWithShipping} <sup>vnd</sup></p>
                                                                 </td>
+
                                                                 <td>
-                                                                    <div class="add-buttom">
-                                                                        <c:if test="${dto.getApprovalStatus() == 1}">
-                                                                            <c:url var="CancelOrderURL" value="CancelOrderServlet" >
-                                                                                <c:param name="txtOrderID" value="${dto.getOrderID()}" />                                            
-                                                                            </c:url>
-                                                                            <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
-                                                                        </c:if>
-                                                                    </div>
-                                                                    <div class="add-buttom">
-                                                                        <c:if test="${dto.getApprovalStatus() == 3 && daoOrder.checkOrderPoint(dto.getOrderID())}">
-                                                                            <c:url var="RatingOrderURL" value="ratingorder.jsp" >
-                                                                                <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
-                                                                            </c:url>
-                                                                            <button class="btn btn-primary" type="submit" onclick="window.location.href = '${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
-                                                                        </c:if>
-                                                                        <c:if test="${dto.getApprovalStatus() == 3 && !daoOrder.checkOrderPoint(dto.getOrderID())}">
-                                                                            <p>Đã đánh giá</p>
-                                                                        </c:if>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
+
+                                                                    <c:if test="${dto.getApprovalStatus() == 3 && !daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                                        <p>Đã đánh giá</p>
+                                                                    </c:if>
+                                                                        <c:if test="${dto.getApprovalStatus() != 3 || daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                                        
+                                                        <li class="nav-item dropdown">
+                                                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                                                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                                                <c:if test="${dto.getApprovalStatus() == 1}">
+                                                                    <c:url var="CancelOrderURL" value="CancelOrderServlet" >
+                                                                        <c:param name="txtOrderID" value="${dto.getOrderID()}" />                                            
+                                                                    </c:url>
+                                                                    <li><a class="dropdown-item" onclick="confirmCancelOrder('${CancelOrderURL}')">Cancel</a></li>
+                                                                    </c:if>
+                                                                    <c:if test="${dto.getApprovalStatus() == 3 && daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                                        <c:url var="RatingOrderURL" value="ratingorder.jsp" >
+                                                                            <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
+                                                                        </c:url>
+                                                                    <li><a class="dropdown-item" onclick="window.location.href = '${RatingOrderURL}'">Rating</a></li>
+                                                                    </c:if>
+                                                            </ul>
+                                                        </li>
                                                         </c:if>
-                                                    </c:forEach>  
+
+                                                        <%--
+                                                    <div class="add-buttom">
+                                                        <c:if test="${dto.getApprovalStatus() == 1}">
+                                                            <c:url var="CancelOrderURL" value="CancelOrderServlet" >
+                                                                <c:param name="txtOrderID" value="${dto.getOrderID()}" />                                            
+                                                            </c:url>
+                                                            <button class="btn btn-primary" type="button" onclick="confirmCancelOrder('${CancelOrderURL}')"><sup>Hủy đơn hàng</sup></button>
+                                                        </c:if>
+                                                    </div>
+                                                    <div class="add-buttom">
+                                                        <c:if test="${dto.getApprovalStatus() == 3 && daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                            <c:url var="RatingOrderURL" value="ratingorder.jsp" >
+                                                                <c:param name="OrderID" value="${dto.getOrderID()}" />                                            
+                                                            </c:url>
+                                                            <button class="btn btn-primary" type="submit" onclick="window.location.href = '${RatingOrderURL}'"><sup>Đánh giá sp</sup></button>
+                                                        </c:if>
+                                                        <c:if test="${dto.getApprovalStatus() == 3 && !daoOrder.checkOrderPoint(dto.getOrderID())}">
+                                                            <p>Đã đánh giá</p>
+                                                        </c:if>
+                                                    </div>
+                                                        --%>
+                                                        </td>
+                                                        </tr>
+                                                    </c:if>
+                                                </c:forEach>  
 
 
                                                 </tbody>

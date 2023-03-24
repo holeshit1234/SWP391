@@ -178,20 +178,29 @@
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
+
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                             <c:if test="${dto.getOrderID() == list.getOrderID()}">
                                                             ${list.getQuantity()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
 
@@ -212,18 +221,18 @@
                                                     </td>
                                                     <td>
                                                         <c:if test="${dto.getApprovalStatus() ==2 }">
-                                                            <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm();">
-                                                                <input type="hidden" name ="txtApprovalStatus" value="${dto.getApprovalStatus()}">
-                                                                <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
+                                                            <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn đánh dấu đơn hàng này là Đã giao hàng?');">
+                                                                <input type="hidden" name="txtApprovalStatus" value="${dto.getApprovalStatus()}">
+                                                                <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
                                                                 <input type="submit" id="submitBtn" value="Đã giao hàng" />
                                                             </form>
                                                         </c:if>
                                                     </td>
                                                     <td>
-                                                        <c:if test="${dto.getApprovalStatus()== 2 }">
-                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return deleteconfirm();">
-                                                                <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
-                                                                <input type="submit" id="submitBtn" value="Delete"  style="color: red"/>
+                                                        <c:if test="${dto.getApprovalStatus() == 2 }">
+                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đơn đặt hàng này?');">
+                                                                <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
+                                                                <input type="submit" id="submitBtn" value="Delete" style="color: red">
                                                             </form>
                                                         </c:if>
                                                     </td>
@@ -258,18 +267,13 @@
             var approvalStatus = document.getElementsByName("txtApprovalStatus")[0].value;
             var submitBtn = document.getElementById("submitBtn");
 
-            if (approvalStatus == 2) {
+            if (approvalStatus === 2) {
                 submitBtn.value = "Thanh toán";
-            } else if (approvalStatus == 3) {
+            } else if (approvalStatus === 3) {
                 submitBtn.value = "Đã thanh toán";
                 submitBtn.disabled = true; // Nếu đã thanh toán thì vô hiệu hóa nút submit
             }
-            function confirm() {
-                alert("bạn có chắc chắn quyết định của mình ");
-            }
-            function deleteconfirm() {
-                alert("Nếu bạn chắn chắn xóa hãy ấn OK  ");
-            }
+
         </script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/js/slideBar.js"></script>

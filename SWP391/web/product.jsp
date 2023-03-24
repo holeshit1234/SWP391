@@ -351,11 +351,12 @@
                                                 <strong>${daoUser.getInfoUser(dto.getUserID()).getFullName()}</strong>
                                                 ${dto.getDate()}
                                                 <br>
-
+                                                <%--
                                                 <p>
                                                     Point of this product: ${dto.getPoint()} <i
                                                         class="fa fa-star"></i>
                                                 </p>
+                                                --%>
                                             </div>
                                         </div>
                                         <!--review------------->

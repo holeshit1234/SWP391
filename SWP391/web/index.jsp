@@ -52,6 +52,7 @@
         <section class="cartegory">
             <div class="container">            
                 <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO" />
+                <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO" />
                 <div class="new-prod">
                     <div class="product-list-header" style="margin-top:45px">
 
@@ -84,7 +85,7 @@
                                             <fmt:formatNumber value="${product.getPrice()}" pattern="#,###,###" />                                  
                                             vnđ </div>
                                         <div>
-                                            Đã bán:${daoBillDetail.getQuantityByProductID(product.getProductID())}
+                                            Đã bán:${daoOrderDetail.getQuantitySoldByProductID(product.getProductID())}
                                         </div>
 
                                     </div>
@@ -129,7 +130,7 @@
                                             <fmt:formatNumber value="${product1.getPrice()}" pattern="#,###,###" />                                  
                                             vnđ </div>
                                         <div>
-                                            Đã bán:${daoBillDetail.getQuantityByProductID(product1.getProductID())}
+                                            Đã bán:${daoOrderDetail.getQuantitySoldByProductID(product1.getProductID())}
                                         </div>
 
                                     </div>
