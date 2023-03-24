@@ -37,7 +37,6 @@
                     </font>
                 </div>
             </form>
-            <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -106,7 +105,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>
+                            </div> 
                             <a class="nav-link collapsed" href="ShowAllCommentServlet" >
                                 <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
                                 Comment
@@ -120,24 +119,25 @@
                 </nav>
             </div>
 
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Tables</h1>
+
 
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
                                 DataTable User
                             </div>
+                            
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
                             <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
-                            <c:set var="result" value="${requestScope.CANCLE_RESULT  }"/>
+                            <c:set var="result" value="${requestScope.CANCLE_RESULT}"/>
 
                             <c:if test="${not empty result}">
                                 <table id="datatablesSimple" >
@@ -151,7 +151,6 @@
                                             <th>Size </th>
                                             <th>Quantity </th>
                                             <th>Total</th>
-
                                             <th>Status</th>
 
                                             <!--                                            <th>Delete</th>-->
@@ -167,10 +166,10 @@
                                                     </td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}</td>
-                                                    <td>${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
+                                                    <td>${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>

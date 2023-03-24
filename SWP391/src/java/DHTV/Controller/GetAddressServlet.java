@@ -59,7 +59,7 @@ public class GetAddressServlet extends HttpServlet {
 
                     AddressDAO dao = new AddressDAO();
 
-                    AddressDTO result = dao.getAddress(id, addid);
+                    AddressDTO result = dao.getAddressDetail(id, addid);
 
                     if (result != null) {
 

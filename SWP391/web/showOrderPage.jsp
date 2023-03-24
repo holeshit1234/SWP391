@@ -171,10 +171,10 @@
                                                         ${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}
                                                     </td>
                                                     <td>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>

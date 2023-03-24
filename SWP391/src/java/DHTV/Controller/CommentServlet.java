@@ -8,8 +8,6 @@ package DHTV.Controller;
 
 import DVHT.comment.CommentDAO;
 import DVHT.comment.CommentDTO;
-import DVHT.rate.RateDAO;
-import DVHT.rate.RateDTO;
 import DVHT.userdetails.UserDetailsDTO;;
 import java.io.IOException;
 import java.io.PrintWriter;

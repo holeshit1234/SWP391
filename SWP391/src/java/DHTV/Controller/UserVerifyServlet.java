@@ -47,8 +47,8 @@ public class UserVerifyServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        ServletContext context = this.getServletContext();
-        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
+//        ServletContext context = this.getServletContext();
+//        Properties siteMaps = (Properties) context.getAttribute("SITE_MAP");
         String url = USER_VERIFY_PAGE;
 
         String email = request.getParameter("txtEmail");

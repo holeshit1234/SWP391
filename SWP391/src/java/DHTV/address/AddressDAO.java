@@ -93,7 +93,7 @@ public class AddressDAO implements Serializable {
         }
     }
 
-    public AddressDTO getAddress(int userid, int addid)
+    public AddressDTO getAddressDetail(int userid, int addid)
             throws NamingException, SQLException {
 
         Connection con = null;
@@ -426,7 +426,7 @@ public class AddressDAO implements Serializable {
         return infoListS;
     }
 
-    public void getAddresss(int userid)
+    public void getAddressByAdmin(int userid)
             throws NamingException, SQLException {
 
         Connection con = null;

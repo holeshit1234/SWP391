@@ -58,7 +58,7 @@ public class GetAddressUserByManagerAdminServelt extends HttpServlet {
                             
                     AddressDAO dao = new AddressDAO();
 
-                    dao.getAddresss(usid);
+                    dao.getAddressByAdmin(usid);
                     
                     List<AddressDTO> result = dao.getInfoListS();
 
