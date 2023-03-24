@@ -178,20 +178,29 @@
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
+
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
+                                                             <c:if test="${dto.getOrderID() == list.getOrderID()}">
                                                             ${list.getQuantity()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
 
@@ -220,10 +229,12 @@
                                                         </c:if>
                                                     </td>
                                                     <td>
-                                                        <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đơn đặt hàng này?');">
-                                                            <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
-                                                            <input type="submit" id="submitBtn" value="Delete" style="color: red">
-                                                        </form>
+                                                        <c:if test="${dto.getApprovalStatus() == 2 }">
+                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đơn đặt hàng này?');">
+                                                                <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
+                                                                <input type="submit" id="submitBtn" value="Delete" style="color: red">
+                                                            </form>
+                                                        </c:if>
                                                     </td>
                                                 </tr>
                                             </c:if>
@@ -262,7 +273,7 @@
                 submitBtn.value = "Đã thanh toán";
                 submitBtn.disabled = true; // Nếu đã thanh toán thì vô hiệu hóa nút submit
             }
-            
+
         </script> 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="asset/js/slideBar.js"></script>

@@ -137,7 +137,7 @@ public class OrderDetailDAO implements Serializable {
                 //2 sql commands
                 String sql = "select [OrderDetailID] ,[OrderID] ,[ProductID] ,[SizeID],Quantity,Price "
                         + "from OrderDetail "
-                        + "where OrderID= ? ";
+                        + "where OrderID = ? ";
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, orderID);
                 //execute query  
