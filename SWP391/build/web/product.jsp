@@ -123,7 +123,7 @@
                             --%>
                             <jsp:useBean id="daoUtil" class="DVHT.utils.Util" />
                             <c:set var="avgRate" value="${daoUtil.getAvgRate(requestScope.PRODUCTID)}" />
-                            
+
                             <starts-review value="${daoUtil.roundingFunction(avgRate)}" max="5"></starts-review>
 
 
@@ -244,61 +244,7 @@
                             </button>
                         </form>
                     </li>
-<!--                    <li>
-                        <form action="CommentServlet" method="POST">
-                            <button type="submit" class="btn btn-secondary">
-                                5 <i class="fa fa-star"></i>
-                                (${dao.countCommentListByStar(requestScope.PRODUCTID,5)})
-                                <input type="hidden" name="star" value="5" />
-                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                            </button>
-                        </form>
-                    </li>
-                    <li>
-
-                        <form action="CommentServlet" method="POST">
-                            <button type="submit" class="btn btn-secondary">
-                                4 <i class="fa fa-star"></i>
-
-                                (${dao.countCommentListByStar(requestScope.PRODUCTID,4)})
-                                <input type="hidden" name="star" value="4" />
-                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                            </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="CommentServlet" method="POST">
-                            <button type="submit" class="btn btn-secondary">
-                                3 <i class="fa fa-star"></i>
-
-                                (${dao.countCommentListByStar(requestScope.PRODUCTID,3)})
-                                <input type="hidden" name="star" value="3" />
-                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                            </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="CommentServlet" method="POST">
-                            <button type="submit" class="btn btn-secondary">
-                                2 <i class="fa fa-star"></i>
-
-                                (${dao.countCommentListByStar(requestScope.PRODUCTID,2)})
-                                <input type="hidden" name="star" value="2" />
-                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                            </button>
-                        </form>
-                    </li>
-                    <li>
-                        <form action="CommentServlet" method="POST">
-                            <button type="submit" class="btn btn-secondary">
-                                1 <i class="fa fa-star"></i>
-
-                                (${dao.countCommentListByStar(requestScope.PRODUCTID,1)})
-                                <input type="hidden" name="star" value="1" />
-                                <input type="hidden" name="txtProductID" value="${requestScope.PRODUCTID}" />
-                            </button>
-                        </form>
-                    </li>-->
+                    
                     <li>
                         <form action="CommentServlet" method="POST">
                             <button type="submit" class="btn btn-secondary">
@@ -341,10 +287,17 @@
                 <div class="box-top">
                     <!--profile------------->
                     <div class="profile">
-                        <div class="profile-img">
-                            <img src="asset/images/useravatar/cr.jpg">
-                        </div>
-
+                        <c:if test="${not empty sessionScope.USER}">
+                            <c:set var="user" value="${sessionScope.USER}"/>
+                            <div class="profile-img">
+                                <img src="asset/images/useravatar/${user.getPicture()}">
+                            </div>
+                        </c:if>
+                        <c:if test="${empty sessionScope.USER}">                         
+                            <div class="profile-img">
+                                <img src="asset/images/useravatar/logo.png">
+                            </div>
+                        </c:if>
                         <div class="name-user">
                             <c:set var="productID" value="${requestScope.PRODUCTID}" />
                             <%--ProductID = ${productID}--%>
@@ -355,22 +308,7 @@
                                         <input placeholder="Enter your comment" type="text" name="txtDescription">
                                     </li>
                                 </div>
-<!--                                <div class="rating-cmt">
-                                    <div class="eva-cmt">
-                                        <li class="eva-star-cmt">
-                                            <input type="radio" name="rating" value="5" id="star5">
-                                            <label for="star5"></label>
-                                            <input type="radio" name="rating" value="4" id="star4">
-                                            <label for="star4"></label>
-                                            <input type="radio" name="rating" value="3" id="star3">
-                                            <label for="star3"></label>
-                                            <input type="radio" name="rating" value="2" id="star2">
-                                            <label for="star2"></label>
-                                            <input type="radio" name="rating" value="1" id="star1">
-                                            <label for="star1"></label>
-                                        </li>
-                                    </div>
-                                </div>-->
+                                
                                 <c:if test="${not empty requestScope.MESSAGE}">
                                     <font color='red'>
                                     ${requestScope.MESSAGE}
@@ -403,12 +341,13 @@
                                     <div class="box-top">
                                         <!--profile------------->
                                         <div class="profile">
+                                            <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO" />
                                             <div class="profile-img">
                                                 <img
-                                                    src="asset/images/useravatar/cr.jpg">
+                                                    src="asset/images/useravatar/${daoUser.getInfoUser(dto.getUserID()).getPicture()}">
                                             </div>
                                             <div class="name-user">
-                                                <jsp:useBean id="daoUser" class="DVHT.userdetails.UserDetailsDAO" />
+
                                                 <strong>${daoUser.getInfoUser(dto.getUserID()).getFullName()}</strong>
                                                 ${dto.getDate()}
                                                 <br>

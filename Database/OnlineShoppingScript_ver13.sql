@@ -47,22 +47,22 @@ Status bit
 go
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (1,'dunghh',12345,'hominhdund@gmail.com',N'Hồ Minh Dũng', 0963697057, '2002-04-21', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (1,'dunghh',12345,'hominhdund@gmail.com',N'Hồ Minh Dũng', 0963697057, '2002-04-21', N'Nam',N'logo.png',1)
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (2,'dunghh1',12345,'hominhdund1@gmail.com',N'Hồ Minh Dũng', 0963694557, '2002-04-22', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (2,'dunghh1',12345,'hominhdund1@gmail.com',N'Hồ Minh Dũng', 0963694557, '2002-04-22', N'Nam',N'logo.png',1)
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (3,'dunghh2',12345,'hominhdund2@gmail.com',N'Hồ Minh Dũng', 0967897057, '2002-04-23', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (3,'dunghh2',12345,'hominhdund2@gmail.com',N'Hồ Minh Dũng', 0967897057, '2002-04-23', N'Nam',N'logo.png',1)
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (3,'dinh',12345,'vinhtc191@gmail.com',N'Trần Công Vinh', 0909321452, '2002-04-12', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (3,'dinh',12345,'vinhtc191@gmail.com',N'Trần Công Vinh', 0909321452, '2002-04-12', N'Nam',N'logo.png',1)
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (3,'thinh',12345,'hthinhnd2@gmail.com',N'Trường Thịnh', 095427057, '2003-04-23', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (3,'thinh',12345,'hthinhnd2@gmail.com',N'Trường Thịnh', 095427057, '2003-04-23', N'Nam',N'logo.png',1)
 
 insert into UserDetails (RoleID, UserName, [PassWord], Email, FullName, Phone, DOB, Gender,Picture, Status)
-values (3,'hieu',12345,'hieu2@gmail.com',N'Hiếu', 09674327057, '2002-03-23', N'Nam',N'23b33efd6739a27e12124c02169572c0.jpg',1)
+values (3,'hieu',12345,'hieu2@gmail.com',N'Hiếu', 09674327057, '2002-03-23', N'Nam',N'logo.png',1)
 
 Go
 
@@ -106,18 +106,10 @@ point int
 )
 go
 
-create table [Bill] (
-BillID int IDENTITY(1,1) not null primary key,
-UserID int not null,
-PaymentID int not null,
-AddressID int not null,
-[Date] date,
-TotalPrice float,
-Shippingfee float
-)
 
 
-go
+
+
 
 Create table ApprovalStatus(
 ApprovalStatusID int primary key,
@@ -164,17 +156,6 @@ Price float
 go
 
 
-create table BillDetail(
-BillDetailID int IDENTITY(1,1) not null primary key,
-BillID int not null,
-ProductID int not null,
-SizeID int,
-Quantity int ,
-Price float
-)
-
-go
-
 create table Brand(
 BrandID int IDENTITY(1,1) not null primary key,
 BrandName Nvarchar(20),
@@ -202,13 +183,7 @@ NameSize varchar(10)
 
 GO
 
-create table ProductIMG(
-ImageID int IDENTITY(1,1)not null primary key,
-ProductID int not null,
-[Image] varchar(300)
-)
 
-go
 
 create table Comment(
 CommentID int IDENTITY(1,1) not null primary key,
@@ -269,10 +244,8 @@ References UserDetails (UserId)
 
 go
 
-alter table [Bill]
-Add Constraint fk_Bill_UserDetails
-Foreign Key (UserId)
-References UserDetails (UserId)
+
+
 
 go
 
@@ -283,10 +256,7 @@ References [Address] (AddressID)
 
 go
 
-alter table [Bill]
-Add Constraint fk_Bill_Address
-Foreign Key (AddressID)
-References [Address] (AddressID)
+
 
 go
 
@@ -297,10 +267,7 @@ References PaymentMethod (PaymentID)
 
 go
 
-alter table [Bill]
-Add Constraint fk_Bill_Payment
-Foreign Key (PaymentID)
-References PaymentMethod (PaymentID)
+
 
 
 go 
@@ -338,12 +305,8 @@ References [Order] (OrderID)
 
 go
 
-alter table BillDetail
-Add Constraint fk_BillDetail_Order
-Foreign Key (BillID)
-References [Bill] (BillID)
 
-go
+
 
 alter table OrderDetail
 Add Constraint fk_OrderDetails_Product
@@ -352,12 +315,9 @@ References Product (ProductID)
 
 go
 
-alter table BillDetail
-Add Constraint fk_BillDetails_Product
-Foreign Key (ProductID)
-References Product (ProductID)
 
-GO
+
+
 
 create table Category(
 CategoryID int IDENTITY(1,1) not null primary key,
@@ -430,12 +390,7 @@ references Store (StoreID)
 
 GO
 
-alter table ProductIMG
-Add constraint fk_ProductIMG_Product
-foreign key (ProductID)
-references Product (ProductID)
 
-go
 
 
 
@@ -496,25 +451,25 @@ go
 INSERT INTO Product
     (BrandID,CategoryID,Price,[Status],ProductName,[Description],[Image])
 VALUES
-    (3,11, 10000,1,N'Áo thun coton',N'Chiếc áo thun là sản phẩm thời trang đơn giản nhưng vô cùng phổ biến. Với chất liệu vải cotton mềm mại và thoáng khí, chiếc áo thun này cực kỳ thoải mái khi mặc. Thiết kế đơn giản với cổ tròn và tay ngắn giúp chiếc áo này trở nên tiện dụng hơn.' 
+    (3,11, 100000,1,N'Áo thun coton',N'Chiếc áo thun là sản phẩm thời trang đơn giản nhưng vô cùng phổ biến. Với chất liệu vải cotton mềm mại và thoáng khí, chiếc áo thun này cực kỳ thoải mái khi mặc. Thiết kế đơn giản với cổ tròn và tay ngắn giúp chiếc áo này trở nên tiện dụng hơn.' 
 	,'aothungau.jpg'),
-	(2,12, 20000,1,N'Quần bông',N'Chiếc quần bông là sản phẩm thời trang phổ biến cho cả nam và nữ. Với chất liệu vải cotton mềm mại và thoải mái, chiếc quần bông này dễ dàng kết hợp với nhiều kiểu áo khác nhau. Thiết kế đơn giản với túi hai bên giúp chiếc quần này trở nên tiện dụng hơn.' 
+	(2,12, 200000,1,N'Quần bông',N'Chiếc quần bông là sản phẩm thời trang phổ biến cho cả nam và nữ. Với chất liệu vải cotton mềm mại và thoải mái, chiếc quần bông này dễ dàng kết hợp với nhiều kiểu áo khác nhau. Thiết kế đơn giản với túi hai bên giúp chiếc quần này trở nên tiện dụng hơn.' 
 	,'setbong.jpg'),
 	(2,14, 50000,1,N'Nón lưỡi trai',N'Chiếc nón lưỡi trai là sản phẩm thời trang phổ biến cho cả nam và nữ. Với thiết kế đơn giản và màu sắc đa dạng, chiếc nón này phù hợp với nhiều phong cách khác nhau. Chất liệu vải bền bỉ và đội nón cực kỳ thoải mái.' 
 	,'nonluoitrai.jpg'),
-	(1,15, 10000,1,N'Giày da cao cấp',N'Chiếc giày da là sản phẩm thời trang đẳng cấp cho cả nam và nữ. Với chất liệu da cao cấp và màu sắc đa dạng, chiếc giày này phù hợp với nhiều phong cách khác nhau. Thiết kế đơn giản hoặc phức tạp tùy thuộc vào sở thích và hoàn cảnh sử dụng. Đế giày chắc chắn và êm ái giúp chiếc giày này mang lại sự thoải mái khi di chuyển.' 
+	(1,15, 1000000,1,N'Giày da cao cấp',N'Chiếc giày da là sản phẩm thời trang đẳng cấp cho cả nam và nữ. Với chất liệu da cao cấp và màu sắc đa dạng, chiếc giày này phù hợp với nhiều phong cách khác nhau. Thiết kế đơn giản hoặc phức tạp tùy thuộc vào sở thích và hoàn cảnh sử dụng. Đế giày chắc chắn và êm ái giúp chiếc giày này mang lại sự thoải mái khi di chuyển.' 
 	,'dayda.jpg'),
 	(1,16, 40000,1,N'Dép cao su',N'Chiếc dép là sản phẩm thời trang phổ biến trong mùa hè. Với thiết kế đơn giản và màu sắc đa dạng, chiếc dép này phù hợp với nhiều phong cách khác nhau. Chất liệu vải bền bỉ và đế dép êm ái giúp chiếc dép này mang lại sự thoải mái khi mặc.' 
 	,'dep.jpg'),
-	(3,17, 65000,1,N'Tất',N'Chiếc tất là sản phẩm thời trang nhỏ nhưng cực kỳ quan trọng trong việc tạo ra phong cách của bạn. Với chất liệu cotton thoáng khí và màu sắc đa dạng, chiếc tất này giúp bạn thoải mái khi mặc giày và kết hợp với nhiều loại giày và trang phục khác nhau.'
+	(3,17, 35000,1,N'Tất',N'Chiếc tất là sản phẩm thời trang nhỏ nhưng cực kỳ quan trọng trong việc tạo ra phong cách của bạn. Với chất liệu cotton thoáng khí và màu sắc đa dạng, chiếc tất này giúp bạn thoải mái khi mặc giày và kết hợp với nhiều loại giày và trang phục khác nhau.'
 	,'tat.jpg'),
-	(2,11, 80000,1,N'Áo Phông',N'Chiếc áo phông là một trong những sản phẩm thời trang phổ biến nhất trên thế giới. Với thiết kế đơn giản, kiểu dáng thoải mái và màu sắc đa dạng, áo phông phù hợp với nhiều phong cách và hoàn cảnh khác nhau. Với chất liệu vải cotton thấm hút mồ hôi và mềm mại, chiếc áo này cực kỳ thoải mái khi mặc.'
+	(2,11, 150000,1,N'Áo Phông',N'Chiếc áo phông là một trong những sản phẩm thời trang phổ biến nhất trên thế giới. Với thiết kế đơn giản, kiểu dáng thoải mái và màu sắc đa dạng, áo phông phù hợp với nhiều phong cách và hoàn cảnh khác nhau. Với chất liệu vải cotton thấm hút mồ hôi và mềm mại, chiếc áo này cực kỳ thoải mái khi mặc.'
 	,'aophong.jpg'),
-	(1,10, 45000,1,N'Hoodie siu xịn',N'Chiếc áo hoodie unisex này là sự kết hợp giữa phong cách thể thao và đường phố. Với chất liệu vải nhẹ và đàn hồi, chiếc áo này mang lại sự thoải mái'
+	(1,10, 350000,1,N'Hoodie siu xịn',N'Chiếc áo hoodie unisex này là sự kết hợp giữa phong cách thể thao và đường phố. Với chất liệu vải nhẹ và đàn hồi, chiếc áo này mang lại sự thoải mái'
 	,'hutdi.jpg'),
 	(3,2, 200000,1,N'Quần jean',N'Chiếc quần jean là một trong những sản phẩm thời trang không thể thiếu trong tủ đồ của bất kỳ ai. Với chất liệu denim bền bỉ và màu sắc đa dạng, chiếc quần jean này phù hợp với nhiều phong cách và hoàn cảnh khác nhau. Thiết kế đơn giản với túi hai bên và túi sau giúp chiếc quần này trở nên tiện dụng hơn.'
 	,'jean.jpg'),
-	(1,15, 135000,1,N'Giày sneaker',N'Chiếc giày sneaker là sự kết hợp tuyệt vời giữa phong cách và thoải mái. Với thiết kế đơn giản và màu sắc đa dạng, chiếc giày này phù hợp với nhiều phong cách và hoàn cảnh khác nhau. Chất liệu vải bền bỉ và đế giày đàn hồi giúp chiếc giày này mang lại sự thoải mái khi mặc.'
+	(1,15, 1350000,1,N'Giày sneaker',N'Chiếc giày sneaker là sự kết hợp tuyệt vời giữa phong cách và thoải mái. Với thiết kế đơn giản và màu sắc đa dạng, chiếc giày này phù hợp với nhiều phong cách và hoàn cảnh khác nhau. Chất liệu vải bền bỉ và đế giày đàn hồi giúp chiếc giày này mang lại sự thoải mái khi mặc.'
 	,'giay.jpg'),
 	(2,4, 430000,1,N'Váy đầm',N'Chiếc váy đầm là sản phẩm thời trang dành cho phụ nữ, với thiết kế đa dạng và màu sắc đa dạng. Với chất liệu vải mềm mại và thoáng khí, chiếc váy này mang lại sự thoải mái và gợi cảm cho người mặc. Thiết kế đơn giản hoặc phức tạp tùy thuộc vào sở thích và hoàn cảnh sử dụng.'
 	,'vay.jpg'),
@@ -544,21 +499,7 @@ go
 
 
 
-INSERT INTO ProductIMG
-    (ProductID,Image )
-VALUES
-    (1,'https://bizweb.dktcdn.net/100/399/392/products/ao-thun-nam-tay-ngan-khong-co-chinh-hang-ao-phong-nam-co-tron-form-rong-hiddle-2.jpg?v=1651563007350'),
-	(1,'https://cf.shopee.vn/file/b668a68030d5f2016e25b7a2164f8f29'),
-	(1,'https://bizweb.dktcdn.net/thumb/grande/100/399/392/products/resize-11.jpg?v=1651563802240'),
-	(2,'https://cf.shopee.vn/file/d89dbf309cb999c80eb02dd2a17550d6'),
-	(2,'https://cf.shopee.vn/file/50316c04a89afbff5a02bab033a30525'),
-	(2,'https://cf.shopee.vn/file/4236dc4fcc21d9676729d4148decefa2'),
-	(3,'https://zerdio.com.vn/wp-content/uploads/2020/12/mu-luoi-trai-den-tron-9.jpg'),
-	(3,'https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-9-500x500.jpg'),
-	(3,'https://www.chapi.vn/img/product/2020/2/4/mu-luoi-trai-laurenclay-8-new.jpg'),
-	(4,'https://www.chapi.vn/img/product/2021/4/13/giay-da-nam-chinh-hang-bayeks-13-new.jpg'),
-	(4,'https://xuonggiay.vn/app/webroot/upload/image/images/giay-da-bo-nam.jpg'),
-	(4,'https://www.chapi.vn/img/product/2020/3/3/giay-nam-da-bo-cao-cap-conxegn-17-new.jpg')
+
 
 go
 

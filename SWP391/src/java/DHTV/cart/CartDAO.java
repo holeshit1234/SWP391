@@ -19,7 +19,7 @@ import javax.naming.NamingException;
  *
  * @author vinht
  */
-public class CartDAO implements Serializable{
+public class CartDAO implements Serializable {
 
     public boolean saveCart(CartDTO cart) throws NamingException, SQLException {
         int key = 0;
@@ -58,7 +58,8 @@ public class CartDAO implements Serializable{
             return result;
         }
     }
-    public boolean cartExisted(int productID, int storeID , int sizeID, int userID) throws NamingException, SQLException {
+
+    public boolean cartExisted(int productID, int storeID, int sizeID, int userID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         boolean result = false;
@@ -91,6 +92,7 @@ public class CartDAO implements Serializable{
             return result;
         }
     }
+
     public boolean cartUserExisted(int userID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -121,7 +123,8 @@ public class CartDAO implements Serializable{
             return result;
         }
     }
-    public int getQuantityCartInCart(int productID, int storeID , int sizeID, int userID) throws NamingException, SQLException {
+
+    public int getQuantityCartInCart(int productID, int storeID, int sizeID, int userID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         int result = 0;
@@ -154,8 +157,8 @@ public class CartDAO implements Serializable{
             return result;
         }
     }
-      
-public int getQuantityCartOfUser(int userID) throws NamingException, SQLException {
+
+    public int getPriceCartInCart(int productID, int storeID, int sizeID, int userID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         int result = 0;
@@ -164,16 +167,18 @@ public int getQuantityCartOfUser(int userID) throws NamingException, SQLExceptio
             con = DBHelpers.getConnection();
             if (con != null) {
                 //create sql
-                String sql = "select * " +
-                    "from [Cart] " +
-                    "where UserID = ?";
+                String sql = "SELECT * from Cart "
+                        + "where ProductID =? and StoreID =? and SizeID =? and UserID =?";
                 //create stm
                 stm = con.prepareStatement(sql);
-                stm.setInt(1, userID);                   
+                stm.setInt(1, productID);
+                stm.setInt(2, storeID);
+                stm.setInt(3, sizeID);
+                stm.setInt(4, userID);
                 //execute
                 rs = stm.executeQuery();
-                while (rs.next()) {
-                    result ++;
+                if (rs.next()) {
+                    result = rs.getInt("Price");
                 }
             } //end con is availible
         } finally {
@@ -187,8 +192,39 @@ public int getQuantityCartOfUser(int userID) throws NamingException, SQLExceptio
         }
     }
 
-    
-public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLException {
+    public int getQuantityCartOfUser(int userID) throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int result = 0;
+        ResultSet rs = null;
+        try {
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //create sql
+                String sql = "select * "
+                        + "from [Cart] "
+                        + "where UserID = ?";
+                //create stm
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, userID);
+                //execute
+                rs = stm.executeQuery();
+                while (rs.next()) {
+                    result++;
+                }
+            } //end con is availible
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            return result;
+        }
+    }
+
+    public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
         int result = 0;
@@ -198,14 +234,14 @@ public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLExcep
             con = DBHelpers.getConnection();
             if (con != null) {
                 //create sql
-                String sql = "select Quantity " +
-                    "from [ProductDetails] " +
-                    "where ProductID = ? and StoreID = ? and SizeID =?";
+                String sql = "select Quantity "
+                        + "from [ProductDetails] "
+                        + "where ProductID = ? and StoreID = ? and SizeID =?";
                 //create stm
                 stm = con.prepareStatement(sql);
-                stm.setInt(1, cart.getProductID());                
+                stm.setInt(1, cart.getProductID());
                 stm.setInt(2, cart.getStoreID());
-                stm.setInt(3, cart.getSizeID());      
+                stm.setInt(3, cart.getSizeID());
                 //execute
                 rs = stm.executeQuery();
                 if (rs.next()) {
@@ -352,7 +388,8 @@ public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLExcep
             return result;
         }
     }
-    public boolean updatecartNoKey(int sizeID, int storeID, int productId,int userID, int quantity, double price)
+
+    public boolean updatecartNoKey(int sizeID, int storeID, int productId, int userID, int quantity, double price)
             throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -463,7 +500,7 @@ public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLExcep
         }
         return sum;
     }
-    
+
     public int getQuantityProductCart(int userid) throws NamingException, SQLException {
         int quantity = 0;
         Connection con = null;
@@ -498,7 +535,7 @@ public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLExcep
         }
         return quantity;
     }
-    
+
     public boolean deleteCartByUserID(int userID) throws NamingException, SQLException {
         Connection con = null;
         PreparedStatement stm = null;
@@ -513,7 +550,7 @@ public int getQuantityCartInStore(CartDTO cart) throws NamingException, SQLExcep
                 //create stm
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, userID);
-                
+
                 //execute
                 int rows = stm.executeUpdate();
                 if (rows > 0) {

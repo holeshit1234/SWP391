@@ -69,11 +69,13 @@ public class AddToCartServlet extends HttpServlet {
             }
             String pri = request.getParameter("txtPrice");
             double price = 0;
+            double totalprice = 0;
             if (pri != null) {
                 price = Double.parseDouble(pri);
             }
             System.out.println(productID + " , " + userID + " , " + sizeID + " , " + price);
             int quantity = Integer.parseInt(request.getParameter("txtQuantity"));
+            int newquantity = 0;
             //------------------------------------------------------------------------------
             //checkLogin
             HttpSession session = request.getSession();
@@ -85,7 +87,8 @@ public class AddToCartServlet extends HttpServlet {
                 url="login.jsp?txtProductID =" + txtProductID;
                 
             } else {
-
+                totalprice = quantity * price;
+                System.out.println(totalprice);
                 //check size not null
                 if (txtSizeID == null) {
                     String message = "Please enter your size you want";
@@ -101,33 +104,35 @@ public class AddToCartServlet extends HttpServlet {
                         // neeus cos ton tai thi +1 quantity
                         boolean existed = dao.cartExisted(productID, storeID, sizeID, userID);
                         if (existed) {
+                            
                             CartDTO dto = new CartDTO(0, productID, sizeID, storeID, userID, quantity, true, price);
-                            quantity = dao.getQuantityCartInCart(productID, storeID, sizeID, userID);
+                            newquantity = dao.getQuantityCartInCart(productID, storeID, sizeID, userID);
+                            price = dao.getPriceCartInCart(productID, storeID, sizeID, userID);
                             dto.setQuantity(quantity);
 
                             //nếu còn hàng thì +1
                             int currentQuantity = dao.getQuantityCartInStore(dto); //check quantity trong data
-                            System.out.println(currentQuantity + " > " + quantity);
+                           
                             if (currentQuantity > quantity) {
-                                quantity++;
-                                price += getProductPrice(productID);
+                                quantity+=newquantity;
+                                price += totalprice;
                             }
                             dao.updatecartNoKey(sizeID, storeID, productID, userID, quantity, price);
                             String message = "Your product has been added to the cart.";
                             if (!message.isEmpty()) {
                                 request.setAttribute("ADDTOCART", message);
                             }
-                            System.out.println("ok ddax add to cart");
+                          
 
                         } else {
-                            CartDTO dto = new CartDTO(0, productID, sizeID, storeID, userID, quantity, true, price);
+                            CartDTO dto = new CartDTO(0, productID, sizeID, storeID, userID, quantity, true, totalprice);
                             boolean result = dao.saveCart(dto);
                             if (result) {
                                 String message = "Your product has been added to the cart.";
                                 if (!message.isEmpty()) {
                                     request.setAttribute("ADDTOCART", message);
                                 }
-                                System.out.println("ok ddax add to cart");
+                              
                             } else {
                                 System.out.println("eos add to cart dc");
                             }
