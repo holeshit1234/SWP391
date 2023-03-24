@@ -200,7 +200,7 @@
                                                     </td>
                                                     <td>Chờ xác nhận</td>
                                                     <td>
-                                                        <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm();">
+                                                        <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xác nhận đơn đặt hàng này?');">
                                                             <input type="hidden" name ="txtApprovalStatus" value="${dto.getApprovalStatus()}">
                                                             <input type="hidden" name ="txtOrderID" value="${dto.getOrderID()}">
                                                             <input type="submit" id="submitBtn" value="Xác nhận"  />
@@ -216,11 +216,7 @@
                         </div>
                     </div>
                 </main>
-                <script>
-                    function confirm() {
-                        alert("bạn có chắc chắn quyết định của mình ");
-                    }
-                </script>
+
 
 
                 
