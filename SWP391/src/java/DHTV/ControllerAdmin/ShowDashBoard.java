@@ -10,12 +10,12 @@ import DHTV.order.OrderDTO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
 
-
 import java.awt.Color;
 import java.awt.Font;
 import java.io.IOException;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
 import javax.naming.NamingException;
@@ -57,33 +57,35 @@ public class ShowDashBoard extends HttpServlet {
             dao.getTop10Products();
 
             List<OrderDetailDTO> top10Products = dao.getListdto();
+
+            request.setAttribute("top10Products", top10Products);
             // Create a dataset
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (OrderDetailDTO product : top10Products) {
-                dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
-            }
-            // Create a chart
-            JFreeChart chart = ChartFactory.createBarChart(
-                    "Top 10 Products",
-                    "Product Name",
-                    "Sales",
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false);
-
-            // Customize the chart
-            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
-            chart.setBackgroundPaint(Color.WHITE);
-
-            // Generate a PNG image of the chart
-            byte[] chartImage = ChartUtils.encodeAsPNG(chart.createBufferedImage(800, 400));
-
-            // Store the chart image as a Base64-encoded string in a request attribute
-            String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
-            request.setAttribute("base64EncodedChart", base64EncodedChart);
-
+//            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//            for (OrderDetailDTO product : top10Products) {
+//                dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
+//            }
+//            // Create a chart
+//            JFreeChart chart = ChartFactory.createBarChart(
+//                    "Top 10 Products",
+//                    "Product Name",
+//                    "Sales",
+//                    dataset,
+//                    PlotOrientation.VERTICAL,
+//                    true,
+//                    true,
+//                    false);
+//
+//            // Customize the chart
+//            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
+//            chart.setBackgroundPaint(Color.WHITE);
+//
+//            // Generate a PNG image of the chart
+//            byte[] chartImage = ChartUtils.encodeAsPNG(chart.createBufferedImage(800, 400));
+//
+//            // Store the chart image as a Base64-encoded string in a request attribute
+//            String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
+//            request.setAttribute("base64EncodedChart", base64EncodedChart);
+//
             OrderDAO dao1 = new OrderDAO();
 
 //            BillDTO result = dao1.getTotalPriceAtMonth();
@@ -95,35 +97,36 @@ public class ShowDashBoard extends HttpServlet {
 
                 request.setAttribute("date1", result1);
             }
-
+//
             dao1.getTotalPriceWithMonth();
             List<OrderDTO> totalPriceWithMonths = dao1.getListPriceMonths();
-            // Create a dataset
-            DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-            for (OrderDTO order : totalPriceWithMonths) {
-                dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
-            }
-            // Create a chart
-            JFreeChart chart1 = ChartFactory.createBarChart(
-                    "Total Price With Month",
-                    "Month",
-                    "total",
-                    dataset1,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false);
-
-            // Customize the chart
-            chart1.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
-            chart1.setBackgroundPaint(Color.WHITE);
-
-            // Generate a PNG image of the chart
-            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(800, 400));
-
-            // Store the chart image as a Base64-encoded string in a request attribute
-            String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);
-            request.setAttribute("base64EncodedChart2", base64EncodedChart1);
+            request.setAttribute("totalPriceWithMonths", totalPriceWithMonths);
+//            // Create a dataset
+//            DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+//            for (OrderDTO order : totalPriceWithMonths) {
+//                dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
+//            }
+//            // Create a chart
+//            JFreeChart chart1 = ChartFactory.createBarChart(
+//                    "Total Price With Month",
+//                    "Month",
+//                    "total",
+//                    dataset1,
+//                    PlotOrientation.VERTICAL,
+//                    true,
+//                    true,
+//                    false);
+//
+//            // Customize the chart
+//            chart1.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
+//            chart1.setBackgroundPaint(Color.WHITE);
+//
+//            // Generate a PNG image of the chart
+//            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(800, 400));
+//
+//            // Store the chart image as a Base64-encoded string in a request attribute
+//            String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);
+//            request.setAttribute("base64EncodedChart2", base64EncodedChart1);
 
         } catch (NamingException ex) {
             log("Naming" + ex.getMessage());

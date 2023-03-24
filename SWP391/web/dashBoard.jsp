@@ -4,6 +4,11 @@
     Author     : User
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.google.gson.Gson"%>
+<%@page import="DHTV.order.OrderDTO"%>
+<%@page import="java.util.List"%>
+<%@page import="DHTV.order.OrderDetailDTO"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -194,13 +199,31 @@
                                     <c:if test="${not empty param.month}">
                                         ${param.month}/${param.year}
                                     </c:if></h1>
-                                <img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart">
+                                    <%--<img src="data:image/png;base64,${base64EncodedChart}" alt="Monthly Sales Chart">--%>
+                                <div style="width: 800px; height: 400px;">
+                                    <canvas id="column-chart"></canvas>
 
+                                </div>
+                                <%
+                                    List<OrderDetailDTO> top10Products = (List<OrderDetailDTO>) request.getAttribute("top10Products");
+                                %>
                             </div>
                             <div class="col-xl-12">
 
                                 <h1>Revenue of Year ${param.year}</h1>
-                                <img src="data:image/png;base64,${base64EncodedChart2}" alt="Monthly Sales Chart">
+                                <%--<img src="data:image/png;base64,${base64EncodedChart2}" alt="Monthly Sales Chart">--%>
+                                <div style="width: 800px; margin: 0 auto;">
+                                    <canvas id="myChart"></canvas>
+                                </div>
+                                <%
+                                    List<OrderDTO> totalPriceWithMonths = (List<OrderDTO>) request.getAttribute("totalPriceWithMonths");
+                                    List<String> months = new ArrayList<String>();
+                                    List<Double> prices = new ArrayList<Double>();
+                                    for (OrderDTO order : totalPriceWithMonths) {
+                                        months.add(order.getMonth());
+                                        prices.add(order.getTotalPrice());
+                                    }
+                                %>
                             </div>
                         </div>
                     </div>
@@ -208,20 +231,72 @@
 
 
 
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid px-4">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">DHTV 2023</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
-                        </div>
-                    </div>
-                </footer>
+
 
             </div>
+            <script>
+                const months = <%= new Gson().toJson(months)%>;
+                const prices = <%= new Gson().toJson(prices)%>;
+
+                const lineCtx = document.getElementById('myChart').getContext('2d');
+                const lineChart = new Chart(lineCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: months,
+                        datasets: [{
+                                label: 'Total Price',
+                                data: prices,
+                                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                                borderColor: 'rgba(54, 162, 235, 1)',
+                                borderWidth: 1
+                            }]
+                    },
+                    options: {
+                        scales: {
+                            xAxes: [{
+                                    scaleLabel: {
+                                        display: true,
+                                        labelString: 'Months'
+                                    }
+                                }],
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
+                    }
+                });
+            </script>
+
+            <script>
+                const chartData = {
+                    labels: [<% for (OrderDetailDTO product : top10Products) {%>"<%= product.getProductName()%>",<% } %>],
+                            datasets: [
+                                {
+                                    label: "Total Sales",
+                                    data: [<% for (OrderDetailDTO product : top10Products) {%><%= product.getQuantity()%>,<% }%>],
+                                    backgroundColor: "rgba(54, 162, 235, 0.5)"
+                                }
+                            ]
+                };
+// Create the column chart
+                const columnCtx = document.getElementById('column-chart').getContext('2d');
+                const columnChart = new Chart(columnCtx, {
+                    type: 'bar',
+                    data: chartData,
+                    options: {
+                        scales: {
+                            yAxes: [{
+                                    ticks: {
+                                        beginAtZero: true
+                                    }
+                                }]
+                        }
+                    }
+                });
+            </script>
+
             <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
             <script src="asset/js/slideBar.js"></script>
             <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
