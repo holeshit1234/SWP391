@@ -885,7 +885,7 @@ public class ProductDAO implements Serializable {
                 //2 sql commands
                 String sql = "select P.[ProductID],P.[ProductName],P.[BrandID],P.[CategoryID],P.[Price],P.[Status],P.[Description],P.[Image] "
                         + "from  Product P "
-                        + " where P.BrandID = ? ";
+                        + " where P.BrandID = ? and P.Status = 1 ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, BrandID);
@@ -937,7 +937,7 @@ public class ProductDAO implements Serializable {
             con = DBHelpers.getConnection();
             String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]   "
                     + "FROM [Product] P  "
-                    + "WHERE P.[BrandID] = ? "
+                    + "WHERE P.[BrandID] = ? and P.Status = 1 "
                     + "ORDER BY P.[ProductID] "
                     + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
             stm = con.prepareStatement(sql);

@@ -88,7 +88,7 @@ public class AddToCartServlet extends HttpServlet {
                 
             } else {
                 totalprice = quantity * price;
-                System.out.println(totalprice);
+               
                 //check size not null
                 if (txtSizeID == null) {
                     String message = "Please enter your size you want";
