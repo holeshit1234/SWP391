@@ -127,20 +127,17 @@
             <div id="layoutSidenav_content">
                 <main>                    
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage size</h1>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable User
-                            </div>
+                            
                             <div class="card-body">
                                 <c:set var="listSize" value="${requestScope.SIZE_RESULT}"/>
                                 <c:if test="${not empty listSize}">
                                     <table id="datatablesSimple" >
                                         <thead>
                                             <tr>
-                                                <th>id</th>
+                                                <th>Id</th>
                                                 <th>Size</th>                                             
                                             </tr>
                                         </thead>
@@ -157,7 +154,7 @@
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Thêm Size
+                                    Add new Size
                                 </button>
 
                                 <!-- Modal -->
@@ -165,7 +162,7 @@
                                     <div class="modal-dialog modal-s">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm size sản phẩm </h5>
+                                                <h5 class="modal-title" id="staticBackdropLabel">Add new Size</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body custom-modal-body" >
@@ -174,12 +171,12 @@
                                                     <div>
                                                         <input id="size" type="text" name="txtSize" value="">
                                                         <div id="size-error" class="alert alert-danger d-none" role="alert">
-                                                            Kích thước đã tồn tại. Vui lòng nhập một tên khác.
+                                                            Duplicate size name
                                                         </div>
                                                     </div>
                                                     <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
-                                                        <button id="add-size-btn" type="submit" class="btn btn-primary" disabled>Thêm Size</button>
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                        <button id="add-size-btn" type="submit" class="btn btn-primary" disabled>Add Size</button>
                                                     </div>
                                                 </form>                                           
                                             </div>
@@ -216,7 +213,7 @@
                 } else {
                     // Kiểm tra tên size hiện tại có trùng với danh sách size hay không
                     let sizeExists = false;
-                    const sizeList = document.querySelectorAll('#datatablesSize tbody td:nth-child(2)');
+                    const sizeList = document.querySelectorAll('#datatablesSimple tbody td:nth-child(2)');
                     sizeList.forEach(size => {
                         if (size.textContent.trim().toLowerCase() === currentSize.toLowerCase()) {
                             sizeExists = true;

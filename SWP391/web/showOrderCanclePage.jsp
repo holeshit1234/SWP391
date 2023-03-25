@@ -122,15 +122,12 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage cancel order</h1>
 
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable User
-                            </div>
                             
+
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
@@ -174,19 +171,25 @@
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${list.getQuantity()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${list.getQuantity()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
 
@@ -199,20 +202,7 @@
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
-                                    <script>
-                                        var approvalStatus = document.getElementsByName("txtApprovalStatus")[0].value;
-                                        var submitBtn = document.getElementById("submitBtn");
 
-                                        if (approvalStatus == 2) {
-                                            submitBtn.value = "Tiến hành thanh toán";
-                                        } else if (approvalStatus == 3) {
-                                            submitBtn.value = "Đã thanh toán";
-                                            submitBtn.disabled = true; // Nếu đã thanh toán thì vô hiệu hóa nút submit
-                                        }
-                                        function confirm() {
-                                            alert("bạn có chắc chắn quyết định của mình ");
-                                        }
-                                    </script>
                                     </tbody>
                                 </table>
 

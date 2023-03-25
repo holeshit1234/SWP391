@@ -125,17 +125,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage report</h1>
 
                         <form action="GetUserNeedToCare" method="POST">
                             <input type="submit" value="Get User Alert" /> 
                         </form>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Report
-                            </div>
+                            
                             <div class="card-body">
 
                                 <c:if test="${not empty requestScope.REPORT}">

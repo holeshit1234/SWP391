@@ -59,9 +59,9 @@ public class AddCategoryServlet extends HttpServlet {
                         byte[] bytes3 = Gender.getBytes(StandardCharsets.ISO_8859_1);
                         Gender = new String(bytes3, StandardCharsets.UTF_8);
 
-                        String Description = "nothing";
-//                        byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
-//                        Description = new String(bytes2, StandardCharsets.UTF_8);
+                        String Description = request.getParameter("txtDescription");
+                        byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
+                        Description = new String(bytes2, StandardCharsets.UTF_8);
 
                         if (CategoryName == null) {
                             String message = "Please enter your category";
@@ -73,13 +73,12 @@ public class AddCategoryServlet extends HttpServlet {
                             if (!message.isEmpty()) {
                                 request.setAttribute("NULLGENDER", message);
                             }
+                        } else if (Description == null) {
+                            String message = "Please enter your Description";
+                            if (!message.isEmpty()) {
+                                request.setAttribute("NULLDES", message);
+                            }
                         } 
-//                        else if (Description == null) {
-//                            String message = "Please enter your Description";
-//                            if (!message.isEmpty()) {
-//                                request.setAttribute("NULLDES", message);
-//                            }
-//                        } 
                         else {
                             CategoryDTO dto = new CategoryDTO();
                             dto.setCategoryName(CategoryName);

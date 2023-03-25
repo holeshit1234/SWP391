@@ -123,7 +123,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage User</h1>
 
                         <c:if test="${not empty sessionScope.USER}">
                             <c:set var="user" value="${sessionScope.USER}"/>
@@ -136,35 +136,31 @@
                             </c:if>
                         </c:if>
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable User
-                            </div>
+
                             <div class="card-body">
                                 <c:if test="${not empty requestScope.USER_INFO}">
                                     <c:set var="user_info" value="${requestScope.USER_INFO}"/>
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>
-                                                <th>id</th>
-                                                <th>username</th>
-                                                <th>password</th>
-                                                <th>email</th>
-                                                <th>fullname</th>
-                                                <th>gender</th>
+                                                <th>ID</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                                <th>Email</th>
+                                                <th>Fullname</th>
+                                                <th>Gender</th>
                                                 <th>Role</th>
-
                                                 <th>Function</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
-                                                <th>id</th>
-                                                <th>username</th>
-                                                <th>password</th>
-                                                <th>email</th>
-                                                <th>fullname</th>
-                                                <th>gender</th>
+                                                <th>ID</th>
+                                                <th>Username</th>
+                                                <th>Password</th>
+                                                <th>Email</th>
+                                                <th>Fullname</th>
+                                                <th>Gender</th>
                                                 <th>Role</th>
                                                 <th>Function</th>
                                             </tr>

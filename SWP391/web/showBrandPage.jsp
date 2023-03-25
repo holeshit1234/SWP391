@@ -123,23 +123,11 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage Brand</h1>
 
-                        <c:if test="${not empty sessionScope.USER}">
-                            <c:set var="user" value="${sessionScope.USER}"/>
-                            <c:if test="${user.getRoleID() == 1}">
-                                <div style="margin-bottom: 10px">
-                                    <div >
-                                        <a type="submit" href="AddNewUser.jsp">Add New User</a>
-                                    </div>
-                                </div>
-                            </c:if>
-                        </c:if>
+                      
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Brand
-                            </div>
+                            
                             <div class="card-body">
                                 <c:set var="listCate" value="${requestScope.BRAND_RESULT}"/>
                                 <c:if test="${not empty listCate}">
@@ -179,7 +167,7 @@
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Thêm thương hiệu
+                                    Add new brand
                                 </button>
 
                                 <!-- Modal -->
@@ -187,7 +175,7 @@
                                     <div class="modal-dialog modal-s">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm Thương hiệu</h5>
+                                                <h5 class="modal-title" id="staticBackdropLabel">Add new brand</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body custom-modal-body" >
@@ -196,7 +184,7 @@
                                                     <div>
                                                         <input id="brand" type="text" name="txtBrand" value="">
                                                         <div id="brand-error" class="alert alert-danger d-none" role="alert">
-                                                            Đã có thương hiệu này hãy điền thương hiệu khác!!!
+                                                            Duplicate brand name
                                                         </div>
                                                     </div>
 
@@ -238,7 +226,7 @@
                                                             } else {
                                                                 // Kiểm tra tên size hiện tại có trùng với danh sách size hay không
                                                                 let brandExists = false;
-                                                                const brandList = document.querySelectorAll('#datatablesBrand tbody td:nth-child(2)');
+                                                                const brandList = document.querySelectorAll('#datatablesSimple tbody td:nth-child(2)');
                                                                 brandList.forEach(brand => {
                                                                     if (brand.textContent.trim().toLowerCase() === currentBrand.toLowerCase()) {
                                                                         brandExists = true;

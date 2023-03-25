@@ -124,13 +124,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage order</h1>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Order
-                            </div>
+                            
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
@@ -180,15 +177,12 @@
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-
                                                             <c:if test="${dto.getOrderID() == list.getOrderID()}">
                                                                 ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
-
                                                             </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
-
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
                                                             <c:if test="${dto.getOrderID() == list.getOrderID()}">
                                                                 ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
@@ -221,7 +215,7 @@
                                                     </td>
                                                     <td>
                                                         <c:if test="${dto.getApprovalStatus() ==2 }">
-                                                            <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn đánh dấu đơn hàng này là Đã giao hàng?');">
+                                                            <form action="ChangeApprovalStatusServlet" method="POST" onsubmit="return confirm('Are you sure you want to mark this order as Shipped ?');">
                                                                 <input type="hidden" name="txtApprovalStatus" value="${dto.getApprovalStatus()}">
                                                                 <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
                                                                 <input type="submit" id="submitBtn" value="Đã giao hàng" />
@@ -230,7 +224,7 @@
                                                     </td>
                                                     <td>
                                                         <c:if test="${dto.getApprovalStatus() == 2 }">
-                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn xóa đơn đặt hàng này?');">
+                                                            <form action="DeleteOrderServlet" method="POST" onsubmit="return confirm('Are you sure you want to delete this order ?');">
                                                                 <input type="hidden" name="txtOrderID" value="${dto.getOrderID()}">
                                                                 <input type="submit" id="submitBtn" value="Delete" style="color: red">
                                                             </form>
