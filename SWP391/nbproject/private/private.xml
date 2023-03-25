@@ -3,10 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/copylaij/final/SWP391/SWP391/src/java/DHTV/order/OrderDAO.java</file>
-            <file>file:/D:/copylaij/final/SWP391/SWP391/src/java/DHTV/ControllerAdmin/ShowDashBoard.java</file>
-            <file>file:/D:/copylaij/final/SWP391/SWP391/web/dashBoard.jsp</file>
-            <file>file:/D:/copylaij/final/SWP391/SWP391/src/java/DHTV/ControllerAdmin/GetChartDetailServlet.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/src/java/DHTV/order/OrderDTO.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/src/java/DHTV/order/OrderDAO.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showreport.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showComment.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/src/java/DHTV/approvalStatus/ApprovalStatusDTO.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/src/java/DHTV/ControllerAdmin/showOrderCancle.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showOrderCanclePage.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/src/java/DHTV/approvalStatus/ApprovalStatusDAO.java</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showOrderConfirmPage.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showProduct.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/showOrderPage.jsp</file>
+            <file>file:/D:/FPT/SWP/moi11/SWP391/SWP391/web/ShowPayment.jsp</file>
         </group>
     </open-files>
 </project-private>

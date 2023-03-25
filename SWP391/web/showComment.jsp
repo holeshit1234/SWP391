@@ -122,20 +122,17 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage comment</h1>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Report
-                            </div>
+                            
                             <div class="card-body">
                                 <c:if test="${not empty requestScope.COMMENT}">
                                     <c:set var="des" value="${requestScope.COMMENT}"/>
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>
-                                                <th>Comment ID </th>
+<!--                                                <th>Comment ID </th>-->
                                                 <th>Full Name</th>
                                                 <th>Product Name</th>
                                                 <th>Date </th>
@@ -148,15 +145,15 @@
 
                                             <c:forEach var="dto" items="${des}">
                                                 <tr>
-                                                    <td>${dto.getCommentID()}</td>
+<!--                                                    <td>${dto.getCommentID()}</td>-->
                                                     <td>${dto.getFullName()}</td>
                                                     <td>${dto.getProductName()}</td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${dto.getDescription()}</td>
                                                     <td>                                                                                                           
                                                         <c:choose>
-                                                            <c:when test="${dto.isStatus() == true}">Đang hiện</c:when>
-                                                            <c:when test="${dto.isStatus() == false}">Đã Ẩn</c:when>
+                                                            <c:when test="${dto.isStatus() == true}">Available</c:when>
+                                                            <c:when test="${dto.isStatus() == false}">Unavailable</c:when>
 
                                                         </c:choose>
                                                     </td>

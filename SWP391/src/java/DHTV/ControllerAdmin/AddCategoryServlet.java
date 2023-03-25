@@ -48,7 +48,7 @@ public class AddCategoryServlet extends HttpServlet {
             byte[] bytes3 = Gender.getBytes(StandardCharsets.ISO_8859_1);
             Gender = new String(bytes3, StandardCharsets.UTF_8);  
             
-            String Description = request.getParameter("txtDescription:");
+            String Description = request.getParameter("txtDescription");
             byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
             Description = new String(bytes2, StandardCharsets.UTF_8);
 

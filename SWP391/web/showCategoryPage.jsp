@@ -127,13 +127,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage Category</h1>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable User
-                            </div>
+                           
                             <div >
                                 <c:if test="${not empty requestScope.NULLADDCATEGORY}">
                                     <font color ='red' >
@@ -202,7 +199,7 @@
 
                                 <!-- Button trigger modal -->
                                 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
-                                    Thêm loại sản phẩm
+                                    Add new category
                                 </button>
 
                                 <!-- Modal -->
@@ -210,7 +207,7 @@
                                     <div class="modal-dialog modal-s">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h5 class="modal-title" id="staticBackdropLabel">Thêm dòng sản phẩm</h5>
+                                                <h5 class="modal-title" id="staticBackdropLabel">Add new category</h5>
                                                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                             </div>
                                             <div class="modal-body custom-modal-body" >
@@ -219,25 +216,27 @@
                                                     <div>
                                                         <input id="category" type="text" name="txtCategoryName" value="">
                                                         <div id="cate-error" class="alert alert-danger d-none" role="alert">
-                                                            Trùng kiểu sản phẩm hãy đặt tên khác
+                                                            Duplicate category name
                                                         </div>
                                                     </div>
                                                     <label for="rdio"> Gender</label>
                                                     <div>
                                                         <label>
                                                             <input type="radio" name="txtGender" value="Nam">
-                                                            <span>Nam</span>
+                                                            <span>Male</span>
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="txtGender" value="Nữ">
-                                                            <span>Nữ</span>
+                                                            <span>Female</span>
                                                         </label>
                                                         <label>
                                                             <input type="radio" name="txtGender" value="Unisex">
                                                             <span>Unisex</span>
                                                         </label>
                                                     </div>
-
+                                                    <div>
+                                                        <textarea  id="description" type="text" name="txtDescription" required ></textarea>
+                                                    </div>
 
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -264,7 +263,7 @@
                                                         } else {
                                                             // Kiểm tra tên size hiện tại có trùng với danh sách size hay không
                                                             let cateExists = false;
-                                                            const cateList = document.querySelectorAll('#datatablesCategory tbody td:nth-child(2)');
+                                                            const cateList = document.querySelectorAll('#datatablesSimple tbody td:nth-child(2)');
                                                             cateList.forEach(brand => {
                                                                 if (brand.textContent.trim().toLowerCase() === currentCate.toLowerCase()) {
                                                                     cateExists = true;
