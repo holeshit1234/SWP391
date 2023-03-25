@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -42,24 +44,35 @@ public class UserAvailableServlet extends HttpServlet {
         int id = Integer.parseInt(useid);
         String button = request.getParameter("btAction");
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
-            if (button.equals("Ban")) {
-                UserDetailsDAO dao = new UserDetailsDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-                boolean result = dao.banUser(id);
-                if (result) {
-                    url = "GetUserNeedToCare";
-                }
-            } 
-            if(button.equals("Unban")) {
-                 UserDetailsDAO dao = new UserDetailsDAO();
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
 
-                boolean result = dao.unbanUser(id);
-                if (result) {
-                    url = "GetUserNeedToCare";
+                        if (button.equals("Ban")) {
+                            UserDetailsDAO dao = new UserDetailsDAO();
+
+                            boolean result = dao.banUser(id);
+                            if (result) {
+                                url = "GetUserNeedToCare";
+                            }
+                        }
+                        if (button.equals("Unban")) {
+                            UserDetailsDAO dao = new UserDetailsDAO();
+
+                            boolean result = dao.unbanUser(id);
+                            if (result) {
+                                url = "GetUserNeedToCare";
+                            }
+                        }
+                    }
                 }
+            }else{
+            url = "erorr.jsp";
             }
-
         } catch (NamingException ex) {
             log("BanUser _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

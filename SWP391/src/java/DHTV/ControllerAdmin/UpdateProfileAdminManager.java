@@ -89,8 +89,7 @@ public class UpdateProfileAdminManager extends HttpServlet {
                 if (session != null) {
 
                     UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
-                    System.out.println(dto);
-
+                 
                     if (dto != null) {
                         int userid = dto.getUserID();
 

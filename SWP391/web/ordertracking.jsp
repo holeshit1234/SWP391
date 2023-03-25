@@ -160,10 +160,10 @@
                                             <table id="datatablesSimple">
                                                 <thead>
                                                     <tr>
-                                                        <th>MÃ ĐƠN HÀNG</th>
-                                                        <th>NGÀY</th>
-                                                        <th>TRẠNG THÁI</th>
-                                                        <th>SẢN PHẨM</th>
+                                                        <th> Order Code </th>
+                                                        <th>Date</th>
+                                                        <th>Status</th>
+                                                        <th>Product</th>
                                                         <th>Total</th>
                                                         <th></th>
                                                     </tr>

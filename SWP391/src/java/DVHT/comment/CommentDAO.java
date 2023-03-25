@@ -556,6 +556,7 @@ public class CommentDAO implements Serializable {
                         + "from Comment cm "
                         + "inner join UserDetails us on us.UserID = cm.UserID "
                         + "inner join Product p on p.ProductID = cm.ProductID "
+                        + "Where cm.[Status] = 1"
                         + "ORDER BY [CommentID] DESC";
 
                 // 3 stm create

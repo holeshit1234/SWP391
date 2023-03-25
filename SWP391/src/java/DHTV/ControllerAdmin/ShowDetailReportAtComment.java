@@ -9,6 +9,7 @@ import DVHT.comment.CommentDAO;
 import DVHT.comment.CommentDTO;
 import DVHT.report.ReportDAO;
 import DVHT.report.ReportDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,36 +43,46 @@ public class ShowDetailReportAtComment extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
         String url = "";
         String commentid = request.getParameter("id");
         int comid = Integer.parseInt(commentid);
+        HttpSession session = request.getSession(false);
         try {
-            ReportDAO dao = new ReportDAO();
-            
-            dao.getReportByCommentID(comid);
-            
-            List<ReportDTO> result = dao.getGetListReport();
-            
-             List<CommentDTO> allResults = new ArrayList<>();
-             for (ReportDTO report : result) {
-                int id = report.getCommentID();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-                CommentDAO dao1 = new CommentDAO();
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        ReportDAO dao = new ReportDAO();
 
-                dao1.getUserNeedCare(id);
+                        dao.getReportByCommentID(comid);
 
-                List<CommentDTO> result1 = dao1.getListUserReport();
+                        List<ReportDTO> result = dao.getGetListReport();
 
-                allResults.addAll(result1);
-                //}
+                        List<CommentDTO> allResults = new ArrayList<>();
+                        for (ReportDTO report : result) {
+                            int id = report.getCommentID();
+
+                            CommentDAO dao1 = new CommentDAO();
+
+                            dao1.getUserNeedCare(id);
+
+                            List<CommentDTO> result1 = dao1.getListUserReport();
+
+                            allResults.addAll(result1);
+                            //}
+                        }
+
+                        request.setAttribute("RESULT", result);
+                        request.setAttribute("NAME", allResults);
+
+                        url = "ShowDetailReport.jsp";
+                    }
+                }
+           }else{
+            url = "erorr.jsp";
             }
-            
-            request.setAttribute("RESULT", result);
-            request.setAttribute("NAME", allResults);
-            
-            url = "ShowDetailReport.jsp";
-            
         } catch (NamingException ex) {
             log("GetUserNeedToCare _Naming " + ex.getMessage());
         } catch (SQLException ex) {

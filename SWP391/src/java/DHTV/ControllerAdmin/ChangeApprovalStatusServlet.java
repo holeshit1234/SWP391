@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.sql.SQLException;
 import javax.naming.NamingException;
@@ -15,6 +16,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -36,23 +38,34 @@ public class ChangeApprovalStatusServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
-            int orderID = Integer.parseInt(request.getParameter("txtOrderID"));
-            int ApprovalStatus = Integer.parseInt(request.getParameter("txtApprovalStatus"));
-            if (ApprovalStatus == 1) {
-                ApprovalStatus++;
-                OrderDAO dao = new OrderDAO();
-                dao.setApprovalStatusOrder(orderID, ApprovalStatus);
-                url = "showOrder";
-            } else if (ApprovalStatus == 2) {
-                ApprovalStatus++;
-                boolean paymentStatus = true;
-                OrderDAO dao = new OrderDAO();
-                dao.setApprovalAndPaymentStatusOrder(orderID, ApprovalStatus, paymentStatus);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        int orderID = Integer.parseInt(request.getParameter("txtOrderID"));
+                        int ApprovalStatus = Integer.parseInt(request.getParameter("txtApprovalStatus"));
+                        if (ApprovalStatus == 1) {
+                            ApprovalStatus++;
+                            OrderDAO dao = new OrderDAO();
+                            dao.setApprovalStatusOrder(orderID, ApprovalStatus);
+                            url = "showOrder";
+                        } else if (ApprovalStatus == 2) {
+                            ApprovalStatus++;
+                            boolean paymentStatus = true;
+                            OrderDAO dao = new OrderDAO();
+                            dao.setApprovalAndPaymentStatusOrder(orderID, ApprovalStatus, paymentStatus);
+
+                        }
+
+                        url = "showOrder";
+                    }
+                }
+           }else{
+            url = "erorr.jsp";
             }
-
-            url = "showOrder";
 
         } catch (NamingException ex) {
             log("ChangeApprove _ Naming _ " + ex.getMessage());

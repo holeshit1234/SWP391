@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,34 +46,44 @@ public class GetUserNeedToCare extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
 
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
-            ReportDAO dao = new ReportDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            dao.getUserNeedToCare();
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        ReportDAO dao = new ReportDAO();
 
-            List<ReportDTO> result = dao.getGetCareList();
-            List<CommentDTO> allResults = new ArrayList<>();
-            if (result != null) {
+                        dao.getUserNeedToCare();
 
-                for (ReportDTO report : result) {
-                    int commentid = report.getCommentID();
+                        List<ReportDTO> result = dao.getGetCareList();
+                        List<CommentDTO> allResults = new ArrayList<>();
+                        if (result != null) {
 
-                    CommentDAO dao1 = new CommentDAO();
+                            for (ReportDTO report : result) {
+                                int commentid = report.getCommentID();
 
-                    dao1.getUserNeedCare(commentid);
+                                CommentDAO dao1 = new CommentDAO();
 
-                    List<CommentDTO> result1 = dao1.getListUserReport();
+                                dao1.getUserNeedCare(commentid);
 
-                    allResults.addAll(result1);
-                 
+                                List<CommentDTO> result1 = dao1.getListUserReport();
+
+                                allResults.addAll(result1);
+
+                            }
+                        }
+
+                        request.setAttribute("COMENT", allResults);
+                        request.setAttribute("COUNTREPORT", result);
+
+                        url = "ShowUserAlert.jsp";
+                    }
                 }
+            }else{
+            url = "erorr.jsp";
             }
-     
-            request.setAttribute("COMENT", allResults);
-            request.setAttribute("COUNTREPORT", result);
-
-            url = "ShowUserAlert.jsp";
-
         } catch (NamingException ex) {
             log("GetUserNeedToCare _Naming " + ex.getMessage());
         } catch (SQLException ex) {

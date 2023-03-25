@@ -130,8 +130,8 @@
                                 DataTable PaymentMethod
                             </div>
                             <div class="card-body">
-                                <c:if test="${not empty sessionScope.PAYMENT}">
-                                    <c:set var="payment" value="${sessionScope.PAYMENT}"/>
+                                <c:if test="${not empty requestScope.PAYMENT}">
+                                    <c:set var="payment" value="${requestScope.PAYMENT}"/>
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>

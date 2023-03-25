@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DHTV.product.ProductDetailDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -37,21 +39,31 @@ public class UpdateNewSizeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
-            String product = request.getParameter("txtProductID");
-            String[] Size = request.getParameterValues("txtSize");
-            int quantity = 0;
-            int store = 1;
-            int SizeID =0;
-            
-            for (int i = 0; i <= Size.length; i++) {
-                int productID = Integer.parseInt(product);                          
-                SizeID = Integer.parseInt(Size[i]);
-                ProductDetailDAO dao = new ProductDetailDAO();
-                dao.addProductDetailAdmin(productID, SizeID, quantity, store);
-                url = "EditProductServlet";
-            }
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String product = request.getParameter("txtProductID");
+                        String[] Size = request.getParameterValues("txtSize");
+                        int quantity = 0;
+                        int store = 1;
+                        int SizeID = 0;
+
+                        for (int i = 0; i <= Size.length; i++) {
+                            int productID = Integer.parseInt(product);
+                            SizeID = Integer.parseInt(Size[i]);
+                            ProductDetailDAO dao = new ProductDetailDAO();
+                            dao.addProductDetailAdmin(productID, SizeID, quantity, store);
+                            url = "EditProductServlet";
+                        }
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

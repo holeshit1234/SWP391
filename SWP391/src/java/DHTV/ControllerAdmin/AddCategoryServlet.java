@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.category.CategoryDAO;
 import DHTV.category.CategoryDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,42 +40,58 @@ public class AddCategoryServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession(false);
+
         String url = "showCategoryServlet";
         try {
-            String CategoryName = request.getParameter("txtCategoryName");
-            byte[] bytes1 = CategoryName.getBytes(StandardCharsets.ISO_8859_1);
-            CategoryName = new String(bytes1, StandardCharsets.UTF_8);
-            
-            String Gender = request.getParameter("txtGender");
-            byte[] bytes3 = Gender.getBytes(StandardCharsets.ISO_8859_1);
-            Gender = new String(bytes3, StandardCharsets.UTF_8);  
-            
-            String Description = request.getParameter("txtDescription:");
-            byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
-            Description = new String(bytes2, StandardCharsets.UTF_8);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            if(CategoryName ==  null  ){
-                 String message = "Please enter your category";
-                if (!message.isEmpty()) {
-                    request.setAttribute("NULLADDCATEGORY", message);
+               
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String CategoryName = request.getParameter("txtCategoryName");
+                        byte[] bytes1 = CategoryName.getBytes(StandardCharsets.ISO_8859_1);
+                        CategoryName = new String(bytes1, StandardCharsets.UTF_8);
+
+                        String Gender = request.getParameter("txtGender");
+                        byte[] bytes3 = Gender.getBytes(StandardCharsets.ISO_8859_1);
+                        Gender = new String(bytes3, StandardCharsets.UTF_8);
+
+                        String Description = "nothing";
+//                        byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
+//                        Description = new String(bytes2, StandardCharsets.UTF_8);
+
+                        if (CategoryName == null) {
+                            String message = "Please enter your category";
+                            if (!message.isEmpty()) {
+                                request.setAttribute("NULLADDCATEGORY", message);
+                            }
+                        } else if (Gender == null) {
+                            String message = "Please enter your gender";
+                            if (!message.isEmpty()) {
+                                request.setAttribute("NULLGENDER", message);
+                            }
+                        } 
+//                        else if (Description == null) {
+//                            String message = "Please enter your Description";
+//                            if (!message.isEmpty()) {
+//                                request.setAttribute("NULLDES", message);
+//                            }
+//                        } 
+                        else {
+                            CategoryDTO dto = new CategoryDTO();
+                            dto.setCategoryName(CategoryName);
+                            dto.setGender(Gender);
+                            dto.setDescription(Description);
+                            CategoryDAO dao = new CategoryDAO();
+                            dao.addCategoryAdmin(dto);
+                        }
+                    }
                 }
-            }else if (Gender == null) {
-                  String message = "Please enter your gender";
-                if (!message.isEmpty()) {
-                    request.setAttribute("NULLGENDER", message);
-                }
-            }else if (Description == null){
-                  String message = "Please enter your Description";
-                if (!message.isEmpty()) {
-                    request.setAttribute("NULLDES", message);
-                }
-            }else {
-            CategoryDTO dto = new CategoryDTO();
-            dto.setCategoryName(CategoryName);
-            dto.setGender(Gender);
-            dto.setDescription(Description);
-            CategoryDAO dao = new CategoryDAO();
-            dao.addCategoryAdmin(dto);
+            }else{
+            url = "erorr.jsp";
             }
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());

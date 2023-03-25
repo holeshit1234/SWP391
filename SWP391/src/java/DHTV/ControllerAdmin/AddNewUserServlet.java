@@ -23,6 +23,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -95,78 +96,91 @@ public class AddNewUserServlet extends HttpServlet {
         street = new String(bytes1, StandardCharsets.UTF_8);
 
         String gender = request.getParameter("gender");
-        
+
         String roleid = request.getParameter("txtRole");
         int RoleID = Integer.parseInt(roleid);
         //process
         //create errors variable for sign up
         UserDetailSignUpError errors = new UserDetailSignUpError();
         boolean isError = false;
-        try {
-            if (button.equals("Register")) {
-                if (username.trim().length() < 4 || username.trim().length() > 30) {
-                    isError = true;
-                    errors.setUsernameLengthErr("Username requires input from "
-                            + "4 to 30 characters!!");
-                }
-                if (password.trim().length() < 5 || password.trim().length() > 20) {
-                    isError = true;
-                    errors.setPasswordLengthErr("Password requires input from "
-                            + "5 to 20 characters!!");
-                } else if (!(password.trim().equals(confirm.trim()))) {
-                    isError = true;
-                    errors.setConfirmNotMatchErr("Confirm doesn't match with the "
-                            + "entered Password!!!");
-                }
-                if (fullname.trim().length() < 2 || fullname.trim().length() > 50) {
-                    isError = true;
-                    errors.setFullnameLengthErr("Full name requires input from "
-                            + "2 to 50 characters!!");
-                }
+        HttpSession session = request.getSession(false);
 
-                if (isError) {
-                    request.setAttribute("ERROR", errors);
-                } else {
-                    // Create Account
-                    // check username and email
-                    String message = "";
-                    UserDetailsDAO dao = new UserDetailsDAO();
-                    boolean usernameExist = dao.usernameExist(username);
-                    boolean emailExist = dao.emailExist(email);
-                    if (emailExist) {
-                        message += "Your email has existed! Please enter different email!! \n";
-                        log("Email has existed!! Can not registration !");
-                    }
-                    if (usernameExist) {
-                        message += "User name has existed! Please enter different user name!! \n";
-                        log("User name has existed!! Can not registration !");
-                    }
-                    if (!message.isEmpty()) {
-                        request.setAttribute("MESSAGE", message);
-                    }
-                    //start to add info
-                    if (!emailExist && !usernameExist) {
-                        //set default value                       
-                        dob = null;
-                        // new dto from the value
-                        UserDetailsDTO userAccount = new UserDetailsDTO(0, RoleID, username, password, email, fullname, phone, dob, "logo.png", gender, true);
-                        //process - add into database
-                        int key = 0;
-                        key = dao.addUser(userAccount);
-                        if (key > 0) {
-                            AddressDAO dao2 = new AddressDAO();
-                            AddressDTO address = new AddressDTO(0, key, province, ward, street, district, true);
-                            boolean result = dao2.addAddress(address);
-                            if (result) {
-                                url =SHOW_USER;
+        try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                System.out.println(dto1.getRoleID());
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("Register")) {
+                            if (username.trim().length() < 4 || username.trim().length() > 30) {
+                                isError = true;
+                                errors.setUsernameLengthErr("Username requires input from "
+                                        + "4 to 30 characters!!");
                             }
-                        } else {
-                            message += "Some thing wrong here! Can not registration, please try again.\n";
-                            request.setAttribute("MESSAGE", message);
-                            log("Can not registration!");
+                            if (password.trim().length() < 5 || password.trim().length() > 20) {
+                                isError = true;
+                                errors.setPasswordLengthErr("Password requires input from "
+                                        + "5 to 20 characters!!");
+                            } else if (!(password.trim().equals(confirm.trim()))) {
+                                isError = true;
+                                errors.setConfirmNotMatchErr("Confirm doesn't match with the "
+                                        + "entered Password!!!");
+                            }
+                            if (fullname.trim().length() < 2 || fullname.trim().length() > 50) {
+                                isError = true;
+                                errors.setFullnameLengthErr("Full name requires input from "
+                                        + "2 to 50 characters!!");
+                            }
+
+                            if (isError) {
+                                request.setAttribute("ERROR", errors);
+                            } else {
+                                // Create Account
+                                // check username and email
+                                String message = "";
+                                UserDetailsDAO dao = new UserDetailsDAO();
+                                boolean usernameExist = dao.usernameExist(username);
+                                boolean emailExist = dao.emailExist(email);
+                                if (emailExist) {
+                                    message += "Your email has existed! Please enter different email!! \n";
+                                    log("Email has existed!! Can not registration !");
+                                }
+                                if (usernameExist) {
+                                    message += "User name has existed! Please enter different user name!! \n";
+                                    log("User name has existed!! Can not registration !");
+                                }
+                                if (!message.isEmpty()) {
+                                    request.setAttribute("MESSAGE", message);
+                                }
+                                //start to add info
+                                if (!emailExist && !usernameExist) {
+                                    //set default value                       
+                                    dob = null;
+                                    // new dto from the value
+                                    UserDetailsDTO userAccount = new UserDetailsDTO(0, RoleID, username, password, email, fullname, phone, dob, "logo.png", gender, true);
+                                    //process - add into database
+                                    int key = 0;
+                                    key = dao.addUser(userAccount);
+                                    if (key > 0) {
+                                        AddressDAO dao2 = new AddressDAO();
+                                        AddressDTO address = new AddressDTO(0, key, province, ward, street, district, true);
+                                        boolean result = dao2.addAddress(address);
+                                        if (result) {
+                                            url = SHOW_USER;
+                                        }
+                                    } else {
+                                        message += "Some thing wrong here! Can not registration, please try again.\n";
+                                        request.setAttribute("MESSAGE", message);
+                                        log("Can not registration!");
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+             }else{
+            url = "erorr.jsp";
             }
         } catch (SQLException ex) {
             log("CreateNewAccountServlet SQL: " + ex.getMessage());

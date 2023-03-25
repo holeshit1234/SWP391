@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,15 +42,24 @@ public class BanUserServletAtUserPage extends HttpServlet {
         String useid = request.getParameter("userID");
         int id = Integer.parseInt(useid);
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            UserDetailsDAO dao = new UserDetailsDAO();
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        UserDetailsDAO dao = new UserDetailsDAO();
 
-            boolean result = dao.banUser(id);
-            if (result) {
-                url = "ShowUserByManagerServlet";
+                        boolean result = dao.banUser(id);
+                        if (result) {
+                            url = "ShowUserByManagerServlet";
+                        }
+                    }
+                }
+           }else{
+            url = "erorr.jsp";
             }
-
         } catch (NamingException ex) {
             log("BanUser _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

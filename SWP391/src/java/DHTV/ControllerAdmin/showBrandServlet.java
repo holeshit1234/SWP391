@@ -8,6 +8,7 @@ package DHTV.ControllerAdmin;
 import DHTV.Controller.*;
 import DHTV.brand.BrandDAO;
 import DHTV.brand.BrandDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,12 +42,23 @@ public class showBrandServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "showBrandPage.jsp";
+        HttpSession session = request.getSession(false);
         try {
-            BrandDAO dao = new BrandDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            dao.listBrand();
-            List<BrandDTO> list = dao.getBrandList();
-            request.setAttribute("BRAND_RESULT", list);
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        BrandDAO dao = new BrandDAO();
+
+                        dao.listBrand();
+                        List<BrandDTO> list = dao.getBrandList();
+                        request.setAttribute("BRAND_RESULT", list);
+                    }
+                }
+             }else{
+            url = "erorr.jsp";
+            }
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

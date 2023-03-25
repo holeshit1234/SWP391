@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DVHT.report.ReportDAO;
 import DVHT.report.ReportDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,22 +40,37 @@ public class ShowAllReport extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        HttpSession session = request.getSession(false);
+
         String url = "";
-        try{
-            ReportDAO dao = new ReportDAO();
-            
-            dao.getAllReport();
-            
-            List<ReportDTO> result = dao.getReportList();
-            
-            request.setAttribute("REPORT", result);
-            url = "showreport.jsp";
-        }catch (NamingException ex) {
+
+        try {
+            if (session != null) {
+                UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
+
+                System.out.println(dto.getRoleID());
+                if (dto != null) {
+                    if (dto.getRoleID() == 1 || dto.getRoleID() == 2) {
+
+                        ReportDAO dao = new ReportDAO();
+
+                        dao.getAllReport();
+
+                        List<ReportDTO> result = dao.getReportList();
+
+                        request.setAttribute("REPORT", result);
+                        url = "showreport.jsp";
+                    }
+                }
+            } else {
+                url = "erorr.jsp";
+            }
+        } catch (NamingException ex) {
             log("ShowReport _Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("ShowReport _SQL " + ex.getMessage());
-        }finally{
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

@@ -46,18 +46,14 @@ public class ShowProfileAdminManager extends HttpServlet {
         HttpSession session = request.getSession(false);
 
         try {
-            if (session != null) {
-        
+            if (session != null) {       
                 UserDetailsDTO dto = (UserDetailsDTO) session.getAttribute("USER");
                 System.out.println(dto);
-
-                if (dto != null) {
-                        
-                    int userid = dto.getUserID();
-                    System.out.println(userid);
+                if (dto != null) {                      
+                    int userid = dto.getUserID();                  
                     UserDetailsDAO dao = new UserDetailsDAO();
                     UserDetailsDTO result = dao.getInfoUser(userid);
-                    System.out.println(result);
+                    
 
                     if (result != null) {
                         // call DAO
@@ -74,8 +70,9 @@ public class ShowProfileAdminManager extends HttpServlet {
                     }
                 }
 
+            }else{
+            url = "erorr.jsp";
             }
-
         } catch (NamingException ex) {
             log("ShowProfileServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {

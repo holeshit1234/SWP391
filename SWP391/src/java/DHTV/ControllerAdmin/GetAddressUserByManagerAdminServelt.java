@@ -46,31 +46,39 @@ public class GetAddressUserByManagerAdminServelt extends HttpServlet {
         String button = request.getParameter("btAction");
         String txtuserid = request.getParameter("userid");
         int usid = Integer.parseInt(txtuserid);
-        System.out.println(usid);
         String url = "ShowUserAddress.jsp";
+        HttpSession session = request.getSession(false);
 
         try {
-            if (button.equals("Show Address")) { 
-                
-                    UserDetailsDAO dao1 = new UserDetailsDAO();
-                    
-                    UserDetailsDTO result1 = dao1.getInfoUser(usid);
-                            
-                    AddressDAO dao = new AddressDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-                    dao.getAddressByAdmin(usid);
-                    
-                    List<AddressDTO> result = dao.getInfoListS();
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("Show Address")) {
 
-                    if (result != null) {
+                            UserDetailsDAO dao1 = new UserDetailsDAO();
 
-                        url = "ShowUserAddress.jsp";
-                        
-  
-                        request.setAttribute("INFO_ADDRESS", result);
-                        request.setAttribute("INFO_USER", result1);
+                            UserDetailsDTO result1 = dao1.getInfoUser(usid);
+
+                            AddressDAO dao = new AddressDAO();
+
+                            dao.getAddressByAdmin(usid);
+
+                            List<AddressDTO> result = dao.getInfoListS();
+
+                            if (result != null) {
+
+                                url = "ShowUserAddress.jsp";
+
+                                request.setAttribute("INFO_ADDRESS", result);
+                                request.setAttribute("INFO_USER", result1);
+                            }
+                        }
                     }
-                
+                }
+         }else{
+            url = "erorr.jsp";
             }
         } catch (SQLException ex) {
             log("GetAddressServlet _SQL_ " + ex.getMessage());

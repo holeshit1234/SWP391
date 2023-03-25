@@ -70,6 +70,8 @@ public class ShowUserByManagerServlet extends HttpServlet {
 
                     request.setAttribute("USER_INFO", result);
                 }
+           }else{
+            url = "erorr.jsp";
             }
         } catch (NamingException ex) {
             log("EditCommentServlet_Naming " + ex.getMessage());

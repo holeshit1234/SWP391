@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
+import DVHT.userdetails.UserDetailsDTO;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,16 +42,22 @@ public class showOrder extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "showOrderPage.jsp";
+        HttpSession session = request.getSession(false);
         try {
-            OrderDAO dao = new OrderDAO();
-            dao.showListOrderFromBotToTop();
-            List<OrderDTO> list = dao.getOrderList();
-            request.setAttribute("ORDER_RESULT", list);
-            
-            
-            
-     
-            
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        OrderDAO dao = new OrderDAO();
+                        dao.showListOrderFromBotToTop();
+                        List<OrderDTO> list = dao.getOrderList();
+                        request.setAttribute("ORDER_RESULT", list);
+                    }
+                }
+             }else{
+            url = "erorr.jsp";
+            }
         } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

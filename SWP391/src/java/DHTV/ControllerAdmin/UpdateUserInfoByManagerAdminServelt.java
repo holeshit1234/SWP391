@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DVHT.userdetails.UpdateUserDetailsErr;
 import DVHT.userdetails.UserDetailsDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -28,11 +29,10 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "UpdateUserInfoServelt", urlPatterns = {"/UpdateUserInfoServelt"})
 public class UpdateUserInfoByManagerAdminServelt extends HttpServlet {
 
-    private final String UPDATE_FAIL ="updateInfoUserByAdminManager.jsp";
+    private final String UPDATE_FAIL = "updateInfoUserByAdminManager.jsp";
 //    private final String UPDATE_FAIL ="testUpdate.jsp";
-    private final String UPDATE_SUCCESS ="GetUserUpdate";
-    
-    
+    private final String UPDATE_SUCCESS = "GetUserUpdate";
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,8 +45,7 @@ public class UpdateUserInfoByManagerAdminServelt extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         String button = request.getParameter("btAction");
 //        String usermame = request.getParameter("username");
         String userid = request.getParameter("userid");
@@ -58,45 +57,55 @@ public class UpdateUserInfoByManagerAdminServelt extends HttpServlet {
 //        String gender = request.getParameter("gender");
 //        String email = request.getParameter("emal");
         String password = request.getParameter("password");
-       
-        String url ="";
+
+        String url = "";
         HttpSession session = request.getSession(false);
 
         UpdateUserDetailsErr err = new UpdateUserDetailsErr();
         boolean flag = false;
-        
-        try  {
-            if(button.equals("Save")){
-                 if(password.trim().length() < 8 || password.trim().length() >20 ){
-                        flag = true;
-                        err.setNotEnoughWordPassWord("PassWord about 10 to 20");
-                    }
-                    if (fullname.trim().length() < 1 || fullname.trim().length() > 30) {
-                        flag = true;
-                        err.setNotEnoughWordFullName("FullName about 5 to 20");
-                    }
-                   
-                    if (phone.trim().length() > 11 || phone.trim().length() < 9) {
-                        flag = true;
-                        err.setEmptyPhone("phone has 10 number");
-                    }
-                    
-                    if (flag) {
-                        request.setAttribute("UP_ERROR", err);
-                        url = UPDATE_FAIL;
-                    } else { 
-                        UserDetailsDAO dao = new UserDetailsDAO();
-                        
-                        boolean result = dao.updateProfileAdmin(userID, fullname, phone, password);
-                        
-                        if(result){
-                            url =  "GetUserUpdate?btAction=UpdateInfo";
+
+        try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("Save")) {
+                            if (password.trim().length() < 8 || password.trim().length() > 20) {
+                                flag = true;
+                                err.setNotEnoughWordPassWord("PassWord about 10 to 20");
+                            }
+                            if (fullname.trim().length() < 1 || fullname.trim().length() > 30) {
+                                flag = true;
+                                err.setNotEnoughWordFullName("FullName about 5 to 20");
+                            }
+
+                            if (phone.trim().length() > 11 || phone.trim().length() < 9) {
+                                flag = true;
+                                err.setEmptyPhone("phone has 10 number");
+                            }
+
+                            if (flag) {
+                                request.setAttribute("UP_ERROR", err);
+                                url = UPDATE_FAIL;
+                            } else {
+                                UserDetailsDAO dao = new UserDetailsDAO();
+
+                                boolean result = dao.updateProfileAdmin(userID, fullname, phone, password);
+
+                                if (result) {
+                                    url = "GetUserUpdate?btAction=UpdateInfo";
+                                }
+
+                            }
                         }
-                        
-                    }               
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
             }
-            
-        }catch (NamingException ex) {
+
+        } catch (NamingException ex) {
             log("UpdateProfileServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("UpdateProfileServlet_SQL " + ex.getMessage());

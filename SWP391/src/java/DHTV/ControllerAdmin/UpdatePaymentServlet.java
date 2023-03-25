@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DHTV.payment.PaymentMethodDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -16,6 +17,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,21 +47,32 @@ public class UpdatePaymentServlet extends HttpServlet {
 
         String url = "";
         String button = request.getParameter("btAction");
+        HttpSession session = request.getSession(false);
         try {
-            if (button.equals("update")) {
-                PaymentMethodDAO dao = new PaymentMethodDAO();
-                boolean available = false;
-                if (avai.equals("false")) {
-                    available = true;
-                } else {
-                    available = false;
-                }
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-                boolean result = dao.updatePayment(paymentID, available);
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("update")) {
+                            PaymentMethodDAO dao = new PaymentMethodDAO();
+                            boolean available = false;
+                            if (avai.equals("false")) {
+                                available = true;
+                            } else {
+                                available = false;
+                            }
 
-                if (result) {
-                    url = UPDATE_SUCCESS;
+                            boolean result = dao.updatePayment(paymentID, available);
+
+                            if (result) {
+                                url = UPDATE_SUCCESS;
+                            }
+                        }
+                    }
                 }
+           }else{
+            url = "erorr.jsp";
             }
         } catch (SQLException ex) {
             log("UpdatePaymentServlet SQL: " + ex.getMessage());
