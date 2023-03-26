@@ -138,7 +138,7 @@
                                                 <th>Product Name</th>
                                                 <th>Date </th>
                                                 <th>Description</th>
-                                                <th>Status</th>
+<!--                                                <th>Status</th>-->
                                                 <th>Function</th>
                                             </tr>
                                         </thead>
@@ -151,13 +151,13 @@
                                                     <td>${dto.getProductName()}</td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${dto.getDescription()}</td>
-                                                    <td>                                                                                                           
+<!--                                                    <td>                                                                                                           
                                                         <c:choose>
                                                             <c:when test="${dto.isStatus() == true}">Available</c:when>
                                                             <c:when test="${dto.isStatus() == false}">Unavailable</c:when>
 
                                                         </c:choose>
-                                                    </td>
+                                                    </td>-->
                                                     <td>
                                                         <c:if test="${dto.isStatus() == true}">
                                                             <c:url var="urlHide" value="HideCommentServlet">
