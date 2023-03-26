@@ -133,6 +133,38 @@ public class ProductDetailDAO implements Serializable{
             }
         }
     }
+    public void plusProduct (int productID, int storeID, int sizeID , int quantity)
+            throws NamingException, SQLException {
+        Connection con = null;
+        PreparedStatement stm = null;
+        int oldQuantity = getQuantity(productID, storeID, sizeID);
+        int newQuantity = oldQuantity + quantity;
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                 String sql = "UPDATE [ProductDetails] " +
+                            "SET [Quantity] = ? " +
+                            "where ProductID = ?  and [StoreID] = ? and [SizeID] =?";
+                // 3 stm create
+                stm = con.prepareStatement(sql);
+                stm.setInt(1, newQuantity);
+                stm.setInt(2, productID);
+                stm.setInt(3, storeID);
+                stm.setInt(4, sizeID);
+                //execute query  
+                int rows = stm.executeUpdate();
+            }
+        } finally {
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+    }
     private List<ProductDetailDTO> detailList;
 
     public List<ProductDetailDTO> getDetailList() {

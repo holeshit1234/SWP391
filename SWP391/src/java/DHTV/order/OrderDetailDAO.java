@@ -130,6 +130,7 @@ public class OrderDetailDAO implements Serializable {
         ResultSet rs = null;
         PreparedStatement stm = null;
         OrderDetailDTO result = new OrderDetailDTO();
+         this.orderDetailList = new ArrayList<>();
         try {
             //1 get comnnection
             con = DBHelpers.getConnection();

@@ -6,9 +6,14 @@
 package DHTV.Controller;
 
 import DHTV.order.OrderDAO;
+import DHTV.order.OrderDTO;
+import DHTV.order.OrderDetailDAO;
+import DHTV.order.OrderDetailDTO;
+import DHTV.product.ProductDetailDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
+import java.util.List;
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -45,9 +50,25 @@ public class CancelOrderServlet extends HttpServlet {
 
         String url = "ordertracking.jsp";
         String button = request.getParameter("btAction");
+        OrderDAO daoOrder = new OrderDAO();
         try {
-            OrderDAO dao = new OrderDAO();
-            boolean result = dao.setApprovalStatusOrder(orderID, 4);
+            //get back quantity if this order chưa xác nhận
+            OrderDTO dtoOrder = daoOrder.getOrderByOrderID(orderID);
+            if(dtoOrder.getApprovalStatus()==1){ //check approval
+                
+                //get order detail list
+                OrderDetailDAO daoOrderDetail = new OrderDetailDAO();
+                daoOrderDetail.showListOrderDetail(orderID);
+                List<OrderDetailDTO> list = daoOrderDetail.getOrderDetailList();
+                //update quantity for each product
+                ProductDetailDAO daoPro = new ProductDetailDAO();
+                for(OrderDetailDTO dto : list){
+                    daoPro.plusProduct(dto.getProductID(), 1, dto.getSizeID(), dto.getQuantity());
+                }
+            }
+            
+            //set cancel this order            
+            boolean result = daoOrder.setApprovalStatusOrder(orderID, 4);            
             
         } catch (SQLException ex) {
             log("CancelOrderServlet SQL: " + ex.getMessage());
