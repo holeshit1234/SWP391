@@ -10,23 +10,25 @@ function confirmCancelOrder(url) {
     var buttons = document.createElement('div');
     buttons.classList.add('button-container'); // Add button container class
 
-    var cancelButton = document.createElement('button');
-    cancelButton.innerHTML = 'Cancel (back)';
-    cancelButton.classList.add('cancel-button'); // Add cancel button class
-    cancelButton.addEventListener('click', function () {
-        confirmBox.parentNode.removeChild(confirmBox);
-    });
-    buttons.appendChild(cancelButton);
+    
 
     var confirmButton = document.createElement('button');
-    confirmButton.innerHTML = 'Cancel Order';
+    confirmButton.innerHTML = 'Yes';
     confirmButton.classList.add('cancel-button'); // Add confirm button class
     confirmButton.addEventListener('click', function () {
         window.location.href = url;
         confirmBox.parentNode.removeChild(confirmBox);
     });
     buttons.appendChild(confirmButton);
-
+    
+    var cancelButton = document.createElement('button');
+    cancelButton.innerHTML = 'No';
+    cancelButton.classList.add('cancel-button'); // Add cancel button class
+    cancelButton.addEventListener('click', function () {
+        confirmBox.parentNode.removeChild(confirmBox);
+    });
+    buttons.appendChild(cancelButton);
+    
     confirmBox.appendChild(buttons);
 
     document.body.appendChild(confirmBox);

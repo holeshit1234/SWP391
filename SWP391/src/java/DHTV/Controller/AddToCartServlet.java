@@ -81,14 +81,13 @@ public class AddToCartServlet extends HttpServlet {
             HttpSession session = request.getSession();
             UserDetailsDTO currentUserID = (UserDetailsDTO) session.getAttribute("USER");
             if (currentUserID == null) {
-                
+
                 session.setAttribute("productId", txtProductID);
-                 
-                url="login.jsp?txtProductID =" + txtProductID;
-                
+
+                url = "login.jsp?txtProductID =" + txtProductID;
+
             } else {
                 totalprice = quantity * price;
-               
                 //check size not null
                 if (txtSizeID == null) {
                     String message = "Please enter your size you want";
@@ -104,25 +103,31 @@ public class AddToCartServlet extends HttpServlet {
                         // neeus cos ton tai thi +1 quantity
                         boolean existed = dao.cartExisted(productID, storeID, sizeID, userID);
                         if (existed) {
-                            
+
                             CartDTO dto = new CartDTO(0, productID, sizeID, storeID, userID, quantity, true, price);
                             newquantity = dao.getQuantityCartInCart(productID, storeID, sizeID, userID);
                             price = dao.getPriceCartInCart(productID, storeID, sizeID, userID);
                             dto.setQuantity(quantity);
 
                             //nếu còn hàng thì +1
-                            int currentQuantity = dao.getQuantityCartInStore(dto); //check quantity trong data
-                           
-                            if (currentQuantity > quantity) {
-                                quantity+=newquantity;
+                            //check quantity trong data
+                            int currentQuantity = dao.getQuantityCartInStore(dto);
+
+                            if (currentQuantity >= quantity + newquantity) {
+                                quantity += newquantity;
                                 price += totalprice;
+
+                                dao.updatecartNoKey(sizeID, storeID, productID, userID, quantity, price);
+                                String message = "Your product has been added to the cart.";
+                                if (!message.isEmpty()) {
+                                    request.setAttribute("ADDTOCART", message);
+                                }
+                            } else {
+                                String message = "The quantity you want exceeds the max limit!";
+                                if (!message.isEmpty()) {
+                                    request.setAttribute("ADDTOCART", message);
+                                }
                             }
-                            dao.updatecartNoKey(sizeID, storeID, productID, userID, quantity, price);
-                            String message = "Your product has been added to the cart.";
-                            if (!message.isEmpty()) {
-                                request.setAttribute("ADDTOCART", message);
-                            }
-                          
 
                         } else {
                             CartDTO dto = new CartDTO(0, productID, sizeID, storeID, userID, quantity, true, totalprice);
@@ -132,7 +137,7 @@ public class AddToCartServlet extends HttpServlet {
                                 if (!message.isEmpty()) {
                                     request.setAttribute("ADDTOCART", message);
                                 }
-                              
+
                             } else {
                                 System.out.println("eos add to cart dc");
                             }
