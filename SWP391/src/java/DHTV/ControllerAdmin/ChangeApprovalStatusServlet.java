@@ -44,23 +44,23 @@ public class ChangeApprovalStatusServlet extends HttpServlet {
                 UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
                 if (dto1 != null) {
-                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                    if (dto1.getRoleID() == 1) {
                         int orderID = Integer.parseInt(request.getParameter("txtOrderID"));
                         int ApprovalStatus = Integer.parseInt(request.getParameter("txtApprovalStatus"));
                         if (ApprovalStatus == 1) {
                             ApprovalStatus++;
                             OrderDAO dao = new OrderDAO();
                             dao.setApprovalStatusOrder(orderID, ApprovalStatus);
-                            url = "showOrder";
+                            url = "showOrderConfirm";
                         } else if (ApprovalStatus == 2) {
                             ApprovalStatus++;
                             boolean paymentStatus = true;
                             OrderDAO dao = new OrderDAO();
                             dao.setApprovalAndPaymentStatusOrder(orderID, ApprovalStatus, paymentStatus);
-
+                            url = "showOrder";
                         }
 
-                        url = "showOrder";
+                        
                     }
                 }
            }else{

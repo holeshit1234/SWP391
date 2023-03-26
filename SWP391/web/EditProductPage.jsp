@@ -19,9 +19,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Title -->
+             <a class="navbar-brand ps-3" >Add quantity</a>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -117,7 +119,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Chỉnh sửa số lượng sản phẩm</h1>
+                        <h1 class="mt-4">Add quantity</h1>
 
 
                         <div class="card mb-4">
@@ -130,10 +132,10 @@
                             <c:set var="result" value="${requestScope.UPDATE_PRODUCT}"/>
                             <c:if test="${not empty result}">  
 
-                                <form action="UpdateProductServlet" method="POST" onsubmit="return confirm('Bạn có chắc chắn muốn cập nhật sản phẩm này?')">
+                                <form action="UpdateProductServlet" method="POST" onsubmit="return confirm('Check again before click OK')">
                                     <c:forEach var="dto" items="${result}">
                                         <input type="hidden" value="${dto.productID}" name="txtProductID">
-                                        Ten San Pham: ${dto.productName}
+                                        Product name: ${dto.productName}
                                         <a class="hidden">${daoProductDetail.getSizeIdById(dto.productID)}</a>
                                         <a class="hidden">${daoSize.showSizeList()}</a>
                                         <style>

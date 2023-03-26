@@ -441,7 +441,7 @@ go
 INSERT INTO Brand (BrandName ,Description ,Status )
 VALUES
     ( 'LV', N'Luon vui tuoi', 1),
-	( 'GUCCi', N'Guốc chì', 1),
+	( 'GUCCI', N'Guốc chì', 1),
 	( 'Dior', N'Đì or', 1)
 
 go

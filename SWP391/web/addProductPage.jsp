@@ -20,10 +20,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
+          <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+             <a class="navbar-brand ps-3" >Add new product</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <c:set var="dto" value="${sessionScope.USER}"/>
@@ -126,13 +127,13 @@
                             <jsp:useBean id="daoBrand" class="DHTV.brand.BrandDAO"/> 
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>
                             <jsp:useBean id="daoCategory" class="DHTV.category.CategoryDAO"/>
-                            <h1>Thêm sản phẩm</h1>
+                            <h1>Add new product</h1>
                             <form action="AddProductServlet" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
 
-                                <label for="product-name-input">Tên sản phẩm:</label>
+                                <label for="product-name-input">Product name:</label>
                                 <input type="text" id="product-name-input" name="txtProductName" value="" required><br/>
 
-                                <label for="brand-select">Tên thương hiệu:</label>
+                                <label for="brand-select">Brand:</label>
                                 ${daoBrand.listBrandActive()}
                                 <select name="txtBrand">
                                     <c:forEach var="dto" items="${daoBrand.getBrandList()}">
@@ -144,7 +145,7 @@
                                 ${daoCategory.showListCategory()}
                                 <div class="sex-option">
                                     <input type="radio" name="gender" onclick="showCate(this)" value="Nam" />
-                                    <label>Nam</label>
+                                    <label>Male</label>
                                     <div class="form-input">
                                         <div class="input-row">
                                             <select name="txtCate" disabled>
@@ -160,7 +161,7 @@
 
                                 <div class="sex-option">
                                     <input type="radio" name="gender" onclick="showCate(this)" value="Nữ" />
-                                    <label>Nữ</label>
+                                    <label>Female</label>
                                     <div class="form-input">
                                         <div class="input-row">
                                             <select name="txtCate" disabled>
@@ -225,7 +226,7 @@
                                 </style>
 
                                 <br/>
-                                Kích cỡ: 
+                                Size: 
                                 ${daoSize.showSizeList()}
                                 <br>
 
@@ -235,7 +236,7 @@
                                         <label>${dto.getSizeName()}</label>
                                         <div class="form-input">                      
                                             <div class="input-row">
-                                                <span>Số lượng</span>
+                                                <span>Quantity</span>
                                                 <input id="quantity" type="text" name="txtQuantity" value="1"><br/> 
                                             </div>
                                         </div>
@@ -251,9 +252,9 @@
                                 </script>
 
 
-                                Giá: <input id="price" type="text" name="txtPrice" value="" required><br>
-                                Mô tả: <input id="description" type="text" name="txtDescription" value="" required><br/>
-                                Link ảnh: <input id="image" type="file" name="txtImage" value="" required><br/>
+                                Price: <input id="price" type="text" name="txtPrice" value="" required><br>
+                                Description: <input id="description" type="text" name="txtDescription" value="" required><br/>
+                                Image: <input id="image" type="file" name="txtImage" value="" required><br/>
 
                                 <input type="submit" value="submit">
 

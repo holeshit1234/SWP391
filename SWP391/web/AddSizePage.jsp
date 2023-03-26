@@ -28,6 +28,8 @@
             <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
+            <!-- Title -->
+             <a class="navbar-brand ps-3" >Add size page</a>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
@@ -124,7 +126,7 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Thêm size</h1>
+                        <h1 class="mt-4">Add size</h1>
                         <div class="card mb-4">
                            
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
@@ -135,7 +137,7 @@
                                 <form action="UpdateNewSizeServlet" method="POST" onsubmit="return validateForm()">
                                     <c:forEach var="dto" items="${result}">
                                         <input type="hidden" value="${dto.productID}" name="txtProductID">
-                                        Ten San Pham: ${dto.productName}
+                                        Product name: ${dto.productName}
                                         <a class="hidden">${daoProductDetail.getSizeIdById(dto.productID)}</a>
                                         <a class="hidden">${daoSize.showSizeList()}</a><br>
                                         <style>
@@ -173,7 +175,7 @@
                                             }
                                         }
                                         if (!isChecked) {
-                                            alert("Hãy chọn ít nhất một size ");
+                                            alert("Choose at least 1 size ");
                                             return false;
                                         }
                                     }
