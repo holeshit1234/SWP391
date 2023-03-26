@@ -6,6 +6,7 @@
 package DHTV.ControllerAdmin;
 
 import DHTV.payment.PaymentMethodDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -48,20 +50,31 @@ public class AddPaymentMethod extends HttpServlet {
             availible = false;
         }
         String url = "";
+        HttpSession session = request.getSession(false);
         try {
-            if (button.equals("Add")) {
-                PaymentMethodDAO dao = new PaymentMethodDAO();
-                
-                boolean result = dao.addPayment(nameMethod, availible);
-                
-                url = "GetPaymentMethodServlet";
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+              
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("Add")) {
+                            PaymentMethodDAO dao = new PaymentMethodDAO();
+
+                            boolean result = dao.addPayment(nameMethod, availible);
+
+                            url = "GetPaymentMethodServlet";
+                        }
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
             }
 
-        }  catch (NamingException ex) {
+        } catch (NamingException ex) {
             log("AddPaymentMethod _Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("AddPaymentMethod _SQL " + ex.getMessage());
-        }  finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

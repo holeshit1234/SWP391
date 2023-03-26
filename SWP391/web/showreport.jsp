@@ -24,10 +24,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
+             <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+             <a class="navbar-brand ps-3" >Manage Reports</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <c:set var="dto" value="${sessionScope.USER}"/>
@@ -125,17 +126,14 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage reports</h1>
 
                         <form action="GetUserNeedToCare" method="POST">
                             <input type="submit" value="Get User Alert" /> 
                         </form>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Report
-                            </div>
+                            
                             <div class="card-body">
 
                                 <c:if test="${not empty requestScope.REPORT}">

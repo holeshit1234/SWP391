@@ -27,10 +27,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+             <a class="navbar-brand ps-3" >Manage products</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <c:set var="dto" value="${sessionScope.USER}"/>
@@ -109,7 +110,7 @@
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
                             </div> 
-                             <a class="nav-link collapsed" href="ShowAllCommentServlet" >
+                            <a class="nav-link collapsed" href="ShowAllCommentServlet" >
                                 <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
                                 Comment
                             </a>
@@ -124,13 +125,10 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
-                        <a href="addProductPage.jsp" class="button">Thêm sản phẩm</a>
+                        <h1 class="mt-4">Manage products</h1>
+                        <a href="addProductPage.jsp" class="button">Add product</a>
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Product
-                            </div>
+
 
                             <div class="card-body">
                                 <jsp:useBean id="daoCategory" class="DHTV.category.CategoryDAO"/>
@@ -143,31 +141,31 @@
                                         <thead>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>image</th>
-                                                <th>Prodcut Name</th>
-                                                <th>brand name</th>
-                                                <th>category</th>
+                                                <th>Image</th>
+                                                <th>Product</th>
+                                                <th>Brand</th>
+                                                <th>Category</th>
                                                 <th>Gender</th>
-                                                <th>price</th>                     
+                                                <th>Price</th>                     
                                                 <th>Size and quantity</th>                     
-                                                <th>status</th>
+                                                <th>Status</th>
                                                 <th>Edit</th>
-                                                <th>AddSize</th>
+                                                <th>Add Size</th>
                                             </tr>
                                         </thead>
                                         <tfoot>
                                             <tr>
                                                 <th>No.</th>
-                                                <th>image</th>
-                                                <th>Prodcut Name</th>
-                                                <th>brand name</th>
-                                                <th>category</th>
+                                                <th>Image</th>
+                                                <th>Product</th>
+                                                <th>Brand</th>
+                                                <th>Category</th>
                                                 <th>Gender</th>
-                                                <th>price</th>                     
+                                                <th>Price</th>                     
                                                 <th>Size and quantity</th>                     
-                                                <th>status</th>
+                                                <th>Status</th>
                                                 <th>Edit</th>
-                                                <th>AddSize</th>
+                                                <th>Add Size</th>
                                             </tr>
                                         </tfoot>
                                         <tbody>
@@ -212,9 +210,9 @@
                                                                 <div class="size-list">
 
                                                                     <div class="size-item">
-                                                                        Size: 
-                                                                        ${daoSize.getNameSizeBySizeID(size.getSizeID()).getSizeName()}
-                                                                        Quantity ${size.getQuantity()}
+
+                                                                        ${daoSize.getNameSizeBySizeID(size.getSizeID()).getSizeName()} -
+                                                                        Quantity: ${size.getQuantity()}
                                                                     </div>
 
                                                                 </div>
@@ -228,7 +226,7 @@
                                                         <form action="ChangeStatusProductServlet" method="POST" onsubmit="return confirmDelete();">
                                                             <input type="hidden" name ="txtStatus" value="${dto.status}">
                                                             <input type="hidden" name ="txtProductID" value="${dto.productID}">
-                                                            <input type="submit" value="Xóa sản phẩm"  />
+                                                            <input type="submit" value="Delete"  />
                                                         </form>
 
                                                     </td>
@@ -240,14 +238,14 @@
                                             <td> 
                                                 <form action="EditProductServlet" method="POST">
                                                     <input type="hidden" name ="txtProductID" value="${dto.productID}">
-                                                    <input type="submit" value="Sửa số lượng"  />   
+                                                    <input type="submit" value="Edit"  />   
                                                 </form>
 
                                             </td>
                                             <td> 
                                                 <form action="AddNewSizeProductServlet" method="POST">
                                                     <input type="hidden" name ="txtProductID" value="${dto.productID}">
-                                                    <input type="submit" value="Thêm size"  />   
+                                                    <input type="submit" value="Add"  />   
                                                 </form>
                                             </td>
                                             </tr>
@@ -265,7 +263,7 @@
 
 
 
-                
+
             </div>
         </div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
@@ -327,18 +325,18 @@
             }
 
             /* Style for the "Update" button */
-            input[type="submit"][value="Sửa số lượng"] {
+            input[type="submit"][value="Edit"] {
                 background-color: #2196F3;
             }
 
-            input[type="submit"][value="Sửa số lượng"]:hover {
+            input[type="submit"][value="Edit"]:hover {
                 background-color: #0d47a1;
             }
-            input[type="submit"][value="Thêm size"] {
+            input[type="submit"][value="Add"] {
                 background-color: #2196F3;
             }
 
-            input[type="submit"][value="Thêm size"]:hover {
+            input[type="submit"][value="Add"]:hover {
                 background-color: #0d47a1;
             }
 

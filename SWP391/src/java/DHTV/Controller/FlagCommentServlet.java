@@ -79,20 +79,20 @@ public class FlagCommentServlet extends HttpServlet {
                     System.out.println("Finish flag comment!");
                     //Check the number of flag to ban user automatically
                     // will ban if the user have more than 1 flag (>=1)
-                    int flagNumberWarning = 1;
-
-                    CommentDAO daoCmt = new CommentDAO();
-                    int userCmtFlagID = daoCmt.getUserOfThisComment(commentID);
-                    //System.out.println("User comment this flag!! = " + userCmtFlagID);
-                    int countFlag = dao.countFlagComment(userCmtFlagID);
-                    //System.out.println("countFlag = " + countFlag);
-                    if (countFlag > flagNumberWarning) {
-                        UserDetailsDAO daoUser = new UserDetailsDAO();
-                        boolean banUser = daoUser.banUser(userCmtFlagID);
-                        if (banUser) {
-                            System.out.println("Banner User : " + userCmtFlagID);
-                        }
-                    }
+//                    int flagNumberWarning = 1;
+//
+//                    CommentDAO daoCmt = new CommentDAO();
+//                    int userCmtFlagID = daoCmt.getUserOfThisComment(commentID);
+//                    //System.out.println("User comment this flag!! = " + userCmtFlagID);
+//                    int countFlag = dao.countFlagComment(userCmtFlagID);
+//                    //System.out.println("countFlag = " + countFlag);
+//                    if (countFlag > flagNumberWarning) {
+//                        UserDetailsDAO daoUser = new UserDetailsDAO();
+//                        boolean banUser = daoUser.banUser(userCmtFlagID);
+//                        if (banUser) {
+//                            System.out.println("Banner User : " + userCmtFlagID);
+//                        }
+//                    }
 
                 }
             }
@@ -103,9 +103,11 @@ public class FlagCommentServlet extends HttpServlet {
             log("FlagCommentServlet_Naming " + ex.getMessage());
         } catch (SQLException ex) {
             log("FlagCommentServlet_SQL " + ex.getMessage());
-        } catch (ParseException ex) {
-            log("FlagCommentServlet_Parse " + ex.getMessage());
-        } finally {
+        } 
+//        catch (ParseException ex) {
+//            log("FlagCommentServlet_Parse " + ex.getMessage());
+//        } 
+        finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

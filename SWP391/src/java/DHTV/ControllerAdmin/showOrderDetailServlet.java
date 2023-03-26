@@ -9,6 +9,7 @@ import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,19 +43,29 @@ public class showOrderDetailServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "showOrderDetailPage.jsp";
+        HttpSession session = request.getSession(false);
         try {
-            int orderID = Integer.parseInt(request.getParameter("orderID"));
-            
-            OrderDetailDAO dao = new OrderDetailDAO();
-            dao.showListOrderDetail(orderID);
-            List<OrderDetailDTO> list = dao.getOrderDetailList();
-            request.setAttribute("ORDER_DETAIL_RESULT", list);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-        }catch (NamingException ex) {
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        int orderID = Integer.parseInt(request.getParameter("orderID"));
+
+                        OrderDetailDAO dao = new OrderDetailDAO();
+                        dao.showListOrderDetail(orderID);
+                        List<OrderDetailDTO> list = dao.getOrderDetailList();
+                        request.setAttribute("ORDER_DETAIL_RESULT", list);
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
+        } catch (NamingException ex) {
             log("ShowItemsServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
             log("ShowItemsServlet _ SQL _ " + ex.getMessage());
-        }  finally {
+        } finally {
             RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }

@@ -82,7 +82,57 @@ public class BrandDAO implements Serializable{
             if (con != null) {
                 //2 sql commands
                 String sql = "select BrandID,[BrandName],[Status],[Description] " +
-                        "from Brand "  
+                        "from Brand  "  
+                        ;
+                stm = con.prepareStatement(sql);
+              
+                //execute query  
+                rs = stm.executeQuery();
+                //5 process
+                
+               while(rs.next()){
+                    int brandID = rs.getInt("BrandID");                    
+                    String brandName = rs.getString("BrandName");                    
+                    Boolean Status = rs.getBoolean("Status");                    
+                    String description = rs.getString("Description");                   
+                    //create dto
+                    BrandDTO dto = new BrandDTO(brandID, brandName, Status, description);
+                  
+                    
+                    if (this.brandList == null) {
+                        this.brandList = new ArrayList<>();
+                    }//end the list no exsited
+                    this.brandList.add(dto);
+                }
+                
+            }
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+            
+        }
+    }
+    public void listBrandActive()
+            throws NamingException, SQLException {
+        Connection con = null;
+        ResultSet rs = null;
+        PreparedStatement stm = null;
+        this.brandList = new ArrayList<>();
+        try {
+            //1 get comnnection
+            con = DBHelpers.getConnection();
+            if (con != null) {
+                //2 sql commands
+                String sql = "select BrandID,[BrandName],[Status],[Description] " +
+                        "from Brand "
+                        + "Where Status = 1 "  
                         ;
                 stm = con.prepareStatement(sql);
               

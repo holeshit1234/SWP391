@@ -10,6 +10,7 @@ import DHTV.product.ProductDTO;
 import DHTV.product.ProductDetailDAO;
 import DHTV.product.ProductDetailDTO;
 import DHTV.size.SizeDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -21,6 +22,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -41,17 +43,28 @@ public class AddNewSizeProductServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession(false);
         String url = "AddSizePage.jsp";
         try {
-            int prductID =Integer.parseInt(request.getParameter("txtProductID"));
-            ProductDAO dao = new ProductDAO();
-            dao.getProductByProductID(prductID);
-            
-            List<ProductDTO> listSize= dao.getItemsList();
-            
-            request.setAttribute("ADD_NEW_SIZE_PRODUCT", listSize);
-                    
-              
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                System.out.println(dto1.getRoleID());
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        int prductID = Integer.parseInt(request.getParameter("txtProductID"));
+                        ProductDAO dao = new ProductDAO();
+                        dao.getProductByProductID(prductID);
+
+                        List<ProductDTO> listSize = dao.getItemsList();
+
+                        request.setAttribute("ADD_NEW_SIZE_PRODUCT", listSize);
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

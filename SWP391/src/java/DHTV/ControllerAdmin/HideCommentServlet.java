@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DVHT.comment.CommentDAO;
 import DVHT.comment.CommentDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,15 +41,27 @@ public class HideCommentServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "";
-        
+
         String comentid = request.getParameter("txtCommentID");
         int commentid = Integer.parseInt(comentid);
+        HttpSession session = request.getSession(false);
         try {
-            CommentDAO dao = new CommentDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            dao.deleteComment(commentid);
-                  
-            url = "ShowAllCommentServlet";
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        CommentDAO dao = new CommentDAO();
+
+                        dao.deleteComment(commentid);
+
+                        url = "ShowAllCommentServlet";
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
+
         } catch (NamingException ex) {
             log("HideComment _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

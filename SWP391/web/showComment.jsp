@@ -25,10 +25,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
+             <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+             <a class="navbar-brand ps-3" >Manage Comments</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <c:set var="dto" value="${sessionScope.USER}"/>
@@ -122,20 +123,17 @@
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage comments</h1>
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable Report
-                            </div>
+                            
                             <div class="card-body">
                                 <c:if test="${not empty requestScope.COMMENT}">
                                     <c:set var="des" value="${requestScope.COMMENT}"/>
                                     <table id="datatablesSimple">
                                         <thead>
                                             <tr>
-                                                <th>Comment ID </th>
+<!--                                                <th>Comment ID </th>-->
                                                 <th>Full Name</th>
                                                 <th>Product Name</th>
                                                 <th>Date </th>
@@ -148,15 +146,15 @@
 
                                             <c:forEach var="dto" items="${des}">
                                                 <tr>
-                                                    <td>${dto.getCommentID()}</td>
+<!--                                                    <td>${dto.getCommentID()}</td>-->
                                                     <td>${dto.getFullName()}</td>
                                                     <td>${dto.getProductName()}</td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${dto.getDescription()}</td>
                                                     <td>                                                                                                           
                                                         <c:choose>
-                                                            <c:when test="${dto.isStatus() == true}">Đang hiện</c:when>
-                                                            <c:when test="${dto.isStatus() == false}">Đã Ẩn</c:when>
+                                                            <c:when test="${dto.isStatus() == true}">Available</c:when>
+                                                            <c:when test="${dto.isStatus() == false}">Unavailable</c:when>
 
                                                         </c:choose>
                                                     </td>

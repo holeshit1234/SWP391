@@ -9,6 +9,7 @@ import DHTV.order.OrderDAO;
 import DHTV.order.OrderDTO;
 import DHTV.order.OrderDetailDAO;
 import DHTV.order.OrderDetailDTO;
+import DVHT.userdetails.UserDetailsDTO;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -24,6 +25,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtils;
 import org.jfree.chart.JFreeChart;
@@ -49,88 +51,101 @@ public class GetChartDetailServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        
+
         String month = request.getParameter("month");
         String year = request.getParameter("year");
+        String url = "dashBoard.jsp";
+        HttpSession session = request.getSession(false);
         try {
-            OrderDetailDAO dao = new OrderDetailDAO();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            dao.getTop10ItemsInMonthYear(month, year);
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        OrderDetailDAO dao = new OrderDetailDAO();
 
-            List<OrderDetailDTO> top10Products = dao.getListdto();
-            // Create a dataset
-            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-            for (OrderDetailDTO product : top10Products) {
-                dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
-            }
-            // Create a chart
-            JFreeChart chart = ChartFactory.createBarChart(
-                    "Top 10 Products",
-                    "Product Name",
-                    "Sales",
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false);
+                        dao.getTop10ItemsInMonthYear(month, year);
 
-            // Customize the chart
-            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 24));
-            chart.setBackgroundPaint(Color.WHITE);
+                        List<OrderDetailDTO> top10Products = dao.getListdto();
 
-            // Generate a PNG image of the chart
-            byte[] chartImage = ChartUtils.encodeAsPNG(chart.createBufferedImage(800, 400));
+                        request.setAttribute("top10Products", top10Products);
+                        // Create a dataset
+//            DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//            for (OrderDetailDTO product : top10Products) {
+//                dataset.addValue((Number) product.getQuantity(), product.getProductName(), "");
+//            }
+//            // Create a chart
+//            JFreeChart chart = ChartFactory.createBarChart(
+//                    "Top 10 Products",
+//                    "Product Name",
+//                    "Sales",
+//                    dataset,
+//                    PlotOrientation.VERTICAL,
+//                    true,
+//                    true,
+//                    false);
+//
+//            // Customize the chart
+//            chart.getTitle().setFont(new Font("SansSerif", Font.BOLD, 24));
+//            chart.setBackgroundPaint(Color.WHITE);
+//
+//            // Generate a PNG image of the chart
+//            byte[] chartImage = ChartUtils.encodeAsPNG(chart.createBufferedImage(800, 400));
+//
+//            // Store the chart image as a Base64-encoded string in a request attribute
+//            String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
+//            request.setAttribute("base64EncodedChart", base64EncodedChart);
 
-            // Store the chart image as a Base64-encoded string in a request attribute
-            String base64EncodedChart = Base64.getEncoder().encodeToString(chartImage);
-            request.setAttribute("base64EncodedChart", base64EncodedChart);
+                        OrderDAO dao1 = new OrderDAO();
 
-            OrderDAO dao1 = new OrderDAO();
-            
-               OrderDTO result1 = dao1.getTotalPriceAtYear(year);
-            
-            if ( result1 != null) {
+                        OrderDTO result1 = dao1.getTotalPriceAtYear(year);
+
+                        if (result1 != null) {
 //                request.setAttribute("date", result);
-                request.setAttribute("date1", result1);
+                            request.setAttribute("date1", result1);
+                        }
+
+                        dao1.getTotalPriceWithMonthByYear(year);
+                        List<OrderDTO> totalPriceWithMonths = dao1.getListPriceMonths();
+
+                        request.setAttribute("totalPriceWithMonths", totalPriceWithMonths);
+                        // Create a dataset
+//            DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
+//            for (OrderDTO order : totalPriceWithMonths) {
+//                dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
+//            }
+//            // Create a chart
+//            JFreeChart chart1 = ChartFactory.createBarChart(
+//                    "Total Price With Month",
+//                    "Month",
+//                    "total",
+//                    dataset1,
+//                    PlotOrientation.VERTICAL,
+//                    true,
+//                    true,
+//                    false);
+//
+//            // Customize the chart
+//            chart1.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
+//            chart1.setBackgroundPaint(Color.WHITE);
+//
+//            // Generate a PNG image of the chart
+//            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(800, 400));
+//
+//            // Store the chart image as a Base64-encoded string in a request attribute
+//            String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);
+//            request.setAttribute("base64EncodedChart2", base64EncodedChart1);
+                    }
+                }
+             }else{
+            url = "erorr.jsp";
             }
-            
-            dao1.getTotalPriceWithMonthByYear(year);
-            List<OrderDTO> totalPriceWithMonths = dao1.getListPriceMonths();
-            // Create a dataset
-            DefaultCategoryDataset dataset1 = new DefaultCategoryDataset();
-            for (OrderDTO order : totalPriceWithMonths) {
-                dataset1.addValue(order.getTotalPrice(), "Total Price", order.getMonth());
-            }
-            // Create a chart
-            JFreeChart chart1 = ChartFactory.createBarChart(
-                    "Total Price With Month",
-                    "Month",
-                    "total",
-                    dataset1,
-                    PlotOrientation.VERTICAL,
-                    true,
-                    true,
-                    false);
-
-            // Customize the chart
-            chart1.getTitle().setFont(new Font("SansSerif", Font.BOLD, 18));
-            chart1.setBackgroundPaint(Color.WHITE);
-
-            // Generate a PNG image of the chart
-            byte[] chartImage1 = ChartUtils.encodeAsPNG(chart1.createBufferedImage(800, 400));
-
-            // Store the chart image as a Base64-encoded string in a request attribute
-            String base64EncodedChart1 = Base64.getEncoder().encodeToString(chartImage1);
-            request.setAttribute("base64EncodedChart2", base64EncodedChart1);
-
         } catch (NamingException ex) {
             log("Naming" + ex.getMessage());
         } catch (SQLException ex) {
             log("SQL" + ex.getMessage());
         } finally {
-            RequestDispatcher dispatcher = request.getRequestDispatcher("dashBoard.jsp");
+            RequestDispatcher dispatcher = request.getRequestDispatcher(url);
             dispatcher.forward(request, response);
         }
     }

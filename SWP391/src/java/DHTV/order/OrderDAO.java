@@ -636,7 +636,7 @@ public class OrderDAO implements Serializable {
 
                     //create dto
                     OrderDTO dto = new OrderDTO(OrderID, UserID, PaymentID, AddressID, date, totalPrice, ShippingFee, ApprovalStatusID, PaymentStatus);
-                    System.out.println("---------------ListOrder------------" + dto);
+                   
                     result = dto;
                     if (this.orderList == null) {
                         this.orderList = new ArrayList<>();

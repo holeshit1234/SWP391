@@ -333,53 +333,53 @@ public class ProductDAO implements Serializable {
         return list;
     }
 
-    public void showProductAdmin()
-            throws NamingException, SQLException {
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stm = null;
-        try {
-            //1 get comnnection
-            con = DBHelpers.getConnection();
-            if (con != null) {
-                //2 sql commands
-
-                //   stm = con.prepareStatement(sql);
-                //execute query  
-                rs = stm.executeQuery();
-                //5 process
-                while (rs.next()) {
-                    int productID = rs.getInt("ProductID");
-                    String productName = rs.getString("ProductName");
-                    int brandID = rs.getInt("BrandID");
-                    int categoryID = rs.getInt("CategoryID");
-                    float price = rs.getFloat("Price");
-                    boolean status = rs.getBoolean("Status");
-                    String description = rs.getString("Description");
-                    String image = rs.getString("Image");
-
-                    //create dto
-                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
-
-                    //add item to dto
-                    if (this.itemsList == null) {
-                        this.itemsList = new ArrayList<>();
-                    }//end the list no exsited
-                    this.itemsList.add(dto);
-                }
-            }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-    }
+//    public void showProductAdmin()
+//            throws NamingException, SQLException {
+//        Connection con = null;
+//        ResultSet rs = null;
+//        PreparedStatement stm = null;
+//        try {
+//            //1 get comnnection
+//            con = DBHelpers.getConnection();
+//            if (con != null) {
+//                //2 sql commands
+//
+//                //   stm = con.prepareStatement(sql);
+//                //execute query  
+//                rs = stm.executeQuery();
+//                //5 process
+//                while (rs.next()) {
+//                    int productID = rs.getInt("ProductID");
+//                    String productName = rs.getString("ProductName");
+//                    int brandID = rs.getInt("BrandID");
+//                    int categoryID = rs.getInt("CategoryID");
+//                    float price = rs.getFloat("Price");
+//                    boolean status = rs.getBoolean("Status");
+//                    String description = rs.getString("Description");
+//                    String image = rs.getString("Image");
+//
+//                    //create dto
+//                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
+//
+//                    //add item to dto
+//                    if (this.itemsList == null) {
+//                        this.itemsList = new ArrayList<>();
+//                    }//end the list no exsited
+//                    this.itemsList.add(dto);
+//                }
+//            }
+//        } finally {
+//            if (rs != null) {
+//                rs.close();
+//            }
+//            if (stm != null) {
+//                stm.close();
+//            }
+//            if (con != null) {
+//                con.close();
+//            }
+//        }
+//    }
 
     public int addProductAdmin(ProductDTO dto)
             throws NamingException, SQLException {
@@ -885,7 +885,7 @@ public class ProductDAO implements Serializable {
                 //2 sql commands
                 String sql = "select P.[ProductID],P.[ProductName],P.[BrandID],P.[CategoryID],P.[Price],P.[Status],P.[Description],P.[Image] "
                         + "from  Product P "
-                        + " where P.BrandID = ? ";
+                        + " where P.BrandID = ? and P.Status = 1 ";
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 stm.setInt(1, BrandID);
@@ -937,7 +937,7 @@ public class ProductDAO implements Serializable {
             con = DBHelpers.getConnection();
             String sql = "SELECT P.[ProductID], P.[ProductName], P.[BrandID], P.[CategoryID], P.[Price], P.[Status], P.[Description], P.[Image]   "
                     + "FROM [Product] P  "
-                    + "WHERE P.[BrandID] = ? "
+                    + "WHERE P.[BrandID] = ? and P.Status = 1 "
                     + "ORDER BY P.[ProductID] "
                     + "OFFSET ? ROWS FETCH NEXT ? ROWS ONLY ";
             stm = con.prepareStatement(sql);

@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -17,6 +18,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,25 +40,35 @@ public class DeleteProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "ShowAllListProductServlet";
+        HttpSession session = request.getSession(false);
         try {
-            String txtStatus = request.getParameter("txtStatus");
-            boolean status = Boolean.parseBoolean(txtStatus);
-            if(status==true){
-                 status=false;
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String txtStatus = request.getParameter("txtStatus");
+                        boolean status = Boolean.parseBoolean(txtStatus);
+                        if (status == true) {
+                            status = false;
+                        } else {
+                            status = true;
+                        }
+
+                        String txtProductID = request.getParameter("txtProductID");
+                        int productID = Integer.parseInt(txtProductID);
+                        ProductDAO dao = new ProductDAO();
+                        dao.ChangeStatusProduct(productID, status);
+                    }
+                }
             }else{
-                status =true;
-            } 
-           
-            String txtProductID= request.getParameter("txtProductID");
-            int productID= Integer.parseInt(txtProductID);
-            ProductDAO  dao = new ProductDAO();
-            dao.ChangeStatusProduct(productID, status);
-                        
-        }catch (NamingException ex) {
+            url = "erorr.jsp";
+            }
+        } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
             log(" _ SQL _ " + ex.getMessage());
-        }  finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

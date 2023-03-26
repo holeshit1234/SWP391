@@ -8,6 +8,7 @@ package DHTV.ControllerAdmin;
 import DHTV.Controller.*;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -38,23 +40,34 @@ public class ShowAllListProductServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                response.setContentType("text/html;charset=UTF-8");
-        String url="showProduct.jsp";
-        try{
-            ProductDAO dao = new ProductDAO();
+        response.setContentType("text/html;charset=UTF-8");
+        String url = "showProduct.jsp";
+        HttpSession session = request.getSession(false);
+        try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            dao.showProduct();
-            // process
-            List<ProductDTO> result = dao.getItemsList();
-            // send to view
-                
-            request.setAttribute("ITEMS_RESULT_ADMIN", result);
-        }catch (NamingException ex) {
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        ProductDAO dao = new ProductDAO();
+
+                        dao.showProduct();
+                        // process
+                        List<ProductDTO> result = dao.getItemsList();
+                        // send to view
+
+                        request.setAttribute("ITEMS_RESULT_ADMIN", result);
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
+        } catch (NamingException ex) {
             log("ShowAllListProductServlet _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
             log("ShowAllListProductServlet _ SQL _ " + ex.getMessage());
-        } finally{
-             RequestDispatcher rd = request.getRequestDispatcher(url);
+        } finally {
+            RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }
     }

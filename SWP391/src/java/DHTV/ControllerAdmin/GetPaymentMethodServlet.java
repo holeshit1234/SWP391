@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.payment.PaymentMethodDAO;
 import DHTV.payment.PaymentMethodDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -40,27 +41,35 @@ public class GetPaymentMethodServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
-        String url="";
-        
-        try  {
-           PaymentMethodDAO dao = new PaymentMethodDAO();
-           
-           dao.getPaymentMethod();
-           
-            List<PaymentMethodDTO> result = dao.getListMethod();
-            
-            
-            HttpSession session = request.getSession();
-            session.setAttribute("PAYMENT", result);
-           
-             url ="ShowPayment.jsp";
+
+        String url = "";
+        HttpSession session = request.getSession(false);
+        try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        PaymentMethodDAO dao = new PaymentMethodDAO();
+
+                        dao.getPaymentMethod();
+
+                        List<PaymentMethodDTO> result = dao.getListMethod();
+
+                       
+                        request.setAttribute("PAYMENT", result);
+
+                        url = "ShowPayment.jsp";
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
         } catch (SQLException ex) {
             log("GetPaymentServlet SQL: " + ex.getMessage());
         } catch (NamingException ex) {
             log("GetPaymentServlet Naming: " + ex.getMessage());
-        }  finally {
+        } finally {
             RequestDispatcher rd = request.getRequestDispatcher(url);
             rd.forward(request, response);
         }

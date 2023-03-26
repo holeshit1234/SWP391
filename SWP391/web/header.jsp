@@ -62,8 +62,8 @@
             <jsp:useBean id="brand" class="DHTV.brand.BrandDAO" />
             ${brand.listBrand()}
             <div class="menu">
-                <li><a href="showProductByGenderServlet?gender=Nam">Nam</a></li>
-                <li><a href="showProductByGenderServlet?gender=Nữ">Nữ</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nam">Male</a></li>
+                <li><a href="showProductByGenderServlet?gender=Nữ">Female</a></li>
                 <li><a href="showProductByGenderServlet?gender=Unisex">Unisex</a></li>
                 <li class="dropdown">
                     <a class="dropbtn">Brand</a>

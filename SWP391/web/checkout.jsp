@@ -66,7 +66,7 @@
 
                     <div class="payment-content-left">
                         <div class="payment-content-left-method-delivery">
-                            <p style="font-weight: bold;">Phương thức giao hàng</p>
+                            <p style="font-weight: bold;">Delivery Method</p>
                             <div class="payment-content-left-method-delivery-item">
                                 <input checked type="radio">
                                 <label for="">Chuyển phát nhanh</label>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="payment-content-left-method-payment">
                             <!--Payment Method------------->
-                            <p style="font-weight: bold;">Phương thức thanh toán</p>
+                            <p style="font-weight: bold;">Payment Method</p>
                             <c:if test="${not empty requestScope.PAYMENT}">
                                 <font color='red'>
                                 ${requestScope.PAYMENT}
@@ -99,7 +99,7 @@
                         <div class="payment-content-left-address-delivery">
 
                             <!--Address------------->
-                            <p style="font-weight: bold;">Địa chỉ giao hàng</p>
+                            <p style="font-weight: bold;">Delivery Address</p>
                             <c:if test="${not empty requestScope.ADDRESS}">
                                 <font color='red'>
                                 ${requestScope.ADDRESS}
@@ -130,7 +130,7 @@
                             <!--Add Address------------->
                             <div class="add-buttom">
                                 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#popup1">
-                                    Thêm địa chỉ giao hàng
+                                    Add New Address
                                 </button>
 
                             </div>
@@ -140,39 +140,39 @@
                     <div class="cart-content-right">
                         <table>
                             <tr>
-                                <th colspan="2">Tóm tắt giỏ hàng</th>
+                                <th colspan="2">Summary Cart</th>
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.QUANTITIES}">
                                     <c:set var="quantity" value="${requestScope.QUANTITIES}"/>
-                                    <td>Tổng số lượng sản phẩm</td>
+                                    <td>Total Product Quantities</td>
                                     <td>${quantity}</td>                               
                                 </c:if>
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
                                     <fmt:formatNumber var="totalprice" value="${requestScope.TOTAL_PRICE}" pattern="#,###,###"/>
-                                    <td>Tổng phí thanh toán</td>
+                                    <td>Total Price</td>
                                     <td><p>${totalprice}<sup>vnd</sup></p></td>
                                 </c:if>
 
                             </tr>
                             <tr>
-                                <td>Phí shipping</td>
+                                <td>Shipping Fee</td>
                                 <td><p >30.000<sup>vnd</sup></p></td>
                             </tr>
                             <tr>
                                 <c:if test="${not empty requestScope.TOTAL_PRICE}">
                                     <c:set var="total" value="${requestScope.TOTAL_PRICE}"/>
                                     <fmt:formatNumber var="totalWithShipping" value="${total+30000}" pattern="#,###"/>                               
-                                    <td>Tạm tính</td>
+                                    <td>Total</td>
                                     <td><p id="total-price" style="color: black; font-weight: bold;">${totalWithShipping}<sup>vnd</sup></p></td>
                                 </c:if>
                             </tr>
                         </table>
                         <div class="cart-content-right-buttom">
-                            <a href="ShowIdexItemServlet" class="button">Tiếp tục mua hàng</a>
-                            <button type="submit">Xác nhận và hoàn tất</button>                                       
+                            <a href="ShowIdexItemServlet" class="button">Continue Buying</a>
+                            <button type="submit">Finish</button>                                       
                         </div>
                     </div>
                 </div>

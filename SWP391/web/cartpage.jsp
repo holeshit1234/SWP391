@@ -219,25 +219,25 @@
 
                             </c:if>
                             <c:if test="${not empty requestScope.CART_RESULT}">
-                                <th colspan="2">Tóm tắt giỏ hàng</th>
+                                <th colspan="2">Summary Cart</th>
                                 </c:if>
                         </tr>
                         <tr>
                             <c:if test="${not empty requestScope.QUANTITIES}">
                                 <c:set var="quantity" value="${requestScope.QUANTITIES}"/>
-                                <td>Tổng số lượng sản phẩm</td>
+                                <td>Total Product Quantities</td>
                                 <td>${quantity}</td>                               
                             </c:if>
                         </tr>
                         <tr>
                             <c:if test="${not empty requestScope.TOTAL_PRICE}">
                                 <fmt:formatNumber var="totalprice" value="${requestScope.TOTAL_PRICE}" pattern="#,###,###"/>
-                                <td>Tổng phí thanh toán</td>
+                                <td>Total Price</td>
                                 <td><p>${totalprice}<sup>vnd</sup></p></td>
                             </c:if>
                         </tr>
                         <tr>
-                            <td>Phí shipping</td>
+                            <td>Shipping Fee</td>
                             <td><p >30.000<sup>vnd</sup></p></td>
                         </tr>
                         <tr>
@@ -251,12 +251,12 @@
                     </table>
                     <div class="cart-content-right-buttom row">
                         <div class="col-md-6" >
-                            <button onclick="submitForm()" >Quay lại mua hàng</button>
+                            <button onclick="submitForm()" >Continue Buying</button>
                         </div>
 
                         <div class="col-md-6">
                             <form action="CheckOutServlet">
-                                <button>Thanh toán</button>
+                                <button>Next</button>
                             </form>
                         </div>                      
                     </div>

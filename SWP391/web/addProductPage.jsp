@@ -133,7 +133,7 @@
                                 <input type="text" id="product-name-input" name="txtProductName" value="" required><br/>
 
                                 <label for="brand-select">Tên thương hiệu:</label>
-                                ${daoBrand.listBrand()}
+                                ${daoBrand.listBrandActive()}
                                 <select name="txtBrand">
                                     <c:forEach var="dto" items="${daoBrand.getBrandList()}">
                                         <option value="${dto.getBrandId()}"> ${dto.getBrandName()} </option>

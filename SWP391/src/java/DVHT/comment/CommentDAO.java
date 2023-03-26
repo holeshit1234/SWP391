@@ -451,40 +451,40 @@ public class CommentDAO implements Serializable {
         }
     }
 
-    public int getUserOfThisComment(int commentID) throws SQLException, NamingException {
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stm = null;
-        int UserID = 0;
-        try {
-            //1.Conect Database
-            con = DBHelpers.getConnection();
-            if (con != null) {
-                //2. Sql command
-                String sql = "Select [UserID]"
-                        + "from [Comment] "
-                        + "WHERE [CommentID] = ?  ";
-
-                //3. Create Statement
-                stm = con.prepareStatement(sql);
-                stm.setInt(1, commentID);
-                //4.execute query
-                rs = stm.executeQuery();
-                //5. process result
-                if (rs.next()) {
-                    UserID = rs.getInt("UserID");
-                }
-            } //end con is availible
-        } finally {
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-        }
-        return UserID;
-    }
+//    public int getUserOfThisComment(int commentID) throws SQLException, NamingException {
+//        Connection con = null;
+//        ResultSet rs = null;
+//        PreparedStatement stm = null;
+//        int UserID = 0;
+//        try {
+//            //1.Conect Database
+//            con = DBHelpers.getConnection();
+//            if (con != null) {
+//                //2. Sql command
+//                String sql = "Select [UserID]"
+//                        + "from [Comment] "
+//                        + "WHERE [CommentID] = ?  ";
+//
+//                //3. Create Statement
+//                stm = con.prepareStatement(sql);
+//                stm.setInt(1, commentID);
+//                //4.execute query
+//                rs = stm.executeQuery();
+//                //5. process result
+//                if (rs.next()) {
+//                    UserID = rs.getInt("UserID");
+//                }
+//            } //end con is availible
+//        } finally {
+//            if (stm != null) {
+//                stm.close();
+//            }
+//            if (con != null) {
+//                con.close();
+//            }
+//        }
+//        return UserID;
+//    }
     private List<CommentDTO> ListUserReport;
 
     public List<CommentDTO> getListUserReport() {
@@ -556,6 +556,7 @@ public class CommentDAO implements Serializable {
                         + "from Comment cm "
                         + "inner join UserDetails us on us.UserID = cm.UserID "
                         + "inner join Product p on p.ProductID = cm.ProductID "
+                        + "Where cm.[Status] = 1"
                         + "ORDER BY [CommentID] DESC";
 
                 // 3 stm create

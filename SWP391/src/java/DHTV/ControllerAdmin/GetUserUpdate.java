@@ -39,27 +39,36 @@ public class GetUserUpdate extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
-        
+
         String button = request.getParameter("btAction");
         String userid = request.getParameter("userid");
         int userID = Integer.parseInt(userid);
-        String url ="";
-        try  {
-            if(button.equals("UpdateInfo")){
-                UserDetailsDAO dao = new UserDetailsDAO();
-                
-                UserDetailsDTO result = dao.showUserById(userID);
-                
-                if(result != null){
-                    url = "updateInfoUserByAdminManager.jsp";
+        String url = "";
+        HttpSession session = request.getSession();
+        try {
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        if (button.equals("UpdateInfo")) {
+                            UserDetailsDAO dao = new UserDetailsDAO();
+
+                            UserDetailsDTO result = dao.showUserById(userID);
+
+                            if (result != null) {
+                                url = "updateInfoUserByAdminManager.jsp";
 //                    url = "testUpdate.jsp";
-                    HttpSession session = request.getSession();
-                    session.setAttribute("USER_INFO", result);
+
+                                session.setAttribute("USER_INFO", result);
+                            }
+                        }
+                    }
                 }
+            }else{
+            url = "erorr.jsp";
             }
-           
-        }catch (SQLException ex) {
+        } catch (SQLException ex) {
             log("GetUserUpdate _SQL_ " + ex.getMessage());
         } catch (/*ClassNotFoundException*/NamingException ex) {
             log("GetUserUpdate _Naming_ " + ex.getMessage());

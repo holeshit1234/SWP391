@@ -13,6 +13,7 @@ import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import DHTV.product.ProductDetailDAO;
 import DHTV.product.ProductDetailDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import DVHT.utils.DBHelpers;
 import java.io.File;
 import java.io.IOException;
@@ -33,6 +34,7 @@ import static org.bouncycastle.asn1.iana.IANAObjectIdentifiers.directory;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -55,84 +57,93 @@ public class AddProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "ShowAllListProductServlet";
-
+        HttpSession session = request.getSession(false);
         try {
-            String ProductName = request.getParameter("txtProductName");//1
-            byte[] bytes1 = ProductName.getBytes(StandardCharsets.ISO_8859_1);
-            ProductName = new String(bytes1, StandardCharsets.UTF_8);
-            String Description = request.getParameter("txtDescription");//2
-            byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
-            Description = new String(bytes2, StandardCharsets.UTF_8);
-            //3
-            Part part = request.getPart("txtImage");
-            String Image = part.getSubmittedFileName();
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            String txtBrand = request.getParameter("txtBrand");//4
-            int brandID = Integer.parseInt(txtBrand);
-            String txtCate = request.getParameter("txtCate");//5
-            int cateID = Integer.parseInt(txtCate);
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String ProductName = request.getParameter("txtProductName");//1
+                        byte[] bytes1 = ProductName.getBytes(StandardCharsets.ISO_8859_1);
+                        ProductName = new String(bytes1, StandardCharsets.UTF_8);
+                        String Description = request.getParameter("txtDescription");//2
+                        byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
+                        Description = new String(bytes2, StandardCharsets.UTF_8);
+                        //3
+                        Part part = request.getPart("txtImage");
+                        String Image = part.getSubmittedFileName();
 
-            int status = 1; //9
+                        String txtBrand = request.getParameter("txtBrand");//4
+                        int brandID = Integer.parseInt(txtBrand);
+                        String txtCate = request.getParameter("txtCate");//5
+                        int cateID = Integer.parseInt(txtCate);
 
-            String txtPrice = request.getParameter("txtPrice");//6
-            float price = Float.parseFloat(txtPrice);
-            int key = 0;
-            //set 1-2-3-4-5-6 vào Product
-            ProductDTO dto = new ProductDTO();
-            dto.setProductName(ProductName);
-            dto.setBrandID(brandID);
-            dto.setDescription(Description);
-            dto.setPrice(price);
-            dto.setImage(Image);
-            dto.setStatus(true);
-            dto.setCategoryID(cateID);
-            ProductDAO dao = new ProductDAO();
+                        int status = 1; //9
 
-            key = dao.addProductAdmin(dto);
-            String directory = "D:/FPT/SWP/Moi/SWP391/SWP391/web/asset/images/productpictures"; // Change this to the directory of your choice
+                        String txtPrice = request.getParameter("txtPrice");//6
+                        float price = Float.parseFloat(txtPrice);
+                        int key = 0;
+                        //set 1-2-3-4-5-6 vào Product
+                        ProductDTO dto = new ProductDTO();
+                        dto.setProductName(ProductName);
+                        dto.setBrandID(brandID);
+                        dto.setDescription(Description);
+                        dto.setPrice(price);
+                        dto.setImage(Image);
+                        dto.setStatus(true);
+                        dto.setCategoryID(cateID);
+                        ProductDAO dao = new ProductDAO();
 
-            // Create the directory if it doesn't exist
-            File dir = new File(directory);
-            if (!dir.exists()) {
-                dir.mkdirs();
-            }
+                        key = dao.addProductAdmin(dto);
+                        String directory = "D:/FPT/SWP/Moi/SWP391/SWP391/web/asset/images/productpictures"; // Change this to the directory of your choice
 
-            // Save the uploaded image to the specified directory
-            String path = directory + File.separator + dto.getImage();
-            DBHelpers.deleteFile(path);
+                        // Create the directory if it doesn't exist
+                        File dir = new File(directory);
+                        if (!dir.exists()) {
+                            dir.mkdirs();
+                        }
 
-            DBHelpers.saveFile(part.getInputStream(), path);
-            System.out.println("Ket" + key);
-            //Get id vừa add vô sp
-            //ProductDTO getIdDTO = new ProductDTO();
-            ProductDAO getIdDAO = new ProductDAO();
-            getIdDAO.getProductIdByInfo(dto);
-            int getID = getIdDAO.getProductIdByInfo(dto).getProductID();
-            System.out.println("CheckID sp mới " + getID);
+                        // Save the uploaded image to the specified directory
+                        String path = directory + File.separator + dto.getImage();
+                        DBHelpers.deleteFile(path);
+
+                        DBHelpers.saveFile(part.getInputStream(), path);
+                        System.out.println("Ket" + key);
+                        //Get id vừa add vô sp
+                        //ProductDTO getIdDTO = new ProductDTO();
+                        ProductDAO getIdDAO = new ProductDAO();
+                        getIdDAO.getProductIdByInfo(dto);
+                        int getID = getIdDAO.getProductIdByInfo(dto).getProductID();
+                        System.out.println("CheckID sp mới " + getID);
 //            //set 1-7-8-9 vào productdetail
 
-            String[] Quantity = request.getParameterValues("txtQuantity");
-            String[] Size = request.getParameterValues("txtSize");
+                        String[] Quantity = request.getParameterValues("txtQuantity");
+                        String[] Size = request.getParameterValues("txtSize");
 
-            int storeID = 1;
-            if (key != 0) {
-                for (int i = 0; i <= Size.length; i++) {
-                    int size = Integer.parseInt(Size[i]);
-                    int quantity = Integer.parseInt(Quantity[i]);
-                    ProductDetailDTO productDetailDTO = new ProductDetailDTO();
+                        int storeID = 1;
+                        if (key != 0) {
+                            for (int i = 0; i <= Size.length; i++) {
+                                int size = Integer.parseInt(Size[i]);
+                                int quantity = Integer.parseInt(Quantity[i]);
+                                ProductDetailDTO productDetailDTO = new ProductDetailDTO();
 
-                    productDetailDTO.setProductID(getID);
-                    productDetailDTO.setQuantity(quantity);
-                    productDetailDTO.setSizeID(size);
-                    productDetailDTO.setStoreID(storeID);
+                                productDetailDTO.setProductID(getID);
+                                productDetailDTO.setQuantity(quantity);
+                                productDetailDTO.setSizeID(size);
+                                productDetailDTO.setStoreID(storeID);
 
-                    ProductDetailDAO productDetailDAO = new ProductDetailDAO();
-                    productDetailDAO.addProductDetailAdmin(key, size, quantity, storeID);
-                    url = "ShowAllListProductServlet";
-                    System.out.println("-----------------------------");
+                                ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+                                productDetailDAO.addProductDetailAdmin(key, size, quantity, storeID);
+                                url = "ShowAllListProductServlet";
+                                System.out.println("-----------------------------");
+                            }
+                        }
+                    }
                 }
+            }else{
+            url = "erorr.jsp";
             }
-
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

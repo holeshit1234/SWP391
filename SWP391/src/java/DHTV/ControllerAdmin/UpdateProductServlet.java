@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.product.ProductDetailDAO;
 import DHTV.size.SizeDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,24 +41,34 @@ public class UpdateProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "ShowAllListProductServlet";
+        HttpSession session = request.getSession(false);
         try {
-            String[] Size = request.getParameterValues("sizeID");
-         
-            String[] newQuantityOfOldSize = request.getParameterValues("NewQuantity");
-           
-            int productID = Integer.parseInt(request.getParameter("txtProductID"));
-            int storeID = 1;
-            int quantity=0;
-            int sizeID=0;
-            for (int i = 0; i <= Size.length; i++) {
-                 quantity = Integer.parseInt(newQuantityOfOldSize[i]);
-                 System.out.println(quantity+"-");
-                 sizeID = Integer.parseInt(Size[i]);
-                 System.out.println(sizeID+"-");
-                ProductDetailDAO productDetailDAO = new ProductDetailDAO();
-                productDetailDAO.updateQuantityProduct(productID, sizeID, quantity, storeID);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String[] Size = request.getParameterValues("sizeID");
+
+                        String[] newQuantityOfOldSize = request.getParameterValues("NewQuantity");
+
+                        int productID = Integer.parseInt(request.getParameter("txtProductID"));
+                        int storeID = 1;
+                        int quantity = 0;
+                        int sizeID = 0;
+                        for (int i = 0; i <= Size.length; i++) {
+                            quantity = Integer.parseInt(newQuantityOfOldSize[i]);
+                            
+                            sizeID = Integer.parseInt(Size[i]);
+                            
+                            ProductDetailDAO productDetailDAO = new ProductDetailDAO();
+                            productDetailDAO.updateQuantityProduct(productID, sizeID, quantity, storeID);
+                        }
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
             }
-            System.out.println("Done");
             // SizeDAO sDAO= new SizeDAO();
             // int SizeID =sDAO.getSizeIDByName(Size).getSizeID();
         } catch (NamingException ex) {

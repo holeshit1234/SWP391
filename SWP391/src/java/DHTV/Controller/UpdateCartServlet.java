@@ -83,13 +83,13 @@ public class UpdateCartServlet extends HttpServlet {
 // calculate the total price of all items in the cart
             //double totalPrice = cartDAO.getTotalPrice(cartId);
 // return the updated quantity, price, and total price as a JSON response
-            JsonObject jsonObject = new JsonObject();
-            jsonObject.addProperty("quantity", quantity);
-            jsonObject.addProperty("price", price);
-            //jsonObject.addProperty("totalPrice", totalPrice);
-            response.setContentType("application/json");
-            response.setCharacterEncoding("UTF-8");
-            response.getWriter().write(jsonObject.toString());
+//            JsonObject jsonObject = new JsonObject();
+//            jsonObject.addProperty("quantity", quantity);
+//            jsonObject.addProperty("price", price);
+//            //jsonObject.addProperty("totalPrice", totalPrice);
+//            response.setContentType("application/json");
+//            response.setCharacterEncoding("UTF-8");
+//            response.getWriter().write(jsonObject.toString());
 
         } catch (SQLException ex) {
             log("Comment Servlet SQL: " + ex.getMessage());

@@ -9,6 +9,7 @@ import DHTV.brand.BrandDAO;
 import DHTV.brand.BrandDTO;
 import DHTV.category.CategoryDAO;
 import DHTV.category.CategoryDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
@@ -20,6 +21,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,31 +42,44 @@ public class AddBrandServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+
+        HttpSession session = request.getSession(false);
+
         String url = "showBrandServlet";
         try {
-            String BrandName = request.getParameter("txtBrand");
-            byte[] bytes1 = BrandName.getBytes(StandardCharsets.ISO_8859_1);
-            BrandName = new String(bytes1, StandardCharsets.UTF_8);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
 
-            String txtStatus = request.getParameter("txtStatus");
-            boolean valid = true;
-            if (txtStatus.equals("1")) {
-                valid = true;
-            } else {
-                valid = false;
+                System.out.println(dto1.getRoleID());
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String BrandName = request.getParameter("txtBrand");
+                        byte[] bytes1 = BrandName.getBytes(StandardCharsets.ISO_8859_1);
+                        BrandName = new String(bytes1, StandardCharsets.UTF_8);
+
+                        String txtStatus = request.getParameter("txtStatus");
+                        boolean valid = true;
+                        if (txtStatus.equals("1")) {
+                            valid = true;
+                        } else {
+                            valid = false;
+                        }
+                        //boolean status = Boolean.getBoolean(txtStatus);
+
+                        String Description = request.getParameter("txtDescription");
+                        byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
+                        Description = new String(bytes2, StandardCharsets.UTF_8);
+                        BrandDTO dto = new BrandDTO();
+                        dto.setBrandName(BrandName);
+                        dto.setStatus(valid);
+                        dto.setDescription(Description);
+                        BrandDAO dao = new BrandDAO();
+                        dao.addBrandAdmin(dto);
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
             }
-            //boolean status = Boolean.getBoolean(txtStatus);
-
-            String Description = request.getParameter("txtDescription");
-            byte[] bytes2 = Description.getBytes(StandardCharsets.ISO_8859_1);
-            Description = new String(bytes2, StandardCharsets.UTF_8);
-            BrandDTO dto = new BrandDTO();
-            dto.setBrandName(BrandName);
-            dto.setStatus(valid);
-            dto.setDescription(Description);
-            BrandDAO dao = new BrandDAO();
-            dao.addBrandAdmin(dto);
-
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {

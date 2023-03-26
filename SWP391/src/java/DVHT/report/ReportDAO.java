@@ -100,43 +100,8 @@ public class ReportDAO implements Serializable{
         }
     }
     
-    public int countFlagComment(int userID)
-            throws NamingException, SQLException {
-        Connection con = null;
-        ResultSet rs = null;
-        PreparedStatement stm = null;
-        int result = 0;
-        try {
-            //1 get comnnection
-            con = DBHelpers.getConnection();
-            if (con != null) {
-                //2 sql commands
-                String sql = "select * from Report r inner join Comment c " +
-                            "on c.CommentID = r.CommentID and c.UserID = ?";
-                // 3 stm create
-                stm = con.prepareStatement(sql);
-                stm.setInt(1, userID);
-                //execute query  
-                rs = stm.executeQuery();
-                //5 process                
-                while(rs.next()){
-                    result++;
-                }
-                
-            }
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (stm != null) {
-                stm.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-            return result;
-        }
-    }
+//    
+    
  private List<ReportDTO> reportList;
 
     public List<ReportDTO> getReportList() {

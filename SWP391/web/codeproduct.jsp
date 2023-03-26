@@ -24,16 +24,16 @@
             <i class="fa fa-check-circle-o "></i>
         </div>
         <div class="title-content">
-            <h2>Cám ơn bạn đã mua hàng.</h2>
+            <h2>Thanks For Buying.</h2>
             <br>
         </div>
         <div class="content">
-            <p>Cảm ơn quý khách hàng đã tin tưởng và mua sản phẩm của <strong>VDTH Shop</strong>. Chúng tôi sẽ luôn cố gắng để đáp ứng và vượt qua sự mong đợi của quý khách hàng. </p>
-            <p> Rất mong được phục vụ quý khách hàng trong những lần mua sắm tiếp theo.</p>
+            <p>Thanks for your believing and buying product at <strong>VDTH Shop</strong>. We will try the best and improve about the service which can satisfy . </p>
+            <p> We hope you come next.</p>
         </div>
         <div class="button">
-            <a class="btn " href="ShowIdexItemServlet">Tiếp tục mua sắm</a>
-            <a class="btn" href="ShowOrderTrackingServlet">Theo dõi đơn hàng</a>
+            <a class="btn " href="ShowIdexItemServlet">Continue Buying </a>
+            <a class="btn" href="ShowOrderTrackingServlet">Order Tracking</a>
         </div>
     </div>
 </div>

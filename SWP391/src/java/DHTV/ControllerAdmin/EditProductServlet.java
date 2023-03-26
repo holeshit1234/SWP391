@@ -7,6 +7,7 @@ package DHTV.ControllerAdmin;
 
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -18,6 +19,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -39,16 +41,27 @@ public class EditProductServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "EditProductPage.jsp";
+        HttpSession session = request.getSession(false);
         try {
-            int producId = Integer.parseInt(request.getParameter("txtProductID"));
-            ProductDAO dao = new ProductDAO();
-            
-            dao.getProductByProductID(producId);
-            
-            List<ProductDTO> result = dao.getItemsList();
-            // send to view
-            
-            request.setAttribute("UPDATE_PRODUCT", result);
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        int producId = Integer.parseInt(request.getParameter("txtProductID"));
+                        ProductDAO dao = new ProductDAO();
+
+                        dao.getProductByProductID(producId);
+
+                        List<ProductDTO> result = dao.getItemsList();
+                        // send to view
+
+                        request.setAttribute("UPDATE_PRODUCT", result);
+                    }
+                }
+            }else{
+            url = "erorr.jsp";
+            }
 
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());

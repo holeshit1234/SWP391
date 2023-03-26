@@ -25,10 +25,11 @@
 
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
-            <a class="navbar-brand ps-3" href="index.html">VDTH STORE</a>
+            <a class="navbar-brand ps-3" href="ShowDashBoard">VDTH STORE</a>
             <!-- Sidebar Toggle-->
             <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
+             <a class="navbar-brand ps-3" >Manage Cancel Orders</a>
             <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
                 <div class="input-group">
                     <c:set var="dto" value="${sessionScope.USER}"/>
@@ -37,7 +38,6 @@
                     </font>
                 </div>
             </form>
-            <!-- Navbar-->
             <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
@@ -106,7 +106,7 @@
                                 <nav class="sb-sidenav-menu-nested nav">
                                     <a class="nav-link" href="ShowAllReport">Report</a>                              
                                 </nav>
-                            </div>
+                            </div> 
                             <a class="nav-link collapsed" href="ShowAllCommentServlet" >
                                 <div class="sb-nav-link-icon"><i class="far fa-comments"></i></div>
                                 Comment
@@ -120,24 +120,22 @@
                 </nav>
             </div>
 
-
             <div id="layoutSidenav_content">
                 <main>
                     <div class="container-fluid px-4">
-                        <h1 class="mt-4">Tables</h1>
+                        <h1 class="mt-4">Manage cancel orders</h1>
+
 
                         <div class="card mb-4">
-                            <div class="card-header">
-                                <i class="fas fa-table me-1"></i>
-                                DataTable User
-                            </div>
+
+
                             <jsp:useBean id="daoOrderDetail" class="DHTV.order.OrderDetailDAO"/>  
                             <jsp:useBean id="daoUserDetail" class="DVHT.userdetails.UserDetailsDAO"/>  
                             <jsp:useBean id="daoAddress" class="DHTV.address.AddressDAO"/>  
                             <jsp:useBean id="daoProduct" class="DHTV.product.ProductDAO"/>  
                             <jsp:useBean id="daoProductDetail" class="DHTV.product.ProductDetailDAO"/>  
                             <jsp:useBean id="daoSize" class="DHTV.size.SizeDAO"/>  
-                            <c:set var="result" value="${requestScope.CANCLE_RESULT  }"/>
+                            <c:set var="result" value="${requestScope.CANCLE_RESULT}"/>
 
                             <c:if test="${not empty result}">
                                 <table id="datatablesSimple" >
@@ -151,7 +149,6 @@
                                             <th>Size </th>
                                             <th>Quantity </th>
                                             <th>Total</th>
-
                                             <th>Status</th>
 
                                             <!--                                            <th>Delete</th>-->
@@ -167,27 +164,33 @@
                                                     </td>
                                                     <td>${dto.getDate()}</td>
                                                     <td>${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}</td>
-                                                    <td>${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
-                                                        ${daoAddress.getAddress(dto.getUserID(), dto.getAddressID()).getStreet()}
+                                                    <td>${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getDistrict()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getProvice()}, <br>
+                                                        ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getStreet()}
                                                     </td>
                                                     <td>
                                                         <c:set var="listP" value="${daoOrderDetail.showListOrderDetail(dto.getOrderID())}"/>
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoProduct.getInfoProductByProductID(list.getProductID()).getProductName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${daoSize.getNameSizeBySizeID(list.getSizeID()).getSizeName()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
                                                     <td>
 
                                                         <c:forEach var="list" items="${daoOrderDetail.getOrderDetailList()}">
-                                                            ${list.getQuantity()} <br>
+                                                            <c:if test="${dto.getOrderID() == list.getOrderID()}">
+                                                                ${list.getQuantity()} <br>
+                                                            </c:if>
                                                         </c:forEach>
                                                     </td>
 
@@ -195,25 +198,15 @@
                                                     <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
 
                                                     <td>
-                                                        Đã Hủy
+                                                        <c:choose>
+                                                            <c:when test="${dto.getApprovalStatus() == 4}">Đã hủy</c:when>
+
+                                                        </c:choose>
                                                     </td>                                         
                                                 </tr>
                                             </c:if>
                                         </c:forEach>
-                                    <script>
-                                        var approvalStatus = document.getElementsByName("txtApprovalStatus")[0].value;
-                                        var submitBtn = document.getElementById("submitBtn");
 
-                                        if (approvalStatus == 2) {
-                                            submitBtn.value = "Tiến hành thanh toán";
-                                        } else if (approvalStatus == 3) {
-                                            submitBtn.value = "Đã thanh toán";
-                                            submitBtn.disabled = true; // Nếu đã thanh toán thì vô hiệu hóa nút submit
-                                        }
-                                        function confirm() {
-                                            alert("bạn có chắc chắn quyết định của mình ");
-                                        }
-                                    </script>
                                     </tbody>
                                 </table>
 

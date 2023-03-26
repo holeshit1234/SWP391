@@ -8,6 +8,7 @@ package DHTV.ControllerAdmin;
 import DHTV.product.ProductDAO;
 import DHTV.product.ProductDTO;
 import DHTV.size.SizeDAO;
+import DVHT.userdetails.UserDetailsDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -19,6 +20,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -40,11 +42,21 @@ public class AddSizeServlet extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = "showSizeServlet";
+        HttpSession session = request.getSession(false);
         try {
-            String size =request.getParameter("txtSize").toUpperCase();
-            SizeDAO dao =new SizeDAO();
-            dao.addNewSize(size);
-              
+            if (session != null) {
+                UserDetailsDTO dto1 = (UserDetailsDTO) session.getAttribute("USER");
+
+                if (dto1 != null) {
+                    if (dto1.getRoleID() == 1 || dto1.getRoleID() == 2) {
+                        String size = request.getParameter("txtSize").toUpperCase();
+                        SizeDAO dao = new SizeDAO();
+                        dao.addNewSize(size);
+                    }
+                }
+           }else{
+            url = "erorr.jsp";
+            }
         } catch (NamingException ex) {
             log(" _ Naming _ " + ex.getMessage());
         } catch (SQLException ex) {
