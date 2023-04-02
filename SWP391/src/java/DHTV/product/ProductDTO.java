@@ -23,6 +23,7 @@ public class ProductDTO implements Serializable{
     private String description;
     private String image;
     private String gender;
+    private int quantity;
 
     public ProductDTO() {
     }
@@ -50,6 +51,28 @@ public class ProductDTO implements Serializable{
         this.gender = gender;
     }
 
+    public ProductDTO(int productID, String productName, int brandID, int categoryID, float price, boolean status, String description, String image, String gender, int quantity) {
+        this.productID = productID;
+        this.productName = productName;
+        this.brandID = brandID;
+        this.categoryID = categoryID;
+        this.price = price;
+        this.status = status;
+        this.description = description;
+        this.image = image;
+        this.gender = gender;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    
     public String getGender() {
         return gender;
     }

@@ -6,7 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -166,7 +166,7 @@
                                                         ${dto.getDate()}
                                                     </td>
                                                     <td>
-                                                        ${daoUserDetail.getInfoUser(dto.getOrderID()).getFullName()}
+                                                        ${daoUserDetail.getInfoUser(dto.getUserID()).getFullName()}
                                                     </td>
                                                     <td>
                                                         ${daoAddress.getAddressDetail(dto.getUserID(), dto.getAddressID()).getWard()}, <br>
@@ -200,7 +200,9 @@
                                                     </td>
 
 
-                                                    <td>${dto.getTotalPrice()+dto.getShippingFee()}</td>
+                                                    <td>
+                                                         <fmt:formatNumber var="totalprice" value="${dto.getTotalPrice()+dto.getShippingFee()}" pattern="#,###"/>
+                                                         ${totalprice}<sup>vnd</sup></td>
                                                     <td> 
 
                                                         <c:choose>

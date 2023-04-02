@@ -1047,10 +1047,13 @@ public class ProductDAO implements Serializable {
             con = DBHelpers.getConnection();
             if (con != null) {
                 //2 sql commands
-                String sql = "SELECT TOP 4 [ProductID], [ProductName], [BrandID], [CategoryID], [Price], [Status], [Description], [Image] "
-                        + "FROM  Product "
+                String sql = "SELECT TOP 4 SUM(od.Quantity) as quantity ,p.[ProductID], p.[ProductName], p.[BrandID], p.[CategoryID], p.[Price], p.[Status], p.[Description], p.[Image] "
+                        + "FROM  Product p "
+                        + "Inner join OrderDetail od on p.ProductID = od.ProductID "
                         + "WHERE Status = 1 "
-                        + "ORDER BY [Price] ASC ";
+                          + "Group by p.[ProductID], p.[ProductName], p.[BrandID], p.[CategoryID], p.[Price], p.[Status], p.[Description], p.[Image] "
+                        + "order by   SUM(od.Quantity) DESC ";
+                      
                 // 3 stm create
                 stm = con.prepareStatement(sql);
                 //execute query  
@@ -1065,8 +1068,9 @@ public class ProductDAO implements Serializable {
                     boolean status = rs.getBoolean("Status");
                     String description = rs.getString("Description");
                     String image = rs.getString("Image");
+                    int quantity = rs.getInt("quantity");
                     //create dto
-                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image);
+                    ProductDTO dto = new ProductDTO(productID, productName, brandID, categoryID, price, status, description, image, image, quantity);
                     System.out.println(dto);
                     //add item to dto
                     if (this.getTop4Sell == null) {
